@@ -57,11 +57,12 @@ class LinksAwakeningItem(Item):
 # TODO: use _NAMES instead?
 class ItemName:
     POWER_BRACELET = "Progressive Power Bracelet"
+    POWER_BRACELET = "Bracelet"
     SHIELD = "Progressive Shield"
     BOW = "Bow"
     HOOKSHOT = "Hookshot"
     MAGIC_ROD = "Magic Rod"
-    PEGASUS_BOOTS = "Pegasus Boots"
+    PEGASUS_BOOTS = "Pegasus Boots", "Boots"
     OCARINA = "Ocarina"
     FEATHER = "Feather"
     SHOVEL = "Shovel"
