@@ -664,6 +664,7 @@ class PokemonRedBlueWorld(World):
             "require_pokedex": self.multiworld.require_pokedex[self.player].value,
             "area_1_to_1_mapping": self.multiworld.area_1_to_1_mapping[self.player].value,
             "blind_trainers": self.multiworld.blind_trainers[self.player].value,
+            "v5_update": true
 
         }
 
