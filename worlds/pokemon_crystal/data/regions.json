@@ -1049,26 +1049,31 @@
 		"locations": ["ICE_PATH_B3F_NEVERMELTICE"],
 		"events": []
 	},
-	"REGION_ILEX_FOREST": {
+	"REGION_ILEX_FOREST:NORTH": {
 		"johto": true,
-		"exits": ["REGION_ROUTE_34_ILEX_FOREST_GATE", "REGION_ILEX_FOREST_AZALEA_GATE"],
+		"exits": ["REGION_ROUTE_34_ILEX_FOREST_GATE", "REGION_ILEX_FOREST:SOUTH"],
 		"locations": [
 			"ILEX_FOREST_ANTIDOTE",
 			"ILEX_FOREST_ETHER",
 			"ILEX_FOREST_HIDDEN_ETHER",
 			"ILEX_FOREST_HIDDEN_FULL_HEAL",
 			"ILEX_FOREST_HIDDEN_SUPER_POTION",
-			"ILEX_FOREST_REVIVE",
 			"ILEX_FOREST_X_ATTACK",
-			"HM01_CUT",
 			"TM02_HEADBUTT",
 			"ITEM_FROM_BUG_CATCHER_WAYNE"
 		],
 		"events": []
 	},
+	"REGION_ILEX_FOREST:SOUTH": {
+		"johto": true,
+		"exits": ["REGION_ILEX_FOREST:NORTH", "REGION_ILEX_FOREST_AZALEA_GATE"],
+		"locations": ["HM01_CUT", "ILEX_FOREST_REVIVE"],
+		"events": []
+
+	},
 	"REGION_ILEX_FOREST_AZALEA_GATE": {
 		"johto": true,
-		"exits": ["REGION_ILEX_FOREST", "REGION_AZALEA_TOWN"],
+		"exits": ["REGION_ILEX_FOREST:SOUTH", "REGION_AZALEA_TOWN"],
 		"locations": [],
 		"events": []
 	},
@@ -2250,7 +2255,7 @@
 	},
 	"REGION_ROUTE_34_ILEX_FOREST_GATE": {
 		"johto": true,
-		"exits": ["REGION_ROUTE_34", "REGION_ILEX_FOREST"],
+		"exits": ["REGION_ROUTE_34", "REGION_ILEX_FOREST:NORTH"],
 		"locations": ["TM12_SWEET_SCENT"],
 		"events": []
 	},

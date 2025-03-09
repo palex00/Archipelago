@@ -165,6 +165,9 @@ def set_rules(world: "PokemonCrystalWorld") -> None:
     def trainersanity():
         return world.options.trainersanity
 
+    def remove_ilex_cut_tree():
+        return world.options.remove_ilex_cut_tree
+
     def expn(state: CollectionState):
         if pokegear():
             return (state.has("Pokegear", world.player)
@@ -274,6 +277,11 @@ def set_rules(world: "PokemonCrystalWorld") -> None:
 
     set_rule(get_location("Azalea Town - Lure Ball from Kurt"),
              lambda state: state.has("EVENT_CLEARED_SLOWPOKE_WELL", world.player))
+
+    # Ilex Forest
+    if not remove_ilex_cut_tree():
+        set_rule(get_entrance("REGION_ILEX_FOREST:NORTH -> REGION_ILEX_FOREST:SOUTH"), can_cut)
+        set_rule(get_entrance("REGION_ILEX_FOREST:SOUTH -> REGION_ILEX_FOREST:NORTH"), can_cut)
 
     # Route 34
     set_rule(get_entrance("REGION_ROUTE_34 -> REGION_ROUTE_34:WATER"), can_surf)

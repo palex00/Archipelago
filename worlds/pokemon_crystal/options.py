@@ -284,6 +284,11 @@ class HMBadgeRequirements(Choice):
     option_no_badges = 1
     option_add_kanto = 2
 
+class RemoveIlexCutTree(DefaultOnToggle):
+    """
+    Removes the Cut tree in Ilex Forest
+    """
+    display_name = "Remove Ilex Forest Cut Tree"
 
 class ReusableTMs(Toggle):
     """
@@ -444,6 +449,7 @@ class PokemonCrystalOptions(PerGameCommonOptions):
     free_fly_location: FreeFlyLocation
     early_fly: EarlyFly
     hm_badge_requirements: HMBadgeRequirements
+    remove_ilex_cut_tree: RemoveIlexCutTree
     reusable_tms: ReusableTMs
     guaranteed_catch: GuaranteedCatch
     minimum_catch_rate: MinimumCatchRate
