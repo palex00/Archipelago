@@ -314,9 +314,9 @@ def set_rules(world: "PokemonCrystalWorld") -> None:
 
     # Radio Tower
 
-    set_rule(get_entrance("REGION_RADIO_TOWER_2F -> REGION_RADIO_TOWER_3F"), has_rocket_badges)
+    set_rule(get_entrance("REGION_RADIO_TOWER_2F -> REGION_RADIO_TOWER_3F:NOCARDKEY"), has_rocket_badges)
 
-    set_rule(get_entrance("REGION_RADIO_TOWER_3F -> REGION_RADIO_TOWER_4F:CARDKEY"),
+    set_rule(get_entrance("REGION_RADIO_TOWER_3F:NOCARDKEY -> REGION_RADIO_TOWER_3F:CARDKEY"),
              lambda state: state.has("Card Key", world.player))
 
     set_rule(get_location("Radio Tower 3F - TM11 from Woman"),
