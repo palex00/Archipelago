@@ -320,6 +320,11 @@ class BlindTrainers(Toggle):
     """
     display_name = "Blind Trainers"
 
+class SkipEliteFour(Toggle):
+    """
+    Go straight to Lance when challenging the Elite Four
+    """
+    display_name = "Skip Elite Four"
 
 class BetterMarts(Toggle):
     """
@@ -454,6 +459,7 @@ class PokemonCrystalOptions(PerGameCommonOptions):
     guaranteed_catch: GuaranteedCatch
     minimum_catch_rate: MinimumCatchRate
     blind_trainers: BlindTrainers
+    skip_elite_four: SkipEliteFour
     better_marts: BetterMarts
     experience_modifier: ExpModifier
     phone_trap_weight: PhoneTrapWeight

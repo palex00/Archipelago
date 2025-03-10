@@ -403,6 +403,10 @@ def generate_output(world: "PokemonCrystalWorld", output_directory: str, patch: 
     if not world.options.remove_ilex_cut_tree:
         write_bytes(patch, [1], data.rom_addresses["AP_Setting_IlexCutTree"] + 1)
 
+    if world.options.skip_elite_four:
+        # Lance's room is ID 7
+        write_bytes(patch, [0x7], data.rom_addresses["AP_Setting_IndigoPlateauPokecenter1F_E4Warp"] + 4)
+
     # Set slot name
     for i, byte in enumerate(world.player_name.encode("utf-8")):
         write_bytes(patch, [byte], data.rom_addresses["AP_Seed_Name"] + i)
