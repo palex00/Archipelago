@@ -1,7 +1,7 @@
 import copy
 import logging
 import pkgutil
-from typing import List, Union, ClassVar, Dict, Any, Tuple
+from typing import List, ClassVar, Dict, Any, Tuple
 
 import settings
 from BaseClasses import Tutorial, ItemClassification
@@ -44,7 +44,7 @@ class PokemonCrystalWebWorld(WebWorld):
         "English",
         "setup_en.md",
         "setup/en",
-        ["AliceMousie"]
+        ["AliceMousie", "gerbiljames"]
     )]
 
 
@@ -63,7 +63,7 @@ class PokemonCrystalWorld(World):
     options_dataclass = PokemonCrystalOptions
     options: PokemonCrystalOptions
 
-    required_client_version = (0, 5, 0)
+    required_client_version = (0, 5, 1)
 
     item_name_to_id = create_item_label_to_code_map()
     location_name_to_id = create_location_label_to_id_map()
@@ -259,7 +259,8 @@ class PokemonCrystalWorld(World):
             "trainersanity",
             "randomize_pokegear",
             "hm_badge_requirements",
-            "randomize_berry_trees"
+            "randomize_berry_trees",
+            "remove_ilex_cut_tree"
         )
         slot_data["free_fly_location"] = 0
         slot_data["map_card_fly_location"] = 0

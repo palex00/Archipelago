@@ -8,7 +8,6 @@ You can read through all the options and generate a YAML [here](../player-option
 
 Some changes have been made to the logic for this randomizer:
 
-- The cut tree in Ilex Forest has been removed
 - The director is always in the underground warehouse, even when Radio Tower isn't occupied
 - The card key door in Goldenrod Department Store B1F unlocks with the Card Key in your Pack
 - Time based checks such as the Day of the Week siblings and the Celadon Mansion roof guy are always available
@@ -16,9 +15,9 @@ Some changes have been made to the logic for this randomizer:
 - Clair gives the Rising Badge and TM24 after defeat, you don't need to go to Dragon's Den for these checks
 - The Ship between Olivine and Vermilion is always present, even before entering Hall of Fame, and available to
   ride with the S.S. Ticket
-- Magnet train between Goldenrod and Saffron is availble to ride with the Pass before power is restored to Kanto
+- Magnet train between Goldenrod and Saffron is available to ride with the Pass before power is restored to Kanto
 - Misty is always in Cerulean Gym
-- There is a ledge above the Route 2 entry to Digglet Cave, allowing you to reach the rest of West Kanto without Cut
+- There is a ledge above the Route 2 entry to Digletts Cave, allowing you to reach the rest of West Kanto without Cut
 - If the HM Badges Requirement option is set to `add_kanto`, HMs can be used with the following badges in addition to
   their vanilla badges:
     - HM01 Cut - Cascade Badge
