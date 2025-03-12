@@ -233,7 +233,7 @@
 	"RAINBOW_WING": {
 		"name": "Rainbow Wing",
 		"classification": "PROGRESSION",
-		"tags": ["KeyItem", "Unique"]
+		"tags": ["KeyItem", "Unique", "Tracker"]
 	},
 	"BRICK_PIECE": {"name": "Brick Piece", "classification": "FILLER", "tags": []},
 	"SURF_MAIL": {"name": "Surf Mail", "classification": "FILLER", "tags": []},

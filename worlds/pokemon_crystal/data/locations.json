@@ -1687,6 +1687,14 @@
 		"script": "TeamRocketBaseB3FXSpecial",
 		"default_item": "X_SPECIAL"
 	},
+	"TIN_TOWER_1F_RAINBOW_WING": {
+		"label": "Tin Tower 1F - Rainbow Wing",
+		"flag": "EVENT_GOT_RAINBOW_WING",
+		"type": "giveitem",
+		"tags": ["NPCGift"],
+		"script": "AP_NPC_TinTower1F_RAINBOW_WING",
+		"default_item": "RAINBOW_WING"
+	},
 	"TIN_TOWER_3F_FULL_HEAL": {
 		"label": "Tin Tower 3F - Item",
 		"flag": "EVENT_TIN_TOWER_3F_FULL_HEAL",

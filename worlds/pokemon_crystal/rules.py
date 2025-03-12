@@ -252,8 +252,8 @@ def set_rules(world: "PokemonCrystalWorld") -> None:
     set_rule(get_entrance("REGION_RUINS_OF_ALPH_AERODACTYL_CHAMBER -> REGION_RUINS_OF_ALPH_AERODACTYL_ITEM_ROOM"),
              lambda state: can_surf(state) and can_flash(state))
 
-    # set_rule(get_entrance("REGION_RUINS_OF_ALPH_HO_OH_CHAMBER -> REGION_RUINS_OF_ALPH_HO_OH_ITEM_ROOM"),
-    #          can_surf)
+    set_rule(get_entrance("REGION_RUINS_OF_ALPH_HO_OH_CHAMBER -> REGION_RUINS_OF_ALPH_HO_OH_ITEM_ROOM"),
+             lambda state: can_surf(state) and state.has("Rainbow Wing", world.player))
 
     set_rule(get_entrance("REGION_RUINS_OF_ALPH_OMANYTE_CHAMBER -> REGION_RUINS_OF_ALPH_OMANYTE_ITEM_ROOM"),
              lambda state: can_surf(state) and can_strength(state))
@@ -357,6 +357,9 @@ def set_rules(world: "PokemonCrystalWorld") -> None:
     set_rule(get_entrance("REGION_ECRUTEAK_CITY -> REGION_TIN_TOWER_1F"),
              lambda state: state.has("Clear Bell", world.player) and
                            state.has("EVENT_CLEARED_RADIO_TOWER", world.player))
+
+    set_rule(get_location("Tin Tower 1F - Rainbow Wing"),
+             lambda state: state.has("EVENT_BEAT_ELITE_FOUR", world.player))
 
     # Olivine City
     set_rule(get_location("EVENT_JASMINE_RETURNED_TO_GYM"), lambda state: state.has("Secretpotion", world.player))

@@ -2706,7 +2706,12 @@
 	"REGION_RUINS_OF_ALPH_HO_OH_ITEM_ROOM": {
 		"johto": true,
 		"exits": ["REGION_RUINS_OF_ALPH_HO_OH_CHAMBER", "REGION_RUINS_OF_ALPH_HO_OH_WORD_ROOM"],
-		"locations": [],
+		"locations": [
+			"PICKED_UP_GOLD_BERRY_FROM_HO_OH_ITEM_ROOM",
+			"PICKED_UP_MYSTERYBERRY_FROM_HO_OH_ITEM_ROOM",
+			"PICKED_UP_REVIVAL_HERB_FROM_HO_OH_ITEM_ROOM",
+			"PICKED_UP_CHARCOAL_FROM_HO_OH_ITEM_ROOM"
+		],
 		"events": []
 	},
 	"REGION_RUINS_OF_ALPH_HO_OH_WORD_ROOM": {
@@ -3047,7 +3052,9 @@
 	"REGION_TIN_TOWER_1F": {
 		"johto": true,
 		"exits": ["REGION_ECRUTEAK_CITY", "REGION_TIN_TOWER_2F"],
-		"locations": [],
+		"locations": [
+			"TIN_TOWER_1F_RAINBOW_WING"
+		],
 		"events": []
 	},
 	"REGION_TIN_TOWER_2F": {
