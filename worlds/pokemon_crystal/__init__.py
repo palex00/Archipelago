@@ -53,6 +53,7 @@ class PokemonCrystalWorld(World):
     Explore the Johto and Kanto regions, become the Pokémon League Champion, and
     defeat the elusive Red at the peak of Mt. Silver!"""
     game = "Pokemon Crystal"
+    apworld_version = "3.0.0"
 
     topology_present = True
     web = PokemonCrystalWebWorld()
@@ -270,6 +271,7 @@ class PokemonCrystalWorld(World):
             "remove_ilex_cut_tree",
             "radio_tower_badges"
         )
+        slot_data["apworld_version"] = self.apworld_version
         slot_data["free_fly_location"] = 0
         slot_data["map_card_fly_location"] = 0
         if self.options.free_fly_location:
