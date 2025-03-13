@@ -112,6 +112,12 @@ class PokemonCrystalWorld(World):
                         "Pokemon Crystal: Elite Four Badges >8 incompatible with Johto Only "
                         "if badges are not completely random. Changing Elite Four Badges to 8 for player %s.",
                         self.multiworld.get_player_name(self.player))
+                if self.options.radio_tower_badges > 8:
+                    self.options.radio_tower_badges.value = 8
+                    logging.warning(
+                        "Pokemon Crystal: Radio Tower Badges >8 incompatible with Johto Only "
+                        "if badges are not completely random. Changing Radio Tower Badges to 8 for player %s.",
+                        self.multiworld.get_player_name(self.player))
 
     def create_regions(self) -> None:
         regions = create_regions(self)
