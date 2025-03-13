@@ -189,7 +189,8 @@ class PokemonCrystalWorld(World):
             badge_items = [self.create_item_by_code(loc.default_item_code) for loc in badge_locs]
             if self.options.early_fly:
                 # take one of the 3 early badge locations, set it to storm badge
-                storm_loc = self.random.choice([loc for loc in badge_locs if "EarlyBadge" in loc.tags])
+                early_badge_tag = "EarlyBadge_RemovedIlexCutTree" if self.options.remove_ilex_cut_tree else "EarlyBadge"
+                storm_loc = self.random.choice([loc for loc in badge_locs if early_badge_tag in loc.tags])
                 storm_badge = next(item for item in badge_items if item.name == "Storm Badge")
                 storm_loc.place_locked_item(storm_badge)
                 badge_locs.remove(storm_loc)
