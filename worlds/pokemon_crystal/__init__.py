@@ -267,7 +267,8 @@ class PokemonCrystalWorld(World):
             "randomize_pokegear",
             "hm_badge_requirements",
             "randomize_berry_trees",
-            "remove_ilex_cut_tree"
+            "remove_ilex_cut_tree",
+            "radio_tower_badges"
         )
         slot_data["free_fly_location"] = 0
         slot_data["map_card_fly_location"] = 0
