@@ -136,7 +136,7 @@ def set_rules(world: "PokemonCrystalWorld") -> None:
         return state.has_from_list_unique(badge_items.values(), world.player, n)
 
     def has_rocket_badges(state: CollectionState):
-        return has_n_badges(state, world.options.elite_four_badges.value - 1)
+        return has_n_badges(state, world.options.radio_tower_badges - 1)
 
     def has_elite_four_badges(state: CollectionState):
         return has_n_badges(state, world.options.elite_four_badges.value)

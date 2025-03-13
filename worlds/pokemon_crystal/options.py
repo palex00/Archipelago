@@ -47,6 +47,16 @@ class RedBadges(Range):
     range_end = 16
 
 
+class RadioTowerBadges(Range):
+    """
+    Number of badges at which Team Rocket takes over the Goldenrod Radio Tower
+    """
+    display_name = "Radio Tower Badges"
+    default = 7
+    range_start = 1
+    range_end = 16
+
+
 class RandomizeBadges(Choice):
     """
     Shuffles gym badge locations into the pool
@@ -430,6 +440,7 @@ class PokemonCrystalOptions(PerGameCommonOptions):
     johto_only: JohtoOnly
     elite_four_badges: EliteFourBadges
     red_badges: RedBadges
+    radio_tower_badges: RadioTowerBadges
     randomize_badges: RandomizeBadges
     randomize_hidden_items: RandomizeHiddenItems
     require_itemfinder: RequireItemfinder
