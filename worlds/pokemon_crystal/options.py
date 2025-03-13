@@ -200,7 +200,7 @@ class HMCompatibility(NamedRange):
     """
     display_name = "HM Compatibility"
     default = 0
-    range_start = 1
+    range_start = 50
     range_end = 100
     special_range_names = {
         "vanilla": 0,
