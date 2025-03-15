@@ -224,6 +224,7 @@ def set_rules(world: "PokemonCrystalWorld") -> None:
 
     set_rule(get_entrance("REGION_ROUTE_31 -> REGION_DARK_CAVE_VIOLET_ENTRANCE"), can_flash)
 
+    set_rule(get_location("EVENT_GAVE_KENYA"), lambda state: state.has("EVENT_GOT_KENYA", world.player))
     set_rule(get_location("Route 31 - TM50 for Delivering Kenya"),
              lambda state: state.has("EVENT_GOT_KENYA", world.player))
 
