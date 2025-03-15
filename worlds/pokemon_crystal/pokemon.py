@@ -112,17 +112,38 @@ def randomize_starters(world: "PokemonCrystalWorld"):
     world.generated_starter_helditems = new_helditems
 
 
-def get_random_pokemon(world: "PokemonCrystalWorld", types=None, base_only=False):
-    # unown is excluded because it has a tendency to crash the game
-    if types is None or types[0] is None:
-        pokemon_pool = [pkmn_name for pkmn_name, pkmn_data in world.generated_pokemon.items() if
-                        pkmn_name != "UNOWN" and (pkmn_data.is_base or not base_only)]
-    else:
-        pokemon_pool = [pkmn_name for pkmn_name, pkmn_data in world.generated_pokemon.items()
-                        if pkmn_name != "UNOWN" and types[0] in pkmn_data.types or types[-1] in pkmn_data.types]
-        if len(pokemon_pool) == 0:
-            pokemon_pool = [pkmn_name for pkmn_name, _ in world.generated_pokemon.items() if
-                            pkmn_name != "UNOWN"]
+def get_random_pokemon(world: "PokemonCrystalWorld", types=None, base_only=False, force_fully_evolved_at=None, current_level=None):
+    def filter_out_pokemons(pkmn_name, pkmn_data):
+        # unown is excluded because it has a tendency to crash the game
+        if pkmn_name == "UNOWN":
+            return True
+
+        # If types are passed in, filter ou pokemons that do not match it
+        if types is not None:
+            if types[0] not in pkmn_data.types and types[-1] not in pkmn_data.types:
+                return True
+
+        # Exclude evolved pokemons when we only want base ones
+        if base_only and not pkmn_data.is_base:
+            return True
+
+        # If we have a level to force fully evolved at and the current level of the pokemon is passed in,
+        # exlude pokemons with evolutions from the list if the level is greater or equal than forced_fully_evolved
+        if force_fully_evolved_at is not None and current_level is not None:
+            if current_level >= force_fully_evolved_at and pkmn_data.evolutions:
+                return True
+
+        return False
+
+
+    pokemon_pool = [pkmn_name for pkmn_name, pkmn_data in world.generated_pokemon.items()
+                        if not filter_out_pokemons(pkmn_name, pkmn_data)]
+
+    # If there's no pokemon left, give up and shove everything back in, it can happen in some very rare edge cases
+    if not pokemon_pool:
+        pokemon_pool = [pkmn_name for pkmn_name, _ in world.generated_pokemon.items() if
+                        pkmn_name != "UNOWN"]
+
     return world.random.choice(pokemon_pool)
 
 

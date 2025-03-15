@@ -149,6 +149,18 @@ class RandomizeWilds(Toggle):
     display_name = "Randomize Wilds"
 
 
+class ForceFullyEvolved(Range):
+    """
+    When an opponent uses a pokemon of the specified level or higher, restricts the species to only fully evolved pokemon.
+
+    Only applies when trainer parties are randomized.
+    """
+    display_name = "Force Fully Evolved"
+    range_start = 1
+    range_end = 100
+    default = 100
+
+
 class NormalizeEncounterRates(Toggle):
     """
     Normalizes the chance of encountering each wild Pokemon in a given area
@@ -469,6 +481,7 @@ class PokemonCrystalOptions(PerGameCommonOptions):
     randomize_berry_trees: RandomizeBerryTrees
     randomize_starters: RandomizeStarters
     randomize_wilds: RandomizeWilds
+    force_fully_evolved: ForceFullyEvolved
     normalize_encounter_rates: NormalizeEncounterRates
     randomize_static_pokemon: RandomizeStaticPokemon
     randomize_trainer_parties: RandomizeTrainerParties

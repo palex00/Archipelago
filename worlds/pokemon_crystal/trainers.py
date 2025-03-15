@@ -31,7 +31,7 @@ def randomize_trainers(world: "PokemonCrystalWorld"):
                 if "LASS_3" in trainer_name:
                     new_pokemon = get_random_nezumi(world.random)
                 else:
-                    new_pokemon = get_random_pokemon(world, match_types)
+                    new_pokemon = get_random_pokemon(world, types=match_types, force_fully_evolved_at=world.options.force_fully_evolved, current_level=pkmn_data.level)
             if pkmn_data.item is not None:
                 # If this trainer has items, add an item
                 new_item = get_random_filler_item(world.random)
