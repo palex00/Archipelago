@@ -274,7 +274,8 @@ class PokemonCrystalWorld(World):
             "hm_badge_requirements",
             "randomize_berry_trees",
             "remove_ilex_cut_tree",
-            "radio_tower_badges"
+            "radio_tower_badges",
+            "route_32_condition"
         )
         slot_data["apworld_version"] = self.apworld_version
         slot_data["free_fly_location"] = 0
