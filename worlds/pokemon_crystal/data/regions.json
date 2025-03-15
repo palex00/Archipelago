@@ -1270,7 +1270,9 @@
       "REGION_POKECOM_CENTER_ADMIN_OFFICE_MOBILE",
       "REGION_POKECENTER_2F"
     ],
-    "locations": [],
+    "locations": [
+      "GS_BALL_FROM_GOLDENROD_POKEMON_CENTER"
+    ],
     "events": []
   },
   "REGION_GOLDENROD_PP_SPEECH_HOUSE": {

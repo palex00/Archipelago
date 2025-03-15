@@ -299,6 +299,8 @@ def set_rules(world: "PokemonCrystalWorld") -> None:
     # Goldenrod City
     set_rule(get_location("Goldenrod City - Squirtbottle from Flower Shop"),
              lambda state: has_badge(state, "plain"))
+    set_rule(get_location("Goldenrod City - Post-E4 GS Ball from Trade Corner Receptionist"),
+             lambda state: state.has("EVENT_BEAT_ELITE_FOUR", world.player))
 
     if not johto_only():
         set_rule(get_entrance("REGION_GOLDENROD_MAGNET_TRAIN_STATION -> REGION_SAFFRON_MAGNET_TRAIN_STATION"),

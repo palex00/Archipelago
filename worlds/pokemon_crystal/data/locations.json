@@ -2955,7 +2955,7 @@
     "script": "AP_NPC_GoldenrodGym_TM_ATTRACT"
   },
   "GS_BALL_FROM_GOLDENROD_POKEMON_CENTER": {
-    "label": "Goldenrod City - GS Ball from Pokecenter ?",
+    "label": "Goldenrod City - Post-E4 GS Ball from Trade Corner Receptionist",
     "flag": "EVENT_GOT_GS_BALL_FROM_GOLDENROD_POKEMON_CENTER",
     "type": "giveitem",
     "tags": [
