@@ -70,12 +70,16 @@ def randomize_starters(world: "PokemonCrystalWorld"):
         new_party = rival.pokemon[:-1] + [rival_pkmn]
         world.generated_trainers[rival_name] = world.generated_trainers[rival_name]._replace(pokemon=new_party)
 
+    generated_starters = []
     base_only = world.options.randomize_starters.value == RandomizeStarters.option_unevolved_only
     for evo_line in world.generated_starters:
         # get all rival fights where the starter is unevolved
         rival_fights = get_starter_rival_fights(evo_line[0])
         # randomize starter
         starter_pokemon = get_random_pokemon(world, base_only=base_only)
+        while starter_pokemon in generated_starters:
+            starter_pokemon = get_random_pokemon(world, base_only=base_only)
+        generated_starters.append(starter_pokemon)
         starter_data = world.generated_pokemon[starter_pokemon]
         evo_line[0] = starter_pokemon
         # replace unevolved starter rival fights with new starter
