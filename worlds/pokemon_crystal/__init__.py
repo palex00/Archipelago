@@ -16,7 +16,7 @@ from .locations import create_locations, PokemonCrystalLocation, create_location
 from .misc import misc_activities, get_misc_spoiler_log
 from .moves import randomize_tms
 from .music import randomize_music
-from .options import PokemonCrystalOptions, JohtoOnly, RandomizeBadges, Goal, HMBadgeRequirements
+from .options import PokemonCrystalOptions, JohtoOnly, RandomizeBadges, Goal, HMBadgeRequirements, Route32Condition
 from .phone import generate_phone_traps
 from .phone_data import PhoneScript
 from .pokemon import randomize_pokemon, randomize_starters
@@ -189,8 +189,13 @@ class PokemonCrystalWorld(World):
             badge_locs = [loc for loc in self.multiworld.get_locations(self.player) if "Badge" in loc.tags]
             badge_items = [self.create_item_by_code(loc.default_item_code) for loc in badge_locs]
             if self.options.early_fly:
-                # take one of the 3 early badge locations, set it to storm badge
-                early_badge_tag = "EarlyBadge_RemovedIlexCutTree" if self.options.remove_ilex_cut_tree else "EarlyBadge"
+                # take one of the early badge locations, set it to storm badge
+                if self.options.route_32_condition.value == Route32Condition.option_any_badge:
+                    early_badge_tag = "EarlyBadge_Route32RequiresBadge"
+                elif self.options.remove_ilex_cut_tree:
+                    early_badge_tag = "EarlyBadge_RemovedIlexCutTree"
+                else:
+                    early_badge_tag = "EarlyBadge"
                 storm_loc = self.random.choice([loc for loc in badge_locs if early_badge_tag in loc.tags])
                 storm_badge = next(item for item in badge_items if item.name == "Storm Badge")
                 storm_loc.place_locked_item(storm_badge)
@@ -303,7 +308,9 @@ class PokemonCrystalWorld(World):
                                   8: "Lavender Town",
                                   10: "Celadon City",
                                   9: "Saffron City",
-                                  11: "Fuchsia City"}
+                                  11: "Fuchsia City",
+                                  18: "Azalea Town",
+                                  20: "Goldenrod City"}
             spoiler_handle.write(f"\n\nFree Fly Location ({self.multiworld.player_name[self.player]}): "
                                  f"{free_fly_locations[self.free_fly_location]}\n")
             if self.options.free_fly_location > 1:

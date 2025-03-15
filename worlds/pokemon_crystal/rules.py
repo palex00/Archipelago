@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 from BaseClasses import CollectionState
 from worlds.generic.Rules import add_rule, set_rule
 from .data import data
-from .options import JohtoOnly
+from .options import JohtoOnly, Route32Condition
 
 if TYPE_CHECKING:
     from . import PokemonCrystalWorld
@@ -168,6 +168,12 @@ def set_rules(world: "PokemonCrystalWorld") -> None:
     def remove_ilex_cut_tree():
         return world.options.remove_ilex_cut_tree
 
+    def require_badge_for_route_32():
+        return world.options.route_32_condition.value == Route32Condition.option_any_badge
+
+    def require_egg_for_route_32():
+        return world.options.route_32_condition.value == Route32Condition.option_egg_from_aide
+
     def expn(state: CollectionState):
         if pokegear():
             return (state.has("Pokegear", world.player)
@@ -241,31 +247,34 @@ def set_rules(world: "PokemonCrystalWorld") -> None:
         set_rule(get_location("Violet City - Hidden Item Behind Cut Tree"), can_cut)
     set_rule(get_location("Violet City - Item 1"), can_surf)
     set_rule(get_location("Violet City - Item 2"), can_surf)
-    # set_rule(get_location("EVENT_GOT_TOGEPI_EGG_FROM_ELMS_AIDE"),
-    #          lambda state: state.has("EVENT_BEAT_FALKNER", world.player))
 
-    # set_rule(get_entrance("REGION_VIOLET_CITY -> REGION_ROUTE_32"),
-    #          lambda state: state.has("EVENT_GOT_TOGEPI_EGG_FROM_ELMS_AIDE", world.player))
-    # set_rule(get_entrance("REGION_ROUTE_36 -> REGION_ROUTE_36_RUINS_OF_ALPH_GATE"),
-    #          lambda state: state.has("EVENT_GOT_TOGEPI_EGG_FROM_ELMS_AIDE", world.player))
+    set_rule(get_entrance("REGION_RUINS_OF_ALPH_OUTSIDE:NORTH -> REGION_RUINS_OF_ALPH_OUTSIDE:SOUTH"),
+             can_surf)
+    set_rule(get_entrance("REGION_RUINS_OF_ALPH_OUTSIDE:SOUTH -> REGION_RUINS_OF_ALPH_OUTSIDE:NORTH"),
+             can_surf)
 
     set_rule(get_entrance("REGION_RUINS_OF_ALPH_AERODACTYL_CHAMBER -> REGION_RUINS_OF_ALPH_AERODACTYL_ITEM_ROOM"),
-             lambda state: can_surf(state) and can_flash(state))
+             can_flash)
 
     set_rule(get_entrance("REGION_RUINS_OF_ALPH_HO_OH_CHAMBER -> REGION_RUINS_OF_ALPH_HO_OH_ITEM_ROOM"),
-             lambda state: can_surf(state) and state.has("Rainbow Wing", world.player))
-
-    set_rule(get_entrance("REGION_RUINS_OF_ALPH_OMANYTE_CHAMBER -> REGION_RUINS_OF_ALPH_OMANYTE_ITEM_ROOM"),
-             lambda state: can_surf(state) and can_strength(state))
+             lambda state: state.has("Rainbow Wing", world.player))
 
     # Route 32
-    set_rule(get_location("Route 32 - Miracle Seed from Man in North"), lambda state: has_badge(state, "zephyr"))
+    if require_badge_for_route_32():
+        set_rule(get_entrance("REGION_ROUTE_32:NORTH -> REGION_ROUTE_32:SOUTH"), lambda state: has_n_badges(state, 1))
 
+    if require_egg_for_route_32():
+        set_rule(get_entrance("REGION_ROUTE_32:NORTH -> REGION_ROUTE_32:SOUTH"),
+                 lambda state: state.has("EVENT_GOT_TOGEPI_EGG_FROM_ELMS_AIDE", world.player))
+
+    set_rule(get_location("Route 32 - Miracle Seed from Man in North"), lambda state: has_badge(state, "zephyr"))
     set_rule(get_location("Route 32 - TM05 from Roar Guy"), can_cut)
 
     # Union Cave
     set_rule(get_entrance("REGION_UNION_CAVE_1F -> REGION_UNION_CAVE_B1F:SOUTH"), can_surf)
     set_rule(get_entrance("REGION_UNION_CAVE_B1F -> REGION_UNION_CAVE_B1F:NORTH"), can_surf)
+    set_rule(get_entrance("REGION_UNION_CAVE_B1F:NORTH -> REGION_RUINS_OF_ALPH_OUTSIDE:SOUTH:UNION_LEDGE"),
+             can_strength)
     set_rule(get_entrance("REGION_UNION_CAVE_B1F:SOUTH -> REGION_UNION_CAVE_B2F"), can_surf)
 
     # Azalea Town

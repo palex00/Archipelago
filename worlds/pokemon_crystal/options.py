@@ -85,6 +85,20 @@ class RequireItemfinder(DefaultOnToggle):
     display_name = "Require Itemfinder"
 
 
+class Route32Condition(Choice):
+    """
+    Sets the condition required to pass into the south part of Route 32
+    Egg from aide: Collect the Egg from the aide in the Violet City Pokemon Center after beating Falkner
+    Any badge: Obtain any badge
+    None: No requirement
+    """
+    display_name = "Route 32 Access Condition"
+    default = 0
+    option_egg_from_aide = 0
+    option_any_badge = 1
+    option_none = 2
+
+
 class Trainersanity(Toggle):
     """
     Adds checks for defeating trainers
@@ -294,11 +308,13 @@ class HMBadgeRequirements(Choice):
     option_no_badges = 1
     option_add_kanto = 2
 
+
 class RemoveIlexCutTree(DefaultOnToggle):
     """
     Removes the Cut tree in Ilex Forest
     """
     display_name = "Remove Ilex Forest Cut Tree"
+
 
 class ReusableTMs(Toggle):
     """
@@ -330,11 +346,13 @@ class BlindTrainers(Toggle):
     """
     display_name = "Blind Trainers"
 
+
 class SkipEliteFour(Toggle):
     """
     Go straight to Lance when challenging the Elite Four
     """
     display_name = "Skip Elite Four"
+
 
 class BetterMarts(Toggle):
     """
@@ -444,6 +462,7 @@ class PokemonCrystalOptions(PerGameCommonOptions):
     randomize_badges: RandomizeBadges
     randomize_hidden_items: RandomizeHiddenItems
     require_itemfinder: RequireItemfinder
+    route_32_condition: Route32Condition
     trainersanity: Trainersanity
     trainersanity_alerts: TrainersanityAlerts
     randomize_pokegear: RandomizePokegear

@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
 
 TRACKER_EVENT_FLAGS = [
+    "EVENT_GOT_TOGEPI_EGG_FROM_ELMS_AIDE",
     "EVENT_GOT_KENYA",
     "EVENT_GAVE_KENYA",
     "EVENT_JASMINE_RETURNED_TO_GYM",

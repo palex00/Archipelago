@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING, Dict, List, Tuple
 
 from BaseClasses import Region, ItemClassification, Entrance
+from . import Route32Condition
 from .data import data
 from .items import PokemonCrystalItem
 from .locations import PokemonCrystalLocation
@@ -17,19 +18,29 @@ class RegionData:
     locations: List[str]
 
 
-FLY_REGIONS = {22: "REGION_ECRUTEAK_CITY",
-               21: "REGION_OLIVINE_CITY",
-               19: "REGION_CIANWOOD_CITY",
-               23: "REGION_MAHOGANY_TOWN",
-               25: "REGION_BLACKTHORN_CITY",
-               3: "REGION_VIRIDIAN_CITY",
-               4: "REGION_PEWTER_CITY",
-               5: "REGION_CERULEAN_CITY",
-               7: "REGION_VERMILION_CITY",
-               8: "REGION_LAVENDER_TOWN",
-               10: "REGION_CELADON_CITY",
-               9: "REGION_SAFFRON_CITY",
-               11: "REGION_FUCHSIA_CITY"}
+def get_fly_regions(world: "PokemonCrystalWorld") -> Dict[int, str]:
+    fly_regions = {22: "REGION_ECRUTEAK_CITY",
+                   21: "REGION_OLIVINE_CITY",
+                   19: "REGION_CIANWOOD_CITY",
+                   23: "REGION_MAHOGANY_TOWN",
+                   25: "REGION_BLACKTHORN_CITY",
+                   3: "REGION_VIRIDIAN_CITY",
+                   4: "REGION_PEWTER_CITY",
+                   5: "REGION_CERULEAN_CITY",
+                   7: "REGION_VERMILION_CITY",
+                   8: "REGION_LAVENDER_TOWN",
+                   10: "REGION_CELADON_CITY",
+                   9: "REGION_SAFFRON_CITY",
+                   11: "REGION_FUCHSIA_CITY"}
+
+    if world.options.remove_ilex_cut_tree:
+        fly_regions[20] = "REGION_GOLDENROD_CITY"
+
+    if world.options.route_32_condition.value == Route32Condition.option_any_badge:
+        fly_regions[20] = "REGION_GOLDENROD_CITY"
+        fly_regions[18] = "REGION_AZALEA_TOWN"
+
+    return fly_regions
 
 
 def create_regions(world: "PokemonCrystalWorld") -> Dict[str, Region]:
@@ -72,7 +83,7 @@ def create_regions(world: "PokemonCrystalWorld") -> Dict[str, Region]:
 
 def setup_free_fly(world: "PokemonCrystalWorld"):
     fly = world.get_region("REGION_FLY")
-    free_fly_location = FLY_REGIONS[world.free_fly_location]
+    free_fly_location = get_fly_regions(world)[world.free_fly_location]
     fly_region = world.get_region(free_fly_location)
     connection = Entrance(
         world.player,
@@ -83,7 +94,7 @@ def setup_free_fly(world: "PokemonCrystalWorld"):
     connection.connect(fly_region)
 
     if world.options.free_fly_location == FreeFlyLocation.option_free_fly_and_map_card:
-        map_card_fly_location = FLY_REGIONS[world.map_card_fly_location]
+        map_card_fly_location = get_fly_regions(world)[world.map_card_fly_location]
         map_card_region = world.get_region(map_card_fly_location)
         connection = Entrance(
             world.player,
