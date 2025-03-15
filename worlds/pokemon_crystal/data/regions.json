@@ -3213,6 +3213,7 @@
     "exits": [
       "REGION_ROUTE_35_GOLDENROD_GATE",
       "REGION_ROUTE_35_NATIONAL_PARK_GATE",
+      "REGION_ROUTE_36:WEST",
       "REGION_ROUTE_35:FRUITTREE"
     ],
     "locations": [
@@ -3260,20 +3261,32 @@
     "locations": [],
     "events": []
   },
-  "REGION_ROUTE_36": {
+  "REGION_ROUTE_36:EAST": {
     "johto": true,
     "exits": [
+      "REGION_ROUTE_36:WEST",
       "REGION_ROUTE_37",
       "REGION_VIOLET_CITY",
-      "REGION_ROUTE_36_NATIONAL_PARK_GATE",
       "REGION_ROUTE_36_RUINS_OF_ALPH_GATE"
     ],
     "locations": [
       "TM08_ROCK_SMASH",
-      "HARD_STONE_FROM_ARTHUR",
+      "HARD_STONE_FROM_ARTHUR"
+    ],
+    "events": []
+  },
+  "REGION_ROUTE_36:WEST": {
+    "johto": true,
+    "exits": [
+      "REGION_ROUTE_35",
+      "REGION_ROUTE_36_NATIONAL_PARK_GATE",
+      "REGION_ROUTE_36:EAST",
+      "REGION_ROUTE_37"
+    ],
+    "locations": [
+      "FRUITTREE_ROUTE_36",
       "ITEM_FROM_SCHOOLBOY_ALAN",
-      "ITEM_FROM_PSYCHIC_MARK",
-      "FRUITTREE_ROUTE_36"
+      "ITEM_FROM_PSYCHIC_MARK"
     ],
     "events": []
   },
@@ -3281,7 +3294,7 @@
     "johto": true,
     "exits": [
       "REGION_NATIONAL_PARK",
-      "REGION_ROUTE_36"
+      "REGION_ROUTE_36:WEST"
     ],
     "locations": [],
     "events": []
@@ -3289,7 +3302,7 @@
   "REGION_ROUTE_36_RUINS_OF_ALPH_GATE": {
     "johto": true,
     "exits": [
-      "REGION_ROUTE_36",
+      "REGION_ROUTE_36:EAST",
       "REGION_RUINS_OF_ALPH_OUTSIDE:NORTH"
     ],
     "locations": [],
@@ -3299,7 +3312,8 @@
     "johto": true,
     "exits": [
       "REGION_ECRUTEAK_CITY",
-      "REGION_ROUTE_36"
+      "REGION_ROUTE_36:EAST",
+      "REGION_ROUTE_36:WEST"
     ],
     "locations": [
       "ROUTE_37_HIDDEN_ETHER",
@@ -4659,7 +4673,7 @@
     "johto": true,
     "exits": [
       "REGION_ROUTE_32:NORTH",
-      "REGION_ROUTE_36",
+      "REGION_ROUTE_36:EAST",
       "REGION_VIOLET_MART",
       "REGION_VIOLET_GYM",
       "REGION_EARLS_POKEMON_ACADEMY",

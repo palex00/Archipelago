@@ -352,10 +352,20 @@ def set_rules(world: "PokemonCrystalWorld") -> None:
     set_rule(get_entrance("REGION_ROUTE_35 -> REGION_ROUTE_35:FRUITTREE"), can_surf)
 
     # Sudowoodo
-    set_rule(get_entrance("REGION_ROUTE_36 -> REGION_ROUTE_37"), lambda state: state.has("Squirtbottle", world.player))
-
-    set_rule(get_entrance("REGION_ROUTE_36 -> REGION_ROUTE_36_NATIONAL_PARK_GATE"),
+    set_rule(get_entrance("REGION_ROUTE_36:EAST -> REGION_ROUTE_37"),
              lambda state: state.has("Squirtbottle", world.player))
+    set_rule(get_entrance("REGION_ROUTE_36:EAST -> REGION_ROUTE_36:WEST"),
+             lambda state: state.has("Squirtbottle", world.player))
+    set_rule(get_entrance("REGION_ROUTE_36:WEST -> REGION_ROUTE_36:EAST"),
+             lambda state: state.has("Squirtbottle", world.player))
+    set_rule(get_entrance("REGION_ROUTE_36:WEST -> REGION_ROUTE_37"),
+             lambda state: state.has("Squirtbottle", world.player))
+    set_rule(get_entrance("REGION_ROUTE_37 -> REGION_ROUTE_36:EAST"),
+             lambda state: state.has("Squirtbottle", world.player))
+    set_rule(get_entrance("REGION_ROUTE_37 -> REGION_ROUTE_36:WEST"),
+             lambda state: state.has("Squirtbottle", world.player))
+    set_rule(get_entrance("REGION_ROUTE_35 -> REGION_ROUTE_36:WEST"), can_cut)
+    set_rule(get_entrance("REGION_ROUTE_36:WEST -> REGION_ROUTE_35"), can_cut)
 
     set_rule(get_location("Route 36 - TM08 from Rock Smash Guy"), lambda state: state.has("Squirtbottle", world.player))
 
