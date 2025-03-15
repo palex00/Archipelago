@@ -120,6 +120,9 @@ def get_random_pokemon(world: "PokemonCrystalWorld", types=None, base_only=False
     else:
         pokemon_pool = [pkmn_name for pkmn_name, pkmn_data in world.generated_pokemon.items()
                         if pkmn_name != "UNOWN" and types[0] in pkmn_data.types or types[-1] in pkmn_data.types]
+        if len(pokemon_pool) == 0:
+            pokemon_pool = [pkmn_name for pkmn_name, _ in world.generated_pokemon.items() if
+                            pkmn_name != "UNOWN"]
     return world.random.choice(pokemon_pool)
 
 
