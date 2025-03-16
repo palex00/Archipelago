@@ -53,7 +53,7 @@ class PokemonCrystalWorld(World):
     Explore the Johto and Kanto regions, become the Pokémon League Champion, and
     defeat the elusive Red at the peak of Mt. Silver!"""
     game = "Pokemon Crystal"
-    apworld_version = "3.0.0-beta.1"
+    apworld_version = "3.0.0-beta.2"
 
     topology_present = True
     web = PokemonCrystalWebWorld()
