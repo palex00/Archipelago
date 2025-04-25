@@ -19,7 +19,7 @@ else:
 class PkMnBWClient(BizHawkClient):
     game = "Pokemon Black and White"
     system = "NDS"
-    patch_suffix = ".appkmnbw"
+    patch_suffix = ".apbw"
     local_checked_locations: Set[int]
     local_set_events: Dict[str, bool]
     local_found_key_items: Dict[str, bool]
