@@ -3,10 +3,8 @@ Option definitions for Pokemon Black and White
 """
 from dataclasses import dataclass
 
-from Options import (Choice, DeathLink, DefaultOnToggle, OptionSet, NamedRange, Range, Toggle, FreeText,
-                     PerGameCommonOptions, OptionGroup)
+from Options import (Choice, PerGameCommonOptions, OptionSet)
 
-from .data import data
 
 class GameVersion(Choice):
     """
@@ -17,14 +15,15 @@ class GameVersion(Choice):
     option_white = 1
     default = "random"
 
-class goal(Choice):
+
+class Goal(Choice):
     """
     Determines what your goal is to consider the game beaten.
-    - Champion - Defeat Alder
-    - Cynthia - Defeat cynthia
-    - Fulldex - Finish the Pokedex
-    - TM/HM hunt - Find an amount of TMs and HMs
-    - Seven Sages - Find the Seven Sages
+    - **Champion** - Defeat Alder
+    - **Cynthia** - Defeat cynthia
+    - **Fulldex** - Finish the Pokedex
+    - **TM/HM hunt** - Find an amount of TMs and HMs
+    - **Seven Sages** - Find the Seven Sages
     """
     display_name = "Goal"
     default = 0
@@ -33,6 +32,16 @@ class goal(Choice):
     option_fulldex = 2
     option_tmhm = 3
     option_sages = 4
+
+
+class RandomizeWildPokemon(OptionSet):
+    """
+    Randomizes wild Pokémon encounters.
+    - **Randomize** - Toggles wild Pokémon being randomized. Required for any other modifier.
+    - **Similar base stats** - Tries to keep the randomized Pokémon at a similar base stat total as the vanilla encounter.
+    - **Type themed** -
+    """
+
 
 class Dexsanity(Choice):
     """
@@ -71,3 +80,23 @@ class DeathLink(Choice):
     default = 0
     option_off = 0
     option_on = 1
+
+
+@dataclass
+class PokemonBWOptions(PerGameCommonOptions):
+    goal: Goal
+
+    badges: RandomizeBadges
+    hms: RandomizeHms
+    key_items: RandomizeKeyItems
+    bikes: RandomizeBikes
+    event_tickets: RandomizeEventTickets
+    rods: RandomizeRods
+    overworld_items: RandomizeOverworldItems
+    hidden_items: RandomizeHiddenItems
+    npc_gifts: RandomizeNpcGifts
+    berry_trees: RandomizeBerryTrees
+    dexsanity: Dexsanity
+    trainersanity: Trainersanity
+    item_pool_type: ItemPoolType
+
