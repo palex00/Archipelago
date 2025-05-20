@@ -17,17 +17,40 @@ class GameVersion(Choice):
     option_white = 1
     default = "random"
 
-class goal_flag(Choice):
+class goal(Choice):
     """
     Determines what your goal is to consider the game beaten.
-    - Champion: Become the champion and enter the hall of fame
-    - Gym Challenge: Collect all 8 Gym Badges
+    - Champion - Defeat Alder
+    - Cynthia - Defeat cynthia
+    - Fulldex - Finish the Pokedex
+    - TM/HM hunt - Find an amount of TMs and HMs
+    - Seven Sages - Find the Seven Sages
     """
-    display_name = "Goal Flag"
+    display_name = "Goal"
     default = 0
     option_champion = 0
-    option_gym_challenge = 1
+    option_cynthia = 1
+    option_fulldex = 2
+    option_tmhm = 3
+    option_sages = 4
 
+class Dexsanity(Choice):
+    """
+    Enables Dexsanity
+    """
+    display_name = "Dexsanity"
+    default = 0
+    option_off = 0
+    option_on = 1
+
+class FunnyDialogue(Choice):
+    """
+    Adds humorous dialogue submitted by the folks in the Pokemon Black and White thread of the Archipelago Discord server
+    """
+    display_name = "FunnyDialogue"
+    default = 0
+    option_off = 0
+    option_on = 1
 
 class ReusableTMs(Choice):
     """
