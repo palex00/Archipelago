@@ -44,7 +44,7 @@ class RandomizeWildPokemon(OptionSet):
     - **Type themed** - Makes every Pokémon in an area have a certain same type.
     - **Keep variety** - Keeps the amount of different encounters and their encounter rate in every area.
     """
-    display_name = "Randomize wild Pokémon"
+    display_name = "Randomize Wild Pokémon"
     valid_keys = [
         "Randomize",
         "Similar base stats",
@@ -56,12 +56,12 @@ class RandomizeWildPokemon(OptionSet):
 class RandomizeStarterPokemon(OptionSet):
     """
     Randomizes the starter Pokémon you receive at the start of the game.
-    - **Randomize** - Toggles wild Pokémon being randomized. Required for any other modifier.
+    - **Randomize** - Toggles Starter Pokémon being randomized. Required for any other modifier.
     - **Any base** - Only use unevolved Pokémon.
     - **Base with 2 evolutions** - Only use unevolved Pokémon that can evolve twice. Overrides **Any base**.
     - **Type variety** - Every starter will have a single type that is different from the other two.
     """
-    display_name = "Randomize wild Pokémon"
+    display_name = "Randomize Starter Pokémon"
     valid_keys = [
         "Randomize",
         "Any base",
