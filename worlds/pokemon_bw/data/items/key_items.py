@@ -1,7 +1,7 @@
 from .. import ItemData
 
 item_table: dict[str, ItemData] = {
-    # TODO look for item names that might need to be improved
+    # TODO look for item names that might need to be improved (Parcel to Oak's Parcel, Voucher 1-3 to Poketch Voucher 1-3, Pass to Maglev Pass, Gram 1-3 to Wingull Gram 1-3)
     "Explorer Kit": ItemData(0x01AC, None),
     "Loot Sack": ItemData(0x01AD, None),
     "Rule Book": ItemData(0x01AE, None),
@@ -24,7 +24,7 @@ item_table: dict[str, ItemData] = {
     "Super Rod": ItemData(0x01BF, None),
     "Sprayduck": ItemData(0x01C0, None),
     "Poffin Case": ItemData(0x01C1, None),
-    "Bicycle": ItemData(0x01C2, None),
+    "Bicycle": ItemData(0x01C2, None), #Is this bike the one from DPPt or BW?
     "Suite Key": ItemData(0x01C3, None),
     "Oak's Letter": ItemData(0x01C4, None),
     "Lunar Wing": ItemData(0x01C5, None),
@@ -33,10 +33,10 @@ item_table: dict[str, ItemData] = {
     "S.S. Ticket": ItemData(0x01C8, None),
     "Contest Pass": ItemData(0x01C9, None),
     "Magma Stone": ItemData(0x01CA, None),
-    "Parcel": ItemData(0x01CB, None),
-    "Coupon 1": ItemData(0x01CC, None),
-    "Coupon 2": ItemData(0x01CD, None),
-    "Coupon 3": ItemData(0x01CE, None),
+    "Oak's Parcel": ItemData(0x01CB, None),
+    "Poketch Coupon 1": ItemData(0x01CC, None),
+    "Poketch Coupon 2": ItemData(0x01CD, None),
+    "Poketch Coupon 3": ItemData(0x01CE, None),
     "Storage Key": ItemData(0x01CF, None),
     "SecretPotion": ItemData(0x01D0, None),
     "Vs. Recorder": ItemData(0x01D1, None),
@@ -54,7 +54,7 @@ item_table: dict[str, ItemData] = {
     "SquirtBottle": ItemData(0x01DD, None),
     "Red Scale": ItemData(0x01DE, None),
     "Lost Item": ItemData(0x01DF, None),
-    "Pass": ItemData(0x01E0, None),
+    "Maglev Pass": ItemData(0x01E0, None),
     "Machine Part": ItemData(0x01E1, None),
     "Silver Wing": ItemData(0x01E2, None),
     "Rainbow Wing": ItemData(0x01E3, None),
@@ -74,8 +74,8 @@ item_table: dict[str, ItemData] = {
     "Dark Stone": ItemData(0x0269, None),
     "Xtransceiver (Blue)": ItemData(0x026D, None),
     "God Stone": ItemData(0x026E, None),
-    "Gram 1": ItemData(0x026F, None),
-    "Gram 2": ItemData(0x0270, None),
-    "Gram 3": ItemData(0x0271, None),
+    "Wingull Gram 1": ItemData(0x026F, None),
+    "Wingull Gram 2": ItemData(0x0270, None),
+    "Wingull Gram 3": ItemData(0x0271, None),
     "Xtransceiver (Red)": ItemData(0x0272, None),
 }
