@@ -1,11 +1,10 @@
 from .. import ItemData
 
 item_table: dict[str, ItemData] = {
-    # TODO look for item names that might need to be improved (Parcel to Oak's Parcel, Voucher 1-3 to Poketch Voucher 1-3, Pass to Maglev Pass, Gram 1-3 to Wingull Gram 1-3)
     "Explorer Kit": ItemData(0x01AC, None),
     "Loot Sack": ItemData(0x01AD, None),
     "Rule Book": ItemData(0x01AE, None),
-    "PokÃ© Radar": ItemData(0x01AF, None),
+    "Poke Radar": ItemData(0x01AF, None),
     "Point Card": ItemData(0x01B0, None),
     "Journal": ItemData(0x01B1, None),
     "Seal Case": ItemData(0x01B2, None),
@@ -24,7 +23,9 @@ item_table: dict[str, ItemData] = {
     "Super Rod": ItemData(0x01BF, None),
     "Sprayduck": ItemData(0x01C0, None),
     "Poffin Case": ItemData(0x01C1, None),
-    "Bicycle": ItemData(0x01C2, None), #Is this bike the one from DPPt or BW?
+    # Is this bike the one from DPPt or BW?
+    # They are probably the same
+    "Bicycle": ItemData(0x01C2, None),
     "Suite Key": ItemData(0x01C3, None),
     "Oak's Letter": ItemData(0x01C4, None),
     "Lunar Wing": ItemData(0x01C5, None),
@@ -33,25 +34,26 @@ item_table: dict[str, ItemData] = {
     "S.S. Ticket": ItemData(0x01C8, None),
     "Contest Pass": ItemData(0x01C9, None),
     "Magma Stone": ItemData(0x01CA, None),
-    "Oak's Parcel": ItemData(0x01CB, None),
+    # Apparently this parcel is used for Oak in FRLG AND Barry in DPPt
+    "Parcel": ItemData(0x01CB, None),
     "Poketch Coupon 1": ItemData(0x01CC, None),
     "Poketch Coupon 2": ItemData(0x01CD, None),
     "Poketch Coupon 3": ItemData(0x01CE, None),
     "Storage Key": ItemData(0x01CF, None),
-    "SecretPotion": ItemData(0x01D0, None),
+    "Secret Potion": ItemData(0x01D0, None),
     "Vs. Recorder": ItemData(0x01D1, None),
     "Gracidea": ItemData(0x01D2, None),
     "Secret Key": ItemData(0x01D3, None),
     "Apricorn Box": ItemData(0x01D4, None),
     "Unown Report": ItemData(0x01D5, None),
     "Berry Pots": ItemData(0x01D6, None),
-    "Dowsing MCHN": ItemData(0x01D7, None),
+    "Dowsing Machine": ItemData(0x01D7, None),
     "Blue Card": ItemData(0x01D8, None),
-    "SlowpokeTail": ItemData(0x01D9, None),
+    "Slowpoke Tail": ItemData(0x01D9, None),
     "Clear Bell": ItemData(0x01DA, None),
     "Card Key": ItemData(0x01DB, None),
     "Basement Key": ItemData(0x01DC, None),
-    "SquirtBottle": ItemData(0x01DD, None),
+    "Squirt Bottle": ItemData(0x01DD, None),
     "Red Scale": ItemData(0x01DE, None),
     "Lost Item": ItemData(0x01DF, None),
     "Maglev Pass": ItemData(0x01E0, None),
