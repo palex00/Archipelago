@@ -18,7 +18,7 @@ item_table: dict[str, ItemData] = {
     "Soda Pop": ItemData(0x001F, None),
     "Lemonade": ItemData(0x0020, None),
     "Moomoo Milk": ItemData(0x0021, None),
-    "EnergyPowder": ItemData(0x0022, None),
+    "Energy Powder": ItemData(0x0022, None),
     "Energy Root": ItemData(0x0023, None),
     "Heal Powder": ItemData(0x0024, None),
     "Revival Herb": ItemData(0x0025, None),

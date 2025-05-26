@@ -2,6 +2,7 @@ from .. import ItemData
 
 item_table: dict[str, ItemData] = {
     # I think to make this consistent with other pokemon implementations, we should remove the hyphen
+    # Yeah I agree this seems a little nicer on the eyes
     "TM01 Hone Claws": ItemData(0x0148, None),
     "TM02 Dragon Claw": ItemData(0x0149, None),
     "TM03 Psyshock": ItemData(0x014A, None),

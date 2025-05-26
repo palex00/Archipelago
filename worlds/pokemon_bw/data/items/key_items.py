@@ -4,7 +4,7 @@ item_table: dict[str, ItemData] = {
     "Explorer Kit": ItemData(0x01AC, None),
     "Loot Sack": ItemData(0x01AD, None),
     "Rule Book": ItemData(0x01AE, None),
-    "Poke Radar": ItemData(0x01AF, None),
+    "Poké Radar": ItemData(0x01AF, None),
     "Point Card": ItemData(0x01B0, None),
     "Journal": ItemData(0x01B1, None),
     "Seal Case": ItemData(0x01B2, None),
@@ -35,6 +35,7 @@ item_table: dict[str, ItemData] = {
     "Contest Pass": ItemData(0x01C9, None),
     "Magma Stone": ItemData(0x01CA, None),
     # Apparently this parcel is used for Oak in FRLG AND Barry in DPPt
+    # I mean reduce reuse recycle ig
     "Parcel": ItemData(0x01CB, None),
     "Poketch Coupon 1": ItemData(0x01CC, None),
     "Poketch Coupon 2": ItemData(0x01CD, None),
