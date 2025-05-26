@@ -28,7 +28,7 @@ class Goal(Choice):
 
 class GameVersion(Choice):
     """
-    Select your version.
+    Select your game version.
     """
     display_name = "Game Version"
     option_black = 0
@@ -42,14 +42,14 @@ class RandomizeWildPokemon(OptionSet):
     - **Randomize** - Toggles wild Pokémon being randomized. Required for any other modifier.
     - **Similar base stats** - Tries to keep the randomized Pokémon at a similar base stat total as the vanilla encounter.
     - **Type themed** - Makes every Pokémon in an area have a certain same type.
-    - **Keep variety** - Keeps the amount of different encounters and their encounter rate in every area.
+    - **Area 1-to-1** - Keeps the amount of different encounters and their encounter rate in every area.
     """
     display_name = "Randomize Wild Pokémon"
     valid_keys = [
         "Randomize",
         "Similar base stats",
         "Type themed",
-        "Keep variety",
+        "Area 1-to-1",
     ]
 
 
@@ -105,7 +105,34 @@ class PokemonBWOptions(PerGameCommonOptions):
     goal: Goal
     version: GameVersion
     randomize_wild_pokemon: RandomizeWildPokemon
+    # randomize_trainer_pokemon: RandomizeTrainerPokemon
     randomize_starter_pokemon: RandomizeStarterPokemon
+    # randomize_static_pokemon: RandomizeStaticPokemon
+    # randomize_gift_pokemon: RandomizeGiftPokemon
+    # randomize_trade_pokemon: RandomizeTradePokemon
+    # randomize_legendary_pokemon: RandomizeLegendaryPokemon
+    # randomize_base_stats: RandomizeBaseStats
+    # base_stat_total_limits: BaseStatTotalLimits
+    # randomize_evolutions: RandomizeEvolutions
+    # randomize_catch_rates: RandomizeCatchRates
+    # catch_rates_limits: CatchRatesLimits
+    # randomize_level_up_movesets: RandomizeLevelUpMovesets
+    # randomize_types: RandomizeTypes
+    # randomize_abilities: RandomizeAbilities
+    # randomize_gender_ratio: RandomizeGenderRatio
+    # gender_ratio_limits: GenderRatioLimits
+    # randomize_tm_hm_compatibility: RandomizeTMHMCompatibility
+    # randomize_badges: RandomizeBadges
+    # shuffle_roadblock_reqs: ShuffleRoadblockReqs
+    # additional_cut_trees: AdditionalCutTrees
     dexsanity: Dexsanity
+    # trainersanity: Trainersanity
+    # door shuffle: DoorShuffle
+    # exp_modifier: ExpModifier
+    # all_pokemon_seen; AllPokemonSeen
+    # add_fairy_type: AddFairyType
+    # deathlink: DeathLink  # Needs to be imported from base options
+    # wonder_trade: WonderTrade
+    # traps_percentage: TrapsPercentage
     funny_dialogue: FunnyDialogue
     reusable_tms: ReusableTMs
