@@ -1,6 +1,7 @@
 
 region_list: set[str] = {
     "Menu",
+    "Pokedex",
     # Southern Unova
     "Nuvema Town",
     "Route 1 East",
