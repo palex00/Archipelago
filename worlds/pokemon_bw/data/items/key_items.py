@@ -37,9 +37,9 @@ item_table: dict[str, ItemData] = {
     # Apparently this parcel is used for Oak in FRLG AND Barry in DPPt
     # I mean reduce reuse recycle ig
     "Parcel": ItemData(0x01CB, None),
-    "Poketch Coupon 1": ItemData(0x01CC, None),
-    "Poketch Coupon 2": ItemData(0x01CD, None),
-    "Poketch Coupon 3": ItemData(0x01CE, None),
+    "Pokétch Coupon 1": ItemData(0x01CC, None),
+    "Pokétch Coupon 2": ItemData(0x01CD, None),
+    "Pokétch Coupon 3": ItemData(0x01CE, None),
     "Storage Key": ItemData(0x01CF, None),
     "Secret Potion": ItemData(0x01D0, None),
     "Vs. Recorder": ItemData(0x01D1, None),
