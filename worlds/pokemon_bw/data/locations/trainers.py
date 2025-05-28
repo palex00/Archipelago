@@ -90,7 +90,7 @@ location_table: dict[str, LocationData] = {
     "Harlequin Louis": LocationData(0x000, 0x000, None, None, "Castelia City"),
     "Burgh": LocationData(0x000, 0x000, None, None, "Castelia City"),
     "Rival Bianca": LocationData(0x000, 0x000, None, None, "Castelia City"),
-    "": LocationData(0x000, 0x000, None, None, ""),
+    "GAME FREAK Morimoto": LocationData(0x000, 0x000, None, None, "Castelia City"),
     "": LocationData(0x000, 0x000, None, None, ""),
     "": LocationData(0x000, 0x000, None, None, ""),
     "": LocationData(0x000, 0x000, None, None, ""),
