@@ -56,21 +56,23 @@ class RandomizeWildPokemon(OptionSet):
 class RandomizeTrainerPokemon(OptionSet):
     """
     Randomizes trainer pokémon.
-    - **Randomize** - Toggles trainer pokémon being randomized. Required for any other modifier.
-    - **Adjust eastern Unova** - Decreases the levels of trainers on postgame routes to make those viable as an
-                                 alternative to western Unova. Does not affect Cynthia. Does not require
-                                 trainer pokémon being randomized.
+    - **Normalize areas** - Decreases the levels of trainers in postgame areas to make those viable for playthroughs.
+                            Does not affect Cynthia. Does not require trainer pokémon being randomized.
+    - **Randomize** - Toggles trainer pokémon being randomized. Required for any modifier below.
     - **Similar base stats** - Tries to keep the randomized pokémon at a similar base stat total as the replaced one.
     - **Type themed** - All pokémon of a trainer have to share at least one randomly chosen type.
+                        Gym leaders will always have themed teams, regardless of this modifier.
+    - **Themed gym trainers** - All pokémon of gym trainers will share the type assigned to the gym leader.
     """
     display_name = "Randomize Trainer Pokémon"
     valid_keys = [
+        "Normalize areas",
         "Randomize",
-        "Adjust eastern Unova",
         "Similar base stats",
         "Type themed",
+        "Themed gym trainers",
     ]
-    default = ["Randomize", "Adjust eastern Unova"]
+    default = ["Normalize areas", "Randomize", "Themed gym trainers"]
 
 
 class RandomizeStarterPokemon(OptionSet):
