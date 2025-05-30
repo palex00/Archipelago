@@ -385,11 +385,11 @@ class ShuffleRoadblockReqs(Toggle):
     default = False
 
 
-class AdditionalCutTrees(Choice):
+class AdditionalRoadblocks(Choice):
     """
-    Adds a number of cut trees across the region.
+    Adds a number of additional roadblocks like cut trees or npcs blocking your way across the region.
     """
-    display_name = "Additional Cut Trees"
+    display_name = "Additional Roadblocks"
     option_none = 0
     option_some = 1
     option_many = 2
@@ -546,7 +546,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     # Items, locations, and progression
     randomize_badges: RandomizeBadges
     # shuffle_roadblock_reqs: ShuffleRoadblockReqs
-    # additional_cut_trees: AdditionalCutTrees
+    # additional_roadblocks: AdditionalRoadblocks
     dexsanity: Dexsanity
     # trainersanity: Trainersanity
     # door shuffle: DoorShuffle
