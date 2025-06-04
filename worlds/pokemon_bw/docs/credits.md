@@ -12,4 +12,8 @@ Action Replay cheat codes (various/unknown contributors)
 
 Various other APWorlds as references
 
-CTRMap & CTRMapV (various? contributors)
+CTRMap & CTRMapV (HelloOO7)
+
+The DS Pokémon Hacking community
+
+FrostsGen5Editor (FrostFalcon)

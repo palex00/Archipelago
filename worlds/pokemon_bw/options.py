@@ -18,8 +18,8 @@ class Goal(Choice):
     option_ghetsis = 0
     option_champion = 1
     option_cynthia = 2
-    option_regional_pokedex = 3
-    option_national_pokedex = 4
+    # option_regional_pokedex = 3
+    # option_national_pokedex = 4
     option_tmhm_hunt = 5
     option_seven_sages_hunt = 6
     default = 0
@@ -410,7 +410,8 @@ class Dexsanity(Range):
     display_name = "Dexsanity"
     default = 0
     range_start = 0
-    range_end = 649
+    # range_end = 649
+    range_end = 135  # Temporary because of missing wild randomization
 
 
 class Trainersanity(Range):
