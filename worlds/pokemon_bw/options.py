@@ -498,6 +498,14 @@ class TrapsProbability(Range):
     range_end = 100
 
 
+class UselessKeyItems(Toggle):
+    """
+    Adds all possible key items to the item pool, even if they're useless.
+    """
+    display_name = "Useless Key Items"
+    default = False
+
+
 class FunnyDialogue(Toggle):
     """
     Adds humorous dialogue submitted by the folks in the Pokèmon Black and White thread of the Archipelago Discord server
@@ -561,5 +569,6 @@ class PokemonBWOptions(PerGameCommonOptions):
     # deathlink: DeathLink  # Needs to be imported from base options
     # wonder_trade: WonderTrade
     # traps_percentage: TrapsPercentage
+    useless_key_items: UselessKeyItems
     # funny_dialogue: FunnyDialogue
     reusable_tms: ReusableTMs
