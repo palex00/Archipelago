@@ -18,3 +18,7 @@ def always_filler(options: PokemonBWOptions, data: dict[str, any]) -> ItemClassi
 
 def always_trap(options: PokemonBWOptions, data: dict[str, any]) -> ItemClassification:
     return ItemClassification.trap
+
+
+def tm_hm_hunt(options: PokemonBWOptions, data: dict[str, any]) -> ItemClassification:
+    return ItemClassification.progression if options.goal == "tmhm_hunt" else ItemClassification.useful
