@@ -35,6 +35,9 @@ Version 1.0.0 will happen when certain features are implemented.
 - Static/Gift/Trade/Legendary pokémon randomization
 - Full dexsanity
 - Trainersanity
+- Xtransceiver being required to see certain story sequences (with some of them giving items)
+- Remove trade evolutions
+- Provide enough evolution stones
 
 ## Road to 2.0.0
 
