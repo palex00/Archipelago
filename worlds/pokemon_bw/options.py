@@ -38,13 +38,16 @@ class GameVersion(Choice):
 class RandomizeWildPokemon(OptionSet):
     """
     Randomizes wild pokémon encounters.
-    - **Randomize** - Toggles wild pokémon being randomized. Required for any other modifier.
+    - **Normalize areas** - Decreases the levels wild pokémon in postgame areas to make those viable for playthroughs.
+                            Does not require wild pokémon being randomized.
+    - **Randomize** - Toggles wild pokémon being randomized. Required for any modifier below.
     - **Similar base stats** - Tries to keep every randomized pokémon at a similar base stat total as the replaced encounter.
     - **Type themed** - Makes every pokémon in an area have a certain same type.
     - **Area 1-to-1** - Keeps the amount of different encounters and their encounter rate in every area.
     """
     display_name = "Randomize Wild Pokémon"
     valid_keys = [
+        "Normalize areas",
         "Randomize",
         "Similar base stats",
         "Type themed",
