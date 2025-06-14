@@ -2,7 +2,7 @@
 
 ## Some headline
 
-There "barely working" version will still be playable to goal, so it will start with 0.1.0.
+The "barely working" version will still be playable to goal, so it will start with 0.1.0.
 
 Every major feature will increase the version by +0.1.
 
@@ -31,8 +31,8 @@ Version 1.0.0 will happen when certain features are implemented.
 
 - Wild pokémon randomization
 - Trainer randomization
-- Starter randomization
-- Static/Gift/Trade/Legendary pokémon randomization
+- Starter/Static/Gift/Trade/Legendary pokémon randomization
+  - PREVENT species with certain evolution methods from being placed into one of those places
 - Full dexsanity
 - Trainersanity
 - Xtransceiver being required to see certain story sequences (with some of them giving items)
@@ -50,6 +50,7 @@ Version 1.0.0 will happen when certain features are implemented.
   - Abilities
   - Gender Ratio (+ limit)
   - TM/HM compatibility
+  - Move tutor compatibility
 
 ## Other major updates
 

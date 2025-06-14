@@ -41,6 +41,7 @@ class RandomizeWildPokemon(OptionSet):
     - **Normalize areas** - Decreases the levels wild pokémon in postgame areas to make those viable for playthroughs.
                             Does not require wild pokémon being randomized.
     - **Randomize** - Toggles wild pokémon being randomized. Required for any modifier below.
+    - **Ensure all obtainable** - Ensures that every pokémon species is obtainable by either catching or evolving.
     - **Similar base stats** - Tries to keep every randomized pokémon at a similar base stat total as the replaced encounter.
     - **Type themed** - Makes every pokémon in an area have a certain same type.
     - **Area 1-to-1** - Keeps the amount of different encounters and their encounter rate in every area.
@@ -49,6 +50,7 @@ class RandomizeWildPokemon(OptionSet):
     valid_keys = [
         "Normalize areas",
         "Randomize",
+        "Ensure all obtainable",
         "Similar base stats",
         "Type themed",
         "Area 1-to-1",
@@ -404,17 +406,17 @@ class AdditionalRoadblocks(Choice):
 class Dexsanity(Range):
     """
     Adds a number of locations that can be checked by catching a certain Pokémon species
-    and registering it in the pokédex.
+    and registering it in the pokédex. The actual maximum number of added checks depends on what pokémon species are
+    actually obtainable in the wild.
 
-    Any value higher than 135 requires wild pokémon to be randomized.
-
-    If wild pokémon are not randomized, only unovan pokémon will have dexsanity checks.
+    If you want to have all 649 possible checks, then you need to randomize wild
+    encounters and add the **Ensure all obtainable** modifier.
     """
     display_name = "Dexsanity"
     default = 0
     range_start = 0
-    # range_end = 649
-    range_end = 135  # Temporary because of missing wild randomization
+    range_end = 649
+    # range_end = 135  # Small change in programm structure
 
 
 class Trainersanity(Range):
@@ -567,7 +569,7 @@ class PokemonBWOptions(PerGameCommonOptions):
 
     # Miscellaneous
     # exp_modifier: ExpModifier
-    all_pokemon_seen: AllPokemonSeen
+    # all_pokemon_seen: AllPokemonSeen
     # add_fairy_type: AddFairyType
     # deathlink: DeathLink  # Needs to be imported from base options
     # wonder_trade: WonderTrade
