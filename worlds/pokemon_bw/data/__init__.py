@@ -1,23 +1,54 @@
-from typing import NamedTuple, Callable, Literal
+from typing import NamedTuple, Callable, Literal, overload
 
 from BaseClasses import ItemClassification, LocationProgressType, CollectionState
+from .. import PokemonBWWorld
 from ..options import PokemonBWOptions
+
+
+ExtendedRule: type = Callable[[CollectionState, PokemonBWWorld], bool]
 
 
 class ItemData(NamedTuple):
     id: int
     # Takes the options and extra data and returns the classification (progression, useful, filler, or trap)
     # for the calling world
-    classification: Callable[[PokemonBWOptions, dict[str, any]], ItemClassification]
+    classification: Callable[[PokemonBWOptions, PokemonBWWorld], ItemClassification]
     bag: Literal["Main", "Key", "Medicine", "Berries", "TM/HM"]
 
 
 class BadgeItemData(NamedTuple):
     bit: int
-    classification: Callable[[PokemonBWOptions, dict[str, any]], ItemClassification]
+    classification: Callable[[PokemonBWOptions, PokemonBWWorld], ItemClassification]
 
 
-class LocationData(NamedTuple):
+class FlagLocationData(NamedTuple):
+    # flags begin at 0x23bf28 (B) or 0x23bf48 (W)
+    flag_id: int
+    progress_type: Callable[[PokemonBWOptions, PokemonBWWorld], LocationProgressType]
+    region: str
+    rule: ExtendedRule | None
+
+
+class VarLocationData(NamedTuple):
+    # global variables begin at 0x23bd30 (B) or 0x23bd50 (W)
+    # global vars 0x4000-0x4081 have 1 byte, 0x4082+ have 2 bytes
+    var_id: int
+    progress_type: Callable[[PokemonBWOptions, PokemonBWWorld], LocationProgressType]
+    checking_type: Callable[[int], bool]
+    region: str
+    rule: ExtendedRule | None
+
+
+class DexLocationData(NamedTuple):
+    # caught flags are stored at 0x23D1B4 (B) or 0x23D1D4 (W)
+    dex_number: int
+    # Use special rule if there are more than one species for a dex entry (e.g. Wormadam, Deoxys, Castform, ...)
+    special_rule: ExtendedRule | None = None
+
+
+"""class LocationData(NamedTuple):
+    # Just choose any number between 0 and 9999 for each location in a table
+    custom_id: int
     address_black: int
     address_white: int
     # Takes the read value, does something with it (e.g. check for value or certain bit)
@@ -28,7 +59,8 @@ class LocationData(NamedTuple):
     progress_type: Callable[[PokemonBWOptions, dict[str, any]], LocationProgressType]
     region: str
     # An extra rule that is not covered by region access (e.g. items behind a strength boulder)
-    rule: Callable[[CollectionState], bool] | None
+    #
+    rule: ExtendedRule | None"""
 
 
 class EncounterData(NamedTuple):
@@ -36,6 +68,7 @@ class EncounterData(NamedTuple):
     species_black: tuple[int, int]
     species_white: tuple[int, int]
     encounter_region: str
+    exclude_logic: bool
     # The following will become important when wild encounter randomization happens
     # file_number: int
     # offset: int
@@ -44,10 +77,11 @@ class EncounterData(NamedTuple):
 class RegionConnectionData(NamedTuple):
     exiting_region: str
     entering_region: str
-    rule: Callable[[CollectionState], bool] | None
+    rule: ExtendedRule | None
 
 
 class SpeciesData(NamedTuple):
+    dex_name: str
     dex_number: int
     form: int
     type_1: str
@@ -71,10 +105,11 @@ class SpeciesData(NamedTuple):
 class MovesetData(NamedTuple):
     # tuple(level, move name)
     level_up_moves: list[tuple[int, str]]
-    # TM number (101+ are HMs)
-    tm_hm_moves: set[int]
+    # TM number (internal order is TM1-95 HM1-6)
+    tm_hm_moves: set[str]
 
 
+# TODO future update
 class MoveData(NamedTuple):
     type: str
     category: Literal["Physical", "Special", "Status"]
@@ -84,6 +119,7 @@ class MoveData(NamedTuple):
     pp: int
 
 
+# TODO future update
 class TMHMData(NamedTuple):
     move: str
     is_HM: bool
@@ -91,9 +127,10 @@ class TMHMData(NamedTuple):
 
 class EvolutionMethodData(NamedTuple):
     id: int
-    # The access rule for dexsanity logic
-    rule: Callable[[CollectionState], bool]
+    # Takes value from evolution data and the player id and returns the access rule for that evolution
+    rule: Callable[[int], ExtendedRule] | None
 
 
+# TODO future update
 class TypeData(NamedTuple):
     id: int

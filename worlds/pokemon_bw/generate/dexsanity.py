@@ -1,4 +1,5 @@
 
+"""
 unrandomized_black: set[str] = {
     "Victini",
     "Patrat",
@@ -252,3 +253,4 @@ unrandomized_white: set[str] = {
     "Zekrom",
     "Kyurem",
 }
+"""
