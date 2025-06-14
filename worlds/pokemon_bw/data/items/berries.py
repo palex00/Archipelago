@@ -1,6 +1,8 @@
 from . import classification
 from .. import ItemData
 
+# TODO split into standard and niche berries
+
 item_table: dict[str, ItemData] = {
     "Cheri Berry": ItemData(0x0095, classification.always_filler),
     "Chesto Berry": ItemData(0x0096, classification.always_filler),

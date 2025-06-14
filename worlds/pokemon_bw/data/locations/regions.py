@@ -2,6 +2,7 @@
 region_list: set[str] = {
     "Menu",
     "Pokédex",
+    "Evolutions",
     # Southern Unova
     "Nuvema Town",
     "Route 1 East",
@@ -23,12 +24,13 @@ region_list: set[str] = {
     "Wellspring Cave Inner",  # behind water
     "Nacrene City",
     "Pinwheel Forest Outside",
-    "Pinwheel Forest East",  # area accessible in main story
-    "Pinwheel Forest West",  # postgame area
+    "Pinwheel Forest West",  # area accessible in main story
+    "Pinwheel Forest East",  # accessible after reaching Mistralton Cave
     "Skyarrow Bridge",
     "Castelia City",
     "Liberty Garden",
-    "Route 4",
+    "Route 4 South",
+    "Route 4 North",
     "Desert Resort",
     "Relic Castle Entrance",
     "Relic Castle Lower Floors",  # accessible after N awakens Zekrom/Reshiram
@@ -62,16 +64,12 @@ region_list: set[str] = {
     "Lostlorn Forest",
     "Marvelous Bridge",
     "Route 15",
-    "Black City",
-    "White Forest",
+    "Black City/White Forest",
     "Route 14",
     "Abundant Shrine",
     "Undella Town",
-    "Undella Bay",
-    "Abyssal Ruins 1F",
-    "Abyssal Ruins 2F",
-    "Abyssal Ruins 3F",
-    "Abyssal Ruins 4F",
+    "Undella Bay",  # Western shore items accessible without surf, so everything else has to require surf
+    "Abyssal Ruins",
     "Route 13",
     "Giant Chasm Outer",
     "Giant Chasm Entrance Cave",
@@ -85,6 +83,14 @@ region_list: set[str] = {
     # Northern Unova
     "Opelucid City",
     "Route 10",
+    "Badge Gate 1",
+    "Badge Gate 2",
+    "Badge Gate 3",
+    "Badge Gate 4",
+    "Badge Gate 5",
+    "Badge Gate 6",
+    "Badge Gate 7",
+    "Badge Gate 8",
     "Victory Road",
     "Pokémon League",
     "N's Castle",
