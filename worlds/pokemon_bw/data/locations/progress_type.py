@@ -1,15 +1,9 @@
 from BaseClasses import LocationProgressType
-from ... import PokemonBWWorld
-from ...options import PokemonBWOptions
+from .. import ProgressTypeMethod
 
 
-def always_priority(options: PokemonBWOptions, world: PokemonBWWorld) -> LocationProgressType:
-    return LocationProgressType.PRIORITY
+always_priority: ProgressTypeMethod = lambda options, world: LocationProgressType.PRIORITY
 
+always_default: ProgressTypeMethod = lambda options, world: LocationProgressType.DEFAULT
 
-def always_default(options: PokemonBWOptions, world: PokemonBWWorld) -> LocationProgressType:
-    return LocationProgressType.DEFAULT
-
-
-def always_excluded(options: PokemonBWOptions, world: PokemonBWWorld) -> LocationProgressType:
-    return LocationProgressType.EXCLUDED
+always_excluded: ProgressTypeMethod = lambda options, world: LocationProgressType.EXCLUDED

@@ -1,6 +1,11 @@
-from .. import LocationData
-from . import dexsanity, hidden_items, npc, overworld_items
+from .. import VarLocationData, FlagLocationData
+from . import dexsanity
+from .ingame_items import (overworld_items_south, overworld_items_west, hidden_items_south, hidden_items_west,
+                           other_south, other_west)
 
-all_locations: dict[str, LocationData] = (
-    dexsanity.location_table | overworld_items.location_table | hidden_items.location_table | npc.location_table
+all_locations: dict[str, VarLocationData | FlagLocationData] = (
+    dexsanity.location_table
+    | overworld_items_south.table | overworld_items_west.table
+    | hidden_items_south.table | hidden_items_west.table
+    | other_south.table | other_west.table
 )

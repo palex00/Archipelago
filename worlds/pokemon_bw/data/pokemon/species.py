@@ -1,4 +1,4 @@
-from . import SpeciesData
+from .. import SpeciesData
 
 by_name: dict[str, SpeciesData] = {
     "Bulbasaur": SpeciesData("Bulbasaur", 1, 0, "Grass", "Poison", 45, 49, 49, 65, 65, 45, 45, 31, 1, ("abi65", "abi0", "abi34"), [("Level up", 16, "Ivysaur")]),

@@ -1,4 +1,4 @@
-from . import MovesetData
+from .. import MovesetData
 
 # TODO add level up movesets in a later update
 levelup = []

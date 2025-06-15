@@ -1,6 +1,6 @@
-from BaseClasses import CollectionState
 from .. import ExtendedRule
-from ..pokemon import pokedex, species
+from ..pokemon import pokedex
+from ..items import tm_hm
 
 
 # Standard requirements
@@ -33,28 +33,28 @@ def can_reach_region(region: str) -> ExtendedRule:
 # HM requirements
 
 can_use_strength: ExtendedRule = lambda state, world: (
-    state.has("HM04", world.player)
+    state.has("HM04 Strength", world.player)
     and state.has_any(world.strength_species, world.player)
 )
 
 can_use_surf: ExtendedRule = lambda state, world: (
-    state.has("HM03", world.player)
+    state.has("HM03 Surf", world.player)
     and state.has_any(world.surf_species, world.player)
 )
 
 can_use_cut: ExtendedRule = lambda state, world: (
-    state.has("HM01", world.player)
+    state.has("HM01 Cut", world.player)
     and state.has_any(world.cut_species, world.player)
 )
 
 can_use_waterfall: ExtendedRule = lambda state, world: (
-    state.has_all(("HM03", "HM05"), world.player)
+    state.has_all(("HM03 Surf", "HM05 Waterfall"), world.player)
     and state.has_any(world.surf_species, world.player)
     and state.has_any(world.waterfall_species, world.player)
 )
 
 can_use_dive: ExtendedRule = lambda state, world: (
-    state.has_all(("HM03", "HM06"), world.player)
+    state.has_all(("HM03 Surf", "HM06 Dive"), world.player)
     and state.has_any(world.surf_species, world.player)
     and state.has_any(world.dive_species, world.player)
 )
@@ -64,4 +64,8 @@ can_use_dive: ExtendedRule = lambda state, world: (
 
 has_fighting_type_species: ExtendedRule = lambda state, world: (
     state.has_any(world.fighting_type_species, world.player)
+)
+
+has_any_tm_hm: ExtendedRule = lambda state, world: (
+    state.has_any(tm_hm.item_table, world.player)
 )

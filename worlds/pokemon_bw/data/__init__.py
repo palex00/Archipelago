@@ -1,4 +1,4 @@
-from typing import NamedTuple, Callable, Literal, overload
+from typing import NamedTuple, Callable, Literal
 
 from BaseClasses import ItemClassification, LocationProgressType, CollectionState
 from .. import PokemonBWWorld
@@ -6,25 +6,27 @@ from ..options import PokemonBWOptions
 
 
 ExtendedRule: type = Callable[[CollectionState, PokemonBWWorld], bool]
+ClassificationMethod: type = Callable[[PokemonBWOptions, PokemonBWWorld], ItemClassification]
+ProgressTypeMethod: type = Callable[[PokemonBWOptions, PokemonBWWorld], LocationProgressType]
 
 
 class ItemData(NamedTuple):
     id: int
     # Takes the options and extra data and returns the classification (progression, useful, filler, or trap)
     # for the calling world
-    classification: Callable[[PokemonBWOptions, PokemonBWWorld], ItemClassification]
+    classification: ClassificationMethod
     bag: Literal["Main", "Key", "Medicine", "Berries", "TM/HM"]
 
 
 class BadgeItemData(NamedTuple):
     bit: int
-    classification: Callable[[PokemonBWOptions, PokemonBWWorld], ItemClassification]
+    classification: ClassificationMethod
 
 
 class FlagLocationData(NamedTuple):
     # flags begin at 0x23bf28 (B) or 0x23bf48 (W)
     flag_id: int
-    progress_type: Callable[[PokemonBWOptions, PokemonBWWorld], LocationProgressType]
+    progress_type: ProgressTypeMethod
     region: str
     rule: ExtendedRule | None
 
@@ -33,7 +35,7 @@ class VarLocationData(NamedTuple):
     # global variables begin at 0x23bd30 (B) or 0x23bd50 (W)
     # global vars 0x4000-0x4081 have 1 byte, 0x4082+ have 2 bytes
     var_id: int
-    progress_type: Callable[[PokemonBWOptions, PokemonBWWorld], LocationProgressType]
+    progress_type: ProgressTypeMethod
     checking_type: Callable[[int], bool]
     region: str
     rule: ExtendedRule | None
@@ -127,6 +129,9 @@ class TMHMData(NamedTuple):
 
 class EvolutionMethodData(NamedTuple):
     id: int
+    # Some evolution methods don't trigger on certain gender, iv, ...
+    # Placing species with such an evo method into static encounters could thereby lead to logic errors
+    static_allowed: bool
     # Takes value from evolution data and the player id and returns the access rule for that evolution
     rule: Callable[[int], ExtendedRule] | None
 

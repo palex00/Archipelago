@@ -1,24 +1,16 @@
-from typing import Callable
-
 from BaseClasses import ItemClassification
-from ...options import PokemonBWOptions
+from .. import ClassificationMethod
 
 
-def always_progression(options: PokemonBWOptions, data: dict[str, any]) -> ItemClassification:
-    return ItemClassification.progression
+always_progression: ClassificationMethod = lambda options, world: ItemClassification.progression
 
+always_useful: ClassificationMethod = lambda options, world: ItemClassification.useful
 
-def always_useful(options: PokemonBWOptions, data: dict[str, any]) -> ItemClassification:
-    return ItemClassification.useful
+always_filler: ClassificationMethod = lambda options, world: ItemClassification.filler
 
+always_trap: ClassificationMethod = lambda options, world: ItemClassification.trap
 
-def always_filler(options: PokemonBWOptions, data: dict[str, any]) -> ItemClassification:
-    return ItemClassification.filler
-
-
-def always_trap(options: PokemonBWOptions, data: dict[str, any]) -> ItemClassification:
-    return ItemClassification.trap
-
-
-def tm_hm_hunt(options: PokemonBWOptions, data: dict[str, any]) -> ItemClassification:
-    return ItemClassification.progression if options.goal == "tmhm_hunt" else ItemClassification.useful
+tm_hm_hunt: ClassificationMethod = lambda options, world: (
+    ItemClassification.progression
+    if options.goal == "tmhm_hunt" else ItemClassification.useful
+)
