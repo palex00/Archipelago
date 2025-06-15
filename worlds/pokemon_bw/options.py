@@ -86,6 +86,8 @@ class RandomizeStarterPokemon(OptionSet):
     - **Randomize** - Toggles starter pokémon being randomized. Required for any other modifier.
     - **Any base** - Only use unevolved/baby pokémon.
     - **Base with 2 evolutions** - Only use unevolved/baby pokémon that can evolve twice. Overrides **Any base**.
+    - **Only official starters** - Only use pokémon that have been a starter in any mainline game. Overrides
+                                   **Any base** and **Base with 2 evolutions**.
     - **Type variety** - Every starter will have a single type that is different from the other two.
     """
     display_name = "Randomize Starter Pokémon"
@@ -93,6 +95,7 @@ class RandomizeStarterPokemon(OptionSet):
         "Randomize",
         "Any base",
         "Base with 2 evolutions",
+        "Only official starters"
         "Type variety",
     ]
     default = ["Randomize"]
