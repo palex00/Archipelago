@@ -1,12 +1,12 @@
-from .. import FlagLocationData
-from .rules import *
-from .progress_type import *
+from ... import FlagLocationData
+from ..rules import *
+from ..progress_type import *
 
 # How I decided the progress types:
 # I set always_default by default (pun not intended)
 # If accessibility is not always given, it will be always_excluded
 
-location_table: dict[str, FlagLocationData] = {
+table: dict[str, FlagLocationData] = {
     "Route 1 - South hidden item": FlagLocationData(1023, always_default, "Route 1 West", None),
     "Route 17 - North hidden item #1": FlagLocationData(1016, always_default, "Route 17 North", None),
     "Route 17 - North hidden item #2": FlagLocationData(1017, always_default, "Route 17 North", None),
@@ -44,13 +44,18 @@ location_table: dict[str, FlagLocationData] = {
     "Pinwheel Forest - South west hidden item": FlagLocationData(1075, always_default, "Pinwheel Forest West", None),
     "Pinwheel Forest - East hidden item": FlagLocationData(944, always_default, "Pinwheel Forest East", None),
     "Liberty Garden - Hidden item in trash can": FlagLocationData(1042, always_default, "Liberty Garden", None),
-    "AAAAAAAAAAAAAAAAAAA": FlagLocationData(0000000, None, "AAAAAAAAAAAA", None),
-    "AAAAAAAAAAAAAAAAAAA": FlagLocationData(0000000, None, "AAAAAAAAAAAA", None),
-    "AAAAAAAAAAAAAAAAAAA": FlagLocationData(0000000, None, "AAAAAAAAAAAA", None),
-    "AAAAAAAAAAAAAAAAAAA": FlagLocationData(0000000, None, "AAAAAAAAAAAA", None),
-    "AAAAAAAAAAAAAAAAAAA": FlagLocationData(0000000, None, "AAAAAAAAAAAA", None),
-    "AAAAAAAAAAAAAAAAAAA": FlagLocationData(0000000, None, "AAAAAAAAAAAA", None),
-    "AAAAAAAAAAAAAAAAAAA": FlagLocationData(0000000, None, "AAAAAAAAAAAA", None),
-    "AAAAAAAAAAAAAAAAAAA": FlagLocationData(0000000, None, "AAAAAAAAAAAA", None),
-    "AAAAAAAAAAAAAAAAAAA": FlagLocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "Route 4 - South west hidden item": FlagLocationData(1059, always_default, "Route 4 South", None),
+    "Route 4 - Central hidden item": FlagLocationData(946, always_default, "Route 4 South", None),
+    "Route 4 - Hidden item near buildings #1": FlagLocationData(1058, always_default, "Route 4 South", None),
+    "Route 4 - Hidden item near buildings #2": FlagLocationData(1076, always_default, "Route 4 South", None),
+    "Route 4 - North east hidden item": FlagLocationData(947, always_default, "Route 4 North", None),
+    "Desert Resort - South hidden item": FlagLocationData(1029, always_default, "Desert Resort", None),
+    "Desert Resort - West hidden item": FlagLocationData(949, always_default, "Desert Resort", None),
+    "Desert Resort - North east hidden item": FlagLocationData(950, always_default, "Desert Resort", None),
+    "Desert Resort - Hidden item near tower": FlagLocationData(948, always_default, "Desert Resort", None),
+    "Relic Castle - B1F castleside hidden item": FlagLocationData(1051, always_default, "Relic Castle Entrance", None),
+    "Relic Castle - B4F castleside hidden item": FlagLocationData(1052, always_default, "Relic Castle Lower Floors", None),
+    "Relic Castle - B3F towerside hidden item": FlagLocationData(951, always_default, "Relic Castle Tower Lower Floors", None),
+    "Nimbasa City - Hidden item near ferris wheel": FlagLocationData(952, always_default, "Nimbasa City", None),
+    "Anville Town - North hidden item": FlagLocationData(1041, always_default, "Anville Town", None),
 }
