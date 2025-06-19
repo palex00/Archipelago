@@ -4,15 +4,12 @@ from ... import FlagLocationData, VarLocationData
 
 # How I decided the progress types:
 # I set always_default by default (pun not intended)
-# If the npc/... gives you a key item or TM/HM, it will be always_priority
+# If the npc/... gives you a progression key item, it will be always_priority
 # If accessibility is not always given, it will be always_excluded
 
 table: dict[str, FlagLocationData | VarLocationData] = {
-    "Nuvema Town - Item #1 from Mom": LocationData(0000000, always_priority, "Nuvema Town", None),
-    "Nuvema Town - Item #2 from Mom": LocationData(0000000, always_priority, "Nuvema Town", None),
-    "Nuvema Town - 25 pokémon seen reward": LocationData(0000000, always_priority, "Nuvema Town", has_number_of_species(25)),
-    "Nuvema Town - 60 pokémon seen reward": LocationData(0000000, always_priority, "Nuvema Town", has_number_of_species(60)),
-    "Nuvema Town - 115 pokémon seen reward": LocationData(0000000, always_priority, "Nuvema Town", has_number_of_species(115)),
+    "Nuvema Town - Item #1 from Mom": LocationData(0000000, always_default, "Nuvema Town", None),
+    "Nuvema Town - Item #2 from Mom": LocationData(0000000, always_default, "Nuvema Town", None),
     "Nuvema Town - Item from Looker": LocationData(0000000, always_priority, "Nuvema Town", can_reach_region("Pokémon League")),
     "Route 1 - Item after catching tutorial #1": LocationData(0000000, always_default, "Route 1 East", None),
     "Route 1 - Item after catching tutorial #2": LocationData(0000000, always_default, "Route 1 East", None),
@@ -22,7 +19,6 @@ table: dict[str, FlagLocationData | VarLocationData] = {
     "Route 1 - Item from woman": LocationData(0000000, always_default, "Route 1 East", None),
     "Route 1 - Item from ranger Brenda": LocationData(0000000, always_default, "Route 1 West", None),
     "Route 1 - Item from ranger Claude": LocationData(0000000, always_default, "Route 1 West", None),
-    "Route 18 - TM from sage Rood": LocationData(0000000, always_priority, "Route 18", can_reach_region("Pokémon League")),
     "P2 Laboratory - Item #1 from scientist": LocationData(0000000, always_default, "P2 Laboratory", has_species("Genesect")),
     "P2 Laboratory - Item #2 from scientist": LocationData(0000000, always_default, "P2 Laboratory", has_species("Genesect")),
     "Accumula Town - Item from man in north east building": LocationData(0000000, always_default, "Accumula Town", None),
@@ -32,14 +28,10 @@ table: dict[str, FlagLocationData | VarLocationData] = {
     "Striaton City - Item from Cheren #2": LocationData(0000000, always_default, "Striaton City", None),
     "Striaton City - Item from Cheren #3": LocationData(0000000, always_default, "Striaton City", None),
     "Striaton City - Item from boy in Trainer's School": LocationData(0000000, always_default, "Striaton City", None),
-    "Striaton City - TM from Fennel": LocationData(0000000, always_priority, "Striaton City", None),
-    "Striaton City - Item from Amanita": LocationData(0000000, always_priority, "Striaton City", can_reach_region("Dreamyard North")),
+    "Striaton City - Item from Amanita": LocationData(0000000, always_default, "Striaton City", can_reach_region("Dreamyard North")),
     "Striaton City - Item from fisherman": LocationData(0000000, always_default, "Striaton City", can_use_surf),
     # Item becomes unavailable after defeating the gym
     "Striaton Gym - Gym guide item": LocationData(0000000, always_excluded, "Striaton City", None),
-    "Striaton Gym - Badge reward": LocationData(0000000, always_priority, "Striaton City", None),
-    "Striaton Gym - TM reward": LocationData(0000000, always_priority, "Striaton City", None),
-    "Dreamyard - TM from sage Gorm": LocationData(0000000, always_priority, "Dreamyard South", None),
     "Route 3 - Item from pokémon breeder Adelaide": LocationData(0000000, always_default, "Route 3", None),
     "Route 3 - Item from girl after Wellspring Cave #1": LocationData(0000000, always_default, "Route 3", None),
     "Route 3 - Item from girl after Wellspring Cave #2": LocationData(0000000, always_default, "Route 3", None),
@@ -51,14 +43,11 @@ table: dict[str, FlagLocationData | VarLocationData] = {
     "Nacrene City - Item from girl in west building": LocationData(0000000, always_default, "Nacrene City", None),
     # Only obtainable on Wednesdays
     "Nacrene City - Item from waitress in Café Warehouse": LocationData(0000000, always_excluded, "Nacrene City", None),
-    "Nacrene City - Item from Bianca": LocationData(0000000, always_priority, "Nacrene City", None),
+    "Nacrene City - Item from Bianca": LocationData(0000000, always_default, "Nacrene City", None),
     "Nacrene City - Item from Lenora": LocationData(0000000, always_priority, "Nacrene City", can_reach_region("Relic Castle Lower Floors")),
     # Item becomes unavailable after defeating the gym
     "Nacrene Gym - Gym guide item": LocationData(0000000, always_excluded, "Nacrene City", None),
-    "Nacrene Gym - Badge reward": LocationData(0000000, always_priority, "Nacrene City", None),
-    "Nacrene Gym - TM reward": LocationData(0000000, always_priority, "Nacrene City", None),
     "Pinwheel Forest Outside - Item from challenge rock": LocationData(0000000, always_default, "Pinwheel Forest Outside", has_fighting_type_species),
-    "Pinwheel Forest Outside - TM from woman near Nacrene City": LocationData(0000000, always_priority, "Pinwheel Forest Outside", None),
     "Pinwheel Forest - Item from ranger Forrest": LocationData(0000000, always_default, "Pinwheel Forest West", None),
     "Pinwheel Forest - Item from ranger Audra": LocationData(0000000, always_default, "Pinwheel Forest West", None),
     "Pinwheel Forest - Item from ranger Irene": LocationData(0000000, always_default, "Pinwheel Forest West", None),
@@ -81,24 +70,18 @@ table: dict[str, FlagLocationData | VarLocationData] = {
     "Battle Company - 47F item from clerk #5": LocationData(0000000, always_default, "Castelia City", None),
     "Battle Company - 47F item from clerk #6": LocationData(0000000, always_default, "Castelia City", None),
     "Battle Company - 47F item from scientist": LocationData(0000000, always_default, "Castelia City", None),
-    "Battle Company - 55F item from President Geoff": LocationData(0000000, always_priority, "Castelia City", None),
-    "Castelia City - TM from hiker in building in Castelia Street": LocationData(0000000, always_priority, "Castelia City", None),
+    "Battle Company - 55F item from President Geoff": LocationData(0000000, always_default, "Castelia City", None),
     "Castelia City - Item from harlequin in Studio Castelia": LocationData(0000000, always_default, "Castelia City", None),
-    "Castelia City - TM from man in black behind dumpster": LocationData(0000000, always_priority, "Castelia City", None),
     "Castelia City - Item from manager in Café Sonata": LocationData(0000000, always_default, "Castelia City", None),
     "Castelia City - Item from Iris in Plasma hideout": LocationData(0000000, always_default, "Castelia City", None),
-    "Castelia City - TM from school kid in building in northern street": LocationData(0000000, always_priority, "Castelia City", None),
     "Castelia City - Item from scientist in building in northern street": LocationData(0000000, always_default, "Castelia City", has_number_of_species(25)),
-    "Castelia City - TM from Mr. Lock in building in northern street": LocationData(0000000, always_priority, "Castelia City", has_item("Lock Capsule")),
     "Passerby Analytics HQ - Item for answering all questionnaires": LocationData(0000000, always_default, "Castelia City", None),
     # I think this one requires connecting with other save files too
     # "Passerby Analytics HQ - Item for completing all survey requests": LocationData(0000000, always_default, "Castelia City", None),
     # Item becomes unavailable after defeating the gym
     "Castelia Gym - Gym guide item": LocationData(0000000, always_excluded, "Castelia City", None),
-    "Castelia Gym - Badge reward": LocationData(0000000, always_priority, "Castelia City", None),
-    "Castelia Gym - TM reward": LocationData(0000000, always_priority, "Castelia City", None),
     # One possible item is the rage candy bar
-    "Royal Unova - Item for defeating every trainer": LocationData(0000000, always_priority, "Castelia City", None),
+    "Royal Unova - Item for defeating every trainer": LocationData(0000000, always_default, "Castelia City", None),
     "Route 4 - Item from Professor Juniper #1": LocationData(0000000, always_default, "Route 4 North", None),
     "Route 4 - Item from Professor Juniper #2": LocationData(0000000, always_default, "Route 4 North", None),
     "Route 4 - Item from Professor Juniper #3": LocationData(0000000, always_default, "Route 4 North", None),
@@ -109,23 +92,18 @@ table: dict[str, FlagLocationData | VarLocationData] = {
     "Route 4 - Item from Professor Juniper #8": LocationData(0000000, always_default, "Route 4 North", None),
     "Route 4 - Item from Professor Juniper #9": LocationData(0000000, always_default, "Route 4 North", None),
     "Route 4 - Item from Professor Juniper #10": LocationData(0000000, always_default, "Route 4 North", None),
-    "Route 4 - TM from worker in northern building": LocationData(0000000, always_priority, "Route 4 North", None),
     "Desert Resort - Item from man in black": LocationData(0000000, always_default, "Desert Resort", None),
     "Desert Resort - Item from ranger Mylene": LocationData(0000000, always_default, "Desert Resort", None),
     "Desert Resort - Item from ranger Jaden": LocationData(0000000, always_default, "Desert Resort", None),
-    "Desert Resort - Item from Professor Juniper": LocationData(0000000, always_priority, "Desert Resort", can_reach_region("Pokémon League")),
-    "Relic Castle - 1F castleside item from backpacker": LocationData(0000000, always_priority, "Relic Castle Entrance", None),
-    "Relic Castle - TM from sage Ryoku": LocationData(0000000, always_priority, "Relic Castle Basement", None),
-    "Nimbasa City - Item from Day-Care man": LocationData(0000000, always_priority, "Nimbasa City", None),
-    "Nimbasa City - TM from ace trainer in western building": LocationData(0000000, always_priority, "Nimbasa City", None),
+    "Desert Resort - Item from Professor Juniper": LocationData(0000000, always_default, "Desert Resort", can_reach_region("Pokémon League")),
+    "Relic Castle - 1F castleside item from backpacker": LocationData(0000000, always_default, "Relic Castle Entrance", None),
+    "Nimbasa City - Item from Day-Care man": LocationData(0000000, always_default, "Nimbasa City", None),
     "Nimbasa City - Item from socialite in western building": LocationData(0000000, always_default, "Nimbasa City", None),
-    "Nimbasa City - Item from ace trainer exiting battle subway": LocationData(0000000, always_priority, "Nimbasa City", None),
+    "Nimbasa City - Item from ace trainer exiting battle subway": LocationData(0000000, always_default, "Nimbasa City", None),
     "Nimbasa City - Item from ace trainer in another western building": LocationData(0000000, always_default, "Nimbasa City", None),
     "Nimbasa City - Item from man in eastern gate": LocationData(0000000, always_default, "Nimbasa City", None),
     # Item becomes unavailable after defeating the gym
     "Nimbasa Gym - Gym guide item": LocationData(0000000, always_excluded, "Nimbasa City", None),
-    "Nimbasa Gym - Badge reward": LocationData(0000000, always_priority, "Nimbasa City", None),
-    "Nimbasa Gym - TM reward": LocationData(0000000, always_priority, "Nimbasa City", None),
     # Following trainers are said to appear randomly each day in big stadium or small court
     "Nimbasa City - Item from waiter Clint": LocationData(0000000, always_excluded, "Nimbasa City", None),
     "Nimbasa City - Item from waitress Bonita": LocationData(0000000, always_excluded, "Nimbasa City", None),
@@ -151,7 +129,6 @@ table: dict[str, FlagLocationData | VarLocationData] = {
     "Battle Subway - Item from ace trainer on super platforms for 28 consecutive wins": LocationData(0000000, always_excluded, "Nimbasa City", None),
     "Battle Subway - Item from clerk on super platforms for 105 consecutive wins": LocationData(0000000, always_excluded, "Nimbasa City", None),
     "Battle Subway - Item from ace trainer on super platforms for 203 consecutive wins": LocationData(0000000, always_excluded, "Nimbasa City", None),
-    "Nimbasa City - Item from Musical Theater owner": LocationData(0000000, always_priority, "Nimbasa City", None),
-    "Nimbasa City - TM from lady in Musical Theater": LocationData(0000000, always_priority, "Nimbasa City", None),
+    "Nimbasa City - Item from Musical Theater owner": LocationData(0000000, always_default, "Nimbasa City", None),
     "Anville Town - Item from depot agent on first visit": LocationData(0000000, always_default, "Anville Town", None),
 }

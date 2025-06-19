@@ -1,0 +1,34 @@
+from ..rules import *
+from ..progress_type import *
+from ... import FlagLocationData, VarLocationData
+
+gym_badges: dict[str, FlagLocationData | VarLocationData] = {
+    "Striaton Gym - Badge reward": LocationData(0000000, always_priority, "Striaton City", None),
+    "Nacrene Gym - Badge reward": LocationData(0000000, always_priority, "Nacrene City", None),
+    "Castelia Gym - Badge reward": LocationData(0000000, always_priority, "Castelia City", None),
+    "Nimbasa Gym - Badge reward": LocationData(0000000, always_priority, "Nimbasa City", None),
+}
+
+tm_hm: dict[str, FlagLocationData | VarLocationData] = {
+    "Nuvema Town - 25 pokémon seen reward": LocationData(0000000, always_default, "Nuvema Town", has_number_of_species(25)),
+    "Nuvema Town - 60 pokémon seen reward": LocationData(0000000, always_default, "Nuvema Town", has_number_of_species(60)),
+    "Nuvema Town - 115 pokémon seen reward": LocationData(0000000, always_default, "Nuvema Town", has_number_of_species(115)),
+    "Route 18 - TM from sage Rood": LocationData(0000000, always_default, "Route 18", can_reach_region("Pokémon League")),
+    "Striaton City - TM from Fennel": LocationData(0000000, always_default, "Striaton City", None),
+    "Striaton Gym - TM reward": LocationData(0000000, always_default, "Striaton City", None),
+    "Dreamyard - TM from sage Gorm": LocationData(0000000, always_default, "Dreamyard South", None),
+    "Nacrene Gym - TM reward": LocationData(0000000, always_default, "Nacrene City", None),
+    "Pinwheel Forest Outside - TM from woman near Nacrene City": LocationData(0000000, always_default, "Pinwheel Forest Outside", None),
+    "Castelia City - TM from hiker in building in Castelia Street": LocationData(0000000, always_default, "Castelia City", None),
+    "Castelia City - TM from man in black behind dumpster": LocationData(0000000, always_default, "Castelia City", None),
+    "Castelia City - TM from school kid in building in northern street": LocationData(0000000, always_default, "Castelia City", None),
+    "Castelia City - TM from Mr. Lock in building in northern street": LocationData(0000000, always_default, "Castelia City", has_item("Lock Capsule")),
+    "Castelia Gym - TM reward": LocationData(0000000, always_default, "Castelia City", None),
+    "Route 4 - TM from worker in northern building": LocationData(0000000, always_default, "Route 4 North", None),
+    "Relic Castle - TM from sage Ryoku": LocationData(0000000, always_default, "Relic Castle Basement", None),
+    "Nimbasa City - TM from ace trainer in western building": LocationData(0000000, always_default, "Nimbasa City", None),
+    "Nimbasa Gym - TM reward": LocationData(0000000, always_default, "Nimbasa City", None),
+    "Nimbasa City - TM from lady in Musical Theater": LocationData(0000000, always_default, "Nimbasa City", None),
+    "Driftveil City - TM from Bianca": LocationData(0000000, always_default, "Driftveil City", None),
+    "Cold Storage Building - TM from sage Zinzolin": LocationData(0000000, always_default, "Cold Storage", can_reach_region("Pokémon League")),
+}

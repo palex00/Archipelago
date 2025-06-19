@@ -4,7 +4,7 @@ from ... import FlagLocationData, VarLocationData
 
 # How I decided the progress types:
 # I set always_default by default (pun not intended)
-# If the npc/... gives you a key item or TM/HM, it will be always_priority
+# If the npc/... gives you a progression key item, it will be always_priority
 # If accessibility is not always given, it will be always_excluded
 
 table: dict[str, FlagLocationData | VarLocationData] = {
@@ -12,18 +12,16 @@ table: dict[str, FlagLocationData | VarLocationData] = {
     "Driftveil City - Item from girl in pokémon center #1": LocationData(0000000, always_default, "Driftveil City", None),
     "Driftveil City - Item from girl in pokémon center #2": LocationData(0000000, always_default, "Driftveil City", None),
     "Driftveil City - Item from girl in pokémon center #3": LocationData(0000000, always_default, "Driftveil City", None),
-    "Driftveil City - TM from Bianca": LocationData(0000000, always_priority, "Driftveil City", None),
     "Driftveil City - Item from man in black in market": LocationData(0000000, always_default, "Driftveil City", None),
     # The lady is asking for a random TM move every day
     "Driftveil City - Daily item from lady asking for a pokémon knowing a TM move": LocationData(0000000, always_excluded, "Driftveil City", None),
     "Cold Storage - Item from worker": LocationData(0000000, always_default, "Cold Storage", None),
-    "Cold Storage Building - TM from sage Zinzolin": LocationData(0000000, always_priority, "Cold Storage", can_reach_region("Pokémon League")),
     "Route 6 - Item from ranger Shanti": LocationData(0000000, always_default, "Route 6", None),
     "Route 6 - Item from ranger Richard": LocationData(0000000, always_default, "Route 6", None),
     # All Deerling forms require playing through all seasons
     "Route 6 - Item from scientist for all Deerling forms": LocationData(0000000, always_excluded, "Route 6", has_species("Deerling")),
     "Route 6 - Item from child in western house": LocationData(0000000, always_default, "Route 6", None),
-    "": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
     "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
     "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
     "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
