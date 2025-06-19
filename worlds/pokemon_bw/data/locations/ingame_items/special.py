@@ -7,9 +7,13 @@ gym_badges: dict[str, FlagLocationData | VarLocationData] = {
     "Nacrene Gym - Badge reward": LocationData(0000000, always_priority, "Nacrene City", None),
     "Castelia Gym - Badge reward": LocationData(0000000, always_priority, "Castelia City", None),
     "Nimbasa Gym - Badge reward": LocationData(0000000, always_priority, "Nimbasa City", None),
+    "Driftveil Gym - Badge reward": LocationData(0000000, always_priority, "Driftveil City", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
 }
 
-tm_hm: dict[str, FlagLocationData | VarLocationData] = {
+tm_hm_ncps: dict[str, FlagLocationData | VarLocationData] = {
     "Nuvema Town - 25 pokémon seen reward": LocationData(0000000, always_default, "Nuvema Town", has_number_of_species(25)),
     "Nuvema Town - 60 pokémon seen reward": LocationData(0000000, always_default, "Nuvema Town", has_number_of_species(60)),
     "Nuvema Town - 115 pokémon seen reward": LocationData(0000000, always_default, "Nuvema Town", has_number_of_species(115)),
@@ -31,4 +35,20 @@ tm_hm: dict[str, FlagLocationData | VarLocationData] = {
     "Nimbasa City - TM from lady in Musical Theater": LocationData(0000000, always_default, "Nimbasa City", None),
     "Driftveil City - TM from Bianca": LocationData(0000000, always_default, "Driftveil City", None),
     "Cold Storage Building - TM from sage Zinzolin": LocationData(0000000, always_default, "Cold Storage", can_reach_region("Pokémon League")),
+    "Route 6 - TM from Clay": LocationData(0000000, always_default, "Route 6", None),
+    "Chargestone Cave - TM from sage Bronius": LocationData(0000000, always_default, "Chargestone Cave", can_reach_region("Pokémon League")),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
 }

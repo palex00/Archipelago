@@ -15,14 +15,17 @@ table: dict[str, FlagLocationData | VarLocationData] = {
     "Driftveil City - Item from man in black in market": LocationData(0000000, always_default, "Driftveil City", None),
     # The lady is asking for a random TM move every day
     "Driftveil City - Daily item from lady asking for a pokémon knowing a TM move": LocationData(0000000, always_excluded, "Driftveil City", None),
+    # Item becomes unavailable after defeating the gym
+    "Driftveil Gym - Gym guide item": LocationData(0000000, always_excluded, "Striaton City", None),
     "Cold Storage - Item from worker": LocationData(0000000, always_default, "Cold Storage", None),
     "Route 6 - Item from ranger Shanti": LocationData(0000000, always_default, "Route 6", None),
     "Route 6 - Item from ranger Richard": LocationData(0000000, always_default, "Route 6", None),
     # All Deerling forms require playing through all seasons
     "Route 6 - Item from scientist for all Deerling forms": LocationData(0000000, always_excluded, "Route 6", has_species("Deerling")),
     "Route 6 - Item from child in western house": LocationData(0000000, always_default, "Route 6", None),
-    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
-    "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
+    "Chargestone Cave - Item from Professor Juniper": LocationData(0000000, always_default, "Chargestone Cave", None),
+    "Chargestone Cave - Item from nugget brothers #1": LocationData(0000000, always_default, "Chargestone Cave", None),
+    "Chargestone Cave - Item from nugget brothers #2": LocationData(0000000, always_default, "Chargestone Cave", None),
     "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
     "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
     "AAAAAAAAAAAAAAAAAAA": LocationData(0000000, None, "AAAAAAAAAAAA", None),
