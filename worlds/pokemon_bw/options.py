@@ -368,22 +368,36 @@ class RandomizeTMHMCompatibility(OptionSet):
     default = []
 
 
-# randomize_badges: RandomizeBadges
-class RandomizeBadges(Choice):
+class ShuffleBadgeRewards(Choice):
     """
-    Randomizes the gym badges and restricts the gym leaders' items.
-    - **No** - Gym badges will stay at their vanilla locations.
-    - **Shuffle leaders** - Gym badges are shuffled between the gym leaders.
-    - **Leaders any badge** - Puts the badges into the item pool, while only allowing items that have the word "badge"
-                              in their name being placed at gym leaders.
-    - **Anywhere** - Gym badges can be anywhere and gym leaders can have any item.
+    Determines how gym badges are randomized and what items gym badge locations can have.
+    - **Vanilla** - Gym badges will stay at their vanilla locations.
+    - **Shuffle** - Gym badges are shuffled between the gym leaders.
+    - **Any badge** - Puts the badges into the item pool, while only allowing items that have the word "badge"
+                      in their name (which also applies to gym badges of other games/slots) being placed at gym leaders.
+    - **Anything** - Gym badges can be anywhere and gym leaders can give any item.
     """
-    display_name = "Randomize Badges"
-    option_no = 0
-    option_shuffle_leaders = 1
-    option_leaders_any_badge = 2
-    option_anywhere = 3
+    display_name = "Shuffle Badge Rewards"
+    option_vanilla = 0
+    option_shuffle = 1
+    option_any_badge = 2
+    option_anything = 3
     default = 1
+
+
+class ShuffleTMRewards(Choice):
+    """
+    Determines what items NPCs, who would normally give TMs or HMs, can have.
+    - **Shuffle** - These NPCs will always give a TM or HM from the same slot.
+    - **Any TM/HM** - These NPCs will give any item that have the word "TM" or "HM" followed by any numbers
+                      in their name (which also applies to TMs and HMs of other games/slots).
+    - **Anything** - No restrictions.
+    """
+    display_name = "Shuffle TM Rewards"
+    option_shuffle = 0
+    option_any_tm_hm = 1
+    option_anything = 2
+    default = 0
 
 
 class ShuffleRoadblockReqs(Toggle):
@@ -563,7 +577,8 @@ class PokemonBWOptions(PerGameCommonOptions):
     # randomize_tm_hm_compatibility: RandomizeTMHMCompatibility
 
     # Items, locations, and progression
-    randomize_badges: RandomizeBadges
+    shuffle_badges: ShuffleBadgeRewards
+    shuffle_tm_hm: ShuffleTMRewards
     # shuffle_roadblock_reqs: ShuffleRoadblockReqs
     # additional_roadblocks: AdditionalRoadblocks
     dexsanity: Dexsanity
