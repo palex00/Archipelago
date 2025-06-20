@@ -443,7 +443,22 @@ class Trainersanity(Range):
     display_name = "Trainersanity"
     default = 0
     range_start = 0
-    range_end = 1  # TODO need to count viable trainers in the game (e.g. Ghetsis and gym leaders are not viable)
+    range_end = 1  # TODO need to count trainers in the game
+
+
+class Seensanity(Range):
+    """
+    Adds a number of locations that can be checked by seeing a certain Pokémon species, which is marked in the pokédex.
+    The actual maximum number of added checks depends on what pokémon species are
+    actually observable in the wild or in trainer battles.
+
+    If you want to have all 649 possible checks, then you need to randomize wild
+    encounters and add the **Ensure all obtainable** modifier.
+    """
+    display_name = "Seensanity"
+    default = 0
+    range_start = 0
+    range_end = 649
 
 
 class DoorShuffle(OptionSet):
@@ -583,6 +598,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     # additional_roadblocks: AdditionalRoadblocks
     dexsanity: Dexsanity
     # trainersanity: Trainersanity
+    # seensanity: Seensanity
     # door shuffle: DoorShuffle
 
     # Miscellaneous
