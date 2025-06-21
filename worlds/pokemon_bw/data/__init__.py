@@ -35,8 +35,8 @@ class VarLocationData(NamedTuple):
     # global variables begin at 0x23bd30 (B) or 0x23bd50 (W)
     # global vars 0x4000-0x4081 have 1 byte, 0x4082+ have 2 bytes
     var_id: int
-    progress_type: ProgressTypeMethod
     checking_type: Callable[[int], bool]
+    progress_type: ProgressTypeMethod
     region: str
     rule: ExtendedRule | None
 

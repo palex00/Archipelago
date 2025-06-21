@@ -67,7 +67,7 @@ table: dict[str, FlagLocationData] = {
     "Battle Company - 47F item in lower-left corner": FlagLocationData(1211, always_default, "Castelia City", None),
     "Battle Company - 55F center item": FlagLocationData(1383, always_default, "Castelia City", None),
     # The following item has a special script
-    "Castelia City - Item in Plasma hideout": FlagLocationData(0000000, always_default, "Castelia City", None),
+    "Castelia City - Item in Plasma hideout": FlagLocationData(AAAAAA, always_default, "Castelia City", None),
     "Route 4 - South item": FlagLocationData(1155, always_default, "Route 4 South", None),
     "Route 4 - Item south west of parasol lady": FlagLocationData(1158, always_default, "Route 4 South", None),
     "Route 4 - Item north east of parasol lady": FlagLocationData(1248, always_default, "Route 4 South", None),
