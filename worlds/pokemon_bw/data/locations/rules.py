@@ -26,6 +26,10 @@ def has_any_item(*items: str) -> ExtendedRule:
     return lambda state, world: state.has_any(items, world.player)
 
 
+def has_all_items(*items: str) -> ExtendedRule:
+    return lambda state, world: state.has_all(items, world.player)
+
+
 def can_reach_region(region: str) -> ExtendedRule:
     return lambda state, world: (state.can_reach_region(region, world.player))
 
