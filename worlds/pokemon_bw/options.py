@@ -483,6 +483,22 @@ class DoorShuffle(OptionSet):
     default = []
 
 
+class SeasonControl(Choice):
+    """
+    Determines how seasons are handled by the game.
+    - **Vanilla** - Seasons are not randomized and change based on real time. Locations that depend on the season
+                    will only contain filler items.
+    - **Changeable** - The current season can be changed by an NPC next to the Pokémon Center in Nimbasa City.
+    - **Randomized** - All seasons are unlockable by items that get shuffled into the item pool. They can as well be
+                       changed by an NPC in Nimbasa City, with one season being unlocked from the beginning.
+    """
+    display_name = "Season Control"
+    option_vanilla = 0
+    option_changeable = 1
+    option_randomized = 2
+    default = 0
+
+
 class ExpModifier(Range):
     """
     Multiplies the experience received from defeating wild and trainer pokémon.
@@ -599,7 +615,8 @@ class PokemonBWOptions(PerGameCommonOptions):
     dexsanity: Dexsanity
     # trainersanity: Trainersanity
     # seensanity: Seensanity
-    # door shuffle: DoorShuffle
+    # door_shuffle: DoorShuffle
+    season_control: SeasonControl
 
     # Miscellaneous
     # exp_modifier: ExpModifier
