@@ -9,8 +9,8 @@ class Goal(Choice):
     - **Ghetsis** - Clear the main story by defeating Ghetsis
     - **Champion** - Become the champion by defeating Alder
     - **Cynthia** - Defeat Cynthia in Undella Town
-    - **Regional pokédex** - Complete the Unova pokédex
-    - **National pokédex** - Complete the national pokédex
+    - **Regional pokédex** - Complete the Unova pokédex (requires wild Pokémon being randomized) 
+    - **National pokédex** - Complete the national pokédex (requires wild Pokémon being randomized) 
     - **TM/HM hunt** - Get all TMs and HMs
     - **Seven Sages hunt** - Find the Seven Sages
     """
@@ -38,17 +38,15 @@ class GameVersion(Choice):
 class RandomizeWildPokemon(OptionSet):
     """
     Randomizes wild pokémon encounters.
-    - **Normalize areas** - Decreases the levels wild pokémon in postgame areas to make those viable for playthroughs.
-                            Does not require wild pokémon being randomized.
     - **Randomize** - Toggles wild pokémon being randomized. Required for any modifier below.
-    - **Ensure all obtainable** - Ensures that every pokémon species is obtainable by either catching or evolving.
+    - **Ensure all obtainable** - Ensures that every pokémon species is obtainable by either catching 
+                                  or evolving. This is automatically checked if **National pokédex** is chosen as the goal. 
     - **Similar base stats** - Tries to keep every randomized pokémon at a similar base stat total as the replaced encounter.
     - **Type themed** - Makes every pokémon in an area have a certain same type.
     - **Area 1-to-1** - Keeps the amount of different encounters and their encounter rate in every area.
     """
     display_name = "Randomize Wild Pokémon"
     valid_keys = [
-        "Normalize areas",
         "Randomize",
         "Ensure all obtainable",
         "Similar base stats",
@@ -61,8 +59,6 @@ class RandomizeWildPokemon(OptionSet):
 class RandomizeTrainerPokemon(OptionSet):
     """
     Randomizes trainer pokémon.
-    - **Normalize areas** - Decreases the levels of trainers in postgame areas to make those viable for playthroughs.
-                            Does not affect Cynthia. Does not require trainer pokémon being randomized.
     - **Randomize** - Toggles trainer pokémon being randomized. Required for any modifier below.
     - **Similar base stats** - Tries to keep the randomized pokémon at a similar base stat total as the replaced one.
     - **Type themed** - All pokémon of a trainer have to share at least one randomly chosen type.
@@ -71,13 +67,12 @@ class RandomizeTrainerPokemon(OptionSet):
     """
     display_name = "Randomize Trainer Pokémon"
     valid_keys = [
-        "Normalize areas",
         "Randomize",
         "Similar base stats",
         "Type themed",
         "Themed gym trainers",
     ]
-    default = ["Normalize areas", "Randomize", "Themed gym trainers"]
+    default = ["Randomize", "Themed gym trainers"]
 
 
 class RandomizeStarterPokemon(OptionSet):
@@ -499,6 +494,22 @@ class SeasonControl(Choice):
     default = 0
 
 
+class NormalizeLevels(OptionSet):
+    """
+    Adjusts the levels of wild and trainer pokémon in postgame areas and surfing/fishing encounters 
+    to similar levels in surrounding areas (regardless of randomization).
+
+    - **Wild** - Normalizes wild pokémon levels, including surfing and fishing encounters. 
+    - **Trainer** - Normalizes trainer pokémon levels (except Cynthia). 
+    """
+    display_name = "Normalize levels"
+    valid_keys = [
+        "Wild",
+        "Trainer",
+    ]
+    default = ["Wild", "Trainer"]
+
+
 class ExpModifier(Range):
     """
     Multiplies the experience received from defeating wild and trainer pokémon.
@@ -619,6 +630,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     season_control: SeasonControl
 
     # Miscellaneous
+    normalize_levels: NormalizeLevels
     # exp_modifier: ExpModifier
     # all_pokemon_seen: AllPokemonSeen
     # add_fairy_type: AddFairyType
