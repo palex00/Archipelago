@@ -500,7 +500,7 @@ class NormalizeLevels(OptionSet):
     to similar levels in surrounding areas (regardless of randomization).
 
     - **Wild** - Normalizes wild pokémon levels, including surfing and fishing encounters. 
-    - **Trainer** - Normalizes trainer pokémon levels (except Cynthia). 
+    - **Trainer** - Normalizes trainer pokémon levels, excluding Cynthia. 
     """
     display_name = "Normalize levels"
     valid_keys = [
@@ -524,7 +524,7 @@ class ExpModifier(Range):
 
 class AllPokemonSeen(Toggle):
     """
-    Marks all pokémon in the pokédex as seen (including all forms, except shinies).
+    Marks all pokémon in the pokédex (that do not have a Seensanity check) as seen (including all forms, except shinies). This could possibly have no effect under certain circumstances. 
     """
     display_name = "All Pokémon Seen"
     default = False
@@ -572,7 +572,7 @@ class UselessKeyItems(Toggle):
 
 class FunnyDialogue(Toggle):
     """
-    Adds humorous dialogue submitted by the folks in the Pokèmon Black and White thread of the Archipelago Discord server
+    Adds humorous dialogue submitted by the folks in the Pokémon Black and White thread of the Archipelago Discord server. 
     """
     display_name = "FunnyDialogue"
     default = 0
@@ -580,7 +580,7 @@ class FunnyDialogue(Toggle):
 
 class ReusableTMs(Choice):
     """
-    Enables reusable TMs, allowing for the reuse of TMs
+    Enables reusable TMs, allowing for the reuse of TMs. 
     """
     display_name = "ReusableTMs"
     default = 0
