@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
-from Options import (Choice, PerGameCommonOptions, OptionSet, Range, Toggle, OptionCounter)
+from Options import (Choice, PerGameCommonOptions, OptionSet, Range, Toggle, OptionCounter,
+                     PlandoTexts, OptionError)
 
 
 class Goal(Choice):
@@ -544,6 +545,31 @@ class AddFairyType(Choice):
     default = 0
 
 
+class ReplaceEvoMethods(OptionSet):
+    """
+    Replaces certain vanilla evolution methods with other methods that are easier to achieve.
+    This also excludes them from randomized evolutions.
+    Trade and time based evolutions are always replaced/excluded.
+
+    - **Locations** - Replaces evolutions requiring a magnetic place, the ice rock, or the mossy rock
+                      with using a thunder stone, using a leaf stone, and leveling up with a held casteliacone.
+    - **Friendship** - Replaces friendship based evolutions with level up evolutions.
+    - **PID** - Replaces personality value based evolutions. Gender dependant evolutions lose their gender dependency,
+                Wurmple's random evolutions will require a Butterfree/Venomoth in your party, and Burmy will also evolve
+                into Mothim while having a Venomoth in your party. Be aware that this can lead to affected pokémon
+                changing their gender when evolved.
+    - **Stats** - Replaces Tyrogue's stat based evolutions with level up while holding a protein, iron, or carbos.
+    """
+    display_name = "Replace Evolution Methods"
+    valid_keys = [
+        "Locations",
+        "Friendship",
+        "PID",
+        "Stats",
+    ]
+    default = []
+
+
 class WonderTrade(Toggle):
     """
     Enables pokémon being sent to and received from the datastorage wonder trade protocol.
@@ -574,15 +600,56 @@ class FunnyDialogue(Toggle):
     """
     Adds humorous dialogue submitted by the folks in the Pokémon Black and White thread of the Archipelago Discord server. 
     """
-    display_name = "FunnyDialogue"
+    display_name = "Funny Dialogue"
     default = 0
+
+
+class PokemonBWTextPlando(PlandoTexts):
+    """
+    Replaces specified text lines. Every entry follows the following format:
+    ```
+    - text: 'This is your text'
+      at: text_key
+      percentage: 100
+    ```
+    Refer to the Text Plando guide of this game for further information.
+    """
+    display_name = "Text Plando"
+    default = [
+        ("story 160 7", "[vMisc_0] received [vPkmn_1]![NextLine] Congratulations![Terminate]", 100),
+        ("system 172 1", "Huh? Why did you press the[NextLine]B button?[Terminate]", 100),
+    ]
+
+    def verify_keys(self) -> None:
+        invalid = []
+        for word in self:
+            parts = word.at.casefold().split()
+            reasons = []
+            if len(parts) < 3:
+                reasons.append("Not enough arguments")
+            if len(parts) > 3:
+                reasons.append("Too many arguments")
+            if parts[0] not in ("system", "story"):
+                reasons.append("Unknown module")
+            if not parts[1].isalnum():
+                reasons.append("File index is not a number")
+            if not parts[2].isalnum():
+                reasons.append("Line index is not a number")
+            if reasons:
+                invalid.append((" ".join(parts), reasons))
+        if invalid:
+            raise OptionError(
+                f"Invalid \"at\" placement{"s" if len(invalid) > 1 else ""} in {getattr(self, 'display_name', self)}:\n"
+                "\n".join((f"{entry[0]}: {", ".join(entry[1])}" for entry in invalid)) +
+                "\nRefer to the Text Plando guide of this game for further information."
+            )
 
 
 class ReusableTMs(Choice):
     """
     Enables reusable TMs, allowing for the reuse of TMs. 
     """
-    display_name = "ReusableTMs"
+    display_name = "Reusable TMs"
     default = 0
     option_on = 0
     option_yes = 1
@@ -634,9 +701,11 @@ class PokemonBWOptions(PerGameCommonOptions):
     # exp_modifier: ExpModifier
     # all_pokemon_seen: AllPokemonSeen
     # add_fairy_type: AddFairyType
+    # replace_evo_methods: ReplaceEvoMethods
     # deathlink: DeathLink  # Needs to be imported from base options
     # wonder_trade: WonderTrade
     # traps_percentage: TrapsPercentage
     useless_key_items: UselessKeyItems
     # funny_dialogue: FunnyDialogue
+    # text_plando: TextPlando
     reusable_tms: ReusableTMs
