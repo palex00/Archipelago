@@ -697,7 +697,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     season_control: SeasonControl
 
     # Miscellaneous
-    normalize_levels: NormalizeLevels
+    # normalize_levels: NormalizeLevels
     # exp_modifier: ExpModifier
     # all_pokemon_seen: AllPokemonSeen
     # add_fairy_type: AddFairyType
