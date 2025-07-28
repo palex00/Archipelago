@@ -2,12 +2,20 @@ from typing import NamedTuple, Callable, Literal
 
 from BaseClasses import ItemClassification, LocationProgressType, CollectionState
 from .. import PokemonBWWorld
-from ..options import PokemonBWOptions
 
 
 ExtendedRule: type = Callable[[CollectionState, PokemonBWWorld], bool]
-ClassificationMethod: type = Callable[[PokemonBWOptions, PokemonBWWorld], ItemClassification]
-ProgressTypeMethod: type = Callable[[PokemonBWOptions, PokemonBWWorld], LocationProgressType]
+ClassificationMethod: type = Callable[[PokemonBWWorld], ItemClassification]
+ProgressTypeMethod: type = Callable[[PokemonBWWorld], LocationProgressType]
+
+# TODO calc offset and move to client dir
+data_address_address = 0x000024
+var_offset = 0
+flags_offset = 0
+dex_offset = 0
+key_items_bag_offset = 0
+other_items_offset = 0
+badges_offset = 0
 
 
 class ItemData(NamedTuple):
@@ -19,7 +27,14 @@ class ItemData(NamedTuple):
 
 
 class BadgeItemData(NamedTuple):
+    id: int
     bit: int
+    classification: ClassificationMethod
+
+
+class SeasonItemData(NamedTuple):
+    id: int
+    flag_id: int
     classification: ClassificationMethod
 
 
@@ -32,8 +47,9 @@ class FlagLocationData(NamedTuple):
 
 
 class VarLocationData(NamedTuple):
-    # global variables begin at 0x23bd30 (B) or 0x23bd50 (W)
-    # global vars 0x4000-0x4081 have 1 byte, 0x4082+ have 2 bytes
+    # global variables (0x4000+) begin at 0x23bcac (B) or 0x23bccc (W)
+    # and end at 0x23bf26 (B) or 0x23be09 (W)
+    # and have 2 bytes each
     var_id: int
     checking_type: Callable[[int], bool]
     progress_type: ProgressTypeMethod
