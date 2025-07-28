@@ -63,6 +63,48 @@ can_use_dive: ExtendedRule = lambda state, world: (
     and state.has_any(world.dive_species, world.player)
 )
 
+can_use_surf_or_strength: ExtendedRule = lambda state, world: (
+    (
+        state.has("HM03 Surf", world.player)
+        and state.has_any(world.surf_species, world.player)
+    ) or (
+        state.has("HM04 Strength", world.player)
+        and state.has_any(world.strength_species, world.player)
+    )
+)
+
+
+# Season requirements
+
+can_set_winter: ExtendedRule = lambda state, world: (
+    True if world.options.SeasonControl == "vanilla" else (
+        state.can_reach_region("Nimbasa City", world.player) if world.options.SeasonControl == "changeable" else (
+            state.can_reach_region("Nimbasa City", world.player)
+            and state.has("Winter", world.player)
+        )
+    )
+)
+
+can_set_other_than_winter: ExtendedRule = lambda state, world: (
+    True if world.options.SeasonControl == "vanilla" else (
+        state.can_reach_region("Nimbasa City", world.player) if world.options.SeasonControl == "changeable" else (
+            state.can_reach_region("Nimbasa City", world.player)
+            and state.has_any(("Spring", "Summer", "Autumn"), world.player)
+        )
+    )
+)
+
+can_catch_all_deerlings: ExtendedRule = lambda state, world: (
+    state.has("Deerling", world.player) and (
+        True if world.options.SeasonControl == "vanilla" else (
+            state.can_reach_region("Nimbasa City", world.player) if world.options.SeasonControl == "changeable" else (
+                state.can_reach_region("Nimbasa City", world.player)
+                and state.has_all(("Spring", "Summer", "Autumn", "Winter"), world.player)
+            )
+        )
+    )
+)
+
 
 # Miscellaneous requirements
 

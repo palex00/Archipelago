@@ -78,8 +78,7 @@ region_list: set[str] = {
     "Lacunosa Town",
     "Route 12",
     "Village Bridge",
-    "Route 11 Road",
-    "Route 11 Ravine",  # down the waterfall
+    "Route 11",
     # Northern Unova
     "Opelucid City",
     "Route 10",
