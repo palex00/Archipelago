@@ -1,19 +1,21 @@
-### Developers
+### Contributors
 
 BlastSlimey
 
 SparkyDaDoggo / Eevee658
 
+Various users in the #future-game-design thread
+
 ### Resources
 
 Bulbapedia (various contributors)
 
-Action Replay cheat codes (various/unknown contributors)
+Action Replay cheat codes (various contributors)
 
 Various other APWorlds as references
 
 CTRMap & CTRMapV (HelloOO7)
 
-The DS Pokémon Hacking community
+DS Modding Community & Kingdom of DS Hacking
 
 FrostsGen5Editor (FrostFalcon)

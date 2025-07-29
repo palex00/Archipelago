@@ -54,21 +54,27 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
   - Happiny to Chansey at level up while an oval stone (at any time)
   - Budew to Roselia, Chingling to Chimeco, and Riolu to Lucario at level up with high friendship (at any time)
 - Added an NPC to Nimbasa City that can change the weather (if `Season Control` is not `vanilla`)
+- Added an NPC to Castelia City that checks for the completion of the TM/HM hunt goal
 - Added an NPC to Accumula Town that resets static encounters (including gift and trade encounters)
+- Made certain events requiring a specific pokémon in your party accept any pokémon of that species
+  - Obtaining Zorua / Zoroark using any Celebi / Entei, Raikou, and Suicune
+  - Receiving an item in Lacunosa Town / P2 Laboratory for showing any Shaymin / Genesect
+- Made certain time based events available all the time
   - The Musharna at Dreamyard now appears every day instead of only on Friday
   - The Munchlax trade in Undella Town is now available during all seasons
-- Made Zorua / Zoroark obtainable using any Celebi / Entei, Raikou, and Suicune
-- TODO Added NPC to Castelia City that checks for the completion of the TM/HM hunt goal
+  - Time based items in Lacunosa Town and Café Warehouse are now obtainable all the time
+- Prevented gym events from being disabled when beating the gym leader
+- The grunt at Pokémon League teleporting you to N's castle now stays even after defeating Ghetsis
+  - This also makes the fights against N and Ghetsis repeatable
 
 #### Technicalities
 - Removed some ItemSub commands (to not lose key items)
 - Changed most HasBadge and AddBadge commands to checking and setting a custom flag
 - Changed certain items' data
   - Unused key items and the Rage Candy Bar are now permanently in your bag
-  - TODO also fossils
 - Added badges, seasons, and "AP Item" as virtual items, i.e. you can collect them, but they won't go into your bag
-  - TODO Add season items to rom and apworld
-- TODO change all field item, hidden item, and npc items to giving the AP Item
+- Changed all overworld and hidden items to give "AP Item" instead of their vanilla items
+  - TODO npc
 
 ### APWorld
 
