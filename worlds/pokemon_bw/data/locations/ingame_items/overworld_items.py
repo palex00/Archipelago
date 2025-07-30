@@ -124,7 +124,7 @@ table: dict[str, FlagLocationData] = {
     "Chargestone Cave - B2F north east item": FlagLocationData(1142, always_default, "Chargestone Cave", None),
     "Chargestone Cave - B2F south east item": FlagLocationData(1403, always_default, "Chargestone Cave", None),
     "Chargestone Cave - B2F south west item": FlagLocationData(1404, always_default, "Chargestone Cave", None),
-    "Mistralton City - Appearing item at south end of runway": FlagLocationData(181, always_default, "Mistralton City", None),
+    "Mistralton City - Appearing item at south end of runway": FlagLocationData(181, always_default, "Mistralton City", None),  # TODO set 0x80
     "Mistralton City - Item near south plane": FlagLocationData(1263, always_default, "Mistralton City", None),
     "Route 7 - South item": FlagLocationData(1174, always_default, "Route 7", None),
     "Route 7 - Item south of Celestial Tower": FlagLocationData(1175, always_default, "Route 7", None),
@@ -240,7 +240,7 @@ table: dict[str, FlagLocationData] = {
     "Route 13 - Item near northern ledges": FlagLocationData(1207, always_default, "Route 13", can_use_cut),
     "Route 13 - Item near stairs to Giant Chasm": FlagLocationData(1200, always_default, "Route 13", can_use_surf),
     "Route 13 - Item on cliff near bridges #1": FlagLocationData(1209, always_default, "Route 13", None),
-    "Route 13 - Item on cliff near bridges #2": FlagLocationData(763, always_default, "Route 13", None),
+    "Route 13 - Item on cliff near bridges #2": FlagLocationData(763, always_default, "Route 13", None),  # TODO set 0x80
     "Route 13 - Item on cliff behind boulder": FlagLocationData(1210, always_default, "Route 13", can_use_strength),
     "Route 13 - South item": FlagLocationData(1381, always_default, "Route 13", can_use_cut),
     "Route 13 - Item in shallow water": FlagLocationData(1208, always_default, "Route 13", can_use_surf),

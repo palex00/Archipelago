@@ -1,7 +1,7 @@
 from ..rules import *
 from ..progress_type import *
 from ..checking_type import *
-from ... import FlagLocationData, VarLocationData
+from ... import FlagLocationData
 
 gym_badges: dict[str, FlagLocationData] = {
     "Striaton Gym - Badge reward": FlagLocationData(0x172, always_priority, "Striaton City", None),
@@ -14,21 +14,21 @@ gym_badges: dict[str, FlagLocationData] = {
     "Opelucid Gym - Badge reward": FlagLocationData(0x179, always_priority, "Opelucid City", None),
 }
 
-tm_hm_ncps: dict[str, FlagLocationData | VarLocationData] = {
+tm_hm_ncps: dict[str, FlagLocationData] = {
     "Nuvema Town - TM from Professor Juniper for seeing 25 species": FlagLocationData(174, always_default, "Nuvema Town", has_number_of_species(25)),  #
     "Nuvema Town - TM from Professor Juniper for seeing 60 species": FlagLocationData(175, always_default, "Nuvema Town", has_number_of_species(60)),  #
     "Nuvema Town - TM from Professor Juniper for seeing 115 species": FlagLocationData(176, always_default, "Nuvema Town", has_number_of_species(115)),  #
     "Route 18 - TM from sage Rood": FlagLocationData(0x186, always_default, "Route 18", can_reach_region("Pokémon League")),  #
-    "Striaton City - TM from Fennel": VarLocationData(0x4086, value_greater_than(0), always_default, "Striaton City", None),  #
+    "Striaton City - TM from Fennel": FlagLocationData(0x18D, always_default, "Striaton City", None),  #
     "Striaton Gym - TM reward": FlagLocationData(0x172, always_default, "Striaton City", None),  #
-    "Dreamyard - TM from sage Gorm": LocationData(0000000, always_default, "Dreamyard South", None),  # TODO
-    "Nacrene Gym - TM reward": FlagLocationData(0x173, always_default, "Nacrene City", None),  #TODO
-    "Pinwheel Forest Outside - TM from woman near Nacrene City": LocationData(0000000, always_default, "Pinwheel Forest Outside", None),  # TODO
-    "Castelia City - TM from hiker in building in Castelia Street": LocationData(0000000, always_default, "Castelia City", None),  # TODO
-    "Castelia City - TM from man in black behind dumpster": LocationData(0000000, always_default, "Castelia City", None),  # TODO
-    "Castelia City - TM from school kid in building in northern street": LocationData(0000000, always_default, "Castelia City", None),  # TODO
-    "Castelia City - TM from Mr. Lock in building in northern street": LocationData(0000000, always_default, "Castelia City", has_item("Lock Capsule")),  # TODO
-    "Castelia Gym - TM reward": FlagLocationData(0x174, always_default, "Castelia City", None),  #TODO
+    "Dreamyard - TM from sage Gorm": FlagLocationData(0x19A, always_default, "Dreamyard South", None),  #
+    "Nacrene Gym - TM reward": FlagLocationData(0x173, always_default, "Nacrene City", None),  #
+    "Pinwheel Forest Outside - TM from woman near Nacrene City": FlagLocationData(271, always_default, "Pinwheel Forest Outside", None),  #
+    "Castelia City - TM from hiker in building in Castelia Street": FlagLocationData(265, always_default, "Castelia City", None),  #
+    "Castelia City - TM from man in black behind dumpster": FlagLocationData(0x197, always_default, "Castelia City", None),  #
+    "Castelia City - TM from school kid in building in northern street": FlagLocationData(270, always_default, "Castelia City", None),  #
+    "Castelia City - TM from Mr. Lock in building in northern street": FlagLocationData(308, always_default, "Castelia City", has_item("Lock Capsule")),  #
+    "Castelia Gym - TM reward": FlagLocationData(0x174, always_default, "Castelia City", None),  #
     "Route 4 - TM from worker in northern building": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
     "Relic Castle - TM from sage Ryoku": LocationData(0000000, always_default, "Relic Castle Basement", None),  # TODO
     "Nimbasa City - TM from ace trainer in western building": LocationData(0000000, always_default, "Nimbasa City", None),  # TODO
