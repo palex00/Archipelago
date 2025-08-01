@@ -73,8 +73,8 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 - Changed certain items' data
   - Unused key items and the Rage Candy Bar are now permanently in your bag
 - Added badges, seasons, and "AP Item" as virtual items, i.e. you can collect them, but they won't go into your bag
-- Changed all overworld and hidden items to give "AP Item" instead of their vanilla items
-  - TODO npc
+- Changed all overworld, hidden, and npc items to give "AP Item" instead of their vanilla items
+- Added a debug menu to the PC help menu
 
 ### APWorld
 

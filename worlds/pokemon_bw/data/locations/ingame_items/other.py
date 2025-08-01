@@ -21,8 +21,8 @@ table: dict[str, FlagLocationData] = {
     "Route 1 - Item from ranger Brenda": FlagLocationData(1420+531, always_default, "Route 1 West", None),  #
     "Route 1 - Item from ranger Claude": FlagLocationData(1420+532, always_default, "Route 1 West", None),  #
     # Requires pokémon being randomized
-    # "P2 Laboratory - Item #1 from scientist": LocationData(0000000, always_default, "P2 Laboratory", has_species("Genesect")),  #
-    # "P2 Laboratory - Item #2 from scientist": LocationData(0000000, always_default, "P2 Laboratory", has_species("Genesect")),  #
+    # "P2 Laboratory - Item #1 from scientist": FlagLocationData(0000000, always_default, "P2 Laboratory", has_species("Genesect")),  # TODO
+    # "P2 Laboratory - Item #2 from scientist": FlagLocationData(0000000, always_default, "P2 Laboratory", has_species("Genesect")),  # TODO
     "Accumula Town - Item from man in north west building": FlagLocationData(109, always_default, "Accumula Town", None),  #
     "Striaton City - Item from man in south east building": FlagLocationData(111, always_default, "Striaton City", None),  #
     "Striaton City - Item from roughneck": FlagLocationData(189, always_default, "Striaton City", None),  #
@@ -57,12 +57,12 @@ table: dict[str, FlagLocationData] = {
     "Castelia City - Item from scientist at Thumb Pier": FlagLocationData(269, always_default, "Castelia City", None),  # 
     # The following locations involve trading and I don't know yet how to handle them
     # Not changing the script
-    # "Castelia City Pokémon Center - Item by man in black for 5 different IDs": LocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
-    # "Castelia City Pokémon Center - Item by man in black for 10 different IDs": LocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
-    # "Castelia City Pokémon Center - Item by man in black for 20 different IDs": LocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
-    # "Castelia City Pokémon Center - Item by man in black for 30 different IDs": LocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
-    # "Castelia City Pokémon Center - Item by man in black for 40 different IDs": LocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
-    # "Castelia City Pokémon Center - Item by man in black for 50 different IDs": LocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
+    # "Castelia City Pokémon Center - Item by man in black for 5 different IDs": FlagLocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
+    # "Castelia City Pokémon Center - Item by man in black for 10 different IDs": FlagLocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
+    # "Castelia City Pokémon Center - Item by man in black for 20 different IDs": FlagLocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
+    # "Castelia City Pokémon Center - Item by man in black for 30 different IDs": FlagLocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
+    # "Castelia City Pokémon Center - Item by man in black for 40 different IDs": FlagLocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
+    # "Castelia City Pokémon Center - Item by man in black for 50 different IDs": FlagLocationData(0000000, always_excluded, "Castelia City", AAAAAA),  #
     "Battle Company - 47F item from clerk #1": FlagLocationData(266, always_default, "Castelia City", None),  #
     "Battle Company - 47F item from clerk #2": FlagLocationData(266, always_default, "Castelia City", None),  #
     "Battle Company - 47F item from clerk #3": FlagLocationData(266, always_default, "Castelia City", None),  #
@@ -77,133 +77,136 @@ table: dict[str, FlagLocationData] = {
     "Castelia City - Item from dancers": FlagLocationData(0x196, always_default, "Castelia City", None),  #
     "Castelia City - Item from scientist in building in northern street": FlagLocationData(328, always_default, "Castelia City", has_number_of_species(25)),  #
     # The rom editor cannot decompile the script for the Passerby Analytics HQ properly
-    # "Passerby Analytics HQ - Item for answering all questionnaires": LocationData(0000000, always_default, "Castelia City", None),  #
+    # "Passerby Analytics HQ - Item for answering all questionnaires": FlagLocationData(0000000, always_default, "Castelia City", None),  #
     # I think this one requires connecting with other save files too
     # Not changing the script
-    # "Passerby Analytics HQ - Item for completing all survey requests": LocationData(0000000, always_default, "Castelia City", None),  #
+    # "Passerby Analytics HQ - Item for completing all survey requests": FlagLocationData(0000000, always_default, "Castelia City", None),  #
     "Castelia Gym - Gym guide item": FlagLocationData(120, always_default, "Castelia City", None),  #
     "Royal Unova - Item for defeating every trainer": FlagLocationData(0x198, always_default, "Castelia City", can_reach_region("Pokémon League")),  #
-    "Route 4 - Item from Professor Juniper #1": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
-    "Route 4 - Item from Professor Juniper #2": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
-    "Route 4 - Item from Professor Juniper #3": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
-    "Route 4 - Item from Professor Juniper #4": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
-    "Route 4 - Item from Professor Juniper #5": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
-    "Route 4 - Item from Professor Juniper #6": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
-    "Route 4 - Item from Professor Juniper #7": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
-    "Route 4 - Item from Professor Juniper #8": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
-    "Route 4 - Item from Professor Juniper #9": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
-    "Route 4 - Item from Professor Juniper #10": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
-    "Desert Resort - Item from man in black": LocationData(0000000, always_default, "Desert Resort", None),  # TODO
-    "Desert Resort - Item from ranger Mylene": LocationData(0000000, always_default, "Desert Resort", None),  # TODO
-    "Desert Resort - Item from ranger Jaden": LocationData(0000000, always_default, "Desert Resort", None),  # TODO
-    "Desert Resort - Item from Professor Juniper": LocationData(0000000, always_default, "Desert Resort", can_reach_region("Pokémon League")),  # TODO
-    "Relic Castle - 1F castleside item from backpacker": LocationData(0000000, always_default, "Relic Castle Entrance", None),  # TODO
-    "Nimbasa City - Item from Day-Care man": LocationData(0000000, always_default, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from socialite in western building": LocationData(0000000, always_default, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from ace trainer exiting battle subway": LocationData(0000000, always_default, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from ace trainer in another western building": LocationData(0000000, always_default, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from man in eastern gate": LocationData(0000000, always_default, "Nimbasa City", None),  # TODO
-    "Nimbasa Gym - Gym guide item": LocationData(0000000, always_default, "Nimbasa City", None),  # TODO
+    "Route 4 - Item from Professor Juniper #1": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
+    "Route 4 - Item from Professor Juniper #2": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
+    "Route 4 - Item from Professor Juniper #3": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
+    "Route 4 - Item from Professor Juniper #4": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
+    "Route 4 - Item from Professor Juniper #5": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
+    "Route 4 - Item from Professor Juniper #6": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
+    "Route 4 - Item from Professor Juniper #7": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
+    "Route 4 - Item from Professor Juniper #8": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
+    "Route 4 - Item from Professor Juniper #9": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
+    "Route 4 - Item from Professor Juniper #10": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
+    "Desert Resort - Item from man in black": FlagLocationData(276, always_default, "Desert Resort", None),  #
+    "Desert Resort - Item from ranger Mylene": FlagLocationData(1420+549, always_default, "Desert Resort", None),  #
+    "Desert Resort - Item from ranger Jaden": FlagLocationData(1420+550, always_default, "Desert Resort", None),  #
+    "Desert Resort - Item from Professor Juniper": FlagLocationData(0x19C, always_default, "Desert Resort", can_reach_region("Pokémon League")),  #
+    "Relic Castle - 1F castleside item from backpacker": FlagLocationData(145, always_default, "Relic Castle Entrance", None),  #
+    "Nimbasa City - Item from Day-Care man": FlagLocationData(153, always_default, "Nimbasa City", None),  #
+    "Nimbasa City - Item from socialite in western building": FlagLocationData(366, always_default, "Nimbasa City", None),  #
+    "Nimbasa City - Item from ace trainer exiting battle subway": FlagLocationData(0x19E, always_default, "Nimbasa City", None),  #
+    "Nimbasa City - Item from ace trainer in another western building": FlagLocationData(273, always_default, "Nimbasa City", None),  #
+    "Nimbasa City - Item from man in eastern gate": FlagLocationData(367, always_default, "Nimbasa City", None),  #
+    "Nimbasa Gym - Gym guide item": FlagLocationData(121, always_default, "Nimbasa City", None),  #
     # Following trainers are said to appear randomly each day in big stadium or small court
-    "Nimbasa City - Item from waiter Clint": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from waitress Bonita": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from nurse Kirsten": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from doctor Jules": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from baker Lilly": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from scientist Simon": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from scientist Blythe": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from ace trainer Lucille": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from ace trainer Charlie": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from veteran Arlen": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from veteran Sayuri": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from nursery Aide Leah": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from youngster Kevin": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from lass Dana": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from backpacker Alexander": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from backpacker Patty": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from socialite Emilia": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from gentleman Renaud": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
+    "Nimbasa City - Item from waiter Clint": FlagLocationData(1420+363, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from waitress Bonita": FlagLocationData(1420+364, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from nurse Kirsten": FlagLocationData(1420+385, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from doctor Jules": FlagLocationData(1420+384, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from baker Lilly": FlagLocationData(1420+377, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from scientist Simon": FlagLocationData(1420+365, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from scientist Blythe": FlagLocationData(1420+366, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from ace trainer Lucille": FlagLocationData(1420+357, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from ace trainer Charlie": FlagLocationData(1420+358, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from veteran Arlen": FlagLocationData(1420+359, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from veteran Sayuri": FlagLocationData(1420+360, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from nursery aide Leah": FlagLocationData(1420+378, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from youngster Kevin": FlagLocationData(1420+147, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from lass Dana": FlagLocationData(1420+354, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from backpacker Alexander": FlagLocationData(1420+383, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from backpacker Patty": FlagLocationData(1420+382, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from socialite Emilia": FlagLocationData(1420+369, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from gentleman Renaud": FlagLocationData(1420+370, always_excluded, "Nimbasa City", None),  #
     # Following items require such an amount of effort that having important items here might be a problem
-    "Battle Subway - Item from janitor on non-super platforms for 21 consecutive wins": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Battle Subway - Item from artist on super platforms for 21 consecutive wins": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Battle Subway - Item from ace trainer on super platforms for 28 consecutive wins": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Battle Subway - Item from clerk on super platforms for 105 consecutive wins": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Battle Subway - Item from ace trainer on super platforms for 203 consecutive wins": LocationData(0000000, always_excluded, "Nimbasa City", None),  # TODO
-    "Nimbasa City - Item from Musical Theater owner": LocationData(0000000, always_default, "Nimbasa City", None),  # TODO
-    "Anville Town - Item from depot agent on first visit": LocationData(0000000, always_default, "Anville Town", None),  # TODO
-    "Driftveil City - Item from man for seeing more than 50 pokémon": LocationData(0000000, always_default, "Driftveil City", has_number_of_species(51)),  # TODO
-    "Driftveil City - Item from girl in pokémon center #1": LocationData(0000000, always_default, "Driftveil City", None),  # TODO
-    "Driftveil City - Item from girl in pokémon center #2": LocationData(0000000, always_default, "Driftveil City", None),  # TODO
-    "Driftveil City - Item from girl in pokémon center #3": LocationData(0000000, always_default, "Driftveil City", None),  # TODO
-    "Driftveil City - Item from man in black in market": LocationData(0000000, always_default, "Driftveil City", None),  # TODO
+    # Also, the script doesn't decompile properly
+    # "Battle Subway - Item from janitor on non-super platforms for 21 consecutive wins": FlagLocationData(0000000, always_excluded, "Nimbasa City", None),  #
+    # "Battle Subway - Item from artist on super platforms for 21 consecutive wins": FlagLocationData(0000000, always_excluded, "Nimbasa City", None),  #
+    # "Battle Subway - Item from ace trainer on super platforms for 28 consecutive wins": FlagLocationData(0000000, always_excluded, "Nimbasa City", None),  #
+    # "Battle Subway - Item from clerk on super platforms for 105 consecutive wins": FlagLocationData(0000000, always_excluded, "Nimbasa City", None),  #
+    # "Battle Subway - Item from ace trainer on super platforms for 203 consecutive wins": FlagLocationData(0000000, always_excluded, "Nimbasa City", None),  #
+    "Nimbasa City - Item from Musical Theater owner": FlagLocationData(0x19F, always_default, "Nimbasa City", None),  #
+    "Anville Town - Item from depot agent on first visit": FlagLocationData(323, always_default, "Anville Town", None),  #
+    "Driftveil City - Item from man for seeing more than 50 pokémon": FlagLocationData(264, always_default, "Driftveil City", has_number_of_species(51)),  #
+    "Driftveil City - Item from girl in pokémon center #1": FlagLocationData(147, always_default, "Driftveil City", None),  #
+    "Driftveil City - Item from girl in pokémon center #2": FlagLocationData(147, always_default, "Driftveil City", None),  #
+    "Driftveil City - Item from girl in pokémon center #3": FlagLocationData(147, always_default, "Driftveil City", None),  #
+    "Driftveil City - Item from man in black in market": FlagLocationData(365, always_default, "Driftveil City", None),  #
     # That lady is asking for a random TM move every day
-    "Driftveil City - Item from lady asking for a pokémon knowing a certain TM move": LocationData(0000000, always_excluded, "Driftveil City", None),  # TODO
-    "Driftveil Gym - Gym guide item": LocationData(0000000, always_default, "Driftveil City", None),  # TODO
-    "Cold Storage - Item from worker": LocationData(0000000, always_default, "Cold Storage", None),  # TODO
-    "Route 6 - Item from ranger Shanti": LocationData(0000000, always_default, "Route 6", None),  # TODO
-    "Route 6 - Item from ranger Richard": LocationData(0000000, always_default, "Route 6", None),  # TODO
-    "Route 6 - Item from scientist for all Deerling forms": LocationData(0000000, season_dependant, "Route 6", can_catch_all_deerlings),  # TODO
-    "Route 6 - Item from child in western house": LocationData(0000000, always_default, "Route 6", None),  # TODO
-    "Chargestone Cave - Item from Professor Juniper": LocationData(0000000, always_default, "Chargestone Cave", None),  # TODO
-    "Chargestone Cave - Item from nugget brothers #1": LocationData(0000000, always_default, "Chargestone Cave", None),  # TODO
-    "Chargestone Cave - Item from nugget brothers #2": LocationData(0000000, always_default, "Chargestone Cave", None),  # TODO
-    "Mistralton City - Item from veteran in Cargo Service building": LocationData(0000000, always_default, "Mistralton City", None),  # TODO
-    "Mistralton Gym - Gym guide item": LocationData(0000000, always_excluded, "Mistralton City", None),  # TODO
-    "Route 7 - Item from ranger Mary": LocationData(0000000, always_default, "Route 7", None),  # TODO
-    "Route 7 - Item from ranger Pedro": LocationData(0000000, always_default, "Route 7", None),  # TODO
-    "Twist Mountain - Item from worker near ice rock cave": LocationData(0000000, always_default, "Twist Mountain", can_reach_region("Pokémon League")),  # TODO
-    "Icirrus City - Item from Aha if answer was correct": LocationData(0000000, always_default, "Icirrus City", None),  # TODO
-    "Icirrus City - Item from Aha if answer was incorrect": LocationData(0000000, always_default, "Icirrus City", None),  # TODO
-    "Icirrus City - Item from Pokémon Fan Club chairman for gaining 25 levels": LocationData(0000000, always_default, "Icirrus City", None),  # TODO
-    "Icirrus City - Item from Pokémon Fan Club chairman for gaining 50 levels": LocationData(0000000, always_default, "Icirrus City", None),  # TODO
+    "Driftveil City - Item from lady asking for a pokémon knowing a certain TM move": FlagLocationData(2740, always_excluded, "Driftveil City", None),  #
+    "Driftveil Gym - Gym guide item": FlagLocationData(122, always_default, "Driftveil City", None),  #
+    "Cold Storage - Item from worker": FlagLocationData(316, always_default, "Cold Storage", None),  #
+    "Route 6 - Item from ranger Shanti": FlagLocationData(1420+186, always_default, "Route 6", None),  #
+    "Route 6 - Item from ranger Richard": FlagLocationData(1420+182, always_default, "Route 6", None),  #
+    "Route 6 - Item from scientist for all Deerling forms": FlagLocationData(350, season_dependant, "Route 6", can_catch_all_deerlings),  #
+    "Route 6 - Item from child in western house": FlagLocationData(261, always_default, "Route 6", None),  #
+    "Chargestone Cave - Item from Professor Juniper": FlagLocationData(0x1A3, always_default, "Chargestone Cave", None),  #
+    "Chargestone Cave - Item from nugget brothers #1": FlagLocationData(169, always_default, "Chargestone Cave", None),  #
+    "Chargestone Cave - Item from nugget brothers #2": FlagLocationData(169, always_default, "Chargestone Cave", None),  #
+    "Mistralton City - Item from veteran in Cargo Service building": FlagLocationData(144, always_default, "Mistralton City", None),  #
+    "Mistralton Gym - Gym guide item": FlagLocationData(123, always_excluded, "Mistralton City", None),  #
+    "Route 7 - Item from ranger Mary": FlagLocationData(1420+187, always_default, "Route 7", None),  #
+    "Route 7 - Item from ranger Pedro": FlagLocationData(1420+183, always_default, "Route 7", None),  #
+    "Twist Mountain - Item from worker near ice rock cave": FlagLocationData(2762, always_default, "Twist Mountain", can_reach_region("Pokémon League")),  #
+    # Answer can be either correct or wrong once a day
+    "Icirrus City - Item from Aha if answer was correct": FlagLocationData(0x1A6, always_excluded, "Icirrus City", None),  #
+    "Icirrus City - Item from Aha if answer was incorrect": FlagLocationData(0x1A7, always_excluded, "Icirrus City", None),  #
+    "Icirrus City - Item from Pokémon Fan Club chairman for gaining 25 levels": FlagLocationData(251, always_default, "Icirrus City", None),  #
+    "Icirrus City - Item from Pokémon Fan Club chairman for gaining 50 levels": FlagLocationData(252, always_default, "Icirrus City", None),  #
     # This is not only unreasonable, but also has an astronomically low softlock chance if we don't document breeding data and consider it during generation
-    "Icirrus City - Item from Pokémon Fan Club chairman for gaining 99 levels": LocationData(0000000, always_excluded, "Icirrus City", None),  # TODO
-    "Icirrus City - Item from the former Team Rocket member's wife": LocationData(0000000, season_dependant, "Icirrus City", can_set_winter),  # TODO
-    "Icirrus Gym - Gym guide item": LocationData(0000000, always_default, "Icirrus City", None),  # TODO
-    "Dragonspiral Tower - Item from Cedric Juniper": LocationData(0000000, always_default, "Dragonspiral Tower", None),  # TODO
-    "Route 8 - Item from Bianca": LocationData(0000000, always_default, "Route 8", can_reach_region("Relic Castle Lower Floors")),  # TODO
-    "Route 8 - Item from ranger Lewis": LocationData(0000000, always_default, "Route 8", None),  # TODO
-    "Route 8 - Item from ranger Annie": LocationData(0000000, always_default, "Route 8", None),  # TODO
-    "Route 8 - Item from eastern parasol lady": LocationData(0000000, always_default, "Route 8", None),  # TODO
-    "Moor of Icirrus - Item from ranger Chloris": LocationData(0000000, always_default, "Moor of Icirrus", None),  # TODO
-    "Moor of Icirrus - Item from ranger Harry": LocationData(0000000, always_default, "Moor of Icirrus", None),  # TODO
-    "Shopping Mall Nine - Item from worker": LocationData(0000000, always_default, "Route 9", None),  # TODO
-    "Marvelous Bridge - Item from Shadow Triad #1": LocationData(0000000, always_default, "Marvelous Bridge", None),  # TODO
-    "Marvelous Bridge - Item from Shadow Triad #2": LocationData(0000000, always_default, "Marvelous Bridge", None),  # TODO
-    "Marvelous Bridge - Item from Shadow Triad #3": LocationData(0000000, always_default, "Marvelous Bridge", None),  # TODO
-    "Marvelous Bridge - Patrat shuffle reward": LocationData(0000000, always_default, "Marvelous Bridge", None),  # TODO
-    "Route 15 - Item from ranger Shelly": LocationData(0000000, always_default, "Route 15", None),  # TODO
-    "Route 15 - Item from ranger Keith": LocationData(0000000, always_default, "Route 15", None),  # TODO
-    "Undella Town - Item from man in Pokémon Center": LocationData(0000000, always_default, "Undella Town", None),  # TODO
-    "Route 13 - Item from veteran in western house #1": LocationData(0000000, always_default, "Route 13", can_use_surf),  # TODO
-    "Route 13 - Item from veteran in western house #2": LocationData(0000000, always_default, "Route 13", can_use_surf),  # TODO
+    "Icirrus City - Item from Pokémon Fan Club chairman for gaining 99 levels": FlagLocationData(253, always_excluded, "Icirrus City", None),  #
+    "Icirrus City - Item from the former Team Rocket member's wife": FlagLocationData(134, season_dependant, "Icirrus City", can_set_winter),  #
+    "Icirrus Gym - Gym guide item": FlagLocationData(124, always_default, "Icirrus City", None),  #
+    "Dragonspiral Tower - Item from Cedric Juniper": FlagLocationData(310, always_default, "Dragonspiral Tower", None),  #
+    "Route 8 - Item from Bianca": FlagLocationData(0x1A8, always_default, "Route 8", can_reach_region("Relic Castle Lower Floors")),  #
+    "Route 8 - Item from ranger Lewis": FlagLocationData(1420+184, always_default, "Route 8", None),  #
+    "Route 8 - Item from ranger Annie": FlagLocationData(1420+188, always_default, "Route 8", None),  #
+    "Route 8 - Item from eastern parasol lady": FlagLocationData(2764, always_default, "Route 8", None),  #
+    "Moor of Icirrus - Item from ranger Chloris": FlagLocationData(1420+582, always_default, "Moor of Icirrus", None),  #
+    "Moor of Icirrus - Item from ranger Harry": FlagLocationData(1420+583, always_default, "Moor of Icirrus", None),  #
+    "Shopping Mall Nine - Item from worker": FlagLocationData(262, always_default, "Route 9", None),  #
+    "Marvelous Bridge - Item from Shadow Triad #1": FlagLocationData(0x1AA, always_default, "Marvelous Bridge", None),  #
+    "Marvelous Bridge - Item from Shadow Triad #2": FlagLocationData(0x1AB, always_default, "Marvelous Bridge", None),  #
+    "Marvelous Bridge - Item from Shadow Triad #3": FlagLocationData(0x1AC, always_default, "Marvelous Bridge", None),  #
+    "Marvelous Bridge - Patrat shuffle reward": FlagLocationData(2761, always_default, "Marvelous Bridge", None),  #
+    "Route 15 - Item from ranger Shelly": FlagLocationData(1420+454, always_default, "Route 15", None),  #
+    "Route 15 - Item from ranger Keith": FlagLocationData(1420+456, always_default, "Route 15", None),  #
+    "Undella Town - Item from man in Pokémon Center": FlagLocationData(359, always_default, "Undella Town", None),  #
+    "Route 13 - Item from veteran in western house #1": FlagLocationData(356, always_default, "Route 13", can_use_surf),  #
+    "Route 13 - Item from veteran in western house #2": FlagLocationData(356, always_default, "Route 13", can_use_surf),  #
     # The following 2 locations normally have wingull grams, which are progressive key items
-    "Route 13 - Item from old man": LocationData(0000000, always_priority, "Route 13", None),  # TODO
-    "Route 13 - Item from parasol lady": LocationData(0000000, always_priority, "Route 13", None),  # TODO
-    "Lacunosa Town - Item from executive": LocationData(0000000, always_default, "Lacunosa Town", None),  # TODO
+    "Route 13 - Item from old man": FlagLocationData(318, always_priority, "Route 13", None),  #
+    "Route 13 - Item from parasol lady": FlagLocationData(319, always_priority, "Route 13", None),  #
+    "Route 13 - Random item from man in black": FlagLocationData(279, always_default, "Route 13", None),  #
+    "Lacunosa Town - Item from executive": FlagLocationData(2753, always_default, "Lacunosa Town", None),  #
     # Requires pokémon being randomized
-    # "Lacunosa Town - Item from girl for showing a Shaymin": LocationData(0000000, always_default, "Lacunosa Town", has_species("Shaymin")),  # TODO
-    "Route 12 - Item from breeder Ethel #1": LocationData(0000000, always_default, "Route 12", None),  # TODO
-    "Route 12 - Item from breeder Ethel #2": LocationData(0000000, always_default, "Route 12", None),  # TODO
-    "Village Bridge - Item from baker Chris": LocationData(0000000, always_default, "Village Bridge", None),  # TODO
+    # "Lacunosa Town - Item from girl for showing a Shaymin": FlagLocationData(0000000, always_default, "Lacunosa Town", has_species("Shaymin")),  # TODO
+    "Route 12 - Item from breeder Ethel": FlagLocationData(1420+452, always_default, "Route 12", None),  #
+    "Route 12 - Item from breeder Eustace": FlagLocationData(1420+451, always_default, "Route 12", None),  #
+    "Village Bridge - Item from baker Chris": FlagLocationData(0x1AF, always_default, "Village Bridge", None),  #
     # Following 5 items require a random pokémon every day
-    "Village Bridge - Item from fisherman for showing a certain pokémon #1": LocationData(0000000, always_excluded, "Village Bridge", None),  # TODO
-    "Village Bridge - Item from fisherman for showing a certain pokémon #2": LocationData(0000000, always_excluded, "Village Bridge", None),  # TODO
-    "Village Bridge - Item from fisherman for showing a certain pokémon #3": LocationData(0000000, always_excluded, "Village Bridge", None),  # TODO
-    "Village Bridge - Item from fisherman for showing a certain pokémon #4": LocationData(0000000, always_excluded, "Village Bridge", None),  # TODO
-    "Village Bridge - Item from fisherman for showing a certain pokémon #5": LocationData(0000000, always_excluded, "Village Bridge", None),  # TODO
-    "Route 11 - Item from ranger Thalia": LocationData(0000000, always_default, "Route 11", None),  # TODO
-    "Route 11 - Item from ranger Crofton": LocationData(0000000, always_default, "Route 11", can_use_waterfall),  # TODO
-    "Opelucid City - Item from female NPC in northern house": LocationData(0000000, always_default, "Opelucid City", None),  # TODO
-    "Opelucid City - Item from linebacker in Drayden's house": LocationData(0000000, always_default, "Opelucid City", None),  # TODO
-    "Opelucid City - Item from female NPC in Drayden's house": LocationData(0000000, always_default, "Opelucid City", None),  # TODO
-    "Opelucid Gym - Gym guide item": LocationData(0000000, always_default, "Opelucid City", None),  # TODO
+    "Village Bridge - Item from fisherman for showing a certain pokémon #1": FlagLocationData(0x1B0, always_excluded, "Village Bridge", None),  #
+    "Village Bridge - Item from fisherman for showing a certain pokémon #2": FlagLocationData(0x1B0, always_excluded, "Village Bridge", None),  #
+    "Village Bridge - Item from fisherman for showing a certain pokémon #3": FlagLocationData(0x1B0, always_excluded, "Village Bridge", None),  #
+    "Village Bridge - Item from fisherman for showing a certain pokémon #4": FlagLocationData(0x1B0, always_excluded, "Village Bridge", None),  #
+    "Village Bridge - Item from fisherman for showing a certain pokémon #5": FlagLocationData(0x1B0, always_excluded, "Village Bridge", None),  #
+    "Route 11 - Item from ranger Thalia": FlagLocationData(1420+453, always_default, "Route 11", None),  #
+    "Route 11 - Item from ranger Crofton": FlagLocationData(1420+455, always_default, "Route 11", can_use_waterfall),  #
+    "Opelucid City - Item from female NPC in northern house": FlagLocationData(312, always_default, "Opelucid City", None),  #
+    "Opelucid City - Item from linebacker in Drayden's house": FlagLocationData(324, always_default, "Opelucid City", None),  #
+    "Opelucid City - Item from female NPC in Drayden's house": FlagLocationData(325, always_default, "Opelucid City", None),  #
+    "Opelucid Gym - Gym guide item": FlagLocationData(125, always_default, "Opelucid City", None),  #
     # Don't know how to handle pokémon from other version
     # Not changing the script
-    # "Opelucid City - Item from NPC for showing a pokémon knowing Charge from opposite version": LocationData(0000000, always_default, "Opelucid City", None),  # TODO
-    "Opelucid City - Item from Professor Juniper": LocationData(0000000, always_default, "Opelucid City", None),  # TODO
-    "Route 10 - Item from veteran near northern bridge": LocationData(0000000, always_default, "Route 10", None),  # TODO
-    "Route 10 - Item from Bianka #1": LocationData(0000000, always_default, "Route 10", None),  # TODO
-    "Route 10 - Item from Bianka #2": LocationData(0000000, always_default, "Route 10", None),  # TODO
-    "N's Castle - Item from grunt in 3F left room": LocationData(0000000, always_default, "N's Castle", None),  # TODO
+    # "Opelucid City - Item from NPC for showing a pokémon knowing Charge from opposite version": FlagLocationData(0000000, always_default, "Opelucid City", None),  #
+    "Opelucid City - Item from Professor Juniper": FlagLocationData(0x1B1, always_default, "Opelucid City", None),  #
+    "Route 10 - Item from veteran near northern bridge": FlagLocationData(263, always_default, "Route 10", None),  #
+    "Route 10 - Item from Bianka #1": FlagLocationData(0x1B2, always_default, "Route 10", None),  #
+    "Route 10 - Item from Bianka #2": FlagLocationData(0x1B2, always_default, "Route 10", None),  #
+    "N's Castle - Item from grunt in 3F left room": FlagLocationData(362, always_default, "N's Castle", None),  #
 }

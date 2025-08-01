@@ -29,26 +29,26 @@ tm_hm_ncps: dict[str, FlagLocationData] = {
     "Castelia City - TM from school kid in building in northern street": FlagLocationData(270, always_default, "Castelia City", None),  #
     "Castelia City - TM from Mr. Lock in building in northern street": FlagLocationData(308, always_default, "Castelia City", has_item("Lock Capsule")),  #
     "Castelia Gym - TM reward": FlagLocationData(0x174, always_default, "Castelia City", None),  #
-    "Route 4 - TM from worker in northern building": LocationData(0000000, always_default, "Route 4 North", None),  # TODO
-    "Relic Castle - TM from sage Ryoku": LocationData(0000000, always_default, "Relic Castle Basement", None),  # TODO
-    "Nimbasa City - TM from ace trainer in western building": LocationData(0000000, always_default, "Nimbasa City", None),  # TODO
-    "Nimbasa Gym - TM reward": FlagLocationData(0x175, always_default, "Nimbasa City", None),  #TODO
-    "Nimbasa City - TM from lady in Musical Theater": LocationData(0000000, always_default, "Nimbasa City", None),  # TODO
-    "Driftveil City - TM from Bianca": LocationData(0000000, always_default, "Driftveil City", None),  # TODO
-    "Cold Storage Building - TM from sage Zinzolin": LocationData(0000000, always_default, "Cold Storage", can_reach_region("Pokémon League")),  # TODO
-    "Route 6 - TM from Clay": LocationData(0000000, always_default, "Route 6", None),  # TODO
-    "Chargestone Cave - TM from sage Bronius": LocationData(0000000, always_default, "Chargestone Cave", can_reach_region("Pokémon League")),  # TODO
-    "Mistralton Gym - TM reward": FlagLocationData(0x177, always_default, "Mistralton City", None),  #TODO
-    "Route 7 - TM from battle girl": LocationData(0000000, always_default, "Route 7", None),  # TODO
+    "Route 4 - TM from worker in northern building": FlagLocationData(272, always_default, "Route 4 North", None),  #
+    "Relic Castle - TM from sage Ryoku": FlagLocationData(0x19D, always_default, "Relic Castle Basement", None),  #
+    "Nimbasa City - TM from ace trainer in western building": FlagLocationData(290, always_default, "Nimbasa City", None),  #
+    "Nimbasa Gym - TM reward": FlagLocationData(0x175, always_default, "Nimbasa City", None),  #
+    "Nimbasa City - TM from lady in Musical Theater": FlagLocationData(267, always_default, "Nimbasa City", None),  #
+    "Driftveil City - TM from Bianca": FlagLocationData(0x1A0, always_default, "Driftveil City", None),  #
+    "Cold Storage - TM from sage Zinzolin": FlagLocationData(0x1A1, always_default, "Cold Storage", can_reach_region("Pokémon League")),  #
+    "Route 6 - TM from Clay": FlagLocationData(0x1A2, always_default, "Route 6", None),  #
+    "Chargestone Cave - TM from sage Bronius": FlagLocationData(0x1A4, always_default, "Chargestone Cave", can_reach_region("Pokémon League")),  #
+    "Mistralton Gym - TM reward": FlagLocationData(0x177, always_default, "Mistralton City", None),  #
+    "Route 7 - TM from battle girl": FlagLocationData(133, always_default, "Route 7", None),  #
     # The map this item is placed on belongs to Twist Mountain, but it's always accessible from route 7
-    "Twist Mountain - TM from Alder": LocationData(0000000, always_default, "Route 7", None),  # TODO
-    "Icirrus City - TM from old lady in pokémon center": LocationData(0000000, always_default, "Icirrus City", None),  # TODO
-    "Icirrus Gym - TM reward": FlagLocationData(0x178, always_default, "Icirrus City", None),  #TODO
-    "Route 8 - TM from western parasol lady": LocationData(0000000, always_default, "Route 8", None),  # TODO
-    "Tubeline Bridge - TM from battle girl": LocationData(0000000, always_default, "Tubeline Bridge", None),  # TODO
-    "Route 9 - TM from infielder": LocationData(0000000, always_default, "Route 9", None),  # TODO
-    "Route 14 - TM from sage Giallo": LocationData(0000000, always_default, "Route 14", can_use_waterfall),  # TODO
-    "Undella Town - TM from girl": LocationData(0000000, always_default, "Undella Town", None),  # TODO
-    "Route 13 - TM from Wingull": LocationData(0000000, always_default, "Route 13", has_all_items("Wingull Gram 1", "Wingull Gram 2", "Wingull Gram 3")),  # TODO
-    "Opelucid Gym - TM reward": FlagLocationData(0x179, always_default, "Opelucid City", None),  #TODO
+    "Twist Mountain - TM from Alder": FlagLocationData(0x1A5, always_default, "Route 7", None),  #
+    "Icirrus City - TM from old lady in pokémon center": FlagLocationData(135, always_default, "Icirrus City", None),  #
+    "Icirrus Gym - TM reward": FlagLocationData(0x178, always_default, "Icirrus City", None),  #
+    "Route 8 - TM from western parasol lady": FlagLocationData(258, always_default, "Route 8", None),  #
+    "Tubeline Bridge - TM from battle girl": FlagLocationData(260, always_default, "Tubeline Bridge", None),  #
+    "Route 9 - TM from infielder": FlagLocationData(0x1A9, always_default, "Route 9", None),  #
+    "Route 14 - TM from sage Giallo": FlagLocationData(0x1AD, always_default, "Route 14", can_use_waterfall),  #
+    "Undella Town - TM from girl": FlagLocationData(346, always_default, "Undella Town", None),  #
+    "Route 13 - TM from Wingull": FlagLocationData(0x1AE, always_default, "Route 13", has_all_items("Wingull Gram 1", "Wingull Gram 2", "Wingull Gram 3")),  #
+    "Opelucid Gym - TM reward": FlagLocationData(0x179, always_default, "Opelucid City", None),  #
 }
