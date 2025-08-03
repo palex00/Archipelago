@@ -44,7 +44,9 @@ by_name: dict[str, SpeciesData] = {
     "Zubat": SpeciesData("Zubat", 41, 0, "Poison", "Flying", 40, 45, 35, 30, 40, 55, 255, 127, 1, ("abi39", "abi0", "abi151"), [("Level up", 22, "Golbat")]),
     "Golbat": SpeciesData("Golbat", 42, 0, "Poison", "Flying", 75, 80, 70, 65, 75, 90, 90, 127, 2, ("abi39", "abi0", "abi151"), [("Friendship", 0, "Crobat")]),
     "Oddish": SpeciesData("Oddish", 43, 0, "Grass", "Poison", 45, 50, 55, 75, 65, 30, 255, 127, 1, ("abi34", "abi0", "abi50"), [("Level up", 21, "Gloom")]),
-    "Gloom": SpeciesData("Gloom", 44, 0, "Grass", "Poison", 60, 65, 70, 85, 75, 40, 120, 127, 2, ("abi34", "abi0", "abi1"), [("Stone", 85, "Vileplume"), ("Stone", 80, "Bellossom")]),
+    "Gloom": SpeciesData("Gloom", 44, 0, "Grass", "Poison", 60, 65, 70, 85, 75, 40, 120, 127, 2, ("abi34", "abi0", "abi1"), [
+        ("Stone", 85, "Vileplume"), ("Stone", 80, "Bellossom")
+    ]),
     "Vileplume": SpeciesData("Vileplume", 45, 0, "Grass", "Poison", 75, 80, 85, 100, 90, 50, 45, 127, 3, ("abi34", "abi0", "abi27"), []),
     "Paras": SpeciesData("Paras", 46, 0, "Bug", "Grass", 35, 70, 55, 45, 55, 25, 190, 127, 1, ("abi27", "abi87", "abi6"), [("Level up", 24, "Parasect")]),
     "Parasect": SpeciesData("Parasect", 47, 0, "Bug", "Grass", 60, 95, 80, 60, 80, 30, 75, 127, 2, ("abi27", "abi87", "abi6"), []),
@@ -61,13 +63,15 @@ by_name: dict[str, SpeciesData] = {
     "Growlithe": SpeciesData("Growlithe", 58, 0, "Fire", "Fire", 55, 70, 45, 70, 50, 60, 190, 63, 1, ("abi22", "abi18", "abi154"), [("Stone", 82, "Arcanine")]),
     "Arcanine": SpeciesData("Arcanine", 59, 0, "Fire", "Fire", 90, 110, 80, 100, 80, 95, 75, 63, 2, ("abi22", "abi18", "abi154"), []),
     "Poliwag": SpeciesData("Poliwag", 60, 0, "Water", "Water", 40, 50, 40, 40, 40, 90, 255, 127, 1, ("abi11", "abi6", "abi33"), [("Level up", 25, "Poliwhirl")]),
-    "Poliwhirl": SpeciesData("Poliwhirl", 61, 0, "Water", "Water", 65, 65, 65, 50, 50, 90, 120, 127, 2, ("abi11", "abi6", "abi33"), [("Stone", 84, "Poliwrath"), ("Trade with item", 221, "Politoed")]),
+    "Poliwhirl": SpeciesData("Poliwhirl", 61, 0, "Water", "Water", 65, 65, 65, 50, 50, 90, 120, 127, 2, ("abi11", "abi6", "abi33"), [
+        ("Stone", 84, "Poliwrath"), ("Level up item day", 221, "Politoed"), ("Level up item night", 221, "Politoed")
+    ]),
     "Poliwrath": SpeciesData("Poliwrath", 62, 0, "Water", "Fighting", 90, 85, 95, 70, 90, 70, 45, 127, 3, ("abi11", "abi6", "abi33"), []),
     "Abra": SpeciesData("Abra", 63, 0, "Psychic", "Psychic", 25, 20, 15, 105, 55, 90, 200, 63, 1, ("abi28", "abi39", "abi98"), [("Level up", 16, "Kadabra")]),
-    "Kadabra": SpeciesData("Kadabra", 64, 0, "Psychic", "Psychic", 40, 35, 30, 120, 70, 105, 100, 63, 2, ("abi28", "abi39", "abi98"), [("Trade", 0, "Alakazam")]),
+    "Kadabra": SpeciesData("Kadabra", 64, 0, "Psychic", "Psychic", 40, 35, 30, 120, 70, 105, 100, 63, 2, ("abi28", "abi39", "abi98"), [("Level up", 32, "Alakazam")]),
     "Alakazam": SpeciesData("Alakazam", 65, 0, "Psychic", "Psychic", 55, 50, 45, 135, 85, 120, 50, 63, 3, ("abi28", "abi39", "abi98"), []),
     "Machop": SpeciesData("Machop", 66, 0, "Fighting", "Fighting", 70, 80, 50, 35, 35, 35, 180, 63, 1, ("abi62", "abi99", "abi80"), [("Level up", 28, "Machoke")]),
-    "Machoke": SpeciesData("Machoke", 67, 0, "Fighting", "Fighting", 80, 100, 70, 50, 60, 45, 90, 63, 2, ("abi62", "abi99", "abi80"), [("Trade", 0, "Machamp")]),
+    "Machoke": SpeciesData("Machoke", 67, 0, "Fighting", "Fighting", 80, 100, 70, 50, 60, 45, 90, 63, 2, ("abi62", "abi99", "abi80"), [("Level up", 40, "Machamp")]),
     "Machamp": SpeciesData("Machamp", 68, 0, "Fighting", "Fighting", 90, 130, 80, 65, 85, 55, 45, 63, 3, ("abi62", "abi99", "abi80"), []),
     "Bellsprout": SpeciesData("Bellsprout", 69, 0, "Grass", "Poison", 50, 75, 35, 70, 30, 40, 255, 127, 1, ("abi34", "abi0", "abi82"), [("Level up", 21, "Weepinbell")]),
     "Weepinbell": SpeciesData("Weepinbell", 70, 0, "Grass", "Poison", 65, 90, 50, 85, 45, 55, 120, 127, 2, ("abi34", "abi0", "abi82"), [("Stone", 85, "Victreebel")]),
@@ -75,11 +79,13 @@ by_name: dict[str, SpeciesData] = {
     "Tentacool": SpeciesData("Tentacool", 72, 0, "Water", "Poison", 40, 40, 35, 50, 100, 70, 190, 127, 1, ("abi29", "abi64", "abi44"), [("Level up", 30, "Tentacruel")]),
     "Tentacruel": SpeciesData("Tentacruel", 73, 0, "Water", "Poison", 80, 70, 65, 80, 120, 100, 60, 127, 2, ("abi29", "abi64", "abi44"), []),
     "Geodude": SpeciesData("Geodude", 74, 0, "Rock", "Ground", 40, 80, 100, 30, 30, 20, 255, 127, 1, ("abi69", "abi5", "abi8"), [("Level up", 25, "Graveler")]),
-    "Graveler": SpeciesData("Graveler", 75, 0, "Rock", "Ground", 55, 95, 115, 45, 45, 35, 120, 127, 2, ("abi69", "abi5", "abi8"), [("Trade", 0, "Golem")]),
+    "Graveler": SpeciesData("Graveler", 75, 0, "Rock", "Ground", 55, 95, 115, 45, 45, 35, 120, 127, 2, ("abi69", "abi5", "abi8"), [("Level up", 37, "Golem")]),
     "Golem": SpeciesData("Golem", 76, 0, "Rock", "Ground", 80, 110, 130, 55, 65, 45, 45, 127, 3, ("abi69", "abi5", "abi8"), []),
     "Ponyta": SpeciesData("Ponyta", 77, 0, "Fire", "Fire", 50, 85, 55, 65, 65, 90, 190, 127, 1, ("abi50", "abi18", "abi49"), [("Level up", 40, "Rapidash")]),
     "Rapidash": SpeciesData("Rapidash", 78, 0, "Fire", "Fire", 65, 100, 70, 80, 80, 105, 60, 127, 2, ("abi50", "abi18", "abi49"), []),
-    "Slowpoke": SpeciesData("Slowpoke", 79, 0, "Water", "Psychic", 90, 65, 65, 40, 40, 15, 190, 127, 1, ("abi12", "abi20", "abi144"), [("Level up", 37, "Slowbro"), ("Trade with item", 221, "Slowking")]),
+    "Slowpoke": SpeciesData("Slowpoke", 79, 0, "Water", "Psychic", 90, 65, 65, 40, 40, 15, 190, 127, 1, ("abi12", "abi20", "abi144"), [
+        ("Level up", 37, "Slowbro"), ("Level up item day", 221, "Slowking"), ("Level up item night", 221, "Slowking")
+    ]),
     "Slowbro": SpeciesData("Slowbro", 80, 0, "Water", "Psychic", 95, 75, 110, 100, 80, 30, 75, 127, 2, ("abi12", "abi20", "abi144"), []),
     "Magnemite": SpeciesData("Magnemite", 81, 0, "Electric", "Steel", 25, 35, 70, 95, 55, 45, 190, 255, 1, ("abi42", "abi5", "abi148"), [("Level up", 30, "Magneton")]),
     "Magneton": SpeciesData("Magneton", 82, 0, "Electric", "Steel", 50, 60, 95, 120, 70, 70, 60, 255, 2, ("abi42", "abi5", "abi148"), [("Magnetic area", 0, "Magnezone")]),
@@ -93,9 +99,11 @@ by_name: dict[str, SpeciesData] = {
     "Shellder": SpeciesData("Shellder", 90, 0, "Water", "Water", 30, 65, 100, 45, 25, 40, 190, 127, 1, ("abi75", "abi92", "abi142"), [("Stone", 84, "Cloyster")]),
     "Cloyster": SpeciesData("Cloyster", 91, 0, "Water", "Ice", 50, 95, 180, 85, 45, 70, 60, 127, 2, ("abi75", "abi92", "abi142"), []),
     "Gastly": SpeciesData("Gastly", 92, 0, "Ghost", "Poison", 30, 35, 30, 100, 35, 80, 190, 127, 1, ("abi26", "abi0", "abi0"), [("Level up", 25, "Haunter")]),
-    "Haunter": SpeciesData("Haunter", 93, 0, "Ghost", "Poison", 45, 50, 45, 115, 55, 95, 90, 127, 2, ("abi26", "abi0", "abi0"), [("Trade", 0, "Gengar")]),
+    "Haunter": SpeciesData("Haunter", 93, 0, "Ghost", "Poison", 45, 50, 45, 115, 55, 95, 90, 127, 2, ("abi26", "abi0", "abi0"), [("Level up", 37, "Gengar")]),
     "Gengar": SpeciesData("Gengar", 94, 0, "Ghost", "Poison", 60, 65, 60, 130, 75, 110, 45, 127, 3, ("abi26", "abi0", "abi0"), []),
-    "Onix": SpeciesData("Onix", 95, 0, "Rock", "Ground", 35, 45, 160, 30, 45, 70, 45, 127, 1, ("abi69", "abi5", "abi133"), [("Trade with item", 233, "Steelix")]),
+    "Onix": SpeciesData("Onix", 95, 0, "Rock", "Ground", 35, 45, 160, 30, 45, 70, 45, 127, 1, ("abi69", "abi5", "abi133"), [
+        ("Level up item day", 233, "Steelix"), ("Level up item night", 233, "Steelix")
+    ]),
     "Drowzee": SpeciesData("Drowzee", 96, 0, "Psychic", "Psychic", 60, 48, 45, 43, 90, 42, 190, 127, 1, ("abi15", "abi108", "abi39"), [("Level up", 26, "Hypno")]),
     "Hypno": SpeciesData("Hypno", 97, 0, "Psychic", "Psychic", 85, 73, 70, 73, 115, 67, 75, 127, 2, ("abi15", "abi108", "abi39"), []),
     "Krabby": SpeciesData("Krabby", 98, 0, "Water", "Water", 30, 105, 90, 25, 25, 50, 225, 127, 1, ("abi52", "abi75", "abi125"), [("Level up", 28, "Kingler")]),
@@ -112,32 +120,47 @@ by_name: dict[str, SpeciesData] = {
     "Koffing": SpeciesData("Koffing", 109, 0, "Poison", "Poison", 40, 65, 95, 60, 45, 35, 190, 127, 1, ("abi26", "abi0", "abi0"), [("Level up", 35, "Weezing")]),
     "Weezing": SpeciesData("Weezing", 110, 0, "Poison", "Poison", 65, 90, 120, 85, 70, 60, 60, 127, 2, ("abi26", "abi0", "abi0"), []),
     "Rhyhorn": SpeciesData("Rhyhorn", 111, 0, "Ground", "Rock", 80, 85, 95, 30, 30, 25, 120, 127, 1, ("abi31", "abi69", "abi120"), [("Level up", 42, "Rhydon")]),
-    "Rhydon": SpeciesData("Rhydon", 112, 0, "Ground", "Rock", 105, 130, 120, 45, 45, 40, 60, 127, 2, ("abi31", "abi69", "abi120"), [("Trade with item", 321, "Rhyperior")]),
+    "Rhydon": SpeciesData("Rhydon", 112, 0, "Ground", "Rock", 105, 130, 120, 45, 45, 40, 60, 127, 2, ("abi31", "abi69", "abi120"), [
+        ("Level up item day", 321, "Rhyperior"), ("Level up item night", 321, "Rhyperior")
+    ]),
     "Chansey": SpeciesData("Chansey", 113, 0, "Normal", "Normal", 250, 5, 5, 35, 105, 50, 30, 254, 2, ("abi30", "abi32", "abi131"), [("Friendship", 0, "Blissey")]),
     "Tangela": SpeciesData("Tangela", 114, 0, "Grass", "Grass", 65, 55, 115, 100, 40, 60, 45, 127, 1, ("abi34", "abi102", "abi144"), [("Level up with move", 246, "Tangrowth")]),
     "Kangaskhan": SpeciesData("Kangaskhan", 115, 0, "Normal", "Normal", 105, 95, 80, 40, 80, 90, 45, 254, 2, ("abi48", "abi113", "abi39"), []),
     "Horsea": SpeciesData("Horsea", 116, 0, "Water", "Water", 30, 40, 70, 70, 25, 60, 225, 127, 1, ("abi33", "abi97", "abi6"), [("Level up", 32, "Seadra")]),
-    "Seadra": SpeciesData("Seadra", 117, 0, "Water", "Water", 55, 65, 95, 95, 45, 85, 75, 127, 2, ("abi38", "abi97", "abi6"), [("Trade with item", 235, "Kingdra")]),
+    "Seadra": SpeciesData("Seadra", 117, 0, "Water", "Water", 55, 65, 95, 95, 45, 85, 75, 127, 2, ("abi38", "abi97", "abi6"), [
+        ("Level up item day", 235, "Kingdra"), ("Level up item night", 235, "Kingdra")
+    ]),
     "Goldeen": SpeciesData("Goldeen", 118, 0, "Water", "Water", 45, 67, 60, 35, 50, 63, 225, 127, 1, ("abi33", "abi41", "abi31"), [("Level up", 33, "Seaking")]),
     "Seaking": SpeciesData("Seaking", 119, 0, "Water", "Water", 80, 92, 65, 65, 80, 68, 60, 127, 2, ("abi33", "abi41", "abi31"), []),
     "Staryu": SpeciesData("Staryu", 120, 0, "Water", "Water", 30, 45, 55, 70, 55, 85, 225, 255, 1, ("abi35", "abi30", "abi148"), [("Stone", 84, "Starmie")]),
     "Starmie": SpeciesData("Starmie", 121, 0, "Water", "Psychic", 60, 75, 85, 100, 85, 115, 60, 255, 2, ("abi35", "abi30", "abi148"), []),
     "Mr. Mime": SpeciesData("Mr. Mime", 122, 0, "Psychic", "Psychic", 40, 45, 65, 100, 120, 90, 45, 127, 2, ("abi43", "abi111", "abi101"), []),
-    "Scyther": SpeciesData("Scyther", 123, 0, "Bug", "Flying", 70, 110, 80, 55, 80, 105, 45, 127, 1, ("abi68", "abi101", "abi80"), [("Trade with item", 233, "Scizor")]),
+    "Scyther": SpeciesData("Scyther", 123, 0, "Bug", "Flying", 70, 110, 80, 55, 80, 105, 45, 127, 1, ("abi68", "abi101", "abi80"), [
+        ("Level up item day", 233, "Scizor"), ("Level up item night", 233, "Scizor")
+    ]),
     "Jynx": SpeciesData("Jynx", 124, 0, "Ice", "Psychic", 65, 50, 35, 115, 95, 95, 45, 254, 2, ("abi12", "abi108", "abi87"), []),
-    "Electabuzz": SpeciesData("Electabuzz", 125, 0, "Electric", "Electric", 65, 83, 57, 95, 85, 105, 45, 63, 2, ("abi9", "abi0", "abi72"), [("Trade with item", 322, "Electivire")]),
-    "Magmar": SpeciesData("Magmar", 126, 0, "Fire", "Fire", 65, 95, 57, 100, 85, 93, 45, 63, 2, ("abi49", "abi0", "abi72"), [("Trade with item", 323, "Magmortar")]),
+    "Electabuzz": SpeciesData("Electabuzz", 125, 0, "Electric", "Electric", 65, 83, 57, 95, 85, 105, 45, 63, 2, ("abi9", "abi0", "abi72"), [
+        ("Level up item day", 322, "Electivire"), ("Level up item night", 322, "Electivire")
+    ]),
+    "Magmar": SpeciesData("Magmar", 126, 0, "Fire", "Fire", 65, 95, 57, 100, 85, 93, 45, 63, 2, ("abi49", "abi0", "abi72"), [
+        ("Level up item day", 323, "Magmortar"), ("Level up item night", 323, "Magmortar")
+    ]),
     "Pinsir": SpeciesData("Pinsir", 127, 0, "Bug", "Bug", 65, 125, 100, 55, 70, 85, 45, 127, 2, ("abi52", "abi104", "abi153"), []),
     "Tauros": SpeciesData("Tauros", 128, 0, "Normal", "Normal", 75, 100, 95, 40, 70, 110, 45, 0, 2, ("abi22", "abi83", "abi125"), []),
     "Magikarp": SpeciesData("Magikarp", 129, 0, "Water", "Water", 20, 10, 55, 15, 20, 80, 255, 127, 1, ("abi33", "abi0", "abi155"), [("Level up", 20, "Gyarados")]),
     "Gyarados": SpeciesData("Gyarados", 130, 0, "Water", "Flying", 95, 125, 79, 60, 100, 81, 45, 127, 2, ("abi22", "abi0", "abi153"), []),
     "Lapras": SpeciesData("Lapras", 131, 0, "Water", "Ice", 130, 85, 80, 85, 95, 60, 45, 127, 2, ("abi11", "abi75", "abi93"), []),
     "Ditto": SpeciesData("Ditto", 132, 0, "Normal", "Normal", 48, 48, 48, 48, 48, 48, 35, 255, 2, ("abi7", "abi0", "abi150"), []),
-    "Eevee": SpeciesData("Eevee", 133, 0, "Normal", "Normal", 55, 55, 50, 45, 65, 55, 45, 31, 1, ("abi50", "abi91", "abi107"), [("Level up moss rock", 0, "Leafeon"), ("Level up ice rock", 0, "Glaceon"), ("Stone", 83, "Jolteon"), ("Stone", 84, "Vaporeon"), ("Stone", 82, "Flareon"), ("Friendship (Day)", 0, "Espeon"), ("Friendship (Night)", 0, "Umbreon")]),
+    "Eevee": SpeciesData("Eevee", 133, 0, "Normal", "Normal", 55, 55, 50, 45, 65, 55, 45, 31, 1, ("abi50", "abi91", "abi107"), [
+        ("Level up moss rock", 0, "Leafeon"), ("Level up ice rock", 0, "Glaceon"), ("Stone", 83, "Jolteon"), ("Stone", 84, "Vaporeon"), ("Stone", 82, "Flareon"),
+        ("Stone", 80, "Espeon"), ("Stone", 81, "Umbreon")
+    ]),
     "Vaporeon": SpeciesData("Vaporeon", 134, 0, "Water", "Water", 130, 65, 60, 110, 95, 65, 45, 31, 2, ("abi11", "abi11", "abi93"), []),
     "Jolteon": SpeciesData("Jolteon", 135, 0, "Electric", "Electric", 65, 65, 60, 110, 95, 130, 45, 31, 2, ("abi10", "abi10", "abi95"), []),
     "Flareon": SpeciesData("Flareon", 136, 0, "Fire", "Fire", 65, 130, 60, 95, 110, 65, 45, 31, 2, ("abi18", "abi18", "abi62"), []),
-    "Porygon": SpeciesData("Porygon", 137, 0, "Normal", "Normal", 65, 60, 70, 85, 75, 40, 45, 255, 1, ("abi36", "abi88", "abi148"), [("Trade with item", 252, "Porygon2")]),
+    "Porygon": SpeciesData("Porygon", 137, 0, "Normal", "Normal", 65, 60, 70, 85, 75, 40, 45, 255, 1, ("abi36", "abi88", "abi148"), [
+        ("Level up item day", 252, "Porygon2"), ("Level up item night", 252, "Porygon2")
+    ]),
     "Omanyte": SpeciesData("Omanyte", 138, 0, "Rock", "Water", 35, 40, 100, 90, 55, 35, 45, 31, 1, ("abi33", "abi75", "abi133"), [("Level up", 40, "Omastar")]),
     "Omastar": SpeciesData("Omastar", 139, 0, "Rock", "Water", 70, 60, 125, 115, 70, 55, 45, 31, 2, ("abi33", "abi75", "abi133"), []),
     "Kabuto": SpeciesData("Kabuto", 140, 0, "Rock", "Water", 30, 80, 90, 55, 45, 55, 45, 31, 1, ("abi33", "abi4", "abi133"), [("Level up", 40, "Kabutops")]),
@@ -207,7 +230,9 @@ by_name: dict[str, SpeciesData] = {
     "Pineco": SpeciesData("Pineco", 204, 0, "Bug", "Bug", 50, 65, 90, 35, 35, 15, 190, 127, 1, ("abi5", "abi0", "abi142"), [("Level up", 31, "Forretress")]),
     "Forretress": SpeciesData("Forretress", 205, 0, "Bug", "Steel", 75, 90, 140, 60, 60, 40, 75, 127, 2, ("abi5", "abi0", "abi142"), []),
     "Dunsparce": SpeciesData("Dunsparce", 206, 0, "Normal", "Normal", 100, 70, 70, 65, 65, 45, 190, 127, 2, ("abi32", "abi50", "abi155"), []),
-    "Gligar": SpeciesData("Gligar", 207, 0, "Ground", "Flying", 65, 75, 105, 35, 65, 85, 60, 127, 1, ("abi52", "abi8", "abi17"), [("Level up item night", 327, "Gliscor")]),
+    "Gligar": SpeciesData("Gligar", 207, 0, "Ground", "Flying", 65, 75, 105, 35, 65, 85, 60, 127, 1, ("abi52", "abi8", "abi17"), [
+        ("Level up item night", 327, "Gliscor"), ("Level up item day", 327, "Gliscor")
+    ]),
     "Steelix": SpeciesData("Steelix", 208, 0, "Steel", "Ground", 75, 85, 200, 55, 65, 30, 25, 127, 2, ("abi69", "abi5", "abi125"), []),
     "Snubbull": SpeciesData("Snubbull", 209, 0, "Normal", "Normal", 60, 80, 50, 40, 40, 30, 190, 191, 1, ("abi22", "abi50", "abi155"), [("Level up", 23, "Granbull")]),
     "Granbull": SpeciesData("Granbull", 210, 0, "Normal", "Normal", 90, 120, 75, 60, 60, 45, 75, 191, 2, ("abi22", "abi95", "abi155"), []),
@@ -215,7 +240,9 @@ by_name: dict[str, SpeciesData] = {
     "Scizor": SpeciesData("Scizor", 212, 0, "Bug", "Steel", 70, 130, 100, 55, 80, 65, 25, 127, 2, ("abi68", "abi101", "abi135"), []),
     "Shuckle": SpeciesData("Shuckle", 213, 0, "Bug", "Rock", 20, 10, 230, 10, 230, 5, 190, 127, 2, ("abi5", "abi82", "abi126"), []),
     "Heracross": SpeciesData("Heracross", 214, 0, "Bug", "Fighting", 80, 125, 75, 40, 95, 85, 45, 127, 2, ("abi68", "abi62", "abi153"), []),
-    "Sneasel": SpeciesData("Sneasel", 215, 0, "Dark", "Ice", 55, 95, 55, 35, 75, 115, 60, 127, 1, ("abi39", "abi51", "abi124"), [("Level up item night", 326, "Weavile")]),
+    "Sneasel": SpeciesData("Sneasel", 215, 0, "Dark", "Ice", 55, 95, 55, 35, 75, 115, 60, 127, 1, ("abi39", "abi51", "abi124"), [
+        ("Level up item night", 326, "Weavile"), ("Level up item day", 326, "Weavile")
+    ]),
     "Teddiursa": SpeciesData("Teddiursa", 216, 0, "Normal", "Normal", 60, 80, 50, 50, 50, 40, 120, 127, 1, ("abi53", "abi95", "abi118"), [("Level up", 30, "Ursaring")]),
     "Ursaring": SpeciesData("Ursaring", 217, 0, "Normal", "Normal", 90, 130, 75, 75, 75, 55, 60, 127, 2, ("abi62", "abi95", "abi127"), []),
     "Slugma": SpeciesData("Slugma", 218, 0, "Fire", "Fire", 40, 40, 40, 70, 40, 20, 190, 127, 1, ("abi40", "abi49", "abi133"), [("Level up", 38, "Magcargo")]),
@@ -233,10 +260,14 @@ by_name: dict[str, SpeciesData] = {
     "Kingdra": SpeciesData("Kingdra", 230, 0, "Water", "Dragon", 75, 95, 95, 95, 95, 85, 45, 127, 3, ("abi33", "abi97", "abi6"), []),
     "Phanpy": SpeciesData("Phanpy", 231, 0, "Ground", "Ground", 90, 60, 60, 40, 40, 40, 120, 127, 1, ("abi53", "abi0", "abi8"), [("Level up", 25, "Donphan")]),
     "Donphan": SpeciesData("Donphan", 232, 0, "Ground", "Ground", 90, 120, 120, 60, 60, 50, 60, 127, 2, ("abi5", "abi0", "abi8"), []),
-    "Porygon2": SpeciesData("Porygon2", 233, 0, "Normal", "Normal", 85, 80, 90, 105, 95, 60, 45, 255, 2, ("abi36", "abi88", "abi148"), [("Trade with item", 324, "Porygon-Z")]),
+    "Porygon2": SpeciesData("Porygon2", 233, 0, "Normal", "Normal", 85, 80, 90, 105, 95, 60, 45, 255, 2, ("abi36", "abi88", "abi148"), [
+        ("Level up item day", 324, "Porygon-Z"), ("Level up item night", 324, "Porygon-Z")
+    ]),
     "Stantler": SpeciesData("Stantler", 234, 0, "Normal", "Normal", 73, 95, 62, 85, 65, 85, 45, 127, 2, ("abi22", "abi119", "abi157"), []),
     "Smeargle": SpeciesData("Smeargle", 235, 0, "Normal", "Normal", 55, 20, 35, 20, 45, 75, 45, 127, 2, ("abi20", "abi101", "abi141"), []),
-    "Tyrogue": SpeciesData("Tyrogue", 236, 0, "Fighting", "Fighting", 35, 35, 35, 35, 35, 35, 75, 0, 1, ("abi62", "abi80", "abi72"), [("Level up higher defense", 20, "Hitmonchan"), ("Level up higher attack", 20, "Hitmonlee"), ("Level up equal physical", 20, "Hitmontop")]),
+    "Tyrogue": SpeciesData("Tyrogue", 236, 0, "Fighting", "Fighting", 35, 35, 35, 35, 35, 35, 75, 0, 1, ("abi62", "abi80", "abi72"), [
+        ("Level up higher defense", 20, "Hitmonchan"), ("Level up higher attack", 20, "Hitmonlee"), ("Level up equal physical", 20, "Hitmontop")
+    ]),
     "Hitmontop": SpeciesData("Hitmontop", 237, 0, "Fighting", "Fighting", 50, 95, 95, 35, 110, 70, 45, 0, 2, ("abi22", "abi101", "abi80"), []),
     "Smoochum": SpeciesData("Smoochum", 238, 0, "Ice", "Psychic", 45, 30, 15, 85, 65, 65, 45, 254, 1, ("abi12", "abi108", "abi93"), [("Level up", 30, "Jynx")]),
     "Elekid": SpeciesData("Elekid", 239, 0, "Electric", "Electric", 45, 63, 37, 65, 55, 95, 45, 63, 1, ("abi9", "abi0", "abi72"), [("Level up", 30, "Electabuzz")]),
@@ -265,7 +296,9 @@ by_name: dict[str, SpeciesData] = {
     "Mightyena": SpeciesData("Mightyena", 262, 0, "Dark", "Dark", 70, 90, 70, 60, 60, 70, 127, 127, 2, ("abi22", "abi95", "abi153"), []),
     "Zigzagoon": SpeciesData("Zigzagoon", 263, 0, "Normal", "Normal", 38, 30, 41, 30, 41, 60, 255, 127, 1, ("abi53", "abi82", "abi95"), [("Level up", 20, "Linoone")]),
     "Linoone": SpeciesData("Linoone", 264, 0, "Normal", "Normal", 78, 70, 61, 50, 61, 100, 90, 127, 2, ("abi53", "abi82", "abi95"), []),
-    "Wurmple": SpeciesData("Wurmple", 265, 0, "Bug", "Bug", 45, 45, 35, 20, 30, 20, 255, 127, 1, ("abi19", "abi0", "abi50"), [("Level up Silcoon", 7, "Silcoon"), ("Level up Cascoon", 7, "Cascoon")]),
+    "Wurmple": SpeciesData("Wurmple", 265, 0, "Bug", "Bug", 45, 45, 35, 20, 30, 20, 255, 127, 1, ("abi19", "abi0", "abi50"), [
+        ("Level up Silcoon", 7, "Silcoon"), ("Level up Cascoon", 7, "Cascoon")
+    ]),
     "Silcoon": SpeciesData("Silcoon", 266, 0, "Bug", "Bug", 50, 35, 55, 25, 25, 15, 120, 127, 2, ("abi61", "abi0", "abi61"), [("Level up", 10, "Beautifly")]),
     "Beautifly": SpeciesData("Beautifly", 267, 0, "Bug", "Flying", 60, 70, 50, 90, 50, 65, 45, 127, 3, ("abi68", "abi0", "abi79"), []),
     "Cascoon": SpeciesData("Cascoon", 268, 0, "Bug", "Bug", 50, 35, 55, 25, 25, 15, 120, 127, 1, ("abi61", "abi0", "abi61"), [("Level up", 10, "Dustox")]),
@@ -281,7 +314,9 @@ by_name: dict[str, SpeciesData] = {
     "Wingull": SpeciesData("Wingull", 278, 0, "Water", "Flying", 40, 30, 30, 55, 30, 85, 190, 127, 1, ("abi51", "abi0", "abi44"), [("Level up", 25, "Pelipper")]),
     "Pelipper": SpeciesData("Pelipper", 279, 0, "Water", "Flying", 60, 50, 100, 85, 70, 65, 45, 127, 2, ("abi51", "abi0", "abi44"), []),
     "Ralts": SpeciesData("Ralts", 280, 0, "Psychic", "Psychic", 28, 25, 25, 45, 35, 40, 235, 127, 1, ("abi28", "abi36", "abi140"), [("Level up", 20, "Kirlia")]),
-    "Kirlia": SpeciesData("Kirlia", 281, 0, "Psychic", "Psychic", 38, 35, 35, 65, 55, 50, 120, 127, 2, ("abi28", "abi36", "abi140"), [("Level up", 30, "Gardevoir"), ("Stone male", 109, "Gallade")]),
+    "Kirlia": SpeciesData("Kirlia", 281, 0, "Psychic", "Psychic", 38, 35, 35, 65, 55, 50, 120, 127, 2, ("abi28", "abi36", "abi140"), [
+        ("Level up", 30, "Gardevoir"), ("Stone male", 109, "Gallade")
+    ]),
     "Gardevoir": SpeciesData("Gardevoir", 282, 0, "Psychic", "Psychic", 68, 65, 65, 125, 115, 80, 45, 127, 3, ("abi28", "abi36", "abi140"), []),
     "Surskit": SpeciesData("Surskit", 283, 0, "Bug", "Water", 40, 30, 32, 50, 52, 65, 200, 127, 1, ("abi33", "abi0", "abi44"), [("Level up", 22, "Masquerain")]),
     "Masquerain": SpeciesData("Masquerain", 284, 0, "Bug", "Flying", 70, 60, 62, 80, 82, 60, 75, 127, 2, ("abi22", "abi0", "abi127"), []),
@@ -290,7 +325,9 @@ by_name: dict[str, SpeciesData] = {
     "Slakoth": SpeciesData("Slakoth", 287, 0, "Normal", "Normal", 60, 60, 60, 35, 35, 30, 255, 127, 1, ("abi54", "abi0", "abi0"), [("Level up", 18, "Vigoroth")]),
     "Vigoroth": SpeciesData("Vigoroth", 288, 0, "Normal", "Normal", 80, 80, 80, 55, 55, 90, 120, 127, 2, ("abi72", "abi0", "abi0"), [("Level up", 36, "Slaking")]),
     "Slaking": SpeciesData("Slaking", 289, 0, "Normal", "Normal", 150, 160, 100, 95, 65, 100, 45, 127, 3, ("abi54", "abi0", "abi0"), []),
-    "Nincada": SpeciesData("Nincada", 290, 0, "Bug", "Ground", 31, 45, 90, 30, 30, 40, 255, 127, 1, ("abi14", "abi0", "abi50"), [("Level up Ninjask", 20, "Ninjask"), ("Level up Shedinja", 20, "Shedinja")]),
+    "Nincada": SpeciesData("Nincada", 290, 0, "Bug", "Ground", 31, 45, 90, 30, 30, 40, 255, 127, 1, ("abi14", "abi0", "abi50"), [
+        ("Level up Ninjask", 20, "Ninjask"), ("Level up Shedinja", 20, "Shedinja")
+    ]),
     "Ninjask": SpeciesData("Ninjask", 291, 0, "Bug", "Flying", 61, 90, 45, 50, 50, 160, 120, 127, 2, ("abi3", "abi0", "abi151"), []),
     "Shedinja": SpeciesData("Shedinja", 292, 0, "Bug", "Ghost", 1, 90, 45, 30, 30, 40, 45, 255, 2, ("abi25", "abi0", "abi25"), []),
     "Whismur": SpeciesData("Whismur", 293, 0, "Normal", "Normal", 64, 51, 23, 51, 23, 28, 190, 127, 1, ("abi43", "abi0", "abi155"), [("Level up", 20, "Loudred")]),
@@ -349,24 +386,32 @@ by_name: dict[str, SpeciesData] = {
     "Cradily": SpeciesData("Cradily", 346, 0, "Rock", "Grass", 86, 81, 97, 81, 107, 43, 45, 31, 2, ("abi21", "abi0", "abi114"), []),
     "Anorith": SpeciesData("Anorith", 347, 0, "Rock", "Bug", 45, 95, 50, 40, 50, 75, 45, 31, 1, ("abi4", "abi0", "abi33"), [("Level up", 40, "Armaldo")]),
     "Armaldo": SpeciesData("Armaldo", 348, 0, "Rock", "Bug", 75, 125, 100, 70, 80, 45, 45, 31, 2, ("abi4", "abi0", "abi33"), []),
-    "Feebas": SpeciesData("Feebas", 349, 0, "Water", "Water", 20, 15, 20, 10, 55, 80, 255, 127, 1, ("abi33", "abi0", "abi91"), [("Level up high beauty", 170, "Milotic"), ("Trade with item", 537, "Milotic")]),
+    "Feebas": SpeciesData("Feebas", 349, 0, "Water", "Water", 20, 15, 20, 10, 55, 80, 255, 127, 1, ("abi33", "abi0", "abi91"), [
+        ("Level up item day", 537, "Milotic"), ("Level up item night", 537, "Milotic")
+    ]),
     "Milotic": SpeciesData("Milotic", 350, 0, "Water", "Water", 95, 60, 79, 100, 125, 81, 60, 127, 2, ("abi63", "abi0", "abi56"), []),
     "Castform": SpeciesData("Castform", 351, 0, "Normal", "Normal", 70, 70, 70, 70, 70, 70, 45, 127, 2, ("abi59", "abi0", "abi0"), []),
     "Kecleon": SpeciesData("Kecleon", 352, 0, "Normal", "Normal", 60, 90, 70, 60, 120, 40, 200, 127, 2, ("abi16", "abi0", "abi0"), []),
     "Shuppet": SpeciesData("Shuppet", 353, 0, "Ghost", "Ghost", 44, 75, 35, 63, 33, 45, 225, 127, 1, ("abi15", "abi119", "abi130"), [("Level up", 37, "Banette")]),
     "Banette": SpeciesData("Banette", 354, 0, "Ghost", "Ghost", 64, 115, 65, 83, 63, 65, 45, 127, 2, ("abi15", "abi119", "abi130"), []),
     "Duskull": SpeciesData("Duskull", 355, 0, "Ghost", "Ghost", 20, 40, 90, 30, 90, 25, 190, 127, 1, ("abi26", "abi0", "abi0"), [("Level up", 37, "Dusclops")]),
-    "Dusclops": SpeciesData("Dusclops", 356, 0, "Ghost", "Ghost", 40, 70, 130, 60, 130, 25, 90, 127, 2, ("abi46", "abi0", "abi0"), [("Trade with item", 325, "Dusknoir")]),
+    "Dusclops": SpeciesData("Dusclops", 356, 0, "Ghost", "Ghost", 40, 70, 130, 60, 130, 25, 90, 127, 2, ("abi46", "abi0", "abi0"), [
+        ("Level up item day", 325, "Dusknoir"), ("Level up item night", 325, "Dusknoir")
+    ]),
     "Tropius": SpeciesData("Tropius", 357, 0, "Grass", "Flying", 99, 68, 83, 72, 87, 51, 200, 127, 2, ("abi34", "abi94", "abi139"), []),
     "Chimecho": SpeciesData("Chimecho", 358, 0, "Psychic", "Psychic", 65, 50, 70, 95, 80, 65, 45, 127, 2, ("abi26", "abi0", "abi0"), []),
     "Absol": SpeciesData("Absol", 359, 0, "Dark", "Dark", 65, 130, 60, 75, 60, 75, 30, 127, 2, ("abi46", "abi105", "abi154"), []),
     "Wynaut": SpeciesData("Wynaut", 360, 0, "Psychic", "Psychic", 95, 23, 48, 23, 48, 23, 125, 127, 1, ("abi23", "abi0", "abi140"), [("Level up", 15, "Wobbuffet")]),
-    "Snorunt": SpeciesData("Snorunt", 361, 0, "Ice", "Ice", 50, 50, 50, 50, 50, 50, 190, 127, 1, ("abi39", "abi115", "abi141"), [("Level up", 42, "Glalie"), ("Stone female", 109, "Froslass")]),
+    "Snorunt": SpeciesData("Snorunt", 361, 0, "Ice", "Ice", 50, 50, 50, 50, 50, 50, 190, 127, 1, ("abi39", "abi115", "abi141"), [
+        ("Level up", 42, "Glalie"), ("Stone female", 109, "Froslass")
+    ]),
     "Glalie": SpeciesData("Glalie", 362, 0, "Ice", "Ice", 80, 80, 80, 80, 80, 80, 75, 127, 2, ("abi39", "abi115", "abi141"), []),
     "Spheal": SpeciesData("Spheal", 363, 0, "Ice", "Water", 70, 40, 50, 55, 50, 25, 255, 127, 1, ("abi47", "abi115", "abi12"), [("Level up", 32, "Sealeo")]),
     "Sealeo": SpeciesData("Sealeo", 364, 0, "Ice", "Water", 90, 60, 70, 75, 70, 45, 120, 127, 2, ("abi47", "abi115", "abi12"), [("Level up", 44, "Walrein")]),
     "Walrein": SpeciesData("Walrein", 365, 0, "Ice", "Water", 110, 80, 90, 95, 90, 65, 45, 127, 3, ("abi47", "abi115", "abi12"), []),
-    "Clamperl": SpeciesData("Clamperl", 366, 0, "Water", "Water", 35, 64, 85, 74, 55, 32, 255, 127, 1, ("abi75", "abi0", "abi155"), [("Trade with item", 226, "Huntail"), ("Trade with item", 227, "Gorebyss")]),
+    "Clamperl": SpeciesData("Clamperl", 366, 0, "Water", "Water", 35, 64, 85, 74, 55, 32, 255, 127, 1, ("abi75", "abi0", "abi155"), [
+        ("Level up item day", 226, "Huntail"), ("Level up item day", 227, "Gorebyss"), ("Level up item night", 226, "Huntail"), ("Level up item night", 227, "Gorebyss")
+    ]),
     "Huntail": SpeciesData("Huntail", 367, 0, "Water", "Water", 55, 104, 105, 94, 75, 52, 60, 127, 2, ("abi33", "abi0", "abi41"), []),
     "Gorebyss": SpeciesData("Gorebyss", 368, 0, "Water", "Water", 55, 84, 105, 114, 75, 52, 60, 127, 2, ("abi33", "abi0", "abi93"), []),
     "Relicanth": SpeciesData("Relicanth", 369, 0, "Water", "Rock", 100, 90, 130, 45, 65, 55, 25, 31, 2, ("abi33", "abi69", "abi5"), []),
@@ -406,13 +451,15 @@ by_name: dict[str, SpeciesData] = {
     "Shinx": SpeciesData("Shinx", 403, 0, "Electric", "Electric", 45, 65, 34, 40, 34, 45, 235, 127, 1, ("abi79", "abi22", "abi62"), [("Level up", 15, "Luxio")]),
     "Luxio": SpeciesData("Luxio", 404, 0, "Electric", "Electric", 60, 85, 49, 60, 49, 60, 120, 127, 2, ("abi79", "abi22", "abi62"), [("Level up", 30, "Luxray")]),
     "Luxray": SpeciesData("Luxray", 405, 0, "Electric", "Electric", 80, 120, 79, 95, 79, 70, 45, 127, 3, ("abi79", "abi22", "abi62"), []),
-    "Budew": SpeciesData("Budew", 406, 0, "Grass", "Poison", 40, 30, 35, 50, 70, 55, 255, 127, 1, ("abi30", "abi38", "abi102"), [("Friendship (Day)", 0, "Roselia")]),
+    "Budew": SpeciesData("Budew", 406, 0, "Grass", "Poison", 40, 30, 35, 50, 70, 55, 255, 127, 1, ("abi30", "abi38", "abi102"), [("Friendship", 0, "Roselia")]),
     "Roserade": SpeciesData("Roserade", 407, 0, "Grass", "Poison", 60, 70, 55, 125, 105, 90, 75, 127, 3, ("abi30", "abi38", "abi101"), []),
     "Cranidos": SpeciesData("Cranidos", 408, 0, "Rock", "Rock", 67, 125, 40, 30, 30, 58, 45, 31, 1, ("abi104", "abi0", "abi125"), [("Level up", 30, "Rampardos")]),
     "Rampardos": SpeciesData("Rampardos", 409, 0, "Rock", "Rock", 97, 165, 60, 65, 50, 58, 45, 31, 2, ("abi104", "abi0", "abi125"), []),
     "Shieldon": SpeciesData("Shieldon", 410, 0, "Rock", "Steel", 30, 42, 118, 42, 88, 30, 45, 31, 1, ("abi5", "abi0", "abi43"), [("Level up", 30, "Bastiodon")]),
     "Bastiodon": SpeciesData("Bastiodon", 411, 0, "Rock", "Steel", 60, 52, 168, 47, 138, 30, 45, 31, 2, ("abi5", "abi0", "abi43"), []),
-    "Burmy": SpeciesData("Burmy", 412, 0, "Bug", "Bug", 40, 29, 45, 29, 45, 36, 120, 127, 1, ("abi61", "abi0", "abi142"), [("Level up (female)", 20, "Wormadam (Plant)"), ("Level up (male)", 20, "Mothim")]),
+    "Burmy": SpeciesData("Burmy", 412, 0, "Bug", "Bug", 40, 29, 45, 29, 45, 36, 120, 127, 1, ("abi61", "abi0", "abi142"), [
+        ("Level up (female)", 20, "Wormadam (Plant)"), ("Level up (male)", 20, "Mothim")
+    ]),
     "Wormadam (Plant)": SpeciesData("Wormadam", 413, 0, "Bug", "Grass", 60, 59, 85, 79, 105, 36, 45, 254, 2, ("abi107", "abi0", "abi142"), []),
     "Mothim": SpeciesData("Mothim", 414, 0, "Bug", "Flying", 70, 94, 50, 94, 50, 66, 45, 0, 2, ("abi68", "abi0", "abi110"), []),
     "Combee": SpeciesData("Combee", 415, 0, "Bug", "Flying", 30, 30, 42, 30, 42, 70, 120, 31, 1, ("abi118", "abi0", "abi55"), [("Level up (female)", 21, "Vespiquen")]),
@@ -433,21 +480,23 @@ by_name: dict[str, SpeciesData] = {
     "Honchkrow": SpeciesData("Honchkrow", 430, 0, "Dark", "Flying", 100, 125, 52, 105, 52, 71, 30, 127, 2, ("abi15", "abi105", "abi153"), []),
     "Glameow": SpeciesData("Glameow", 431, 0, "Normal", "Normal", 49, 55, 42, 42, 37, 85, 190, 191, 1, ("abi7", "abi20", "abi51"), [("Level up", 38, "Purugly")]),
     "Purugly": SpeciesData("Purugly", 432, 0, "Normal", "Normal", 71, 82, 64, 64, 59, 112, 75, 191, 2, ("abi47", "abi20", "abi128"), []),
-    "Chingling": SpeciesData("Chingling", 433, 0, "Psychic", "Psychic", 45, 30, 50, 65, 50, 45, 120, 127, 1, ("abi26", "abi0", "abi0"), [("Friendship (Night)", 0, "Chimecho")]),
+    "Chingling": SpeciesData("Chingling", 433, 0, "Psychic", "Psychic", 45, 30, 50, 65, 50, 45, 120, 127, 1, ("abi26", "abi0", "abi0"), [("Friendship", 0, "Chimecho")]),
     "Stunky": SpeciesData("Stunky", 434, 0, "Poison", "Dark", 63, 63, 47, 41, 41, 74, 225, 127, 1, ("abi1", "abi106", "abi51"), [("Level up", 34, "Skuntank")]),
     "Skuntank": SpeciesData("Skuntank", 435, 0, "Poison", "Dark", 103, 93, 67, 71, 61, 84, 60, 127, 2, ("abi1", "abi106", "abi51"), []),
     "Bronzor": SpeciesData("Bronzor", 436, 0, "Steel", "Psychic", 57, 24, 86, 24, 86, 23, 255, 255, 1, ("abi26", "abi85", "abi134"), [("Level up", 33, "Bronzong")]),
     "Bronzong": SpeciesData("Bronzong", 437, 0, "Steel", "Psychic", 67, 89, 116, 79, 116, 33, 90, 255, 2, ("abi26", "abi85", "abi134"), []),
     "Bonsly": SpeciesData("Bonsly", 438, 0, "Rock", "Rock", 50, 80, 95, 10, 45, 10, 255, 127, 1, ("abi5", "abi69", "abi155"), [("Level up with move", 102, "Sudowoodo")]),
     "Mime Jr.": SpeciesData("Mime Jr.", 439, 0, "Psychic", "Psychic", 20, 25, 45, 70, 90, 60, 145, 127, 1, ("abi43", "abi111", "abi101"), [("Level up with move", 102, "Mr. Mime")]),
-    "Happiny": SpeciesData("Happiny", 440, 0, "Normal", "Normal", 100, 5, 5, 15, 65, 30, 130, 254, 1, ("abi30", "abi32", "abi132"), [("Level up item day", 110, "Chansey")]),
+    "Happiny": SpeciesData("Happiny", 440, 0, "Normal", "Normal", 100, 5, 5, 15, 65, 30, 130, 254, 1, ("abi30", "abi32", "abi132"), [
+        ("Level up item day", 110, "Chansey"), ("Level up item night", 110, "Chansey")
+    ]),
     "Chatot": SpeciesData("Chatot", 441, 0, "Normal", "Flying", 76, 65, 45, 92, 42, 91, 30, 127, 2, ("abi51", "abi77", "abi145"), []),
     "Spiritomb": SpeciesData("Spiritomb", 442, 0, "Ghost", "Dark", 50, 92, 108, 92, 108, 35, 100, 127, 2, ("abi46", "abi0", "abi151"), []),
     "Gible": SpeciesData("Gible", 443, 0, "Dragon", "Ground", 58, 70, 45, 40, 45, 42, 45, 127, 1, ("abi8", "abi0", "abi24"), [("Level up", 24, "Gabite")]),
     "Gabite": SpeciesData("Gabite", 444, 0, "Dragon", "Ground", 68, 90, 65, 50, 55, 82, 45, 127, 2, ("abi8", "abi0", "abi24"), [("Level up", 48, "Garchomp")]),
     "Garchomp": SpeciesData("Garchomp", 445, 0, "Dragon", "Ground", 108, 130, 95, 80, 85, 102, 45, 127, 3, ("abi8", "abi0", "abi24"), []),
     "Munchlax": SpeciesData("Munchlax", 446, 0, "Normal", "Normal", 135, 85, 40, 40, 85, 5, 50, 31, 1, ("abi53", "abi47", "abi82"), [("Friendship", 0, "Snorlax")]),
-    "Riolu": SpeciesData("Riolu", 447, 0, "Fighting", "Fighting", 40, 70, 40, 35, 40, 60, 75, 31, 1, ("abi80", "abi39", "abi158"), [("Friendship (Day)", 0, "Lucario")]),
+    "Riolu": SpeciesData("Riolu", 447, 0, "Fighting", "Fighting", 40, 70, 40, 35, 40, 60, 75, 31, 1, ("abi80", "abi39", "abi158"), [("Friendship", 0, "Lucario")]),
     "Lucario": SpeciesData("Lucario", 448, 0, "Fighting", "Steel", 70, 110, 70, 115, 70, 90, 45, 31, 2, ("abi80", "abi39", "abi154"), []),
     "Hippopotas": SpeciesData("Hippopotas", 449, 0, "Ground", "Ground", 68, 72, 78, 38, 42, 32, 140, 127, 1, ("abi45", "abi0", "abi159"), [("Level up", 34, "Hippowdon")]),
     "Hippowdon": SpeciesData("Hippowdon", 450, 0, "Ground", "Ground", 108, 112, 118, 68, 72, 47, 60, 127, 2, ("abi45", "abi0", "abi159"), []),
@@ -525,7 +574,7 @@ by_name: dict[str, SpeciesData] = {
     "Blitzle": SpeciesData("Blitzle", 522, 0, "Electric", "Electric", 45, 60, 32, 50, 32, 76, 190, 127, 1, ("abi31", "abi78", "abi157"), [("Level up", 27, "Zebstrika")]),
     "Zebstrika": SpeciesData("Zebstrika", 523, 0, "Electric", "Electric", 75, 100, 63, 80, 63, 116, 75, 127, 2, ("abi31", "abi78", "abi157"), []),
     "Roggenrola": SpeciesData("Roggenrola", 524, 0, "Rock", "Rock", 55, 75, 85, 25, 25, 15, 255, 127, 1, ("abi5", "abi0", "abi159"), [("Level up", 25, "Boldore")]),
-    "Boldore": SpeciesData("Boldore", 525, 0, "Rock", "Rock", 70, 105, 105, 50, 40, 20, 120, 127, 2, ("abi5", "abi0", "abi159"), [("Trade", 0, "Gigalith")]),
+    "Boldore": SpeciesData("Boldore", 525, 0, "Rock", "Rock", 70, 105, 105, 50, 40, 20, 120, 127, 2, ("abi5", "abi0", "abi159"), [("Level up", 37, "Gigalith")]),
     "Gigalith": SpeciesData("Gigalith", 526, 0, "Rock", "Rock", 85, 135, 130, 60, 70, 25, 45, 127, 3, ("abi5", "abi0", "abi159"), []),
     "Woobat": SpeciesData("Woobat", 527, 0, "Psychic", "Flying", 55, 45, 43, 55, 43, 72, 190, 127, 1, ("abi109", "abi103", "abi86"), [("Friendship", 0, "Swoobat")]),
     "Swoobat": SpeciesData("Swoobat", 528, 0, "Psychic", "Flying", 67, 57, 55, 77, 55, 114, 45, 127, 2, ("abi109", "abi103", "abi86"), []),
@@ -533,7 +582,7 @@ by_name: dict[str, SpeciesData] = {
     "Excadrill": SpeciesData("Excadrill", 530, 0, "Ground", "Steel", 110, 135, 60, 50, 65, 88, 60, 127, 2, ("abi146", "abi159", "abi104"), []),
     "Audino": SpeciesData("Audino", 531, 0, "Normal", "Normal", 103, 60, 86, 60, 86, 50, 255, 127, 2, ("abi131", "abi144", "abi103"), []),
     "Timburr": SpeciesData("Timburr", 532, 0, "Fighting", "Fighting", 75, 80, 55, 25, 35, 35, 180, 63, 1, ("abi62", "abi125", "abi89"), [("Level up", 25, "Gurdurr")]),
-    "Gurdurr": SpeciesData("Gurdurr", 533, 0, "Fighting", "Fighting", 85, 105, 85, 40, 50, 40, 90, 63, 2, ("abi62", "abi125", "abi89"), [("Trade", 0, "Conkeldurr")]),
+    "Gurdurr": SpeciesData("Gurdurr", 533, 0, "Fighting", "Fighting", 85, 105, 85, 40, 50, 40, 90, 63, 2, ("abi62", "abi125", "abi89"), [("Level up", 37, "Conkeldurr")]),
     "Conkeldurr": SpeciesData("Conkeldurr", 534, 0, "Fighting", "Fighting", 105, 140, 95, 55, 65, 45, 45, 63, 3, ("abi62", "abi125", "abi89"), []),
     "Tympole": SpeciesData("Tympole", 535, 0, "Water", "Water", 50, 50, 40, 50, 40, 64, 255, 127, 1, ("abi33", "abi93", "abi11"), [("Level up", 25, "Palpitoad")]),
     "Palpitoad": SpeciesData("Palpitoad", 536, 0, "Water", "Ground", 75, 65, 55, 65, 55, 69, 120, 127, 2, ("abi33", "abi93", "abi11"), [("Level up", 36, "Seismitoad")]),
@@ -588,7 +637,9 @@ by_name: dict[str, SpeciesData] = {
     "Deerling": SpeciesData("Deerling", 585, 0, "Normal", "Grass", 60, 60, 50, 40, 50, 75, 190, 127, 1, ("abi34", "abi157", "abi32"), [("Level up", 34, "Sawsbuck")]),
     "Sawsbuck": SpeciesData("Sawsbuck", 586, 0, "Normal", "Grass", 80, 100, 70, 60, 70, 95, 75, 127, 2, ("abi34", "abi157", "abi32"), []),
     "Emolga": SpeciesData("Emolga", 587, 0, "Electric", "Flying", 55, 75, 60, 75, 60, 103, 200, 127, 2, ("abi9", "abi0", "abi78"), []),
-    "Karrablast": SpeciesData("Karrablast", 588, 0, "Bug", "Bug", 50, 75, 45, 40, 45, 60, 200, 127, 1, ("abi68", "abi61", "abi99"), [("Trade Karrablast Shelmet", 0, "Escavalier")]),
+    "Karrablast": SpeciesData("Karrablast", 588, 0, "Bug", "Bug", 50, 75, 45, 40, 45, 60, 200, 127, 1, ("abi68", "abi61", "abi99"), [
+        ("Level up with party member", 616, "Escavalier"), ("Level up with party member", 617, "Escavalier")
+    ]),
     "Escavalier": SpeciesData("Escavalier", 589, 0, "Bug", "Steel", 70, 135, 105, 60, 105, 20, 75, 127, 2, ("abi68", "abi75", "abi142"), []),
     "Foongus": SpeciesData("Foongus", 590, 0, "Grass", "Poison", 69, 55, 45, 55, 55, 15, 190, 127, 1, ("abi27", "abi0", "abi144"), [("Level up", 39, "Amoonguss")]),
     "Amoonguss": SpeciesData("Amoonguss", 591, 0, "Grass", "Poison", 114, 85, 70, 85, 80, 30, 75, 127, 2, ("abi27", "abi0", "abi144"), []),
@@ -616,7 +667,9 @@ by_name: dict[str, SpeciesData] = {
     "Cubchoo": SpeciesData("Cubchoo", 613, 0, "Ice", "Ice", 55, 70, 40, 60, 40, 40, 120, 127, 1, ("abi81", "abi0", "abi155"), [("Level up", 37, "Beartic")]),
     "Beartic": SpeciesData("Beartic", 614, 0, "Ice", "Ice", 95, 110, 80, 70, 80, 50, 60, 127, 2, ("abi81", "abi0", "abi33"), []),
     "Cryogonal": SpeciesData("Cryogonal", 615, 0, "Ice", "Ice", 70, 50, 30, 95, 135, 105, 25, 255, 2, ("abi26", "abi0", "abi0"), []),
-    "Shelmet": SpeciesData("Shelmet", 616, 0, "Bug", "Bug", 50, 40, 85, 40, 65, 25, 200, 127, 1, ("abi93", "abi75", "abi142"), [("Trade Karrablast Shelmet", 0, "Accelgor")]),
+    "Shelmet": SpeciesData("Shelmet", 616, 0, "Bug", "Bug", 50, 40, 85, 40, 65, 25, 200, 127, 1, ("abi93", "abi75", "abi142"), [
+        ("Level up with party member", 588, "Accelgor"), ("Level up with party member", 589, "Accelgor")
+    ]),
     "Accelgor": SpeciesData("Accelgor", 617, 0, "Bug", "Bug", 80, 70, 40, 100, 60, 145, 75, 127, 2, ("abi93", "abi60", "abi84"), []),
     "Stunfisk": SpeciesData("Stunfisk", 618, 0, "Ground", "Electric", 109, 66, 84, 81, 99, 32, 75, 127, 2, ("abi9", "abi7", "abi8"), []),
     "Mienfoo": SpeciesData("Mienfoo", 619, 0, "Fighting", "Fighting", 45, 85, 50, 55, 50, 65, 180, 127, 1, ("abi39", "abi144", "abi120"), [("Level up", 50, "Mienshao")]),
