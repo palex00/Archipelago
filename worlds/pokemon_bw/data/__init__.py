@@ -1,12 +1,16 @@
-from typing import NamedTuple, Callable, Literal
+from typing import NamedTuple, Callable, Literal, Iterator, Collection, TYPE_CHECKING, TypeVar
 
 from BaseClasses import ItemClassification, LocationProgressType, CollectionState
-from .. import PokemonBWWorld
+
+if TYPE_CHECKING:
+    from .. import PokemonBWWorld
 
 
 ExtendedRule: type = Callable[[CollectionState, PokemonBWWorld], bool]
 ClassificationMethod: type = Callable[[PokemonBWWorld], ItemClassification]
 ProgressTypeMethod: type = Callable[[PokemonBWWorld], LocationProgressType]
+InclusionRule: type = Callable[[PokemonBWWorld], bool]
+T = TypeVar("T")
 
 # TODO calc offset and move to client dir
 data_address_address = 0x000024
@@ -19,21 +23,18 @@ badges_offset = 0
 
 
 class ItemData(NamedTuple):
-    id: int
-    # Takes the options and extra data and returns the classification (progression, useful, filler, or trap)
-    # for the calling world
+    item_id: int
     classification: ClassificationMethod
-    bag: Literal["Main", "Key", "Medicine", "Berries", "TM/HM"]
 
 
 class BadgeItemData(NamedTuple):
-    id: int
+    item_id: int
     bit: int
     classification: ClassificationMethod
 
 
 class SeasonItemData(NamedTuple):
-    id: int
+    item_id: int
     flag_id: int
     classification: ClassificationMethod
 
@@ -46,17 +47,6 @@ class FlagLocationData(NamedTuple):
     rule: ExtendedRule | None
 
 
-class VarLocationData(NamedTuple):
-    # global variables (0x4000+) begin at 0x23bcac (B) or 0x23bccc (W)
-    # and end at 0x23bf26 (B) or 0x23be09 (W)
-    # and have 2 bytes each
-    var_id: int
-    checking_type: Callable[[int], bool]
-    progress_type: ProgressTypeMethod
-    region: str
-    rule: ExtendedRule | None
-
-
 class DexLocationData(NamedTuple):
     # caught flags are stored at 0x23D1B4 (B) or 0x23D1D4 (W)
     dex_number: int
@@ -64,38 +54,47 @@ class DexLocationData(NamedTuple):
     special_rule: ExtendedRule | None = None
 
 
-"""class LocationData(NamedTuple):
-    # Just choose any number between 0 and 9999 for each location in a table
-    custom_id: int
-    address_black: int
-    address_white: int
-    # Takes the read value, does something with it (e.g. check for value or certain bit)
-    # and returns whether the location was checked
-    checking_type: Callable[[int], bool]
-    # Takes the options and extra data and returns the progress type (NORMAL, PRIORITY, or EXCLUDED)
-    # for the calling world
-    progress_type: Callable[[PokemonBWOptions, dict[str, any]], LocationProgressType]
-    region: str
-    # An extra rule that is not covered by region access (e.g. items behind a strength boulder)
-    #
-    rule: ExtendedRule | None"""
-
-
 class EncounterData(NamedTuple):
     # (dex number, form)
     species_black: tuple[int, int]
     species_white: tuple[int, int]
     encounter_region: str
-    exclude_logic: bool
     # The following will become important when wild encounter randomization happens
-    # file_number: int
     # offset: int
+
+
+class StaticEncounterData(NamedTuple):
+    # (dex number, form)
+    species_black: tuple[int, int]
+    species_white: tuple[int, int]
+    encounter_region: str
+    inclusion_rule: InclusionRule | None
+    access_rule: ExtendedRule | None
+
+
+class TradeEncounterData(NamedTuple):
+    # (dex number, form)
+    species_black: tuple[int, int]
+    species_white: tuple[int, int]
+    # only dex number
+    wanted_black: int
+    wanted_white: int
+    encounter_region: str
 
 
 class RegionConnectionData(NamedTuple):
     exiting_region: str
     entering_region: str
     rule: ExtendedRule | None
+
+
+class EncounterRegionConnectionData(NamedTuple):
+    exiting_region: str
+    entering_region: str
+    rule: ExtendedRule | None
+    inclusion_rule: InclusionRule | None  # None means always included
+    # The following will become important when wild encounter randomization happens
+    # file_number: int
 
 
 class SpeciesData(NamedTuple):
@@ -145,13 +144,57 @@ class TMHMData(NamedTuple):
 
 class EvolutionMethodData(NamedTuple):
     id: int
-    # Some evolution methods don't trigger on certain gender, iv, ...
-    # Placing species with such an evo method into static encounters could thereby lead to logic errors
-    static_allowed: bool
-    # Takes value from evolution data and the player id and returns the access rule for that evolution
+    # Takes value from evolution data and returns the access rule for that evolution
     rule: Callable[[int], ExtendedRule] | None
 
 
 # TODO future update
 class TypeData(NamedTuple):
     id: int
+
+
+class NoDuplicateJustView(Collection[Collection[T]]):
+
+    def __init__(self, coll1: Collection[T], *collections: Collection[T]):
+        self.tup: tuple = (coll1, *collections)
+
+    def __len__(self) -> int:
+        return sum((len(x) for x in self.tup))
+
+    def __contains__(self, __x) -> bool:
+        for x in self.tup:
+            if __x in x:
+                return True
+
+    def __iter__(self):
+        return NowINeedAnIterator(self)
+
+
+class NowINeedAnIterator(Iterator[T]):
+
+    def __init__(self, view: NoDuplicateJustView[T]):
+        self.v: NoDuplicateJustView[T] = view
+        self.i_outer = 0
+        self.i_inner = -1
+        self.inner_iterator = iter(view.tup[0])
+
+    def __iter__(self) -> Iterator[T]:
+        return NowINeedAnIterator(self.v)
+
+    def __next__(self) -> T:
+        self.i_inner += 1
+        inner_len = len(self.v.tup[self.i_outer])
+        if self.i_inner < inner_len:
+            return next(self.inner_iterator)
+        elif self.i_inner == inner_len:
+            self.i_inner = -1
+            self.i_outer += 1
+            if self.i_outer < len(self.v.tup):
+                self.inner_iterator = iter(self.v.tup[self.i_outer])
+                return next(self)
+            elif self.i_outer == len(self.v.tup):
+                raise StopIteration
+            else:  # self.i_outer > len(self.v.tup)
+                raise Exception("Something went terribly wrong in the custom iterator")
+        else:  # self.i_inner > inner_len
+            raise Exception("Something went terribly wrong in the custom iterator")
