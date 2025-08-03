@@ -36,7 +36,7 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
   - Kadabra to Alakazam at level 32
   - Machoke to Machamp at level 40
   - Graveler to Golem, Haunter to Gengar, Boldore to Gigalith, and Gurdurr to Conceldurr at level 37
-  - Karrablast to Escavalier and Shelmet to Accelgor at level 20 with the other one or its evolution in your team
+  - Karrablast to Escavalier and Shelmet to Accelgor at level up with the other one or its evolution in your team
   - Eevee to Espeon/Umbreon using a sun/moon stone
   - Poliwhirl to Politoed and Slowpoke to Slowking at level up while holding a king's rock
   - Onix to Steelix and Scyther to Scixor at level up while holding a metal coat

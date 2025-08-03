@@ -68,6 +68,7 @@ Version 1.0.0 will happen when certain features are implemented.
   - Text extractor in client
 - Display other players and item names ingame
 - Dynamic version
+- Universal language support
 
 ## Big update #3 (Progression update, name WIP)
 
