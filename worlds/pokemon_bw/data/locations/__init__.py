@@ -1,11 +1,36 @@
-from .. import VarLocationData, FlagLocationData
-from . import dexsanity
-from .ingame_items import (overworld_items_south, overworld_items_west, hidden_items_south, hidden_items_west,
-                           other_south, other_west)
+from .. import NoDuplicateJustView
+from . import dexsanity, regions, region_connections
+from .encounters import regions as encounter_regions, slots, static, region_connections as encounter_region_connections
+from .ingame_items import overworld_items, hidden_items, other, special
 
-all_locations: dict[str, VarLocationData | FlagLocationData] = (
-    dexsanity.location_table
-    | overworld_items_south.table | overworld_items_west.table
-    | hidden_items_south.table | hidden_items_west.table
-    | other_south.table | other_west.table
+all_regions: NoDuplicateJustView = NoDuplicateJustView(
+    regions.region_list,
+    encounter_regions.table,
+)
+
+all_region_connections: NoDuplicateJustView = NoDuplicateJustView(
+    region_connections.connections,
+    encounter_region_connections.connections
+)
+
+all_locations: NoDuplicateJustView = NoDuplicateJustView(
+    overworld_items.table,
+    hidden_items.table,
+    other.table,
+    special.gym_badges,
+    special.tm_hm_ncps,
+    dexsanity.location_table,
+    slots.table,
+    static.static,
+    static.legendary,
+    static.gift,
+    static.trade,
+)
+
+all_item_locations: NoDuplicateJustView = NoDuplicateJustView(
+    overworld_items.table,
+    hidden_items.table,
+    other.table,
+    special.gym_badges,
+    special.tm_hm_ncps,
 )

@@ -1,32 +1,5 @@
-from BaseClasses import LocationProgressType
-from .checking_type import *
-from .progress_type import always_default
-from .. import DexLocationData, ExtendedRule
-from ..pokemon import pokedex
-from ...options import PokemonBWOptions
+from .. import DexLocationData
 
-
-"""def dexsanity_location_data(dex_number: int,
-                            progress_type: Callable[[PokemonBWOptions, dict[str, any]], LocationProgressType],
-                            rule: ExtendedRule = None) -> LocationData:
-    if rule is None:
-        rule = lambda state, world: state.has(pokedex.by_number[dex_number], world.player)
-
-    return LocationData(dex_number, 0x23D1B4 + (dex_number - 1) // 8, 0x23D1D4 + (dex_number - 1) // 8,
-                        flag_as_bit_callables[(dex_number - 1) % 8],
-                        progress_type, "Pokédex", rule)
-
-
-flag_as_bit_callables: list[Callable[[int], bool]] = [
-    flag_at_bit_0,
-    flag_at_bit_1,
-    flag_at_bit_2,
-    flag_at_bit_3,
-    flag_at_bit_4,
-    flag_at_bit_5,
-    flag_at_bit_6,
-    flag_at_bit_7,
-]"""
 
 location_table: dict[str, DexLocationData] = {
     "Pokédex - Bulbasaur": DexLocationData(1),
