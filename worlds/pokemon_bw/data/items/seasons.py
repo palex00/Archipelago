@@ -1,7 +1,7 @@
 from .classification import *
 from .. import SeasonItemData
 
-item_table: dict[str, SeasonItemData] = {
+table: dict[str, SeasonItemData] = {
     "Spring": SeasonItemData(0x81, 0x181, always_progression),
     "Summer": SeasonItemData(0x82, 0x182, always_progression),
     "Autumn": SeasonItemData(0x83, 0x183, always_progression),

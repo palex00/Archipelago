@@ -1,7 +1,7 @@
 from .classification import *
 from .. import BadgeItemData
 
-item_table: dict[str, BadgeItemData] = {
+table: dict[str, BadgeItemData] = {
     "Trio Badge": BadgeItemData(0x78, 0, always_progression),
     "Basic Badge": BadgeItemData(0x79, 1, always_progression),
     "Insect Badge": BadgeItemData(0x7A, 2, always_progression),
