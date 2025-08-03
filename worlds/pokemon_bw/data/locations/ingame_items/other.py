@@ -1,4 +1,3 @@
-from ..checking_type import *
 from ..rules import *
 from ..progress_type import *
 from ... import FlagLocationData
@@ -11,7 +10,7 @@ from ... import FlagLocationData
 table: dict[str, FlagLocationData] = {
     "Nuvema Town - Item #1 from Mom": FlagLocationData(0x189, always_default, "Nuvema Town", None),
     "Nuvema Town - Item #2 from Mom": FlagLocationData(0x185, always_default, "Nuvema Town", None),
-    "Nuvema Town - Item from Looker": FlagLocationData(0x18A, always_priority, "Nuvema Town", can_reach_region("Pokémon League")),
+    "Nuvema Town - Item from Looker": FlagLocationData(0x18A, always_priority, "Nuvema Town", can_beat_ghetsis),
     "Route 1 - Item after catching tutorial #1": FlagLocationData(0x18B, always_default, "Route 1 East", None),  #
     "Route 1 - Item after catching tutorial #2": FlagLocationData(0x18B, always_default, "Route 1 East", None),  #
     "Route 1 - Item after catching tutorial #3": FlagLocationData(0x18B, always_default, "Route 1 East", None),  #
@@ -30,7 +29,7 @@ table: dict[str, FlagLocationData] = {
     "Striaton City - Item from Cheren #2": FlagLocationData(192, always_default, "Striaton City", None),  #
     "Striaton City - Item from Cheren #3": FlagLocationData(192, always_default, "Striaton City", None),  #
     "Striaton City - Item from boy in Trainer's School": FlagLocationData(190, always_default, "Striaton City", None),  #
-    "Striaton City - Item from Amanita": FlagLocationData(0x18C, always_default, "Striaton City", can_reach_region("Dreamyard North")),  #
+    "Striaton City - Item from Amanita": FlagLocationData(0x18C, always_default, "Striaton City", can_cut_dreamyard_tree),  #
     "Striaton City - Item from fisherman": FlagLocationData(187, always_default, "Striaton City", can_use_surf),  #
     "Striaton Gym - Gym guide item": FlagLocationData(118, always_default, "Striaton City", None),  #
     "Route 3 - Item from pokémon breeder Adelaide": FlagLocationData(1420+20, always_default, "Route 3", None),  #
@@ -44,7 +43,7 @@ table: dict[str, FlagLocationData] = {
     "Nacrene City - Item from girl in west building": FlagLocationData(301, always_default, "Nacrene City", None),  #
     "Nacrene City - Item from waitress in Café Warehouse": FlagLocationData(2736, always_default, "Nacrene City", None),  #
     "Nacrene City - Item from Bianca": FlagLocationData(0x18F, always_default, "Nacrene City", None),  #
-    "Nacrene City - Item from Lenora": FlagLocationData(0x195, always_priority, "Nacrene City", can_reach_region("Relic Castle Lower Floors")),  #
+    "Nacrene City - Item from Lenora": FlagLocationData(0x195, always_priority, "Nacrene City", can_go_deeper_into_relic_castle),  #
     "Nacrene Gym - Gym guide item": FlagLocationData(119, always_default, "Nacrene City", None),  #
     "Pinwheel Forest Outside - Item from challenge rock": FlagLocationData(2737, always_default, "Pinwheel Forest Outside", has_fighting_type_species),  #
     "Pinwheel Forest - Item from ranger Forrest": FlagLocationData(1420+26, always_default, "Pinwheel Forest West", None),  #
@@ -75,14 +74,14 @@ table: dict[str, FlagLocationData] = {
     "Castelia City - Item from manager in Café Sonata": FlagLocationData(164, always_default, "Castelia City", None),  #
     "Castelia City - Item from Iris in Plasma hideout": FlagLocationData(0x199, always_default, "Castelia City", None),  #
     "Castelia City - Item from dancers": FlagLocationData(0x196, always_default, "Castelia City", None),  #
-    "Castelia City - Item from scientist in building in northern street": FlagLocationData(328, always_default, "Castelia City", has_number_of_species(25)),  #
+    "Castelia City - Item from scientist in building in northern street": FlagLocationData(328, always_default, "Castelia City", has_25_species),  #
     # The rom editor cannot decompile the script for the Passerby Analytics HQ properly
     # "Passerby Analytics HQ - Item for answering all questionnaires": FlagLocationData(0000000, always_default, "Castelia City", None),  #
     # I think this one requires connecting with other save files too
     # Not changing the script
     # "Passerby Analytics HQ - Item for completing all survey requests": FlagLocationData(0000000, always_default, "Castelia City", None),  #
     "Castelia Gym - Gym guide item": FlagLocationData(120, always_default, "Castelia City", None),  #
-    "Royal Unova - Item for defeating every trainer": FlagLocationData(0x198, always_default, "Castelia City", can_reach_region("Pokémon League")),  #
+    "Royal Unova - Item for defeating every trainer": FlagLocationData(0x198, always_default, "Castelia City", can_beat_ghetsis),  #
     "Route 4 - Item from Professor Juniper #1": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
     "Route 4 - Item from Professor Juniper #2": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
     "Route 4 - Item from Professor Juniper #3": FlagLocationData(0x19B, always_default, "Route 4 North", None),  #
@@ -96,7 +95,7 @@ table: dict[str, FlagLocationData] = {
     "Desert Resort - Item from man in black": FlagLocationData(276, always_default, "Desert Resort", None),  #
     "Desert Resort - Item from ranger Mylene": FlagLocationData(1420+549, always_default, "Desert Resort", None),  #
     "Desert Resort - Item from ranger Jaden": FlagLocationData(1420+550, always_default, "Desert Resort", None),  #
-    "Desert Resort - Item from Professor Juniper": FlagLocationData(0x19C, always_default, "Desert Resort", can_reach_region("Pokémon League")),  #
+    "Desert Resort - Item from Professor Juniper": FlagLocationData(0x19C, always_default, "Desert Resort", can_beat_ghetsis),  #
     "Relic Castle - 1F castleside item from backpacker": FlagLocationData(145, always_default, "Relic Castle Entrance", None),  #
     "Nimbasa City - Item from Day-Care man": FlagLocationData(153, always_default, "Nimbasa City", None),  #
     "Nimbasa City - Item from socialite in western building": FlagLocationData(366, always_default, "Nimbasa City", None),  #
@@ -132,7 +131,7 @@ table: dict[str, FlagLocationData] = {
     # "Battle Subway - Item from ace trainer on super platforms for 203 consecutive wins": FlagLocationData(0000000, always_excluded, "Nimbasa City", None),  #
     "Nimbasa City - Item from Musical Theater owner": FlagLocationData(0x19F, always_default, "Nimbasa City", None),  #
     "Anville Town - Item from depot agent on first visit": FlagLocationData(323, always_default, "Anville Town", None),  #
-    "Driftveil City - Item from man for seeing more than 50 pokémon": FlagLocationData(264, always_default, "Driftveil City", has_number_of_species(51)),  #
+    "Driftveil City - Item from man for seeing more than 50 pokémon": FlagLocationData(264, always_default, "Driftveil City", has_51_species),  #
     "Driftveil City - Item from girl in pokémon center #1": FlagLocationData(147, always_default, "Driftveil City", None),  #
     "Driftveil City - Item from girl in pokémon center #2": FlagLocationData(147, always_default, "Driftveil City", None),  #
     "Driftveil City - Item from girl in pokémon center #3": FlagLocationData(147, always_default, "Driftveil City", None),  #
@@ -152,7 +151,7 @@ table: dict[str, FlagLocationData] = {
     "Mistralton Gym - Gym guide item": FlagLocationData(123, always_excluded, "Mistralton City", None),  #
     "Route 7 - Item from ranger Mary": FlagLocationData(1420+187, always_default, "Route 7", None),  #
     "Route 7 - Item from ranger Pedro": FlagLocationData(1420+183, always_default, "Route 7", None),  #
-    "Twist Mountain - Item from worker near ice rock cave": FlagLocationData(2762, always_default, "Twist Mountain", can_reach_region("Pokémon League")),  #
+    "Twist Mountain - Item from worker near ice rock cave": FlagLocationData(2762, always_default, "Twist Mountain", can_beat_ghetsis),  #
     # Answer can be either correct or wrong once a day
     "Icirrus City - Item from Aha if answer was correct": FlagLocationData(0x1A6, always_excluded, "Icirrus City", None),  #
     "Icirrus City - Item from Aha if answer was incorrect": FlagLocationData(0x1A7, always_excluded, "Icirrus City", None),  #
@@ -163,7 +162,7 @@ table: dict[str, FlagLocationData] = {
     "Icirrus City - Item from the former Team Rocket member's wife": FlagLocationData(134, season_dependant, "Icirrus City", can_set_winter),  #
     "Icirrus Gym - Gym guide item": FlagLocationData(124, always_default, "Icirrus City", None),  #
     "Dragonspiral Tower - Item from Cedric Juniper": FlagLocationData(310, always_default, "Dragonspiral Tower", None),  #
-    "Route 8 - Item from Bianca": FlagLocationData(0x1A8, always_default, "Route 8", can_reach_region("Relic Castle Lower Floors")),  #
+    "Route 8 - Item from Bianca": FlagLocationData(0x1A8, always_default, "Route 8", can_go_deeper_into_relic_castle),  #
     "Route 8 - Item from ranger Lewis": FlagLocationData(1420+184, always_default, "Route 8", None),  #
     "Route 8 - Item from ranger Annie": FlagLocationData(1420+188, always_default, "Route 8", None),  #
     "Route 8 - Item from eastern parasol lady": FlagLocationData(2764, always_default, "Route 8", None),  #

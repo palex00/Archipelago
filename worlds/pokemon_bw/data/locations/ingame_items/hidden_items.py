@@ -11,10 +11,7 @@ table: dict[str, FlagLocationData] = {
     "Route 18 - Ravine hidden item": FlagLocationData(1018, always_default, "Route 18", can_use_strength),
     "Route 18 - Upper coast hidden item": FlagLocationData(1019, always_default, "Route 18 Coast", None),
     "Route 18 - Lower coast hidden item": FlagLocationData(1020, always_default, "Route 18 Coast", None),
-    "Striaton City - North west hidden item #1": FlagLocationData(
-        900, always_default, "Striaton City",
-        lambda state, world: (can_reach_region("Route 3")(state, world) or can_use_surf(state, world))
-    ),
+    "Striaton City - North west hidden item #1": FlagLocationData(900, always_default, "Striaton City", striaton_hidden_item),
     "Striaton City - North west hidden item #2": FlagLocationData(901, always_default, "Striaton City", can_use_surf),
     # Following region is basement because it's behind the traffic cone, which unlocks basement
     "Dreamyard - Hidden item behind traffic cone": FlagLocationData(903, always_default, "Dreamyard Basement", None),

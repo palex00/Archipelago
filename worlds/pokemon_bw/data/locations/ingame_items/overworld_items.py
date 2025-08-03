@@ -77,7 +77,7 @@ table: dict[str, FlagLocationData] = {
     "Desert Resort - Even more south west item": FlagLocationData(1252, always_default, "Desert Resort", None),
     "Desert Resort - North west item": FlagLocationData(1133, always_default, "Desert Resort", None),
     "Desert Resort - Item between Relic Castle entrances": FlagLocationData(1134, always_default, "Desert Resort", None),
-    "Relic Castle - 1F towerside item": FlagLocationData(1173, always_default, "Relic Castle Tower Entrance", can_reach_region("Relic Castle Tower Lower Floors")),
+    "Relic Castle - 1F towerside item": FlagLocationData(1173, always_default, "Relic Castle Tower Entrance", can_go_to_relic_castle_basement),
     "Relic Castle - B1F castleside item": FlagLocationData(1121, always_default, "Relic Castle Entrance", None),
     "Relic Castle - B2F castleside item #1": FlagLocationData(1156, always_default, "Relic Castle Lower Floors", None),
     "Relic Castle - B2F castleside item #2": FlagLocationData(1164, always_default, "Relic Castle Lower Floors", None),

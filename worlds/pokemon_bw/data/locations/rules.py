@@ -1,40 +1,9 @@
-from .. import ExtendedRule
+from .. import ExtendedRule, InclusionRule
 from ..pokemon import pokedex
-from ..items import tm_hm
+from ..items import tm_hm, seasons
 
 
-# Standard requirements
-
-def has_species(name: str) -> ExtendedRule:
-    return lambda state, world: state.has(name, world.player)
-
-
-def has_number_of_species(x: int) -> ExtendedRule:
-    # As wild encounters aren't the only way to see different species, we are going to assume that we will always be
-    # able to see 115 species (practical maximum for x) by the time we reach the league
-    return lambda state, world: (
-        state.count_from_list_unique(pokedex.by_name, world.player) >= x
-        or state.can_reach_region("Pokémon League", world.player)
-    )
-
-
-def has_item(name: str, amount: int = 1) -> ExtendedRule:
-    return lambda state, world: state.has(name, world.player, amount)
-
-
-def has_any_item(*items: str) -> ExtendedRule:
-    return lambda state, world: state.has_any(items, world.player)
-
-
-def has_all_items(*items: str) -> ExtendedRule:
-    return lambda state, world: state.has_all(items, world.player)
-
-
-def can_reach_region(region: str) -> ExtendedRule:
-    return lambda state, world: (state.can_reach_region(region, world.player))
-
-
-# HM requirements
+# Item requirements
 
 can_use_strength: ExtendedRule = lambda state, world: (
     state.has("HM04 Strength", world.player)
@@ -73,36 +42,118 @@ can_use_surf_or_strength: ExtendedRule = lambda state, world: (
     )
 )
 
+can_fish: ExtendedRule = lambda state, world: state.has("Super Rod", world.player)
+has_rage_candy_bar: ExtendedRule = lambda state, world: state.has("Rage Candy Bar", world.player)
+has_basement_key: ExtendedRule = lambda state, world: state.has("Basement Key", world.player)
+has_parcel: ExtendedRule = lambda state, world: state.has("Parcel", world.player)
+has_loot_sack: ExtendedRule = lambda state, world: state.has("Loot Sack", world.player)
+has_dragon_skull: ExtendedRule = lambda state, world: state.has("Dragon Skull", world.player)
+has_liberty_pass: ExtendedRule = lambda state, world: state.has("Liberty Pass", world.player)
+has_machine_part: ExtendedRule = lambda state, world: state.has("Machine Part", world.player)
+has_explorer_kit: ExtendedRule = lambda state, world: state.has("Explorer Kit", world.player)
+has_tidal_bell: ExtendedRule = lambda state, world: state.has("Tidal Bell", world.player)
+has_oaks_letter: ExtendedRule = lambda state, world: state.has("Oak's Letter", world.player)
+has_blue_card: ExtendedRule = lambda state, world: state.has("Blue Card", world.player)
+has_red_chain: ExtendedRule = lambda state, world: state.has("Red Chain", world.player)
+has_any_legendary_stone: ExtendedRule = lambda state, world: state.has_any(("Light Stone", "Dark Stone"), world.player)
+has_lock_capsule: ExtendedRule = lambda state, world: state.has("Lock Capsule", world.player)
+has_all_grams: ExtendedRule = lambda state, world: state.has_all("Wingull Gram 1", "Wingull Gram 2", "Wingull Gram 3", world.player)
+
+
+# Badge requirements
+
+has_trio_badge: ExtendedRule = lambda state, world: state.has("Trio Badge", world.player)
+has_basic_badge: ExtendedRule = lambda state, world: state.has("Basic Badge", world.player)
+has_insect_badge: ExtendedRule = lambda state, world: state.has("Insect Badge", world.player)
+has_bolt_badge: ExtendedRule = lambda state, world: state.has("Bolt Badge", world.player)
+has_quake_badge: ExtendedRule = lambda state, world: state.has("Quake Badge", world.player)
+has_jet_badge: ExtendedRule = lambda state, world: state.has("Jet Badge", world.player)
+has_freeze_badge: ExtendedRule = lambda state, world: state.has("Freeze Badge", world.player)
+has_legend_badge: ExtendedRule = lambda state, world: state.has("Legend Badge", world.player)
+
 
 # Season requirements
 
 can_set_winter: ExtendedRule = lambda state, world: (
-    True if world.options.SeasonControl == "vanilla" else (
-        state.can_reach_region("Nimbasa City", world.player) if world.options.SeasonControl == "changeable" else (
-            state.can_reach_region("Nimbasa City", world.player)
-            and state.has("Winter", world.player)
+    world.options.SeasonControl == "vanilla" or (
+        state.can_reach_region("Nimbasa City", world.player) and (
+            world.options.SeasonControl == "changeable" or state.has("Winter", world.player)
         )
     )
 )
 
 can_set_other_than_winter: ExtendedRule = lambda state, world: (
-    True if world.options.SeasonControl == "vanilla" else (
-        state.can_reach_region("Nimbasa City", world.player) if world.options.SeasonControl == "changeable" else (
-            state.can_reach_region("Nimbasa City", world.player)
-            and state.has_any(("Spring", "Summer", "Autumn"), world.player)
+    world.options.SeasonControl == "vanilla" or (
+        state.can_reach_region("Nimbasa City", world.player) and (
+            world.options.SeasonControl == "changeable" or state.has_any(("Spring", "Summer", "Autumn"), world.player)
         )
     )
 )
 
 can_catch_all_deerlings: ExtendedRule = lambda state, world: (
     state.has("Deerling", world.player) and (
-        True if world.options.SeasonControl == "vanilla" else (
-            state.can_reach_region("Nimbasa City", world.player) if world.options.SeasonControl == "changeable" else (
-                state.can_reach_region("Nimbasa City", world.player)
-                and state.has_all(("Spring", "Summer", "Autumn", "Winter"), world.player)
+        world.options.SeasonControl == "vanilla" or (
+            state.can_reach_region("Nimbasa City", world.player) and (
+                world.options.SeasonControl == "changeable" or state.has_any(seasons.table, world.player)
             )
         )
     )
+)
+
+encounter_can_set_spring: ExtendedRule = lambda state, world: (
+    state.can_reach_region("Nimbasa City", world.player) and (
+        world.options.season_control == "changeable" or state.has("Spring", world.plyer)
+    )
+)
+
+encounter_can_set_summer: ExtendedRule = lambda state, world: (
+    state.can_reach_region("Nimbasa City", world.player) and (
+        world.options.season_control == "changeable" or state.has("Summer", world.plyer)
+    )
+)
+
+encounter_can_set_autumn: ExtendedRule = lambda state, world: (
+    state.can_reach_region("Nimbasa City", world.player) and (
+        world.options.season_control == "changeable" or state.has("Autumn", world.plyer)
+    )
+)
+
+encounter_can_set_winter: ExtendedRule = lambda state, world: (
+    state.can_reach_region("Nimbasa City", world.player) and (
+        world.options.season_control == "changeable" or state.has("Winter", world.plyer)
+    )
+)
+
+
+# Region requirements
+
+can_beat_ghetsis: ExtendedRule = lambda state, world: state.can_reach_region("N's Castle", world.player)
+can_encounter_swords_of_justice: ExtendedRule = lambda state, world: state.can_reach_region("Mistralton Cave Inner", world.player)
+can_cut_dreamyard_tree: ExtendedRule = lambda state, world: state.can_reach_region("Dreamyard North", world.player)
+can_go_deeper_into_relic_castle: ExtendedRule = lambda state, world: state.can_reach_region("Relic Castle Lower Floors", world.player)
+can_go_to_relic_castle_basement: ExtendedRule = lambda state, world: state.can_reach_region("Relic Castle Tower Lower Floors", world.player)
+
+
+# Encounter requirements
+
+has_forces_of_nature: ExtendedRule = lambda state, world: state.has_all(("Thundurus", "Tornadus"), world.player)
+has_celebi: ExtendedRule = lambda state, world: state.has("Celebi", world.player)
+has_legendary_beasts: ExtendedRule = lambda state, world: state.has_all(("Entei", "Raikou", "Suicune"), world.player)
+has_25_species: ExtendedRule = lambda state, world: (
+    state.count_from_list_unique(pokedex.by_name, world.player) >= 25
+    or state.can_reach_region("N's Castle", world.player)
+)
+has_51_species: ExtendedRule = lambda state, world: (
+    state.count_from_list_unique(pokedex.by_name, world.player) >= 51
+    or state.can_reach_region("N's Castle", world.player)
+)
+has_60_species: ExtendedRule = lambda state, world: (
+    state.count_from_list_unique(pokedex.by_name, world.player) >= 60
+    or state.can_reach_region("N's Castle", world.player)
+)
+has_115_species: ExtendedRule = lambda state, world: (
+    state.count_from_list_unique(pokedex.by_name, world.player) >= 115
+    or state.can_reach_region("N's Castle", world.player)
 )
 
 
@@ -113,5 +164,21 @@ has_fighting_type_species: ExtendedRule = lambda state, world: (
 )
 
 has_any_tm_hm: ExtendedRule = lambda state, world: (
-    state.has_any(tm_hm.item_table, world.player)
+    state.has_any(tm_hm.table, world.player)
 )
+
+can_surf_and_set_spring: ExtendedRule = lambda state, world: can_use_surf(state, world) and encounter_can_set_spring(state, world)
+can_surf_and_set_summer: ExtendedRule = lambda state, world: can_use_surf(state, world) and encounter_can_set_summer(state, world)
+can_surf_and_set_autumn: ExtendedRule = lambda state, world: can_use_surf(state, world) and encounter_can_set_autumn(state, world)
+can_surf_and_set_winter: ExtendedRule = lambda state, world: can_use_surf(state, world) and encounter_can_set_winter(state, world)
+can_fish_and_set_spring: ExtendedRule = lambda state, world: can_fish(state, world) and encounter_can_set_spring(state, world)
+can_fish_and_set_summer: ExtendedRule = lambda state, world: can_fish(state, world) and encounter_can_set_summer(state, world)
+can_fish_and_set_autumn: ExtendedRule = lambda state, world: can_fish(state, world) and encounter_can_set_autumn(state, world)
+can_fish_and_set_winter: ExtendedRule = lambda state, world: can_fish(state, world) and encounter_can_set_winter(state, world)
+striaton_hidden_item: ExtendedRule = lambda state, world: state.can_reach_region("Route 3", world.player) or can_use_surf(state, world)
+
+
+# Encounter inclusion rules
+
+changeable_seasons: InclusionRule = lambda world: world.options.season_control != "vanilla"
+disabled: InclusionRule = lambda world: False  # Due to missing wild randomization
