@@ -1,5 +1,5 @@
 from ..rules import *
-from worlds.pokemon_bw.data import StaticEncounterData, TradeEncounterData
+from ... import StaticEncounterData, TradeEncounterData
 
 legendary: dict[str, StaticEncounterData] = {
     "Guidance Chamber Static Encounter": StaticEncounterData((638, 0), (638, 0), "Mistralton Cave Inner", None, None),

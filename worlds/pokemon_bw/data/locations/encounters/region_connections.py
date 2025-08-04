@@ -1,4 +1,4 @@
-from worlds.pokemon_bw.data import EncounterRegionConnectionData as ERCData
+from ... import EncounterRegionConnectionData as ERCData
 from ..rules import *
 
 connections: dict[str, ERCData] = {

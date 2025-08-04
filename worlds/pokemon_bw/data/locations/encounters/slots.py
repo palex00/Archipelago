@@ -1,4 +1,4 @@
-from worlds.pokemon_bw.data import EncounterData as ED
+from ... import EncounterData as ED
 
 table: dict[str, ED] = {
     "StCity - S 0": ED((550, 0), (550, 1), "StCity - S"),
