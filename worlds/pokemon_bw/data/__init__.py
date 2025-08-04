@@ -10,6 +10,7 @@ ExtendedRule: type = Callable[[CollectionState, PokemonBWWorld], bool]
 ClassificationMethod: type = Callable[[PokemonBWWorld], ItemClassification]
 ProgressTypeMethod: type = Callable[[PokemonBWWorld], LocationProgressType]
 InclusionRule: type = Callable[[PokemonBWWorld], bool]
+RulesDict = dict[ExtendedRule, Callable[[CollectionState], bool]]
 T = TypeVar("T")
 U = TypeVar("U")
 

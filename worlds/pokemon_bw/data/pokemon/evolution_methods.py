@@ -38,6 +38,10 @@ can_buy_item: dict[int, ExtendedRule] = {
     537: lambda state, world: state.can_reach_region("Undella Town", world.player),  # Prism Scale
 }
 
+extended_rules_list: tuple = (
+    always_possible, can_reach_magnetic_area, can_reach_moss_rock, can_reach_ice_rock,
+    *(rule for rule in can_buy_item.values())
+)
 
 # TODO fix ids
 methods: dict[str, EvolutionMethodData] = {

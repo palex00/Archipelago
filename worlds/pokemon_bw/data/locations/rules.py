@@ -177,6 +177,32 @@ can_fish_and_set_autumn: ExtendedRule = lambda state, world: can_fish(state, wor
 can_fish_and_set_winter: ExtendedRule = lambda state, world: can_fish(state, world) and encounter_can_set_winter(state, world)
 striaton_hidden_item: ExtendedRule = lambda state, world: state.can_reach_region("Route 3", world.player) or can_use_surf(state, world)
 
+extended_rules_list: tuple = (
+    can_use_strength, can_use_surf, can_use_cut, can_use_waterfall, can_use_dive, can_use_surf_or_strength,
+
+    can_fish, has_rage_candy_bar, has_basement_key, has_parcel, has_loot_sack, has_dragon_skull, has_liberty_pass,
+    has_machine_part, has_explorer_kit, has_tidal_bell, has_oaks_letter, has_blue_card, has_red_chain,
+    has_any_legendary_stone, has_lock_capsule, has_all_grams,
+
+    has_trio_badge, has_basic_badge, has_insect_badge, has_bolt_badge,
+    has_quake_badge, has_jet_badge, has_freeze_badge, has_legend_badge,
+
+    can_set_winter, can_set_other_than_winter, can_catch_all_deerlings,
+    encounter_can_set_spring, encounter_can_set_summer, encounter_can_set_autumn, encounter_can_set_winter,
+
+    can_beat_ghetsis, can_encounter_swords_of_justice, can_cut_dreamyard_tree, can_go_deeper_into_relic_castle,
+    can_go_to_relic_castle_basement,
+
+    has_forces_of_nature, has_celebi, has_legendary_beasts,
+    has_25_species, has_51_species, has_60_species, has_115_species,
+
+    has_fighting_type_species, has_any_tm_hm,
+
+    can_surf_and_set_spring, can_surf_and_set_summer, can_surf_and_set_autumn, can_surf_and_set_winter,
+    can_fish_and_set_spring, can_fish_and_set_summer, can_fish_and_set_autumn, can_fish_and_set_winter,
+    striaton_hidden_item,
+)
+
 
 # Encounter inclusion rules
 
