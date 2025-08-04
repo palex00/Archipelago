@@ -11,6 +11,7 @@ ClassificationMethod: type = Callable[[PokemonBWWorld], ItemClassification]
 ProgressTypeMethod: type = Callable[[PokemonBWWorld], LocationProgressType]
 InclusionRule: type = Callable[[PokemonBWWorld], bool]
 T = TypeVar("T")
+U = TypeVar("U")
 
 # TODO calc offset and move to client dir
 data_address_address = 0x000024
@@ -165,6 +166,7 @@ class NoDuplicateJustView(Collection[Collection[T]]):
         for x in self.tup:
             if __x in x:
                 return True
+        return False
 
     def __iter__(self):
         return NowINeedAnIterator(self)
@@ -198,3 +200,22 @@ class NowINeedAnIterator(Iterator[T]):
                 raise Exception("Something went terribly wrong in the custom iterator")
         else:  # self.i_inner > inner_len
             raise Exception("Something went terribly wrong in the custom iterator")
+
+
+class NoDuplicatesJustViewButDictsOnly:
+    """Very simple view that saves memory, but cannot handle duplicates"""
+
+    def __init__(self, d1: dict, *d: dict):
+        self.tup: tuple[dict, any] = (d1, *d)
+
+    def __getitem__(self, key):
+        for d in self.tup:
+            if key in d:
+                return d[key]
+        raise KeyError
+
+    def __contains__(self, key) -> bool:
+        for d in self.tup:
+            if key in d:
+                return True
+        return False

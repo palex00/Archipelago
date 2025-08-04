@@ -1,12 +1,101 @@
-from BaseClasses import Item
-from .data.items import all_bag_item_data, badges
+from typing import TYPE_CHECKING, Any
 
-name_to_id: dict[str, int] = {
-    name: all_bag_item_data[name].id for name in all_bag_item_data
-} | {
-    name: badges.item_table[name].bit + 1000 for name in badges.item_table
-}
+from BaseClasses import Item
+
+if TYPE_CHECKING:
+    from . import PokemonBWWorld
+    from .data import NoDuplicatesJustViewButDictsOnly
+
+
+all_items_dict_view: NoDuplicatesJustViewButDictsOnly
 
 
 class PokemonBWItem(Item):
     game = 'Pokemon Black and White'
+
+
+def generate_item(name: str, world: PokemonBWWorld) -> PokemonBWItem:
+    global all_items_dict_view
+
+    if all_items_dict_view is None:
+        from .data.items import all_items_dict_view as imported
+        all_items_dict_view = imported
+
+    data = all_items_dict_view[name]
+    return PokemonBWItem(name, data.classification(world), data.item_id, world.player)
+
+
+def get_lookup_table() -> dict[str, int]:
+    from .data.items import badges, berries, key_items, main_items, medicine, seasons, tm_hm
+
+    return ({name: data.item_id for name, data in badges.table.items()} |
+            {name: data.item_id for name, data in berries.standard.items()} |
+            {name: data.item_id for name, data in berries.niche.items()} |
+            {name: data.item_id for name, data in key_items.progression.items()} |
+            {name: data.item_id for name, data in key_items.vanilla.items()} |
+            {name: data.item_id for name, data in key_items.useless.items()} |
+            {name: data.item_id for name, data in main_items.min_once.items()} |
+            {name: data.item_id for name, data in main_items.filler.items()} |
+            {name: data.item_id for name, data in main_items.mail.items()} |
+            {name: data.item_id for name, data in main_items.unused.items()} |
+            {name: data.item_id for name, data in medicine.table.items()} |
+            {name: data.item_id for name, data in seasons.table.items()} |
+            {name: data.item_id for name, data in tm_hm.table.items()})
+
+
+def get_main_item_pool(world: PokemonBWWorld) -> list[PokemonBWItem]:
+    from .generate.items import badges, key_items, main_items, seasons, tm_hm
+
+    return (badges.generate_default(world) +
+            key_items.generate_default(world) +
+            main_items.generate_default(world) +
+            seasons.generate_default(world) +
+            tm_hm.generate_default(world))
+
+
+def generate_filler(world: PokemonBWWorld) -> PokemonBWItem:
+    from .data.items import berries, main_items, medicine
+
+    main_nested = [
+        main_items.filler,
+        main_items.filler,
+        main_items.filler if "Useful filler" not in world.options.modify_item_pool else [
+            main_items.filler,
+            main_items.min_once,
+            main_items.min_once,
+        ],
+        main_items.filler if "Ban bad filler" in world.options.modify_item_pool else [
+            main_items.filler,
+            main_items.filler,
+            main_items.filler,
+            main_items.mail,
+        ],
+    ]
+    berries_nested = [
+        berries.standard,
+        berries.standard,
+        berries.standard,
+        berries.niche,
+    ]
+
+    return generate_item(
+        random_choice_nested(
+            world.random.random(), [
+                main_nested,
+                main_nested,
+                berries_nested,
+                medicine.table,
+                medicine.table,
+            ]
+        ), world
+    )
+
+
+def random_choice_nested(random: float, nested: list[Any]) -> Any:
+    """Helper function for getting a random element from a nested list."""
+    current: Any = nested
+    while isinstance(current, list):
+        index_float = random*len(current)
+        current = current[int(index_float)]
+        random = index_float-int(index_float)
+    return current
