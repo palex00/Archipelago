@@ -588,12 +588,21 @@ class TrapsProbability(Range):
     range_end = 100
 
 
-class UselessKeyItems(Toggle):
+class ModifyItemPool(OptionSet):
     """
-    Adds all possible key items to the item pool, even if they're useless.
+    Modifies what items your world puts into the item pool.
+
+    - **Useless key items** - Adds one of each unused key item with filler classification.
+    - **Useful filler** - Main bag items that would normally occur only once can be generated multiple times.
+    - **Ban bad filler** - Bans niche berries and mail from being generated as filler items.
     """
-    display_name = "Useless Key Items"
-    default = False
+    display_name = "Modify Item Pool"
+    valid_keys = [
+        "Useless key items",
+        "Useful filler",
+        "Ban bad filler",
+    ]
+    default = []
 
 
 class FunnyDialogue(Toggle):
@@ -705,7 +714,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     # deathlink: DeathLink  # Needs to be imported from base options
     # wonder_trade: WonderTrade
     # traps_percentage: TrapsPercentage
-    useless_key_items: UselessKeyItems
+    modify_item_pool: ModifyItemPool
     # funny_dialogue: FunnyDialogue
     # text_plando: TextPlando
     reusable_tms: ReusableTMs

@@ -21,7 +21,7 @@ Version 1.0.0 will happen when certain features are implemented.
   - Randomize TMs/HMs: No, shuffle between NPCs, NPCs can have any "TMxx" or "HMxx", anywhere
   - Dexsanity (only vanilla encounters)
   - Changeable seasons
-  - Useless key items
+  - Modify item pool
   - Reusable TMs
 - Rom changes
   - Change roadblocks
