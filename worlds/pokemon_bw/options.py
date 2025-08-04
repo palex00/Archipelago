@@ -429,7 +429,6 @@ class Dexsanity(Range):
     default = 0
     range_start = 0
     range_end = 649
-    # range_end = 135  # Small change in programm structure
 
 
 class Trainersanity(Range):

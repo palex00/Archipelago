@@ -22,10 +22,11 @@ def generate_item(name: str, world: PokemonBWWorld) -> PokemonBWItem:
         all_items_dict_view = imported
 
     data = all_items_dict_view[name]
-    return PokemonBWItem(name, data.classification(world), data.item_id, world.player)
+    # Item id from lookup table is used instead of id from data for safety purposes
+    return PokemonBWItem(name, data.classification(world), world.item_name_to_id[name], world.player)
 
 
-def get_lookup_table() -> dict[str, int]:
+def get_item_lookup_table() -> dict[str, int]:
     from .data.items import badges, berries, key_items, main_items, medicine, seasons, tm_hm
 
     return ({name: data.item_id for name, data in badges.table.items()} |

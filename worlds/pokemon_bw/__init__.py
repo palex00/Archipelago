@@ -12,7 +12,6 @@ class PokemonBWWorld(World):
 
     def __init__(self, multiworld: MultiWorld, player: int):
         super().__init__(multiworld, player)
-        self.species_entries: dict[str, SpeciesEntry] = None
         self.strength_species: set[str] = None
         self.cut_species: set[str] = None
         self.surf_species: set[str] = None

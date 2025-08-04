@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 def generate_default(world: PokemonBWWorld) -> list[PokemonBWItem]:
     from ...data.items.seasons import table
 
-    if world.options.season_control != "vanilla":
+    if world.options.season_control == "randomized":
         return [
             PokemonBWItem(name, data.classification(world), data.item_id, world.player)
             for name, data in table.items()

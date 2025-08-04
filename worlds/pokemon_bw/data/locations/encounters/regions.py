@@ -1,5 +1,5 @@
 
-table: list[str] = [
+region_list: list[str] = [
     "StCity - S",
     "StCity - SR",
     "StCity - F",

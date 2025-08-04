@@ -1,19 +1,14 @@
-from .. import NoDuplicateJustView
 from . import dexsanity, regions, region_connections
 from .encounters import regions as encounter_regions, slots, static, region_connections as encounter_region_connections
 from .ingame_items import overworld_items, hidden_items, other, special
+from .. import NoDuplicatesJustViewButDictsOnly
 
-all_regions: NoDuplicateJustView = NoDuplicateJustView(
-    regions.region_list,
-    encounter_regions.table,
-)
-
-all_region_connections: NoDuplicateJustView = NoDuplicateJustView(
+all_region_connections: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOnly(
     region_connections.connections,
     encounter_region_connections.connections
 )
 
-all_locations: NoDuplicateJustView = NoDuplicateJustView(
+all_locations: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOnly(
     overworld_items.table,
     hidden_items.table,
     other.table,
@@ -27,7 +22,7 @@ all_locations: NoDuplicateJustView = NoDuplicateJustView(
     static.trade,
 )
 
-all_item_locations: NoDuplicateJustView = NoDuplicateJustView(
+all_item_locations: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOnly(
     overworld_items.table,
     hidden_items.table,
     other.table,
