@@ -1,21 +1,81 @@
-from BaseClasses import Location
-from .data import FlagLocationData, VarLocationData
-from .data.locations import dexsanity, overworld_items, hidden_items, other
+from typing import TYPE_CHECKING
 
-name_to_id: dict[str, int] = {
-    name: dexsanity.location_table[name].dex_number + 10000 for name in dexsanity.location_table
-} | {
-    name: overworld_items.location_table[name].flag_id + 20000 for name in overworld_items.location_table
-} | {
-    name: hidden_items.location_table[name].flag_id + 20000 for name in hidden_items.location_table
-} | {
-    name: other.location_table[name].flag_id + 20000
-    for name in other.location_table if other.location_table[name] is FlagLocationData
-} | {
-    name: other.location_table[name].var_id + 30000
-    for name in other.location_table if other.location_table[name] is VarLocationData
-}
+from BaseClasses import Location, Region
+
+if TYPE_CHECKING:
+    from . import PokemonBWWorld
+    from .data import RulesDict
 
 
 class PokemonBWLocation(Location):
     game = "Pokemon Black and White"
+
+
+def get_location_lookup_table() -> dict[str, int]:
+    from .generate.locations import overworld_items, hidden_items, other, badge_rewards, tm_hm, dexsanity
+
+    return {
+        **overworld_items.lookup(100000),
+        **hidden_items.lookup(200000),
+        **other.lookup(300000),
+        **badge_rewards.lookup(400000),
+        **tm_hm.lookup(500000),
+        **dexsanity.lookup(600000),
+    }
+
+
+def get_regions(world: PokemonBWWorld) -> dict[str, Region]:
+    from .data.locations import regions
+    from .data.locations.encounters import regions as encounter_regions
+
+    return {
+        name: Region(name, world.player, world.multiworld)
+        for name in regions.region_list
+    } | {
+        name: Region(name, world.player, world.multiworld)
+        for name in encounter_regions.region_list
+    }
+
+
+def create_rule_dict(world: PokemonBWWorld) -> RulesDict:
+    from .data.locations.rules import extended_rules_list
+
+    return {rule: (lambda state: rule(state, world)) for rule in extended_rules_list}
+
+
+def create_and_place_event_locations(world: PokemonBWWorld, regions: dict[str, Region],
+                                     rules: RulesDict) -> set[tuple[str, int]]:
+    """Returns a set of species that are actually catchable in this world."""
+    from .generate.events import wild, static, evolutions
+
+    catchable_dex_form: set[tuple[str, int]] = wild.create(world, regions) | static.create(world, regions, rules)
+    evolutions.create(world, regions, catchable_dex_form)
+    return catchable_dex_form
+
+
+def create_and_place_locations(world: PokemonBWWorld, regions: dict[str, Region],
+                               rules: RulesDict, catchable_dex_form: set[tuple[str, int]]) -> None:
+    from .generate.locations import overworld_items, hidden_items, other, badge_rewards, tm_hm, dexsanity
+
+    overworld_items.create(world, regions, rules)
+    hidden_items.create(world, regions, rules)
+    other.create(world, regions, rules)
+    badge_rewards.create(world, regions, rules)
+    tm_hm.create(world, regions, rules)
+    dexsanity.create(world, regions, catchable_dex_form)
+
+
+def connect_regions(world: PokemonBWWorld, regions: dict[str, Region], rules: RulesDict) -> None:
+    pass
+
+
+def cleanup_regions(regions: dict[str, Region]) -> None:
+    pass
+
+
+def place_locked_items(world: PokemonBWWorld, regions: dict[str, Region]) -> None:
+    pass
+
+
+def count_to_be_filled_locations(regions: dict[str, Region]) -> int:
+    pass
