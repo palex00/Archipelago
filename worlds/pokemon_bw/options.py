@@ -385,8 +385,8 @@ class ShuffleTMRewards(Choice):
     """
     Determines what items NPCs, who would normally give TMs or HMs, can have.
     - **Shuffle** - These NPCs will always give a TM or HM from the same slot.
-    - **Any TM/HM** - These NPCs will give any item that have the word "TM" or "HM" followed by any numbers
-                      in their name (which also applies to TMs and HMs of other games/slots).
+    - **Any TM/HM** - These NPCs will give any item that starts with "TM" or "HM" followed by any digit
+                      (which also applies to TMs and HMs of other games/slots).
     - **Anything** - No restrictions.
     """
     display_name = "Shuffle TM Rewards"
