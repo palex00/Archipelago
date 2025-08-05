@@ -9,10 +9,10 @@ if TYPE_CHECKING:
     from BaseClasses import Region
 
 
-def lookup(area: int) -> dict[str, int]:
+def lookup(domain: int) -> dict[str, int]:
     from ...data.locations.dexsanity import location_table
 
-    return {name: data.dex_number + area for name, data in location_table.items()}
+    return {name: data.dex_number + domain for name, data in location_table.items()}
 
 
 def create(world: PokemonBWWorld, regions: dict[str, Region], catchable_dex_form: set[tuple[str, int]]) -> None:

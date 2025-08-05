@@ -6,7 +6,7 @@ if TYPE_CHECKING:
 
 
 def generate_default(world: PokemonBWWorld) -> list[PokemonBWItem]:
-    from ...data.items.key_items import progression, vanilla, useless
+    from ...data.items.key_items import progression, vanilla, useless, special
 
     items = [
         PokemonBWItem(name, data.classification(world), data.item_id, world.player)
@@ -21,5 +21,14 @@ def generate_default(world: PokemonBWWorld) -> list[PokemonBWItem]:
             PokemonBWItem(name, data.classification(world), data.item_id, world.player)
             for name, data in useless.items()
         ]
+
+    data = special["Xtransceiver (Blue)"]
+    items.append(PokemonBWItem("Xtransceiver (Blue)", data.classification(world), data.item_id, world.player))
+    if world.options.version == "black":
+        data = special["Light Stone"]
+        items.append(PokemonBWItem("Light Stone", data.classification(world), data.item_id, world.player))
+    else:
+        data = special["Dark Stone"]
+        items.append(PokemonBWItem("Dark Stone", data.classification(world), data.item_id, world.player))
 
     return items

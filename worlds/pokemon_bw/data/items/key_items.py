@@ -1,6 +1,13 @@
 from .. import ItemData
 from .classification import *
 
+special: dict[str, ItemData] = {
+    "Light Stone": ItemData(0x0268, always_progression),
+    "Dark Stone": ItemData(0x0269, always_progression),
+    "Xtransceiver (Blue)": ItemData(0x026D, always_useful),
+    "Xtransceiver (Red)": ItemData(0x0272, always_useful),
+}
+
 progression: dict[str, ItemData] = {
     "Explorer Kit": ItemData(0x01AC, always_progression),
     "Loot Sack": ItemData(0x01AD, always_progression),
@@ -15,8 +22,6 @@ progression: dict[str, ItemData] = {
     "Lock Capsule": ItemData(0x0215, always_progression),
     "Liberty Pass": ItemData(0x023E, always_progression),
     "Dragon Skull": ItemData(0x0243, always_progression),
-    "Light Stone": ItemData(0x0268, always_progression),
-    "Dark Stone": ItemData(0x0269, always_progression),
     "Wingull Gram 1": ItemData(0x026F, always_progression),
     "Wingull Gram 2": ItemData(0x0270, always_progression),
     "Wingull Gram 3": ItemData(0x0271, always_progression),
@@ -40,8 +45,6 @@ vanilla: dict[str, ItemData] = {
     "Gracidea": ItemData(0x01D2, always_useful),
     "Dowsing Machine": ItemData(0x01D7, always_useful),
     "Prop Case": ItemData(0x0242, always_useful),
-    "Xtransceiver (Blue)": ItemData(0x026D, always_useful),
-    "Xtransceiver (Red)": ItemData(0x0272, always_useful),
 }
 
 useless: dict[str, ItemData] = {

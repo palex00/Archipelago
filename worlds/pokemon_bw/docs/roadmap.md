@@ -4,7 +4,7 @@
 
 The "barely working" version will still be playable to goal, so it will start with 0.1.0.
 
-Every major feature will increase the version by +0.1.
+Every feature will increase the version by +0.1.
 
 However, do not confuse that with the semantic version naming: `major.minor.build`
 
@@ -40,6 +40,7 @@ Version 1.0.0 will happen when certain features are implemented.
 - Full dexsanity
 - Trainersanity
 - Xtransceiver being required to see certain story sequences (with some of them giving items)
+  - Also dynamic Xtransceiver item that automatically adds the correctly gendered version to the game
 - All pokémon seen option
 
 ## Road to 2.0.0 (Stats update, name WIP)

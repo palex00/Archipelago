@@ -10,6 +10,7 @@ all_key_items: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOn
     key_items.progression,
     key_items.vanilla,
     key_items.useless,
+    key_items.special
 )
 
 all_main_items: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOnly(
@@ -26,6 +27,7 @@ all_items_dict_view: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButD
     key_items.progression,
     key_items.vanilla,
     key_items.useless,
+    key_items.special,
     main_items.min_once,
     main_items.filler,
     main_items.mail,

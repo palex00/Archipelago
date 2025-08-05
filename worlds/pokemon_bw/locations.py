@@ -66,16 +66,27 @@ def create_and_place_locations(world: PokemonBWWorld, regions: dict[str, Region]
 
 
 def connect_regions(world: PokemonBWWorld, regions: dict[str, Region], rules: RulesDict) -> None:
-    pass
+    from .data.locations import region_connections as gameplay_connections
+    from .data.locations.encounters import region_connections as encounter_connections
+
+    for name, data in gameplay_connections.connections.items():
+        regions[data.exiting_region].connect(regions[data.entering_region], name, rules[data.rule])
+
+    for name, data in encounter_connections.connections.items():
+        if (data.inclusion_rule is None) or data.inclusion_rule(world):
+            regions[data.exiting_region].connect(regions[data.entering_region], name, rules[data.rule])
 
 
 def cleanup_regions(regions: dict[str, Region]) -> None:
-    pass
-
-
-def place_locked_items(world: PokemonBWWorld, regions: dict[str, Region]) -> None:
-    pass
+    for name, region in regions.items():
+        if len(region.entrances) == 0:
+            regions.pop(name)
 
 
 def count_to_be_filled_locations(regions: dict[str, Region]) -> int:
-    pass
+    count = 0
+    for region in regions.values():
+        for location in region.locations:
+            if location.item is None:
+                count += 1
+    return count

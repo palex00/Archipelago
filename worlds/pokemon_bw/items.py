@@ -35,6 +35,7 @@ def get_item_lookup_table() -> dict[str, int]:
             {name: data.item_id for name, data in key_items.progression.items()} |
             {name: data.item_id for name, data in key_items.vanilla.items()} |
             {name: data.item_id for name, data in key_items.useless.items()} |
+            {name: data.item_id for name, data in key_items.special.items()} |
             {name: data.item_id for name, data in main_items.min_once.items()} |
             {name: data.item_id for name, data in main_items.filler.items()} |
             {name: data.item_id for name, data in main_items.mail.items()} |
@@ -54,7 +55,7 @@ def get_main_item_pool(world: PokemonBWWorld) -> list[PokemonBWItem]:
             tm_hm.generate_default(world))
 
 
-def generate_filler(world: PokemonBWWorld) -> PokemonBWItem:
+def generate_filler(world: PokemonBWWorld) -> str:
     from .data.items import berries, main_items, medicine
 
     main_nested = [
@@ -79,16 +80,14 @@ def generate_filler(world: PokemonBWWorld) -> PokemonBWItem:
         berries.niche,
     ]
 
-    return generate_item(
-        random_choice_nested(
-            world.random.random(), [
-                main_nested,
-                main_nested,
-                berries_nested,
-                medicine.table,
-                medicine.table,
-            ]
-        ), world
+    return random_choice_nested(
+        world.random.random(), [
+            main_nested,
+            main_nested,
+            berries_nested,
+            medicine.table,
+            medicine.table,
+        ]
     )
 
 
@@ -100,3 +99,10 @@ def random_choice_nested(random: float, nested: list[Any]) -> Any:
         current = current[int(index_float)]
         random = index_float-int(index_float)
     return current
+
+
+def place_locked_items(world: PokemonBWWorld, items: list[PokemonBWItem]) -> None:
+    from .generate.locked_placement import place_tm_hm, place_badges
+
+    place_tm_hm(world, items)
+    place_badges(world, items)

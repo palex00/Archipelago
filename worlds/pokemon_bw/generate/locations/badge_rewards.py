@@ -8,10 +8,10 @@ if TYPE_CHECKING:
     from ...data import RulesDict
 
 
-def lookup(area: int) -> dict[str, int]:
+def lookup(domain: int) -> dict[str, int]:
     from ...data.locations.ingame_items.special import gym_badges
 
-    return {name: data.flag_id + area for name, data in gym_badges.items()}
+    return {name: data.flag_id + domain for name, data in gym_badges.items()}
 
 
 def create(world: PokemonBWWorld, regions: dict[str, Region], rules: RulesDict) -> None:

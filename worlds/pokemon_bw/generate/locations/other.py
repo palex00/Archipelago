@@ -8,11 +8,11 @@ if TYPE_CHECKING:
     from ...data import RulesDict
 
 
-def lookup(area: int) -> dict[str, int]:
+def lookup(domain: int) -> dict[str, int]:
     from ...data.locations.ingame_items.other import table
 
     return {
-        name: data.flag_id * 100 + area + (
+        name: data.flag_id * 100 + domain + (
             int(name[:-2].split("#")[-1]) if "#" in name else 0
         )
         for name, data in table.items()
