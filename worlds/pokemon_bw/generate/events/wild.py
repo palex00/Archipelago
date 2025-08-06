@@ -16,11 +16,12 @@ def create(world: PokemonBWWorld, regions: dict[str, Region]) -> set[tuple[str, 
     from ...data.pokemon.movesets import table as movesets_table
 
     catchable_dex_form: set[tuple[str, int]] = set()
+    is_black = world.options.version == "black"
 
     for name, data in table.items():
         r: Region = regions[data.encounter_region]
         l: PokemonBWLocation = PokemonBWLocation(world.player, name, None, r)
-        species_id: tuple[int, int] = data.species_black if world.options.version == "black" else data.species_white
+        species_id: tuple[int, int] = data.species_black if is_black else data.species_white
         species_name: str = species_by_id[species_id]
         item: PokemonBWItem = PokemonBWItem(species_name, ItemClassification.progression, None, world.player)
         l.place_locked_item(item)

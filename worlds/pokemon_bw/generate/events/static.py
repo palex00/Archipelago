@@ -23,7 +23,7 @@ def create(world: PokemonBWWorld, regions: dict[str, Region], rules: RulesDict) 
 
     def f(table: dict[str, StaticEncounterData | TradeEncounterData]):
         for name, data in table.items():
-            if data is TradeEncounterData or ((data.inclusion_rule is None) or data.inclusion_rule(world)):
+            if type(data) is TradeEncounterData or ((data.inclusion_rule is None) or data.inclusion_rule(world)):
                 r: Region = regions[data.encounter_region]
                 l: PokemonBWLocation = PokemonBWLocation(world.player, name, None, r)
                 species_id: tuple[int, int] = data.species_black \
@@ -31,7 +31,7 @@ def create(world: PokemonBWWorld, regions: dict[str, Region], rules: RulesDict) 
                 species_name: str = species_by_id[species_id]
                 item: PokemonBWItem = PokemonBWItem(species_name, ItemClassification.progression, None, world.player)
                 l.place_locked_item(item)
-                if data is StaticEncounterData:
+                if type(data) is StaticEncounterData:
                     l.access_rule = rules[data.access_rule]
                 elif world.options.version == "black":
                     l.access_rule = get_trade_rule(species_by_id[(data.wanted_black, 0)])

@@ -1,9 +1,9 @@
 
 def create(source: str | bytes, destination: str | bytes) -> bytes:
-    if source is str:
+    if type(source) is str:
         with open(source, "rb") as source_file:
             source = source_file.read()
-    if destination is str:
+    if type(destination) is str:
         with open(destination, "rb") as destination_file:
             destination = destination_file.read()
 
@@ -18,10 +18,10 @@ def create(source: str | bytes, destination: str | bytes) -> bytes:
 
 
 def patch(source: str | bytes, otp_patch: str | bytes) -> bytes:
-    if source is str:
+    if type(source) is str:
         with open(source, "rb") as source_file:
             source = source_file.read()
-    if otp_patch is str:
+    if type(otp_patch) is str:
         with open(otp_patch, "rb") as otp_patch_file:
             otp_patch = otp_patch_file.read()
 
