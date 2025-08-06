@@ -26,7 +26,7 @@ connections: dict[str, RegionConnectionData] = {
     "Route 3 south west": RegionConnectionData("Route 3", "Nacrene City", None),
     "Nacrene City west": RegionConnectionData("Nacrene City", "Pinwheel Forest Outside", None),
     "Enter Pinwheel Forest": RegionConnectionData("Pinwheel Forest Outside", "Pinwheel Forest West", has_loot_sack),
-    "Pinwheel Forest east": RegionConnectionData("Pinwheel Forest West", "Pinwheel Forest East", can_encounter_swords_of_justice),
+    "Pinwheel Forest east": RegionConnectionData("Pinwheel Forest West", "Pinwheel Forest East", can_encounter_swords_of_justice),  # indirect connection
     "Pinwheel Forest north": RegionConnectionData("Pinwheel Forest West", "Skyarrow Bridge", has_dragon_skull),
     "Skyarrow Bridge gate": RegionConnectionData("Skyarrow Bridge", "Castelia City", None),
     "Liberty Pier": RegionConnectionData("Castelia City", "Liberty Garden", has_liberty_pass),
@@ -36,7 +36,7 @@ connections: dict[str, RegionConnectionData] = {
     "Desert Resort tower": RegionConnectionData("Desert Resort", "Relic Castle Tower Entrance", None),
     "Desert Resort stairs": RegionConnectionData("Desert Resort", "Relic Castle Entrance", None),
     "Relic Castle B2F castleside": RegionConnectionData("Relic Castle Entrance", "Relic Castle Lower Floors", has_explorer_kit),
-    "Relic Castle B5F castleside": RegionConnectionData("Relic Castle Lower Floors", "Relic Castle Basement", can_beat_ghetsis),
+    "Relic Castle B5F castleside": RegionConnectionData("Relic Castle Lower Floors", "Relic Castle Basement", can_beat_ghetsis),  # indirect connection
     "Relic Castle basement top left": RegionConnectionData("Relic Castle Basement", "Relic Castle Tower Lower Floors", None),
     "Route 4 north gate": RegionConnectionData("Route 4 North", "Nimbasa City", None),
     "Battle Subway Anville line": RegionConnectionData("Nimbasa City", "Anville Town", None),

@@ -46,10 +46,11 @@ def create_rule_dict(world: PokemonBWWorld) -> RulesDict:
 def create_and_place_event_locations(world: PokemonBWWorld, regions: dict[str, Region],
                                      rules: RulesDict) -> set[tuple[str, int]]:
     """Returns a set of species that are actually catchable in this world."""
-    from .generate.events import wild, static, evolutions
+    from .generate.events import wild, static, evolutions, goal
 
     catchable_dex_form: set[tuple[str, int]] = wild.create(world, regions) | static.create(world, regions, rules)
     evolutions.create(world, regions, catchable_dex_form)
+    goal.create(world, regions)
     return catchable_dex_form
 
 
@@ -75,6 +76,11 @@ def connect_regions(world: PokemonBWWorld, regions: dict[str, Region], rules: Ru
     for name, data in encounter_connections.connections.items():
         if (data.inclusion_rule is None) or data.inclusion_rule(world):
             regions[data.exiting_region].connect(regions[data.entering_region], name, rules[data.rule])
+
+    pinwheel_forest_east = regions["Pinwheel Forest East"]
+    relic_castle_basement = regions["Relic Castle Basement"]
+    world.multiworld.register_indirect_condition(pinwheel_forest_east, world.get_entrance("Pinwheel Forest east"))
+    world.multiworld.register_indirect_condition(relic_castle_basement, world.get_entrance("Relic Castle B5F castleside"))
 
 
 def cleanup_regions(regions: dict[str, Region]) -> None:
