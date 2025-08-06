@@ -13,11 +13,11 @@ if TYPE_CHECKING:
 
 
 def patch_black(rom: NintendoDSRom, world_package: str, bw_patch_instance: PokemonBWPatch) -> None:
-    _patch(rom, pkgutil.get_data(world_package, "patch/seasons_otpp/ov20_B"))
+    _patch(rom, pkgutil.get_data(world_package, "patch/seasons_otpp/ov20_B_decomp"))
 
 
 def patch_white(rom: NintendoDSRom, world_package: str, bw_patch_instance: PokemonBWPatch) -> None:
-    _patch(rom, pkgutil.get_data(world_package, "patch/seasons_otpp/ov20_W"))
+    _patch(rom, pkgutil.get_data(world_package, "patch/seasons_otpp/ov20_W_decomp"))
 
 
 def _patch(rom: NintendoDSRom, otpp_patch: bytes) -> None:
