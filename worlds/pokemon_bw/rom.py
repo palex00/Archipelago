@@ -5,16 +5,13 @@ import ndspy.rom
 
 import Utils
 from settings import get_settings
-from worlds.Files import APPatch, AutoPatchExtensionRegister
-from typing import TYPE_CHECKING, Any, Dict, ClassVar, Callable
+from worlds.Files import APPatch
+from typing import TYPE_CHECKING, Any, Dict, Callable
+
+from .patch.procedures import base_patch, season_patch
 
 if TYPE_CHECKING:
     from . import PokemonBWWorld
-
-
-patch_procedures: dict[str, Callable] = {
-    # TODO list procedures from patch module
-}
 
 
 class PokemonBWPatch(APPatch):
@@ -52,7 +49,7 @@ class PokemonBWPatch(APPatch):
         rom = ndspy.rom.NintendoDSRom(base_data)
         procedures: list[str] = str(self.get_file("procedures.txt"), "utf-8").splitlines()
         for prod in procedures:
-            patch_procedures[prod]()  # TODO params
+            patch_procedures[prod](rom, __name__, self)
 
         with open(target, 'wb') as f:
             f.write(rom.save(updateDeviceCapacity=True))
@@ -74,6 +71,13 @@ class PokemonBWPatch(APPatch):
         if file not in self.files:
             self.read()
         return self.files[file]
+
+
+patch_procedures: dict[str, Callable[[ndspy.rom.NintendoDSRom, str, PokemonBWPatch], None]] = {
+    "base_patch": base_patch.patch,
+    "season_patch_black": season_patch.patch_black,
+    "season_patch_white": season_patch.patch_white,
+}
 
 
 def get_base_rom_bytes(version: str, file_name: str = "") -> bytes:
