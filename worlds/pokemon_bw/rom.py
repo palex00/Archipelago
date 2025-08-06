@@ -5,7 +5,7 @@ import ndspy.rom
 
 import Utils
 from settings import get_settings
-from worlds.Files import APPatch
+from worlds.Files import APAutoPatchInterface
 from typing import TYPE_CHECKING, Any, Dict, Callable
 
 from .patch.procedures import base_patch, season_patch
@@ -14,15 +14,15 @@ if TYPE_CHECKING:
     from . import PokemonBWWorld
 
 
-class PokemonBWPatch(APPatch):
+class PokemonBlackPatch(APAutoPatchInterface):
     game = "Pokemon Black and White"
     bw_patch_version = (0, 1, 0)
-    patch_file_ending_black = ".apblack"
-    patch_file_ending_white = ".apwhite"
+    patch_file_ending = ".apblack"
     result_file_ending = ".nds"
 
     def __init__(self, world: PokemonBWWorld | None, *args: Any, **kwargs: Any):
         self.game_version = None
+        self.game_goal = None
         self.world = world
         self.files: dict[str, bytes] = {}
         super().__init__(*args, **kwargs)
@@ -31,6 +31,7 @@ class PokemonBWPatch(APPatch):
         super().write_contents(opened_zipfile)
 
         procedures: list[str] = ["base_patch"]
+        # TODO extra file patching
         if self.world.options.season_control:
             procedures.append("season_patch_"+self.world.options.version.current_key)
 
@@ -39,6 +40,7 @@ class PokemonBWPatch(APPatch):
     def get_manifest(self) -> Dict[str, Any]:
         manifest = super().get_manifest()
         manifest["bw_patch_version"] = self.bw_patch_version
+        manifest["game_goal"] = self.world.options.goal.current_key
         manifest["game_version"] = self.world.options.version.current_key
         return manifest
 
@@ -64,6 +66,7 @@ class PokemonBWPatch(APPatch):
             raise Exception(f"File (BW patch version: {".".join(manifest["bw_patch_version"])} too new "
                             f"for this handler (BW patch version: {self.bw_patch_version})")
         self.game_version = manifest["game_version"]
+        self.game_goal = manifest["game_goal"]
         return manifest
 
     def get_file(self, file: str) -> bytes:
@@ -73,7 +76,11 @@ class PokemonBWPatch(APPatch):
         return self.files[file]
 
 
-patch_procedures: dict[str, Callable[[ndspy.rom.NintendoDSRom, str, PokemonBWPatch], None]] = {
+class PokemonWhitePatch(PokemonBlackPatch):
+    patch_file_ending = ".apwhite"
+
+
+patch_procedures: dict[str, Callable[[ndspy.rom.NintendoDSRom, str, PokemonBlackPatch], None]] = {
     "base_patch": base_patch.patch,
     "season_patch_black": season_patch.patch_black,
     "season_patch_white": season_patch.patch_white,

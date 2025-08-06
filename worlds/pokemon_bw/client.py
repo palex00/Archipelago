@@ -1,47 +1,55 @@
-#importing libraries
-from typing import TYPE_CHECKING, Dict, Set, Tuple, List
-import struct
+import time
+from typing import TYPE_CHECKING
 
 from NetUtils import ClientStatus
+import asyncio
+
 import worlds._bizhawk as bizhawk
 from worlds._bizhawk.client import BizHawkClient
 
-import asyncio
-import Utils
-from worlds.LauncherComponents import Component, SuffixIdentifier, Type, components, launch_subprocess
-
-
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
-else:
-    BizHawkClientContext = object
 
-class PkMnBWClient(BizHawkClient):
-    game = "Pokemon Black and White"
+
+def register_client():
+    """This is just a placeholder function to remind new (and old) world devs to import the client file"""
+    pass
+
+
+class PokemonBWClient(BizHawkClient):
+    game = "Sonic Rush"
     system = "NDS"
-    patch_suffix = ".apbw"
-    local_checked_locations: Set[int]
-    goal : int
-    ram_mem_domain = "Main RAM"
-    goal_complete = False
+    patch_suffix = (".apblack", ".apwhite")
 
-    def __init__(self) -> None:
-            super().__init__()
-            self.local_checked_locations = set()
-            self.local_set_events = {}
-            self.local_found_key_items = {}
-            self.rom_slot_name = None
-            self.seed_verify = False
-            self.eUsed = []
-            self.room = 0
-            self.local_events = []
+    ram_read_write_domain = "Main RAM"
+    rom_read_only_domain = "ROM"
 
-    async def update_received_items(self, ctx: "BizHawkClientContext", received_items_offset, received_index,
-                                    i) -> None:
-        await bizhawk.write(
-            ctx.bizhawk_ctx,
-            [
-                (received_items_offset, [(received_index + i + 1) // 0x100, (received_index + i + 1) % 0x100],
-                 self.ram_mem_domain),
-            ]
-        )
+    def __init__(self):
+        super().__init__()
+
+    async def validate_rom(self, ctx: "BizHawkClientContext") -> bool:
+        """Should return whether the currently loaded ROM should be handled by this client. You might read the game name
+        from the ROM header, for example. This function will only be asked to validate ROMs from the system set by the
+        client class, so you do not need to check the system yourself.
+
+        Once this function has determined that the ROM should be handled by this client, it should also modify `ctx`
+        as necessary (such as setting `ctx.game = self.game`, modifying `ctx.items_handling`, etc...)."""
+        rom = await bizhawk.read(ctx.bizhawk_ctx, (
+            (0, 268435456, self.rom_read_only_domain),
+        ))
+        pass
+
+    async def set_auth(self, ctx: "BizHawkClientContext") -> None:
+        """Should set ctx.auth in anticipation of sending a `Connected` packet. You may override this if you store slot
+        name in your patched ROM. If ctx.auth is not set after calling, the player will be prompted to enter their
+        username."""
+        pass
+
+    def on_package(self, ctx: "BizHawkClientContext", cmd: str, args: dict) -> None:
+        """For handling packages from the server. Called from `BizHawkClientContext.on_package`."""
+        pass
+
+    async def game_watcher(self, ctx: "BizHawkClientContext") -> None:
+        """Runs on a loop with the approximate interval `ctx.watcher_timeout`. The currently loaded ROM is guaranteed
+        to have passed your validator when this function is called, and the emulator is very likely to be connected."""
+        pass
