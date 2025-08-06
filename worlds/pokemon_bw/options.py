@@ -11,7 +11,9 @@ class Goal(Choice):
     - **Champion** - Become the champion by defeating Alder
     - **Cynthia** - Defeat Cynthia in Undella Town
     - **Regional pokédex** - Complete the Unova pokédex (requires wild Pokémon being randomized) 
-    - **National pokédex** - Complete the national pokédex (requires wild Pokémon being randomized) 
+    - **National pokédex** - Complete the national pokédex (requires wild Pokémon being randomized)
+    - **Custom pokédex** - Complete all dexsanity locations (requires wild Pokémon being randomized
+                           and dexsanity being set to at least 100)
     - **TM/HM hunt** - Get all TMs and HMs
     - **Seven Sages hunt** - Find the Seven Sages
     """
@@ -21,8 +23,9 @@ class Goal(Choice):
     option_cynthia = 2
     # option_regional_pokedex = 3
     # option_national_pokedex = 4
-    option_tmhm_hunt = 5
-    option_seven_sages_hunt = 6
+    # option_custom_pokedex = 5
+    option_tmhm_hunt = 6
+    option_seven_sages_hunt = 7
     default = 0
 
 
@@ -33,6 +36,7 @@ class GameVersion(Choice):
     display_name = "Game Version"
     option_black = 0
     option_white = 1
+    # option_dynamic = 2
     default = "random"
 
 
@@ -606,7 +610,8 @@ class ModifyItemPool(OptionSet):
 
 class FunnyDialogue(Toggle):
     """
-    Adds humorous dialogue submitted by the folks in the Pokémon Black and White thread of the Archipelago Discord server. 
+    Adds humorous dialogue submitted by the folks in the Pokémon Black and White thread of the
+    Archipelago Discord server. This option requires Text Plando being enabled in the host settings.
     """
     display_name = "Funny Dialogue"
     default = 0
