@@ -581,6 +581,16 @@ class WonderTrade(Toggle):
     default = False
 
 
+class MultiworldGiftPokemon(Toggle):
+    """
+    Adds pokémon to the item pool that can be obtained from an npc in [TBD] after receiving
+    the corresponding item from another player. Pokémon will only be placed in other worlds and
+    have a species that matches the theme of that world (if defined).
+    """
+    display_name = "Multiworld Gift Pokémon"
+    default = False
+
+
 class TrapsProbability(Range):
     """
     Determines the probability of every randomly generated filler item being replaced by a random trap item.
@@ -689,14 +699,14 @@ class PokemonBWOptions(PerGameCommonOptions):
     # randomize_base_stats: RandomizeBaseStats
     # base_stat_total_limits: BaseStatTotalLimits
     # randomize_evolutions: RandomizeEvolutions
-    # randomize_catch_rates: RandomizeCatchRates
-    # catch_rates_limits: CatchRatesLimits
     # randomize_level_up_movesets: RandomizeLevelUpMovesets
+    # randomize_tm_hm_compatibility: RandomizeTMHMCompatibility
     # randomize_types: RandomizeTypes
     # randomize_abilities: RandomizeAbilities
+    # randomize_catch_rates: RandomizeCatchRates
+    # catch_rates_limits: CatchRatesLimits
     # randomize_gender_ratio: RandomizeGenderRatio
     # gender_ratio_limits: GenderRatioLimits
-    # randomize_tm_hm_compatibility: RandomizeTMHMCompatibility
 
     # Items, locations, and progression
     shuffle_badges: ShuffleBadgeRewards
@@ -717,6 +727,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     # replace_evo_methods: ReplaceEvoMethods
     # deathlink: DeathLink  # Needs to be imported from base options
     # wonder_trade: WonderTrade
+    # multiworld_gift_pokemon: MultiworldGiftPokemon
     # traps_percentage: TrapsPercentage
     modify_item_pool: ModifyItemPool
     # funny_dialogue: FunnyDialogue
