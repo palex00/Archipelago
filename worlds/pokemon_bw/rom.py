@@ -1,3 +1,4 @@
+import asyncio
 import os
 import zipfile
 
@@ -8,10 +9,18 @@ from settings import get_settings
 from worlds.Files import APAutoPatchInterface
 from typing import TYPE_CHECKING, Any, Dict, Callable
 
-from .patch.procedures import base_patch, season_patch
+from .patch.procedures import base_patch, season_patch, slot_data
 
 if TYPE_CHECKING:
     from . import PokemonBWWorld
+
+
+cached_rom: list[ndspy.rom.NintendoDSRom | None] = [None]
+
+
+async def keep_cache_alive():
+    while cached_rom[0] is not None:
+        await asyncio.sleep(5)
 
 
 class PokemonBlackPatch(APAutoPatchInterface):
@@ -21,8 +30,8 @@ class PokemonBlackPatch(APAutoPatchInterface):
     result_file_ending = ".nds"
 
     def __init__(self, world: PokemonBWWorld | None, *args: Any, **kwargs: Any):
-        self.game_version = None
-        self.game_goal = None
+        self.game_version: str
+        self.game_goal: str
         self.world = world
         self.files: dict[str, bytes] = {}
         super().__init__(*args, **kwargs)
@@ -30,8 +39,7 @@ class PokemonBlackPatch(APAutoPatchInterface):
     def write_contents(self, opened_zipfile: zipfile.ZipFile) -> None:
         super().write_contents(opened_zipfile)
 
-        procedures: list[str] = ["base_patch"]
-        # TODO extra file patching
+        procedures: list[str] = ["base_patch", "slot_data"]
         if self.world.options.season_control:
             procedures.append("season_patch_"+self.world.options.version.current_key)
 
@@ -56,6 +64,9 @@ class PokemonBlackPatch(APAutoPatchInterface):
         with open(target, 'wb') as f:
             f.write(rom.save(updateDeviceCapacity=True))
 
+        cached_rom[0] = rom
+        asyncio.run(keep_cache_alive())
+
     def read_contents(self, opened_zipfile: zipfile.ZipFile) -> Dict[str, Any]:
         for file in opened_zipfile.namelist():
             if file not in ["archipelago.json"]:
@@ -64,13 +75,13 @@ class PokemonBlackPatch(APAutoPatchInterface):
         manifest = super().read_contents(opened_zipfile)
         if manifest["bw_patch_version"] > self.bw_patch_version:
             raise Exception(f"File (BW patch version: {".".join(manifest["bw_patch_version"])} too new "
-                            f"for this handler (BW patch version: {self.bw_patch_version})")
+                            f"for this handler (BW patch version: {self.bw_patch_version}). "
+                            f"Please update your apworld.")
         self.game_version = manifest["game_version"]
         self.game_goal = manifest["game_goal"]
         return manifest
 
     def get_file(self, file: str) -> bytes:
-        """ Retrieves a file from the patch container."""
         if file not in self.files:
             self.read()
         return self.files[file]
@@ -84,6 +95,7 @@ patch_procedures: dict[str, Callable[[ndspy.rom.NintendoDSRom, str, PokemonBlack
     "base_patch": base_patch.patch,
     "season_patch_black": season_patch.patch_black,
     "season_patch_white": season_patch.patch_white,
+    "slot_data": slot_data.add_slot_data_file,
 }
 
 
