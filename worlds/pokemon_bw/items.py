@@ -102,7 +102,8 @@ def random_choice_nested(random: float, nested: list[Any]) -> Any:
 
 
 def place_locked_items(world: PokemonBWWorld, items: list[PokemonBWItem]) -> None:
-    from .generate.locked_placement import place_tm_hm, place_badges
+    from .generate.locked_placement import place_tm_hm, place_badges, starting_season
 
     place_tm_hm(world, items)
     place_badges(world, items)
+    starting_season(world, items)

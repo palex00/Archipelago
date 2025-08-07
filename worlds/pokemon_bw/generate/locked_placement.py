@@ -80,3 +80,15 @@ def place_tm_hm(world: PokemonBWWorld, items: list[PokemonBWItem]) -> None:
             pass
         case _:
             raise Exception(f"Bad shuffle_tm_hm option value for player {world.player_name}")
+
+
+def starting_season(world: PokemonBWWorld, items: list[PokemonBWItem]) -> None:
+    from ..data.items import seasons
+
+    if world.options.season_control == "randomized":
+        seasons_list: list[PokemonBWItem] = [
+            item for item in items if item.name in seasons.table
+        ]
+        start = world.random.choice(seasons_list)
+        world.push_precollected(start)
+        items.remove(start)
