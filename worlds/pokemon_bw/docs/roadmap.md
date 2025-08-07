@@ -10,17 +10,17 @@ However, do not confuse that with the semantic version naming: `major.minor.buil
 
 Version 1.0.0 will happen when certain features are implemented.
 
-## Road to 1.0.0
+## Road to 1.0.0 (Required for core)
 
-### First version
+### 0.1.0: First version
 
 - Options
   - Goals: Ghetsis, Alder, Cynthia, TM/HM hunt, seven sages
   - Version: Black, White
-  - Randomize Badges: No, shuffle between leaders, leaders can have any "badge", anywhere
-  - Randomize TMs/HMs: No, shuffle between NPCs, NPCs can have any "TMxx" or "HMxx", anywhere
+  - Shuffle Badges: No, shuffle between leaders, leaders can have any "badge", anywhere
+  - Shuffle TMs/HMs: No, shuffle between NPCs, NPCs can have any "TMxx" or "HMxx", anywhere
   - Dexsanity (only vanilla encounters)
-  - Changeable seasons
+  - Season control
   - Modify item pool
   - Reusable TMs
 - Rom changes
@@ -32,18 +32,21 @@ Version 1.0.0 will happen when certain features are implemented.
   - Gym leaders setting a custom flag instead of checking for the badge
   - Rage Candy Bar and fossils as key items
 
-### Other features
-
-- Wild pokémon randomization
-- Trainer randomization
-- Starter/Static/Gift/Trade/Legendary pokémon randomization
-- Full dexsanity
-- Trainersanity
+### Other feature updates
+- Options
+  - Goals: Regional Pokédex, National Pokédex, Custom Pokédex
+  - Wild pokémon randomization
+  - Trainer randomization
+  - Starter/Static/Gift/Trade/Legendary pokémon randomization
+  - Full dexsanity
+  - Trainersanity
+  - Seensanity
+  - All pokémon seen
+  - Normalize levels
 - Xtransceiver being required to see certain story sequences (with some of them giving items)
   - Also dynamic Xtransceiver item that automatically adds the correctly gendered version to the game
-- All pokémon seen option
 
-## Road to 2.0.0 (Stats update, name WIP)
+## Big update #1 (Stats update, name WIP, required for core)
 
 - Stats randomization
   - Base stats (+ limit)
@@ -59,7 +62,7 @@ Version 1.0.0 will happen when certain features are implemented.
 - Optional evo methods replacing
 - Experience modifier
 
-## Big update #2 (Text update, name WIP)
+## Big update #2 (Text and rom update, name WIP, required for core)
 
 - Offline singleplayer
   - i.e. generating a single world will produce a romhack playable without connecting to a server
@@ -82,3 +85,4 @@ Version 1.0.0 will happen when certain features are implemented.
 - DeathLink
 - Wonder trade
 - Traps
+- Multiworld gift Pokémon

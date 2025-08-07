@@ -78,13 +78,65 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 
 ### APWorld
 
-- TODO TODO TODO
-- Roadmap
-- Changelog
-- Credits
-- Item data: Bag items and badges
-- Location data: Dexsanity
-- Encounter data: Regions, slots
-- Species data
+- Data
+  - Data definitions
+  - Items
+    - Bag items: Berries, key items, main items, medicine, TMs/HMs
+    - Badges
+    - Seasons
+    - DictViews
+  - Locations
+    - Encounters: Wild, static, gift, trade, legendary, regions + connections
+    - Overworld regions + connections
+    - Ingame items: Overworld, hidden, npc, badge, TM/HM
+    - Dexsanity
+    - Methods/Rules: Progress type, access rule, inclusion rules
+    - Partial Trainersanity, unused
+  - Pokémon
+    - Species: Dex number, form, base stats, abilities, evolutions, TM/HM movesets
+    - Pokédex lookup
+    - Evolution methods
+- Docs
+  - Changelog (initial)
+  - Credits
+  - Roadmap (initial)
+  - Game info page (partially)
+  - Setup page
+- Generator
+  - Events: Wild/Static encounters, evolutions, goals
+  - Items: Badges, key items, min once main items, seasons, TM/HM
+  - Locations: Overworld items, hidden items, npc items, badge rewards, TM/HM rewards, dexsanity
+  - Manual item placement: Badge rewards, TM/HM rewards
+- Patch
+  - Procedures: Base patch, slot data, season patch
+  - Patch files: Base patches zip, season patches
+  - OTPP algorithm
+- World class skeleton
+- Client
+  - Generic BizHawk client
+  - Item receiving
+  - Flag location checking
+  - Dex flags checking
+  - Goal checking
+  - Slot data file retrieving
+- Item handling
+  - All item-related things mentioned above
+  - Lookup table
+  - Random filler items
+- Locations handling
+  - All location-related things mentioned above
+  - Lookup table
+- Rom handling
+  - Patch file generation
+  - Patch file importing
+- Options
+  - Goal: Ghetsis, Champion, Cynthia, TM/HM hunt, Seven Sages hunt
+  - Version: Black, White
+  - Shuffle badge rewards: Vanilla, Shuffle, Any "Badge", Anywhere
+  - Shuffle TM/HM rewards: Shuffle, Any "TM"/"HM", Anywhere
+  - Dexsanity (partially)
+  - Season control: Vanilla, Changeable, Randomized
+  - Modify item pool: Useless key items, useful filler, ban bad filler
+  - Reusable TMs: On, yes, of course, I'm not a masochist
 
 ### Client
