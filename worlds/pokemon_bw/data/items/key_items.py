@@ -25,15 +25,6 @@ progression: dict[str, ItemData] = {
     "Wingull Gram 1": ItemData(0x026F, always_progression),
     "Wingull Gram 2": ItemData(0x0270, always_progression),
     "Wingull Gram 3": ItemData(0x0271, always_progression),
-    "Root Fossil": ItemData(0x0063, always_progression),
-    "Claw Fossil": ItemData(0x0064, always_progression),
-    "Helix Fossil": ItemData(0x0065, always_progression),
-    "Dome Fossil": ItemData(0x0066, always_progression),
-    "Old Amber": ItemData(0x0067, always_progression),
-    "Armor Fossil": ItemData(0x0068, always_progression),
-    "Skull Fossil": ItemData(0x0069, always_progression),
-    "Cover Fossil": ItemData(0x023C, always_progression),
-    "Plume Fossil": ItemData(0x023D, always_progression),
     "Rage Candy Bar": ItemData(0x01F8, always_progression),
 }
 

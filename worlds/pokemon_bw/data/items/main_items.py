@@ -16,6 +16,18 @@ mail: dict[str, ItemData] = {
     "Bridge Mail M": ItemData(0x0094, always_filler),
 }
 
+fossils: dict[str, ItemData] = {
+    "Root Fossil": ItemData(0x0063, always_progression),
+    "Claw Fossil": ItemData(0x0064, always_progression),
+    "Helix Fossil": ItemData(0x0065, always_progression),
+    "Dome Fossil": ItemData(0x0066, always_progression),
+    "Old Amber": ItemData(0x0067, always_progression),
+    "Armor Fossil": ItemData(0x0068, always_progression),
+    "Skull Fossil": ItemData(0x0069, always_progression),
+    "Cover Fossil": ItemData(0x023C, always_progression),
+    "Plume Fossil": ItemData(0x023D, always_progression),
+}
+
 min_once: dict[str, ItemData] = {
     "Master Ball": ItemData(0x0001, always_useful),
     "Exp. Share": ItemData(0x00D8, always_useful),
@@ -259,6 +271,8 @@ filler: dict[str, ItemData] = {
     "Casteliacone": ItemData(0x024F, always_filler),
 }
 
+# DO NOT USE!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Main bag doesn't have enough space for everything
 unused: dict[str, ItemData] = {
     "Pass Orb": ItemData(0x023F, always_filler),
     "Growth Mulch": ItemData(0x005F, always_filler),

@@ -7,14 +7,14 @@ if TYPE_CHECKING:
     from .data import NoDuplicatesJustViewButDictsOnly
 
 
-all_items_dict_view: NoDuplicatesJustViewButDictsOnly
+all_items_dict_view: "NoDuplicatesJustViewButDictsOnly"
 
 
 class PokemonBWItem(Item):
     game = 'Pokemon Black and White'
 
 
-def generate_item(name: str, world: PokemonBWWorld) -> PokemonBWItem:
+def generate_item(name: str, world: "PokemonBWWorld") -> PokemonBWItem:
     global all_items_dict_view
 
     if all_items_dict_view is None:
@@ -37,6 +37,7 @@ def get_item_lookup_table() -> dict[str, int]:
             {name: data.item_id for name, data in key_items.useless.items()} |
             {name: data.item_id for name, data in key_items.special.items()} |
             {name: data.item_id for name, data in main_items.min_once.items()} |
+            {name: data.item_id for name, data in main_items.fossils.items()} |
             {name: data.item_id for name, data in main_items.filler.items()} |
             {name: data.item_id for name, data in main_items.mail.items()} |
             {name: data.item_id for name, data in main_items.unused.items()} |
@@ -45,7 +46,7 @@ def get_item_lookup_table() -> dict[str, int]:
             {name: data.item_id for name, data in tm_hm.table.items()})
 
 
-def get_main_item_pool(world: PokemonBWWorld) -> list[PokemonBWItem]:
+def get_main_item_pool(world: "PokemonBWWorld") -> list[PokemonBWItem]:
     from .generate.items import badges, key_items, main_items, seasons, tm_hm
 
     return (badges.generate_default(world) +
@@ -55,7 +56,7 @@ def get_main_item_pool(world: PokemonBWWorld) -> list[PokemonBWItem]:
             tm_hm.generate_default(world))
 
 
-def generate_filler(world: PokemonBWWorld) -> str:
+def generate_filler(world: "PokemonBWWorld") -> str:
     from .data.items import berries, main_items, medicine
 
     main_nested = [
@@ -101,7 +102,7 @@ def random_choice_nested(random: float, nested: list[Any]) -> Any:
     return current
 
 
-def place_locked_items(world: PokemonBWWorld, items: list[PokemonBWItem]) -> None:
+def place_locked_items(world: "PokemonBWWorld", items: list[PokemonBWItem]) -> None:
     from .generate.locked_placement import place_tm_hm, place_badges, starting_season
 
     place_tm_hm(world, items)

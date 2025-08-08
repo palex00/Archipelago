@@ -15,6 +15,7 @@ all_key_items: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOn
 
 all_main_items: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOnly(
     main_items.min_once,
+    main_items.fossils,
     main_items.filler,
     main_items.mail,
     main_items.unused,
@@ -29,6 +30,7 @@ all_items_dict_view: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButD
     key_items.useless,
     key_items.special,
     main_items.min_once,
+    main_items.fossils,
     main_items.filler,
     main_items.mail,
     main_items.unused,
