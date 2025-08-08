@@ -31,6 +31,8 @@ Version 1.0.0 will happen when certain features are implemented.
   - Vanilla items don't get added to the bag
   - Gym leaders setting a custom flag instead of checking for the badge
   - Rage Candy Bar and fossils as key items
+- QoL
+  - Auto updating roms
 
 ### Other feature updates
 - Options

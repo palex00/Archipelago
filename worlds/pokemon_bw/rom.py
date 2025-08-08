@@ -3,6 +3,7 @@ import os
 import zipfile
 
 import ndspy.rom
+import orjson
 
 import Utils
 from settings import get_settings
@@ -29,10 +30,10 @@ class PokemonBlackPatch(APAutoPatchInterface):
     patch_file_ending = ".apblack"
     result_file_ending = ".nds"
 
-    def __init__(self, world: PokemonBWWorld | None, *args: Any, **kwargs: Any):
-        self.game_version: str
-        self.game_goal: str
-        self.world = world
+    def __init__(self, *args: Any, **kwargs: Any):
+        self.world = None
+        if "world" in kwargs:
+            self.world: "PokemonBWWorld" = kwargs["world"]
         self.files: dict[str, bytes] = {}
         super().__init__(*args, **kwargs)
 
@@ -43,18 +44,31 @@ class PokemonBlackPatch(APAutoPatchInterface):
         if self.world.options.season_control:
             procedures.append("season_patch_"+self.world.options.version.current_key)
 
+        datapackage: dict[str, Any] = {
+            "location_name_to_id": self.world.location_name_to_id,
+            "item_id_to_name": self.world.item_id_to_name,
+        }
+
+        slot_data_dict: dict[str, Any] = {
+            "goal": self.world.options.goal.current_key,
+            "version": self.world.options.version.current_key,
+            "season_control": self.world.options.season_control.current_key,
+        }
+
         opened_zipfile.writestr("procedures.txt", "\n".join(procedures))
+        opened_zipfile.writestr("datapackage.json", orjson.dumps(datapackage))
+        opened_zipfile.writestr("slot_data.json", orjson.dumps(slot_data_dict))
 
     def get_manifest(self) -> Dict[str, Any]:
         manifest = super().get_manifest()
         manifest["bw_patch_version"] = self.bw_patch_version
-        manifest["game_goal"] = self.world.options.goal.current_key
-        manifest["game_version"] = self.world.options.version.current_key
         return manifest
 
     def patch(self, target: str) -> None:
         self.read()
-        base_data = get_base_rom_bytes(self.game_version)
+
+        slot_data_dict: dict[str, Any] = orjson.loads(self.get_file("slot_data.json"))
+        base_data = get_base_rom_bytes(slot_data_dict["version"])
 
         rom = ndspy.rom.NintendoDSRom(base_data)
         procedures: list[str] = str(self.get_file("procedures.txt"), "utf-8").splitlines()
@@ -77,8 +91,6 @@ class PokemonBlackPatch(APAutoPatchInterface):
             raise Exception(f"File (BW patch version: {".".join(manifest["bw_patch_version"])} too new "
                             f"for this handler (BW patch version: {self.bw_patch_version}). "
                             f"Please update your apworld.")
-        self.game_version = manifest["game_version"]
-        self.game_goal = manifest["game_goal"]
         return manifest
 
     def get_file(self, file: str) -> bytes:
