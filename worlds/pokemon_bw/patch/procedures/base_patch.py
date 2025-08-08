@@ -18,7 +18,7 @@ class PatchProcedure(NamedTuple):
     narc_filename: str
 
 
-def patch(rom: NintendoDSRom, world_package: str, bw_patch_instance: PokemonBlackPatch) -> None:
+def patch(rom: NintendoDSRom, world_package: str, bw_patch_instance: "PokemonBlackPatch") -> None:
 
     # open patch files zip and create dict of patch procedures
     base_otpp_zip = pkgutil.get_data(world_package, "patch/base_otpp.zip")

@@ -8,13 +8,13 @@ if TYPE_CHECKING:
     from ... import PokemonBWWorld
     from BaseClasses import Region
     from ...data import SpeciesData, RulesDict
-    from ...data import TradeEncounterData, StaticEncounterData
 
 
-def create(world: PokemonBWWorld, regions: dict[str, Region], rules: RulesDict) -> set[tuple[str, int]]:
+def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesDict") -> set[tuple[str, int]]:
     from ...data.locations.encounters.static import static, legendary, gift, trade
     from ...data.pokemon.species import by_id as species_by_id, by_name as species_by_name
     from ...data.pokemon.movesets import table as movesets_table
+    from ...data import TradeEncounterData, StaticEncounterData
 
     catchable_dex_form: set[tuple[str, int]] = set()
 
@@ -24,7 +24,7 @@ def create(world: PokemonBWWorld, regions: dict[str, Region], rules: RulesDict) 
     def f(table: dict[str, StaticEncounterData | TradeEncounterData]):
         for name, data in table.items():
             if type(data) is TradeEncounterData or ((data.inclusion_rule is None) or data.inclusion_rule(world)):
-                r: Region = regions[data.encounter_region]
+                r: "Region" = regions[data.encounter_region]
                 l: PokemonBWLocation = PokemonBWLocation(world.player, name, None, r)
                 species_id: tuple[int, int] = data.species_black \
                     if world.options.version == "black" else data.species_white
@@ -39,7 +39,7 @@ def create(world: PokemonBWWorld, regions: dict[str, Region], rules: RulesDict) 
                     l.access_rule = get_trade_rule(species_by_id[(data.wanted_white, 0)])
                 r.locations.append(l)
 
-                species_data: SpeciesData = species_by_name[species_name]
+                species_data: "SpeciesData" = species_by_name[species_name]
                 catchable_dex_form.add((species_data.dex_name, species_id[1]))
                 moveset: set[str] = movesets_table[species_name].tm_hm_moves
                 if "HM04" in moveset:

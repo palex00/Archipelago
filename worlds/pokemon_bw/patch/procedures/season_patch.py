@@ -10,11 +10,11 @@ if TYPE_CHECKING:
     from ...rom import PokemonBlackPatch
 
 
-def patch_black(rom: NintendoDSRom, world_package: str, bw_patch_instance: PokemonBlackPatch) -> None:
+def patch_black(rom: NintendoDSRom, world_package: str, bw_patch_instance: "PokemonBlackPatch") -> None:
     _patch(rom, pkgutil.get_data(world_package, "patch/seasons_otpp/ov20_B_decomp"))
 
 
-def patch_white(rom: NintendoDSRom, world_package: str, bw_patch_instance: PokemonBlackPatch) -> None:
+def patch_white(rom: NintendoDSRom, world_package: str, bw_patch_instance: "PokemonBlackPatch") -> None:
     _patch(rom, pkgutil.get_data(world_package, "patch/seasons_otpp/ov20_W_decomp"))
 
 

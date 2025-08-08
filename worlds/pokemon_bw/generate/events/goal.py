@@ -7,10 +7,9 @@ from ...items import PokemonBWItem
 if TYPE_CHECKING:
     from ... import PokemonBWWorld
     from BaseClasses import Region
-    from ...data import SpeciesData
 
 
-def create(world: PokemonBWWorld, regions: dict[str, Region]) -> None:
+def create(world: "PokemonBWWorld", regions: dict[str, "Region"]) -> None:
 
     item: PokemonBWItem = PokemonBWItem("Goal", ItemClassification.progression, None, world.player)
     location: PokemonBWLocation

@@ -1,27 +1,23 @@
-from typing import NamedTuple, Callable, Literal, Iterator, Collection, TYPE_CHECKING, TypeVar
+from typing import NamedTuple, Callable, Literal, Iterator, Collection, TYPE_CHECKING, TypeVar, Any
 
 from BaseClasses import ItemClassification, LocationProgressType, CollectionState
 
 if TYPE_CHECKING:
     from .. import PokemonBWWorld
+    ExtendedRule: type = Callable[[CollectionState, PokemonBWWorld], bool]
+    ClassificationMethod: type = Callable[[PokemonBWWorld], ItemClassification]
+    ProgressTypeMethod: type = Callable[[PokemonBWWorld], LocationProgressType]
+    InclusionRule: type = Callable[[PokemonBWWorld], bool]
+    RulesDict: type = dict[ExtendedRule, Callable[[CollectionState], bool]]
+else:
+    ExtendedRule: type = Any
+    ClassificationMethod: type = Any
+    ProgressTypeMethod: type = Any
+    InclusionRule: type = Any
+    RulesDict: type = Any
 
-
-ExtendedRule: type = Callable[[CollectionState, PokemonBWWorld], bool]
-ClassificationMethod: type = Callable[[PokemonBWWorld], ItemClassification]
-ProgressTypeMethod: type = Callable[[PokemonBWWorld], LocationProgressType]
-InclusionRule: type = Callable[[PokemonBWWorld], bool]
-RulesDict = dict[ExtendedRule, Callable[[CollectionState], bool]]
 T = TypeVar("T")
 U = TypeVar("U")
-
-# TODO calc offset and move to client dir
-data_address_address = 0x000024
-var_offset = 0
-flags_offset = 0
-dex_offset = 0
-key_items_bag_offset = 0
-other_items_offset = 0
-badges_offset = 0
 
 
 class ItemData(NamedTuple):
@@ -38,6 +34,7 @@ class BadgeItemData(NamedTuple):
 class SeasonItemData(NamedTuple):
     item_id: int
     flag_id: int
+    var_value: int
     classification: ClassificationMethod
 
 

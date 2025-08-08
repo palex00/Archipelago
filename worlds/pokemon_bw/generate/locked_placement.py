@@ -7,12 +7,12 @@ if TYPE_CHECKING:
     from ..items import PokemonBWItem
 
 
-def place_badges(world: PokemonBWWorld, items: list[PokemonBWItem]) -> None:
+def place_badges(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
     from ..data.items import badges
 
     match world.options.shuffle_badges.current_key:
         case "vanilla":
-            badge_items: dict[str, PokemonBWItem] = {
+            badge_items: dict[str, "PokemonBWItem"] = {
                 item.name: item for item in items if item.name in badges.table
             }
             world.get_location("Striaton Gym - Badge reward").place_locked_item(badge_items["Trio Badge"])
@@ -26,7 +26,7 @@ def place_badges(world: PokemonBWWorld, items: list[PokemonBWItem]) -> None:
             for item in badge_items.values():
                 items.remove(item)
         case "shuffle":
-            shuffled_list: list[PokemonBWItem] = [
+            shuffled_list: list["PokemonBWItem"] = [
                 item for item in items if item.name in badges.table
             ]
             world.random.shuffle(shuffled_list)
@@ -56,18 +56,18 @@ def place_badges(world: PokemonBWWorld, items: list[PokemonBWItem]) -> None:
             raise Exception(f"Bad shuffle_badges option value for player {world.player_name}")
 
 
-def place_tm_hm(world: PokemonBWWorld, items: list[PokemonBWItem]) -> None:
+def place_tm_hm(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
     from ..data.items import tm_hm
     from ..data.locations.ingame_items.special import tm_hm_ncps
 
     match world.options.shuffle_tm_hm.current_key:
         case "shuffle":
-            shuffled_list: list[PokemonBWItem] = [
+            shuffled_list: list["PokemonBWItem"] = [
                 item for item in items if item.name in tm_hm.table
             ]
             world.random.shuffle(shuffled_list)
             for location_name in tm_hm_ncps:
-                item: PokemonBWItem = shuffled_list.pop()
+                item: "PokemonBWItem" = shuffled_list.pop()
                 world.get_location(location_name).place_locked_item(item)
                 items.remove(item)
         case "any_tm_hm":
@@ -82,11 +82,11 @@ def place_tm_hm(world: PokemonBWWorld, items: list[PokemonBWItem]) -> None:
             raise Exception(f"Bad shuffle_tm_hm option value for player {world.player_name}")
 
 
-def starting_season(world: PokemonBWWorld, items: list[PokemonBWItem]) -> None:
+def starting_season(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
     from ..data.items import seasons
 
     if world.options.season_control == "randomized":
-        seasons_list: list[PokemonBWItem] = [
+        seasons_list: list["PokemonBWItem"] = [
             item for item in items if item.name in seasons.table
         ]
         start = world.random.choice(seasons_list)

@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from ...data import SpeciesData
 
 
-def create(world: PokemonBWWorld, regions: dict[str, Region]) -> set[tuple[str, int]]:
+def create(world: "PokemonBWWorld", regions: dict[str, "Region"]) -> set[tuple[str, int]]:
     from ...data.locations.encounters.slots import table
     from ...data.pokemon.species import by_id as species_by_id, by_name as species_by_name
     from ...data.pokemon.movesets import table as movesets_table
@@ -19,7 +19,7 @@ def create(world: PokemonBWWorld, regions: dict[str, Region]) -> set[tuple[str, 
     is_black = world.options.version == "black"
 
     for name, data in table.items():
-        r: Region = regions[data.encounter_region]
+        r: "Region" = regions[data.encounter_region]
         l: PokemonBWLocation = PokemonBWLocation(world.player, name, None, r)
         species_id: tuple[int, int] = data.species_black if is_black else data.species_white
         species_name: str = species_by_id[species_id]
@@ -27,7 +27,7 @@ def create(world: PokemonBWWorld, regions: dict[str, Region]) -> set[tuple[str, 
         l.place_locked_item(item)
         r.locations.append(l)
 
-        species_data: SpeciesData = species_by_name[species_name]
+        species_data: "SpeciesData" = species_by_name[species_name]
         catchable_dex_form.add((species_data.dex_name, species_id[1]))
         moveset: set[str] = movesets_table[species_name].tm_hm_moves
         if "HM04" in moveset:

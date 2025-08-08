@@ -19,11 +19,11 @@ def lookup(domain: int) -> dict[str, int]:
     }
 
 
-def create(world: PokemonBWWorld, regions: dict[str, Region], rules: RulesDict) -> None:
+def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesDict") -> None:
     from ...data.locations.ingame_items.special import tm_hm_ncps
 
     for name, data in tm_hm_ncps.items():
-        r: Region = regions[data.region]
+        r: "Region" = regions[data.region]
         l: PokemonBWLocation = PokemonBWLocation(world.player, name, world.location_name_to_id[name], r)
         l.progress_type = data.progress_type(world)
         if data.rule is not None:

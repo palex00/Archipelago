@@ -24,7 +24,7 @@ def get_location_lookup_table() -> dict[str, int]:
     }
 
 
-def get_regions(world: PokemonBWWorld) -> dict[str, Region]:
+def get_regions(world: "PokemonBWWorld") -> dict[str, Region]:
     from .data.locations import regions
     from .data.locations.encounters import regions as encounter_regions
 
@@ -37,14 +37,14 @@ def get_regions(world: PokemonBWWorld) -> dict[str, Region]:
     }
 
 
-def create_rule_dict(world: PokemonBWWorld) -> RulesDict:
+def create_rule_dict(world: "PokemonBWWorld") -> "RulesDict":
     from .data.locations.rules import extended_rules_list
 
     return {rule: (lambda state: rule(state, world)) for rule in extended_rules_list}
 
 
-def create_and_place_event_locations(world: PokemonBWWorld, regions: dict[str, Region],
-                                     rules: RulesDict) -> set[tuple[str, int]]:
+def create_and_place_event_locations(world: "PokemonBWWorld", regions: dict[str, Region],
+                                     rules: "RulesDict") -> set[tuple[str, int]]:
     """Returns a set of species that are actually catchable in this world."""
     from .generate.events import wild, static, evolutions, goal
 
@@ -54,8 +54,8 @@ def create_and_place_event_locations(world: PokemonBWWorld, regions: dict[str, R
     return catchable_dex_form
 
 
-def create_and_place_locations(world: PokemonBWWorld, regions: dict[str, Region],
-                               rules: RulesDict, catchable_dex_form: set[tuple[str, int]]) -> None:
+def create_and_place_locations(world: "PokemonBWWorld", regions: dict[str, Region],
+                               rules: "RulesDict", catchable_dex_form: set[tuple[str, int]]) -> None:
     from .generate.locations import overworld_items, hidden_items, other, badge_rewards, tm_hm, dexsanity
 
     overworld_items.create(world, regions, rules)
@@ -66,7 +66,7 @@ def create_and_place_locations(world: PokemonBWWorld, regions: dict[str, Region]
     dexsanity.create(world, regions, catchable_dex_form)
 
 
-def connect_regions(world: PokemonBWWorld, regions: dict[str, Region], rules: RulesDict) -> None:
+def connect_regions(world: "PokemonBWWorld", regions: dict[str, Region], rules: "RulesDict") -> None:
     from .data.locations import region_connections as gameplay_connections
     from .data.locations.encounters import region_connections as encounter_connections
 

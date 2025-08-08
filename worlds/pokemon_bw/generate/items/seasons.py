@@ -5,7 +5,7 @@ if TYPE_CHECKING:
     from ... import PokemonBWWorld
 
 
-def generate_default(world: PokemonBWWorld) -> list[PokemonBWItem]:
+def generate_default(world: "PokemonBWWorld") -> list[PokemonBWItem]:
     from ...data.items.seasons import table
 
     if world.options.season_control == "randomized":

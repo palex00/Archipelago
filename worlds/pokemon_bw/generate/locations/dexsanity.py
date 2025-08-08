@@ -15,7 +15,7 @@ def lookup(domain: int) -> dict[str, int]:
     return {name: data.dex_number + domain for name, data in location_table.items()}
 
 
-def create(world: PokemonBWWorld, regions: dict[str, Region], catchable_dex_form: set[tuple[str, int]]) -> None:
+def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_form: set[tuple[str, int]]) -> None:
     from ...data.locations.dexsanity import location_table
 
     # These lambdas have to be created from functions, because else they would all use the same 'name' variable
@@ -32,7 +32,7 @@ def create(world: PokemonBWWorld, regions: dict[str, Region], catchable_dex_form
 
     for _ in range(count):
         name = possible.pop()  # location name
-        r: Region = regions["Pokédex"]
+        r: "Region" = regions["Pokédex"]
         l: PokemonBWLocation = PokemonBWLocation(world.player, name, world.location_name_to_id[name], r)
         l.progress_type = LocationProgressType.DEFAULT
         if location_table[name].special_rule is not None:
