@@ -75,26 +75,28 @@ has_legend_badge: ExtendedRule = lambda state, world: state.has("Legend Badge", 
 # Season requirements
 
 can_set_winter: ExtendedRule = lambda state, world: (
-    world.options.SeasonControl == "vanilla" or (
+    world.options.season_control == "vanilla" or (
         state.can_reach_region("Nimbasa City", world.player) and (
-            world.options.SeasonControl == "changeable" or state.has("Winter", world.player)
+            world.options.season_control == "changeable" or state.has("Winter", world.player)
         )
     )
 )
 
 can_set_other_than_winter: ExtendedRule = lambda state, world: (
-    world.options.SeasonControl == "vanilla" or (
+    world.options.season_control == "vanilla" or (
         state.can_reach_region("Nimbasa City", world.player) and (
-            world.options.SeasonControl == "changeable" or state.has_any(("Spring", "Summer", "Autumn"), world.player)
+            world.options.season_control == "changeable" or state.has_any(("Spring", "Summer", "Autumn"), world.player)
         )
     )
 )
 
 can_catch_all_deerlings: ExtendedRule = lambda state, world: (
-    state.has("Deerling", world.player) and (
-        world.options.SeasonControl == "vanilla" or (
+    state.has_all((
+        "Deerling (Spring)", "Deerling (Summer)", "Deerling (Autumn)", "Deerling (Winter)"
+    ), world.player) and (
+        world.options.season_control == "vanilla" or (
             state.can_reach_region("Nimbasa City", world.player) and (
-                world.options.SeasonControl == "changeable" or state.has_any(seasons.table, world.player)
+                world.options.season_control == "changeable" or state.has_any(seasons.table, world.player)
             )
         )
     )

@@ -618,8 +618,16 @@ location_table: dict[str, DexLocationData] = {
     "Pokédex - Vanillite": DexLocationData(582),
     "Pokédex - Vanillish": DexLocationData(583),
     "Pokédex - Vanilluxe": DexLocationData(584),
-    "Pokédex - Deerling": DexLocationData(585),
-    "Pokédex - Sawsbuck": DexLocationData(586),
+    "Pokédex - Deerling": DexLocationData(
+        585, lambda state, world: state.has_any(
+            ("Deerling (Spring)", "Deerling (Summer)", "Deerling (Autumn)", "Deerling (Winter)"), world.player
+        )
+    ),
+    "Pokédex - Sawsbuck": DexLocationData(
+        586, lambda state, world: state.has_any(
+            ("Sawsbuck (Spring)", "Sawsbuck (Summer)", "Sawsbuck (Autumn)", "Sawsbuck (Winter)"), world.player
+        )
+    ),
     "Pokédex - Emolga": DexLocationData(587),
     "Pokédex - Karrablast": DexLocationData(588),
     "Pokédex - Escavalier": DexLocationData(589),

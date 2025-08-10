@@ -1,5 +1,6 @@
 import asyncio
 import os
+import pathlib
 import zipfile
 
 import ndspy.rom
@@ -10,104 +11,159 @@ from settings import get_settings
 from worlds.Files import APAutoPatchInterface
 from typing import TYPE_CHECKING, Any, Dict, Callable
 
-from .patch.procedures import base_patch, season_patch, slot_data
+from .patch.procedures import base_patch, season_patch
 
 if TYPE_CHECKING:
     from . import PokemonBWWorld
 
 
-cached_rom: list[ndspy.rom.NintendoDSRom | None] = [None]
+cached_rom: list = [False]
 
 
 async def keep_cache_alive():
-    while cached_rom[0] is not None:
+    while cached_rom[0]:
         await asyncio.sleep(5)
 
 
 class PokemonBlackPatch(APAutoPatchInterface):
     game = "Pokemon Black and White"
-    bw_patch_version = (0, 1, 0)
+    bw_patch_format = (0, 1, 0)
     patch_file_ending = ".apblack"
     result_file_ending = ".nds"
 
-    def __init__(self, *args: Any, **kwargs: Any):
-        self.world = None
-        if "world" in kwargs:
-            self.world: "PokemonBWWorld" = kwargs["world"]
+    def __init__(self, path: str, player=None, player_name="", world=None):
+        self.world: "PokemonBWWorld" = world
         self.files: dict[str, bytes] = {}
-        super().__init__(*args, **kwargs)
+        super().__init__(path, player, player_name, "")
 
     def write_contents(self, opened_zipfile: zipfile.ZipFile) -> None:
         super().write_contents(opened_zipfile)
+        PatchMethods.write_contents(self, opened_zipfile)
 
-        procedures: list[str] = ["base_patch", "slot_data"]
-        if self.world.options.season_control:
-            procedures.append("season_patch_"+self.world.options.version.current_key)
+    def get_manifest(self) -> Dict[str, Any]:
+        return PatchMethods.get_manifest(self, super().get_manifest())
+
+    def patch(self, target: str) -> None:
+        PatchMethods.patch(self, target)
+
+    def read_contents(self, opened_zipfile: zipfile.ZipFile) -> Dict[str, Any]:
+        return PatchMethods.read_contents(self, opened_zipfile, super().read_contents(opened_zipfile))
+
+    def get_file(self, file: str) -> bytes:
+        return PatchMethods.get_file(self, file)
+
+
+class PokemonWhitePatch(APAutoPatchInterface):
+    game = "Pokemon Black and White"
+    bw_patch_format = (0, 1, 0)
+    patch_file_ending = ".apwhite"
+    result_file_ending = ".nds"
+
+    def __init__(self, path: str, player=None, player_name="", world=None):
+        self.world: "PokemonBWWorld" = world
+        self.files: dict[str, bytes] = {}
+        super().__init__(path, player, player_name, "")
+
+    def write_contents(self, opened_zipfile: zipfile.ZipFile) -> None:
+        super().write_contents(opened_zipfile)
+        PatchMethods.write_contents(self, opened_zipfile)
+
+    def get_manifest(self) -> Dict[str, Any]:
+        return PatchMethods.get_manifest(self, super().get_manifest())
+
+    def patch(self, target: str) -> None:
+        PatchMethods.patch(self, target)
+
+    def read_contents(self, opened_zipfile: zipfile.ZipFile) -> Dict[str, Any]:
+        return PatchMethods.read_contents(self, opened_zipfile, super().read_contents(opened_zipfile))
+
+    def get_file(self, file: str) -> bytes:
+        return PatchMethods.get_file(self, file)
+
+
+class PatchMethods:
+
+    @staticmethod
+    def write_contents(patch: PokemonBlackPatch | PokemonWhitePatch, opened_zipfile: zipfile.ZipFile) -> None:
+
+        procedures: list[str] = ["base_patch"]
+        if patch.world.options.season_control != "vanilla":
+            procedures.append("season_patch_"+patch.world.options.version.current_key)
 
         datapackage: dict[str, Any] = {
-            "location_name_to_id": self.world.location_name_to_id,
-            "item_id_to_name": self.world.item_id_to_name,
+            "location_name_to_id": patch.world.location_name_to_id,
+            "item_name_to_id": patch.world.item_name_to_id,
         }
 
         slot_data_dict: dict[str, Any] = {
-            "goal": self.world.options.goal.current_key,
-            "version": self.world.options.version.current_key,
-            "season_control": self.world.options.season_control.current_key,
+            "goal": patch.world.options.goal.current_key,
+            "version": patch.world.options.version.current_key,
+            "season_control": patch.world.options.season_control.current_key,
+            "player_name": patch.player_name,
         }
 
         opened_zipfile.writestr("procedures.txt", "\n".join(procedures))
         opened_zipfile.writestr("datapackage.json", orjson.dumps(datapackage))
         opened_zipfile.writestr("slot_data.json", orjson.dumps(slot_data_dict))
 
-    def get_manifest(self) -> Dict[str, Any]:
-        manifest = super().get_manifest()
-        manifest["bw_patch_version"] = self.bw_patch_version
+    @staticmethod
+    def get_manifest(patch: PokemonBlackPatch | PokemonWhitePatch, manifest: dict[str, Any]) -> Dict[str, Any]:
+        manifest["bw_patch_format"] = patch.bw_patch_format
         return manifest
 
-    def patch(self, target: str) -> None:
-        self.read()
+    @staticmethod
+    def patch(patch: PokemonBlackPatch | PokemonWhitePatch, target: str) -> None:
+        patch.read()
 
-        slot_data_dict: dict[str, Any] = orjson.loads(self.get_file("slot_data.json"))
+        slot_data_dict: dict[str, Any] = orjson.loads(patch.get_file("slot_data.json"))
+        datapackage_dict: dict[str, Any] = orjson.loads(patch.get_file("datapackage.json"))
         base_data = get_base_rom_bytes(slot_data_dict["version"])
 
-        rom = ndspy.rom.NintendoDSRom(base_data)
-        procedures: list[str] = str(self.get_file("procedures.txt"), "utf-8").splitlines()
-        for prod in procedures:
-            patch_procedures[prod](rom, __name__, self)
+        split_target = os.path.split(target)
+        repatch_target = (
+            split_target[0] + "/.deleteIfRepatchNeeded_" + split_target[1].removesuffix(patch.result_file_ending)
+        )
+        if not pathlib.Path(repatch_target).exists():
+            rom = ndspy.rom.NintendoDSRom(base_data)
+            procedures: list[str] = str(patch.get_file("procedures.txt"), "utf-8").splitlines()
+            for prod in procedures:
+                patch_procedures[prod](rom, __name__, patch)
+            with open(target, 'wb') as f:
+                f.write(rom.save(updateDeviceCapacity=True))
+            with open(repatch_target, "xb") as f:
+                f.write(b'')
 
-        with open(target, 'wb') as f:
-            f.write(rom.save(updateDeviceCapacity=True))
+        cached_rom[0] = True
+        cached_rom.append(slot_data_dict)
+        cached_rom.append(datapackage_dict)
+        asyncio.run_coroutine_threadsafe(keep_cache_alive(), asyncio.new_event_loop())
 
-        cached_rom[0] = rom
-        asyncio.run(keep_cache_alive())
+    @staticmethod
+    def read_contents(patch: PokemonBlackPatch | PokemonWhitePatch, opened_zipfile: zipfile.ZipFile,
+                      manifest: Dict[str, Any]) -> Dict[str, Any]:
 
-    def read_contents(self, opened_zipfile: zipfile.ZipFile) -> Dict[str, Any]:
         for file in opened_zipfile.namelist():
             if file not in ["archipelago.json"]:
-                self.files[file] = opened_zipfile.read(file)
+                patch.files[file] = opened_zipfile.read(file)
 
-        manifest = super().read_contents(opened_zipfile)
-        if manifest["bw_patch_version"] > self.bw_patch_version:
-            raise Exception(f"File (BW patch version: {".".join(manifest["bw_patch_version"])} too new "
-                            f"for this handler (BW patch version: {self.bw_patch_version}). "
+        if tuple(manifest["bw_patch_format"]) > patch.bw_patch_format:
+            raise Exception(f"File (BW patch version: {".".join(manifest["bw_patch_format"])} too new "
+                            f"for this handler (BW patch version: {patch.bw_patch_format}). "
                             f"Please update your apworld.")
+
         return manifest
 
-    def get_file(self, file: str) -> bytes:
-        if file not in self.files:
-            self.read()
-        return self.files[file]
-
-
-class PokemonWhitePatch(PokemonBlackPatch):
-    patch_file_ending = ".apwhite"
+    @staticmethod
+    def get_file(patch: PokemonBlackPatch | PokemonWhitePatch, file: str) -> bytes:
+        if file not in patch.files:
+            patch.read()
+        return patch.files[file]
 
 
 patch_procedures: dict[str, Callable[[ndspy.rom.NintendoDSRom, str, PokemonBlackPatch], None]] = {
     "base_patch": base_patch.patch,
     "season_patch_black": season_patch.patch_black,
     "season_patch_white": season_patch.patch_white,
-    "slot_data": slot_data.add_slot_data_file,
 }
 
 

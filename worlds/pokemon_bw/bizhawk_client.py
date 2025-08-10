@@ -1,13 +1,10 @@
 import math
-from typing import TYPE_CHECKING, Any, Coroutine
-
-import orjson
+from typing import TYPE_CHECKING, Any, Coroutine, Callable
 
 from NetUtils import ClientStatus
 
 import worlds._bizhawk as bizhawk
 from worlds._bizhawk.client import BizHawkClient
-from CommonClient import logger
 from .client.locations import check_flag_locations, check_dex_locations
 from .client.items import receive_items
 from .client.goals import get_method
@@ -15,6 +12,7 @@ from .client.setup import early_setup, late_setup
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
+    from logging import Logger
 
 
 def register_client():
@@ -28,7 +26,7 @@ class PokemonBWClient(BizHawkClient):
     patch_suffix = (".apblack", ".apwhite")
 
     ram_read_write_domain = "Main RAM"
-    rom_read_only_domain = "ROM"
+    rom_read_only_domain = "File on Disk"
     flags_amount = 2912
     flag_bytes_amount = math.ceil(flags_amount/8)
     dex_amount = 650
@@ -57,14 +55,18 @@ class PokemonBWClient(BizHawkClient):
         self.flags_cache: bytearray = bytearray(self.flag_bytes_amount)
         self.dex_cache: bytearray = bytearray(self.dex_bytes_amount)
         self.player_name: str = ""
-        self.missing_flag_locations: list[list[str]] = [[]]*self.flags_amount
-        self.missing_dex_flag_locations: list[list[str]] = [[]]*self.dex_amount
+        self.missing_flag_locations: list[list[str]] = [[] for _ in range(self.flags_amount)]
+        self.missing_dex_flag_locations: list[list[str]] = [[] for _ in range(self.dex_amount)]
         self.location_name_to_id: dict[str, int] | None = None
         self.location_id_to_name: dict[int, str] | None = None
         self.item_id_to_name: dict[int, str] | None = None
+        self.item_name_to_id: dict[str, int] | None = None
         self.save_data_address = 0
         self.received_items_count = 0
-        self.goal_checking_method: Coroutine[Any, Any, bool] | None = None
+        self.goal_checking_method: Callable[["PokemonBWClient", "BizHawkClientContext"],
+                                            Coroutine[Any, Any, bool]] | None = None
+        self.logger: Logger | None = None
+        self.debug_halt = False
 
     async def validate_rom(self, ctx: "BizHawkClientContext") -> bool:
         """Should return whether the currently loaded ROM should be handled by this client. You might read the game name
@@ -74,33 +76,19 @@ class PokemonBWClient(BizHawkClient):
         Once this function has determined that the ROM should be handled by this client, it should also modify `ctx`
         as necessary (such as setting `ctx.game = self.game`, modifying `ctx.items_handling`, etc...)."""
         from .rom import cached_rom
-        from ndspy.rom import NintendoDSRom
 
-        rom = cached_rom[0]
-        if rom is None:
-            file = await bizhawk.read(ctx.bizhawk_ctx, (
-                (0, 268435456, self.rom_read_only_domain),
-            ))
-            rom = NintendoDSRom(file[0])
-        header: tuple[bytes, bytes] = (rom.name, rom.idCode)
-        if header not in ((b'POKEMON B', b'IRBO'), (b'POKEMON W', b'IRAO')):
-            # raise Exception("Rom appears to not be an english copy of Pokémon Black or White Version.")
-            return False
-        try:
-            self.slot_data = orjson.loads(rom.getFileByName("patch/slot_data.json"))
-        except ValueError:
-            # raise Exception("Rom appears to be an unpatched copy. "
-            #                 "Use the provided patch file to obtained a patched rom.")
-            return False
+        self.slot_data = cached_rom[1]
         self.player_name = self.slot_data["player_name"]
-        self.location_name_to_id: dict[str, int] = self.slot_data["data_package"]["location_name_to_id"]
+        self.location_name_to_id: dict[str, int] = cached_rom[2]["location_name_to_id"]
         self.location_id_to_name = {loc_id: name for name, loc_id in self.location_name_to_id.items()}
-        self.item_id_to_name = self.slot_data["data_package"]["item_id_to_name"]
+        self.item_name_to_id: dict[str, int] = cached_rom[2]["item_name_to_id"]
+        self.item_id_to_name = {i: n for n, i in self.item_name_to_id.items()}
         self.goal_checking_method = get_method(self, ctx)
         ctx.game = self.game
         ctx.items_handling = 0b111
         ctx.want_slot_data = False
         ctx.watcher_timeout = 1
+        cached_rom[0] = False
         return True
 
     async def set_auth(self, ctx: "BizHawkClientContext") -> None:
@@ -122,7 +110,7 @@ class PokemonBWClient(BizHawkClient):
                 elif loc_name in dexsanity.location_table:
                     self.missing_dex_flag_locations[dexsanity.location_table[loc_name].dex_number].append(loc_name)
                 else:
-                    logger.warn(f"Missing location \"{loc_name}\" neither flag nor dex location")
+                    self.logger.warning(f"Missing location \"{loc_name}\" neither flag nor dex location")
         elif cmd == "RoomInfo":
             ctx.seed_name = args["seed_name"]
 
@@ -131,7 +119,10 @@ class PokemonBWClient(BizHawkClient):
         to have passed your validator when this function is called, and the emulator is very likely to be connected."""
 
         try:
-            if not ctx.server or not ctx.server.socket.open or ctx.server.socket.closed:
+            if self.logger is None:
+                from CommonClient import logger
+                self.logger = logger
+            if not ctx.server or not ctx.server.socket.open or ctx.server.socket.closed or self.debug_halt:
                 return
             read = await bizhawk.read(
                 ctx.bizhawk_ctx, (
@@ -154,7 +145,7 @@ class PokemonBWClient(BizHawkClient):
 
             await receive_items(self, ctx)
 
-            if await self.goal_checking_method:
+            if await self.goal_checking_method(self, ctx):
                 await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
 
             if setup_needed:

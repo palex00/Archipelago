@@ -1,3 +1,4 @@
+from random import Random
 from typing import TYPE_CHECKING, Any
 
 from BaseClasses import Item
@@ -5,9 +6,9 @@ from BaseClasses import Item
 if TYPE_CHECKING:
     from . import PokemonBWWorld
     from .data import NoDuplicatesJustViewButDictsOnly
-
-
-all_items_dict_view: "NoDuplicatesJustViewButDictsOnly"
+    all_items_dict_view: NoDuplicatesJustViewButDictsOnly | None = None
+else:
+    all_items_dict_view = None
 
 
 class PokemonBWItem(Item):
@@ -82,7 +83,7 @@ def generate_filler(world: "PokemonBWWorld") -> str:
     ]
 
     return random_choice_nested(
-        world.random.random(), [
+        world.random, [
             main_nested,
             main_nested,
             berries_nested,
@@ -92,13 +93,14 @@ def generate_filler(world: "PokemonBWWorld") -> str:
     )
 
 
-def random_choice_nested(random: float, nested: list[Any]) -> Any:
+def random_choice_nested(random: Random, nested: list[str | list | dict]) -> Any:
     """Helper function for getting a random element from a nested list."""
-    current: Any = nested
-    while isinstance(current, list):
-        index_float = random*len(current)
-        current = current[int(index_float)]
-        random = index_float-int(index_float)
+    current: str | list | dict = nested
+    while isinstance(current, list | dict):
+        if isinstance(current, list):
+            current = random.choice(current)
+        else:
+            current = random.choice(tuple(current.keys()))
     return current
 
 

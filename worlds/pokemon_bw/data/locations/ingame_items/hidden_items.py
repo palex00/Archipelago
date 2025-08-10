@@ -13,13 +13,12 @@ table: dict[str, FlagLocationData] = {
     "Route 18 - Lower coast hidden item": FlagLocationData(1020, always_default, "Route 18 Coast", None),
     "Striaton City - North west hidden item #1": FlagLocationData(900, always_default, "Striaton City", striaton_hidden_item),
     "Striaton City - North west hidden item #2": FlagLocationData(901, always_default, "Striaton City", can_use_surf),
-    # Following region is basement because it's behind the traffic cone, which unlocks basement
-    "Dreamyard - Hidden item behind traffic cone": FlagLocationData(903, always_default, "Dreamyard Basement", None),
     "Dreamyard - South hidden item in barrel": FlagLocationData(902, always_default, "Dreamyard South", None),
     "Dreamyard Basement - North east hidden item": FlagLocationData(906, always_default, "Dreamyard Basement", None),
     "Dreamyard Basement - West hidden item": FlagLocationData(1027, always_default, "Dreamyard Basement", None),
     "Dreamyard Basement - South west hidden item": FlagLocationData(907, always_default, "Dreamyard Basement", None),
-    "Route 3 - Hidden item in sandbox": FlagLocationData(903, always_default, "Route 3", None),
+    # This one technically is accessible in two different regions, but it's set to just one to keep things more simple
+    "Route 3 or Dreamyard - Hidden item in sandbox or behind traffic cone": FlagLocationData(903, always_default, "Route 3", None),
     "Route 3 - South east or west hidden item": FlagLocationData(904, always_default, "Route 3", None),
     "Wellspring Cave - 1F hidden item #1": FlagLocationData(1062, always_default, "Wellspring Cave Entrance", None),
     "Wellspring Cave - 1F hidden item #2": FlagLocationData(1061, always_default, "Wellspring Cave Inner", None),
