@@ -674,7 +674,7 @@ by_name: dict[str, SpeciesData] = {
     "Beartic": SpeciesData("Beartic", 614, 0, "Ice", "Ice", 95, 110, 80, 70, 80, 50, 60, 127, 2, ("abi81", "abi0", "abi33"), []),
     "Cryogonal": SpeciesData("Cryogonal", 615, 0, "Ice", "Ice", 70, 50, 30, 95, 135, 105, 25, 255, 2, ("abi26", "abi0", "abi0"), []),
     "Shelmet": SpeciesData("Shelmet", 616, 0, "Bug", "Bug", 50, 40, 85, 40, 65, 25, 200, 127, 1, ("abi93", "abi75", "abi142"), [
-        ("Level up with party member", 588, "Accelgor"), ("Level up with party member", 589, "Accelgor")
+        # ("Level up with party member", 588, "Accelgor"), ("Level up with party member", 589, "Accelgor")  TODO Problems with reachability
     ]),
     "Accelgor": SpeciesData("Accelgor", 617, 0, "Bug", "Bug", 80, 70, 40, 100, 60, 145, 75, 127, 2, ("abi93", "abi60", "abi84"), []),
     "Stunfisk": SpeciesData("Stunfisk", 618, 0, "Ground", "Electric", 109, 66, 84, 81, 99, 32, 75, 127, 2, ("abi9", "abi7", "abi8"), []),
