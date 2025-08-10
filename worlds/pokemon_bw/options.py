@@ -662,8 +662,9 @@ class PokemonBWTextPlando(PlandoTexts):
                 invalid.append((" ".join(parts), reasons))
         if invalid:
             raise OptionError(
-                f"Invalid \"at\" placement{"s" if len(invalid) > 1 else ""} in {getattr(self, 'display_name', self)}:\n"
-                "\n".join((f"{entry[0]}: {", ".join(entry[1])}" for entry in invalid)) +
+                f"Invalid \"at\" placement{'s' if len(invalid) > 1 else ''} " +
+                f"in {getattr(self, 'display_name', self)}:\n" +
+                "\n".join((f"{entry[0]}: {', '.join(entry[1])}" for entry in invalid)) +
                 "\nRefer to the Text Plando guide of this game for further information."
             )
 
