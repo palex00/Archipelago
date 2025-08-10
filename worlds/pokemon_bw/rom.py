@@ -147,7 +147,7 @@ class PatchMethods:
                 patch.files[file] = opened_zipfile.read(file)
 
         if tuple(manifest["bw_patch_format"]) > patch.bw_patch_format:
-            raise Exception(f"File (BW patch version: {".".join(manifest["bw_patch_format"])} too new "
+            raise Exception(f"File (BW patch version: {'.'.join(manifest['bw_patch_format'])} too new "
                             f"for this handler (BW patch version: {patch.bw_patch_format}). "
                             f"Please update your apworld.")
 
