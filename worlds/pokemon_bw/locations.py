@@ -1,10 +1,10 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Callable
 
-from BaseClasses import Location, Region
+from BaseClasses import Location, Region, CollectionState
 
 if TYPE_CHECKING:
     from . import PokemonBWWorld
-    from .data import RulesDict
+    from .data import RulesDict, ExtendedRule
 
 
 class PokemonBWLocation(Location):
@@ -40,7 +40,10 @@ def get_regions(world: "PokemonBWWorld") -> dict[str, Region]:
 def create_rule_dict(world: "PokemonBWWorld") -> "RulesDict":
     from .data.locations.rules import extended_rules_list
 
-    return {rule: (lambda state: rule(state, world)) for rule in extended_rules_list} | {None: None}
+    def f(r: ExtendedRule) -> Callable[[CollectionState], bool]:
+        return lambda state: r(state, world)
+
+    return {rule: f(rule) for rule in extended_rules_list} | {None: None}
 
 
 def create_and_place_event_locations(world: "PokemonBWWorld", regions: dict[str, Region],

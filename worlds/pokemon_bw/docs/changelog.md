@@ -1,6 +1,11 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.1.2
+
+- Another Python 3.11 fix
+- Fixed two lambda in for loops occurrences leading to bad logic
+
 ## 0.1.1: Day One Patch™ update
 
 - Fixed items not being received at all

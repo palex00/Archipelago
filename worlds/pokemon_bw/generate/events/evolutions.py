@@ -16,8 +16,11 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_
     from ...data.pokemon.movesets import table as movesets_table
     from ...data.pokemon.evolution_methods import methods, extended_rules_list
 
+    def f(r: ExtendedRule) -> Callable[[CollectionState], bool]:
+        return lambda state: r(state, world)
+
     region: "Region" = regions["Evolutions"]
-    rules: "RulesDict" = {ext_rule: (lambda state: ext_rule(state, world)) for ext_rule in extended_rules_list}
+    rules: "RulesDict" = {ext_rule: f(ext_rule) for ext_rule in extended_rules_list}
     new_catchable: set[tuple[str, int]] = catchable_dex_form.copy()
     next_catchable: set[tuple[str, int]] = set()
 
