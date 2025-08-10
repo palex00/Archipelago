@@ -1,6 +1,14 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.1.1: Day One Patch™ update
+
+- Fixed items not being received at all
+- Fixed Dexsanity always leading to generation failures
+- Fixed Python 3.11 crashing due to not yet used options
+- Packed `ndspy` into the apworld for now because of Linux AppImage problems
+- Fixed Shelmet's evolutions leading to generation failures
+
 ## 0.1.0: First release
 
 ### Rom
