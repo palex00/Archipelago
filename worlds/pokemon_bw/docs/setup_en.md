@@ -39,7 +39,7 @@ multiworld can all have different options.
 ### Where do I get a YAML file?
 
 You can generate a yaml or download a template by visiting the 
-[Sonic Rush Player Options Page](/games/Pokemon%20Black%20and%20White/player-options)
+[Pokémon Black and White Player Options Page](/games/Pokemon%20Black%20and%20White/player-options)
 
 ## Joining a MultiWorld Game
 
