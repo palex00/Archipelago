@@ -27,7 +27,7 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_
 
     catchable_dex: set[str] = {dex_form[0] for dex_form in catchable_dex_form}
     count = min(world.options.dexsanity.value, len(catchable_dex))
-    possible = [f"Pokédex - {species[0]}" for species in catchable_dex]
+    possible = [f"Pokédex - {species}" for species in catchable_dex]
     world.random.shuffle(possible)
 
     for _ in range(count):
