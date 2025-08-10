@@ -25,7 +25,7 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_
     def get_special_rule(x: str) -> Callable[[CollectionState], bool]:
         return lambda state: location_table[x].special_rule(state, world)
 
-    catchable_dex: set[str] = {species[0] for species in catchable_dex_form}
+    catchable_dex: set[str] = {dex_form[0] for dex_form in catchable_dex_form}
     count = min(world.options.dexsanity.value, len(catchable_dex))
     possible = [f"Pokédex - {species[0]}" for species in catchable_dex]
     world.random.shuffle(possible)
