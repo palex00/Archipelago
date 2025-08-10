@@ -3,7 +3,7 @@ import os
 import pathlib
 import zipfile
 
-import ndspy.rom
+from .ndspy import rom as ndspy_rom
 import orjson
 
 import Utils
@@ -124,7 +124,7 @@ class PatchMethods:
             split_target[0] + "/.deleteIfRepatchNeeded_" + split_target[1].removesuffix(patch.result_file_ending)
         )
         if not pathlib.Path(repatch_target).exists():
-            rom = ndspy.rom.NintendoDSRom(base_data)
+            rom = ndspy_rom.NintendoDSRom(base_data)
             procedures: list[str] = str(patch.get_file("procedures.txt"), "utf-8").splitlines()
             for prod in procedures:
                 patch_procedures[prod](rom, __name__, patch)
@@ -160,7 +160,7 @@ class PatchMethods:
         return patch.files[file]
 
 
-patch_procedures: dict[str, Callable[[ndspy.rom.NintendoDSRom, str, PokemonBlackPatch], None]] = {
+patch_procedures: dict[str, Callable[[ndspy_rom.NintendoDSRom, str, PokemonBlackPatch], None]] = {
     "base_patch": base_patch.patch,
     "season_patch_black": season_patch.patch_black,
     "season_patch_white": season_patch.patch_white,

@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Any
 
-from ndspy.rom import NintendoDSRom
-from ndspy.fnt import Folder
+from ...ndspy.rom import NintendoDSRom
+from ...ndspy.fnt import Folder
 import orjson
 
 if TYPE_CHECKING:

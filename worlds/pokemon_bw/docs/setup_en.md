@@ -22,7 +22,6 @@ If you find one, please report it to the #future-game-design thread for this gam
   - Windows users must run the prerequisite installer first, which can also be found at the above link.
 - The built-in BizHawk client within the Archipelago software, which can be installed 
   [here](https://github.com/ArchipelagoMW/Archipelago/releases)
-- The `ndspy` library that you can find on the release page
 - A .nds file for the english version of Pokémon Black and White
   - The english versions for USA and Europe are the same
 
@@ -42,12 +41,6 @@ You can generate a yaml or download a template by visiting the
 [Pokémon Black and White Player Options Page](/games/Pokemon%20Black%20and%20White/player-options)
 
 ## Joining a MultiWorld Game
-
-### Installing ndspy
-
-This game requires the `ndspy` library to properly work. 
-Once you have downloaded the `ndspy-x.x.x.zip` zip file, unpack it to your `<AP installation>/lib/` folder.
-If done correctly, there should now be a `ndspy/` subfolder in `<AP installation>/lib/` containing multiple `.py` files.
 
 ### Obtain your NDS patch file
 

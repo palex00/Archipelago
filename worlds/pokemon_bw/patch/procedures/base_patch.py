@@ -2,8 +2,8 @@ import io
 from typing import NamedTuple, TYPE_CHECKING
 from zipfile import ZipFile
 
-from ndspy.rom import NintendoDSRom
-from ndspy.narc import NARC
+from ...ndspy.rom import NintendoDSRom
+from ...ndspy.narc import NARC
 import pkgutil
 
 from .. import otpp
