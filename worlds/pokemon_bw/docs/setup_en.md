@@ -16,10 +16,13 @@ If you find one, please report it to the #future-game-design thread for this gam
 
 - BizHawk: [Bizhawk Releases from TASVideos](https://tasvideos.org/BizHawk/ReleaseHistory)
   - Version 2.9.1 is recommended; 2.10 is currently unable to connect.
+  - **Important**: Upon opening the emulator fo the first time, go to `Config > Customize... > Advanced` 
+    and **disable** `AutoSaveRam`. Else, save data might not be properly saved.
   - Detailed installation instructions for BizHawk can be found at the above link.
   - Windows users must run the prerequisite installer first, which can also be found at the above link.
 - The built-in BizHawk client within the Archipelago software, which can be installed 
   [here](https://github.com/ArchipelagoMW/Archipelago/releases)
+- The `ndspy` library that you can find on the release page
 - A .nds file for the english version of Pokémon Black and White
   - The english versions for USA and Europe are the same
 
@@ -39,6 +42,12 @@ You can generate a yaml or download a template by visiting the
 [Sonic Rush Player Options Page](/games/Pokemon%20Black%20and%20White/player-options)
 
 ## Joining a MultiWorld Game
+
+### Installing ndspy
+
+This game requires the `ndspy` library to properly work. 
+Once you have downloaded the `ndspy-x.x.x.zip` zip file, unpack it to your `<AP installation>/lib/` folder.
+If done correctly, there should now be a `ndspy/` subfolder in `<AP installation>/lib/` containing multiple `.py` files.
 
 ### Obtain your NDS patch file
 
@@ -62,8 +71,7 @@ Navigate to your Archipelago install folder and open `data/lua/connector_bizhawk
 
 ### Connect to the Multiserver
 
-To connect the client to the multiserver simply put `slotname:password@<address>:<port>` on the textfield on top and 
-press enter or `Connect`, if not happened automatically. 
-If the server does not have a password, put `None` as the password.
+To connect the client to the multiserver simply put `<address>:<port>` on the textfield on top and 
+press enter or `Connect`. 
 An alternative way to connect is typing `/connect <address>:<port> [password]` into the bottom text field and then 
 typing your slot name when prompted.

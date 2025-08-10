@@ -23,6 +23,7 @@ def place_badges(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
             world.get_location("Mistralton Gym - Badge reward").place_locked_item(badge_items["Jet Badge"])
             world.get_location("Icirrus Gym - Badge reward").place_locked_item(badge_items["Freeze Badge"])
             world.get_location("Opelucid Gym - Badge reward").place_locked_item(badge_items["Legend Badge"])
+            world.to_be_filled_locations -= 8
             for item in badge_items.values():
                 items.remove(item)
         case "shuffle":
@@ -38,6 +39,7 @@ def place_badges(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
             world.get_location("Mistralton Gym - Badge reward").place_locked_item(shuffled_list[5])
             world.get_location("Icirrus Gym - Badge reward").place_locked_item(shuffled_list[6])
             world.get_location("Opelucid Gym - Badge reward").place_locked_item(shuffled_list[7])
+            world.to_be_filled_locations -= 8
             for item in shuffled_list:
                 items.remove(item)
         case "any_badge":
@@ -61,18 +63,19 @@ def place_tm_hm(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
     from ..data.locations.ingame_items.special import tm_hm_ncps
 
     match world.options.shuffle_tm_hm.current_key:
-        case "shuffle":
+        case "shuffle":  # TODO excluding hms is a quick fix, need to find a way to prevent softlocks from tm npcs giving hm that you need to get to them
             shuffled_list: list["PokemonBWItem"] = [
-                item for item in items if item.name in tm_hm.table
+                item for item in items if item.name in tm_hm.table and "HM0" not in item.name
             ]
             world.random.shuffle(shuffled_list)
             for location_name in tm_hm_ncps:
                 item: "PokemonBWItem" = shuffled_list.pop()
                 world.get_location(location_name).place_locked_item(item)
                 items.remove(item)
+                world.to_be_filled_locations -= 1
         case "any_tm_hm":
             rule: Callable[[Item], bool] = lambda item: (
-                item.name.lower().startswith("tm") or item.name.lower().startswith("hm") and item.name[2].isdigit()
+                (item.name.lower().startswith("tm") or item.name.lower().startswith("hm")) and item.name[2].isdigit()
             )
             for location_name in tm_hm_ncps:
                 world.get_location(location_name).item_rule = rule

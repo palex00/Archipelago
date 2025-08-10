@@ -634,11 +634,17 @@ by_name: dict[str, SpeciesData] = {
     "Vanillite": SpeciesData("Vanillite", 582, 0, "Ice", "Ice", 36, 50, 50, 65, 60, 44, 255, 127, 1, ("abi115", "abi0", "abi133"), [("Level up", 35, "Vanillish")]),
     "Vanillish": SpeciesData("Vanillish", 583, 0, "Ice", "Ice", 51, 65, 65, 80, 75, 59, 120, 127, 2, ("abi115", "abi0", "abi133"), [("Level up", 47, "Vanilluxe")]),
     "Vanilluxe": SpeciesData("Vanilluxe", 584, 0, "Ice", "Ice", 71, 95, 85, 110, 95, 79, 45, 127, 3, ("abi115", "abi0", "abi133"), []),
-    "Deerling": SpeciesData("Deerling", 585, 0, "Normal", "Grass", 60, 60, 50, 40, 50, 75, 190, 127, 1, ("abi34", "abi157", "abi32"), [("Level up", 34, "Sawsbuck")]),
-    "Sawsbuck": SpeciesData("Sawsbuck", 586, 0, "Normal", "Grass", 80, 100, 70, 60, 70, 95, 75, 127, 2, ("abi34", "abi157", "abi32"), []),
+    "Deerling (Spring)": SpeciesData("Deerling", 585, 0, "Normal", "Grass", 60, 60, 50, 40, 50, 75, 190, 127, 1, ("abi34", "abi157", "abi32"), [("Level up", 34, "Sawsbuck (Spring)")]),
+    "Deerling (Summer)": SpeciesData("Deerling", 585, 1, "Normal", "Grass", 60, 60, 50, 40, 50, 75, 190, 127, 1, ("abi34", "abi157", "abi32"), [("Level up", 34, "Sawsbuck (Summer)")]),
+    "Deerling (Autumn)": SpeciesData("Deerling", 585, 2, "Normal", "Grass", 60, 60, 50, 40, 50, 75, 190, 127, 1, ("abi34", "abi157", "abi32"), [("Level up", 34, "Sawsbuck (Autumn)")]),
+    "Deerling (Winter)": SpeciesData("Deerling", 585, 3, "Normal", "Grass", 60, 60, 50, 40, 50, 75, 190, 127, 1, ("abi34", "abi157", "abi32"), [("Level up", 34, "Sawsbuck (Winter)")]),
+    "Sawsbuck (Spring)": SpeciesData("Sawsbuck", 586, 0, "Normal", "Grass", 80, 100, 70, 60, 70, 95, 75, 127, 2, ("abi34", "abi157", "abi32"), []),
+    "Sawsbuck (Summer)": SpeciesData("Sawsbuck", 586, 1, "Normal", "Grass", 80, 100, 70, 60, 70, 95, 75, 127, 2, ("abi34", "abi157", "abi32"), []),
+    "Sawsbuck (Autumn)": SpeciesData("Sawsbuck", 586, 2, "Normal", "Grass", 80, 100, 70, 60, 70, 95, 75, 127, 2, ("abi34", "abi157", "abi32"), []),
+    "Sawsbuck (Winter)": SpeciesData("Sawsbuck", 586, 3, "Normal", "Grass", 80, 100, 70, 60, 70, 95, 75, 127, 2, ("abi34", "abi157", "abi32"), []),
     "Emolga": SpeciesData("Emolga", 587, 0, "Electric", "Flying", 55, 75, 60, 75, 60, 103, 200, 127, 2, ("abi9", "abi0", "abi78"), []),
     "Karrablast": SpeciesData("Karrablast", 588, 0, "Bug", "Bug", 50, 75, 45, 40, 45, 60, 200, 127, 1, ("abi68", "abi61", "abi99"), [
-        ("Level up with party member", 616, "Escavalier"), ("Level up with party member", 617, "Escavalier")
+        # ("Level up with party member", 616, "Escavalier"), ("Level up with party member", 617, "Escavalier")  TODO vanilla encounters are a problem due to Shelmet no being catchable in Winter
     ]),
     "Escavalier": SpeciesData("Escavalier", 589, 0, "Bug", "Steel", 70, 135, 105, 60, 105, 20, 75, 127, 2, ("abi68", "abi75", "abi142"), []),
     "Foongus": SpeciesData("Foongus", 590, 0, "Grass", "Poison", 69, 55, 45, 55, 55, 15, 190, 127, 1, ("abi27", "abi0", "abi144"), [("Level up", 39, "Amoonguss")]),
@@ -724,5 +730,5 @@ by_name: dict[str, SpeciesData] = {
 }
 
 by_id: dict[tuple[int, int], str] = {
-    (by_name[name].dex_number, by_name[name].form): name for name in by_name
+    (data.dex_number, data.form): name for name, data in by_name.items()
 }

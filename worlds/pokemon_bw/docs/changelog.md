@@ -138,5 +138,3 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
   - Season control: Vanilla, Changeable, Randomized
   - Modify item pool: Useless key items, useful filler, ban bad filler
   - Reusable TMs: On, yes, of course, I'm not a masochist
-
-### Client

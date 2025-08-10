@@ -1,5 +1,8 @@
+import datetime
 import os
+from typing import ClassVar
 
+import settings
 from BaseClasses import MultiWorld, Tutorial
 from worlds.AutoWorld import World, WebWorld
 from . import items, locations, options, bizhawk_client, rom
@@ -8,9 +11,26 @@ from . import items, locations, options, bizhawk_client, rom
 bizhawk_client.register_client()
 
 
+class PokemonBWSettings(settings.Group):
+
+    class PokemonBlackRomFile(settings.UserFilePath):
+        """File name of your Pokémon Black Version ROM"""
+        description = "Pokemon Black Version ROM"
+        copy_to = "PokemonBlack.nds"
+
+    class PokemonWhiteRomFile(settings.UserFilePath):
+        """File name of your Pokémon White Version ROM"""
+        description = "Pokemon White Version ROM"
+        copy_to = "PokemonWhite.nds"
+
+    black_rom: PokemonBlackRomFile = PokemonBlackRomFile(PokemonBlackRomFile.copy_to)
+    white_rom: PokemonWhiteRomFile = PokemonWhiteRomFile(PokemonWhiteRomFile.copy_to)
+
+
+
 class PokemonBWWeb(WebWorld):
     rich_text_options_doc = True
-    theme = "stone"
+    theme = ("grassFlowers", "ocean", "dirt", "ice")[(datetime.datetime.now().month - 1) % 4]
     game_info_languages = ["en"]
     setup_en = Tutorial(
         "Multiworld Setup Guide",
@@ -39,6 +59,8 @@ class PokemonBWWorld(World):
     web = PokemonBWWeb()
     item_name_to_id = items.get_item_lookup_table()
     location_name_to_id = locations.get_location_lookup_table()
+    settings_key = "pokemon_bw_settings"
+    settings: ClassVar[PokemonBWSettings]
 
     def __init__(self, multiworld: MultiWorld, player: int):
         super().__init__(multiworld, player)
@@ -59,10 +81,10 @@ class PokemonBWWorld(World):
     def create_regions(self) -> None:
         regions = locations.get_regions(self)
         rules = locations.create_rule_dict(self)
-        catchable_dex_form = locations.create_and_place_event_locations(self, regions, rules)
-        locations.create_and_place_locations(self, regions, rules, catchable_dex_form)
         locations.connect_regions(self, regions, rules)
         locations.cleanup_regions(regions)
+        catchable_dex_form = locations.create_and_place_event_locations(self, regions, rules)
+        locations.create_and_place_locations(self, regions, rules, catchable_dex_form)
         self.to_be_filled_locations = locations.count_to_be_filled_locations(regions)
         self.multiworld.regions.extend(regions.values())
 
@@ -79,15 +101,15 @@ class PokemonBWWorld(World):
     def generate_output(self, output_directory: str) -> None:
         if self.options.version == "black":
             rom.PokemonBlackPatch(
-                world=self, player=self.player, player_name=self.player_name, path=os.path.join(
+                path=os.path.join(
                     output_directory,
                     self.multiworld.get_out_file_name_base(self.player) + rom.PokemonBlackPatch.patch_file_ending
-                )
+                ), world=self, player=self.player, player_name=self.player_name
             ).write()
         else:
             rom.PokemonWhitePatch(
-                world=self, player=self.player, player_name=self.player_name, path=os.path.join(
+                path=os.path.join(
                     output_directory,
                     self.multiworld.get_out_file_name_base(self.player) + rom.PokemonWhitePatch.patch_file_ending
-                )
+                ), world=self, player=self.player, player_name=self.player_name
             ).write()

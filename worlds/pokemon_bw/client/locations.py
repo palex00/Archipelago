@@ -19,28 +19,28 @@ async def check_flag_locations(client: "PokemonBWClient", ctx: "BizHawkClientCon
         if client.flags_cache[eight_flags] != flags_buffer[eight_flags]:
             merge = client.flags_cache[eight_flags] | flags_buffer[eight_flags]
             if client.flags_cache[eight_flags] != merge:
-                if merge & 1:
+                if merge & 1 != 0:
                     for location in client.missing_flag_locations[eight_flags*8]:
                         locations_to_check.append(client.location_name_to_id[location])
-                if merge & 2:
+                if merge & 2 != 0:
                     for location in client.missing_flag_locations[eight_flags*8+1]:
                         locations_to_check.append(client.location_name_to_id[location])
-                if merge & 4:
+                if merge & 4 != 0:
                     for location in client.missing_flag_locations[eight_flags*8+2]:
                         locations_to_check.append(client.location_name_to_id[location])
-                if merge & 8:
+                if merge & 8 != 0:
                     for location in client.missing_flag_locations[eight_flags*8+3]:
                         locations_to_check.append(client.location_name_to_id[location])
-                if merge & 16:
+                if merge & 16 != 0:
                     for location in client.missing_flag_locations[eight_flags*8+4]:
                         locations_to_check.append(client.location_name_to_id[location])
-                if merge & 32:
+                if merge & 32 != 0:
                     for location in client.missing_flag_locations[eight_flags*8+5]:
                         locations_to_check.append(client.location_name_to_id[location])
-                if merge & 64:
+                if merge & 64 != 0:
                     for location in client.missing_flag_locations[eight_flags*8+6]:
                         locations_to_check.append(client.location_name_to_id[location])
-                if merge & 128:
+                if merge & 128 != 0:
                     for location in client.missing_flag_locations[eight_flags*8+7]:
                         locations_to_check.append(client.location_name_to_id[location])
             client.flags_cache[eight_flags] = merge

@@ -8,8 +8,9 @@ from ... import FlagLocationData
 # If accessibility is not always given, it will be always_excluded
 
 table: dict[str, FlagLocationData] = {
-    "Nuvema Town - Item #1 from Mom": FlagLocationData(0x189, always_default, "Nuvema Town", None),
-    "Nuvema Town - Item #2 from Mom": FlagLocationData(0x185, always_default, "Nuvema Town", None),
+    "Nuvema Town - Item from Mom after first fight": FlagLocationData(0x189, always_default, "Nuvema Town", None),
+    # Following is broken due to script issues
+    # "Nuvema Town - Item #2 from Mom": FlagLocationData(0x185, always_default, "Nuvema Town", None), TODO
     "Nuvema Town - Item from Looker": FlagLocationData(0x18A, always_priority, "Nuvema Town", can_beat_ghetsis),
     "Route 1 - Item after catching tutorial #1": FlagLocationData(0x18B, always_default, "Route 1 East", None),
     "Route 1 - Item after catching tutorial #2": FlagLocationData(0x18B, always_default, "Route 1 East", None),

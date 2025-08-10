@@ -26,18 +26,20 @@ def patch(rom: NintendoDSRom, world_package: str, bw_patch_instance: "PokemonBla
     procedures: dict[str, list[tuple[int, bytes]]] = {}
     with ZipFile(buffer, "r") as opened_zip:
         # go through all patch files
-        for filename in opened_zip.namelist():
+        for zip_info in opened_zip.filelist:
+            filename = zip_info.filename
             # only data/a files are handled for now
-            if "data/a" in filename:
-                # get strings and indexes
-                filename_path_list = filename.split("/")
-                narc_filename = "/".join(filename_path_list[1:-1])  # remove "data" and in-narc index
-                narc_index = int(filename_path_list[-1])
-                # add procedure to dict
-                if narc_filename not in procedures:
-                    procedures[narc_filename] = []
-                else:
-                    procedures[narc_filename].append((narc_index, opened_zip.read(filename)))
+            if "data" in filename:
+                if not zip_info.is_dir():
+                    # get strings and indexes
+                    filename_path_list = filename.split("/")
+                    narc_filename = "/".join(filename_path_list[1:-1])  # remove "data" and in-narc index
+                    narc_index = int(filename_path_list[-1])
+                    # add procedure to dict
+                    if narc_filename not in procedures:
+                        procedures[narc_filename] = []
+                    else:
+                        procedures[narc_filename].append((narc_index, opened_zip.read(filename)))
             else:
                 raise Exception(f"Base patch file not in data subfolder: {filename}")
     # apply patches to each narc

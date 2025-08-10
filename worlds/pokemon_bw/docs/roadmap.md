@@ -33,6 +33,7 @@ Version 1.0.0 will happen when certain features are implemented.
   - Rage Candy Bar and fossils as key items
 - QoL
   - Auto updating roms
+  - Optional re-patch skipping
 
 ### Other feature updates
 - Options

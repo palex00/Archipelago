@@ -13,7 +13,7 @@ def lookup(domain: int) -> dict[str, int]:
 
     return {
         name: data.flag_id * 100 + domain + (
-            int(name[:-2].split("#")[-1]) if "#" in name else 0
+            int(name[-2:].split("#")[-1]) if "#" in name[-3:] else 0
         )
         for name, data in table.items()
     }

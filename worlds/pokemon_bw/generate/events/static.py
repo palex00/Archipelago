@@ -32,7 +32,8 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesD
                 item: PokemonBWItem = PokemonBWItem(species_name, ItemClassification.progression, None, world.player)
                 l.place_locked_item(item)
                 if type(data) is StaticEncounterData:
-                    l.access_rule = rules[data.access_rule]
+                    if data.access_rule is not None:
+                        l.access_rule = rules[data.access_rule]
                 elif world.options.version == "black":
                     l.access_rule = get_trade_rule(species_by_id[(data.wanted_black, 0)])
                 else:

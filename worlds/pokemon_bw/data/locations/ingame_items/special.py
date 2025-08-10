@@ -8,8 +8,8 @@ gym_badges: dict[str, FlagLocationData] = {
     "Castelia Gym - Badge reward": FlagLocationData(0x174, always_priority, "Castelia City", None),
     "Nimbasa Gym - Badge reward": FlagLocationData(0x175, always_priority, "Nimbasa City", None),
     "Driftveil Gym - Badge reward": FlagLocationData(0x176, always_priority, "Driftveil City", None),
-    "Mistralton Gym - Badge Reward": FlagLocationData(0x177, always_priority, "Mistralton City", None),
-    "Icirrus Gym - Badge Reward": FlagLocationData(0x178, always_priority, "Icirrus City", None),
+    "Mistralton Gym - Badge reward": FlagLocationData(0x177, always_priority, "Mistralton City", None),
+    "Icirrus Gym - Badge reward": FlagLocationData(0x178, always_priority, "Icirrus City", None),
     "Opelucid Gym - Badge reward": FlagLocationData(0x179, always_priority, "Opelucid City", None),
 }
 

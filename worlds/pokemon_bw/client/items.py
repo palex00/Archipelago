@@ -1,7 +1,6 @@
 
 from typing import TYPE_CHECKING
 import worlds._bizhawk as bizhawk
-from CommonClient import logger
 from ..data.items import all_main_items, all_key_items, all_berries, badges, medicine, seasons, tm_hm, all_items_dict_view
 
 if TYPE_CHECKING:
@@ -38,8 +37,9 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                     main_items_bag_buffer = read[0]
                 if not write_to_bag(client, ctx, main_items_bag_buffer, client.main_items_bag_offset,
                                     client.main_items_bag_size, internal_id):
-                    logger.warn(f"Could not add {name} to main items bag, no space left. "
-                                f"Please report this and a list of all items in your main items bag to the maintainer.")
+                    client.logger.warning(f"Could not add {name} to main items bag, no space left. "
+                                       f"Please report this and a list of all items "
+                                       f"in your main items bag to the maintainer.")
                     break
             case x if x in all_key_items:
                 if key_items_bag_buffer is None:
@@ -53,8 +53,9 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                     key_items_bag_buffer = read[0]
                 if not write_to_bag(client, ctx, key_items_bag_buffer, client.key_items_bag_offset,
                                     client.key_items_bag_size, internal_id):
-                    logger.warn(f"Could not add {name} to key items bag, no space left. "
-                                f"Please report this and a list of all items in your key items bag to the maintainer.")
+                    client.logger.warning(f"Could not add {name} to key items bag, no space left. "
+                                       f"Please report this and a list of all items"
+                                       f" in your key items bag to the maintainer.")
                     break
             case x if x in all_berries:
                 if berry_bag_buffer is None:
@@ -68,8 +69,9 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                     berry_bag_buffer = read[0]
                 if not write_to_bag(client, ctx, berry_bag_buffer, client.berry_bag_offset,
                                     client.berry_bag_size, internal_id):
-                    logger.warn(f"Could not add {name} to key items bag, no space left. "
-                                f"Please report this and a list of all items in your main bag to the maintainer.")
+                    client.logger.warning(f"Could not add {name} to key items bag, no space left. "
+                                       f"Please report this and a list of all items "
+                                       f"in your main bag to the maintainer.")
                     break
             case x if x in badges.table:
                 read = await bizhawk.read(
@@ -95,8 +97,9 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                     medicine_bag_buffer = read[0]
                 if not write_to_bag(client, ctx, medicine_bag_buffer, client.medicine_bag_offset,
                                     client.medicine_bag_size, internal_id):
-                    logger.warn(f"Could not add {name} to medicine bag, no space left. "
-                                f"Please report this and a list of all items in your medicine bag to the maintainer.")
+                    client.logger.warning(f"Could not add {name} to medicine bag, no space left. "
+                                       f"Please report this and a list of all items "
+                                       f"in your medicine bag to the maintainer.")
                     break
             case x if x in seasons.table:
                 flag = seasons.table[name].flag_id
@@ -118,11 +121,12 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                     tm_hm_bag_buffer = read[0]
                 if not write_to_bag(client, ctx, tm_hm_bag_buffer, client.tm_hm_bag_offset,
                                     client.tm_hm_bag_size, internal_id):
-                    logger.warn(f"Could not add {name} to TM/HM bag, no space left. "
-                                f"Please report this and a list of all items in your TM/HM bag to the maintainer.")
+                    client.logger.warning(f"Could not add {name} to TM/HM bag, no space left. "
+                                       f"Please report this and a list of all items "
+                                       f"in your TM/HM bag to the maintainer.")
                     break
             case _:
-                logger.warn(f"Bad item name: {name}")
+                client.logger.warning(f"Bad item name: {name}")
         new_received += 1
 
     if new_received > client.received_items_count:

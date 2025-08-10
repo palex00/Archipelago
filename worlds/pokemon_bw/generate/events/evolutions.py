@@ -47,7 +47,8 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_
                 evo_data: "SpeciesData" = species_by_name[evolution[2]]
                 evo_dex_form: tuple[str, int] = (evo_data.dex_name, evo_data.form)
                 catchable_dex_form.add(evo_dex_form)
-                next_catchable.add(evo_dex_form)
+                if evo_dex_form not in new_catchable:
+                    next_catchable.add(evo_dex_form)
                 moveset: set[str] = movesets_table[evolution[2]].tm_hm_moves
                 if "HM04" in moveset:
                     world.strength_species.add(evolution[2])

@@ -40,7 +40,7 @@ def get_regions(world: "PokemonBWWorld") -> dict[str, Region]:
 def create_rule_dict(world: "PokemonBWWorld") -> "RulesDict":
     from .data.locations.rules import extended_rules_list
 
-    return {rule: (lambda state: rule(state, world)) for rule in extended_rules_list}
+    return {rule: (lambda state: rule(state, world)) for rule in extended_rules_list} | {None: None}
 
 
 def create_and_place_event_locations(world: "PokemonBWWorld", regions: dict[str, Region],
@@ -84,9 +84,12 @@ def connect_regions(world: "PokemonBWWorld", regions: dict[str, Region], rules: 
 
 
 def cleanup_regions(regions: dict[str, Region]) -> None:
+    to_remove = []
     for name, region in regions.items():
-        if len(region.entrances) == 0:
-            regions.pop(name)
+        if len(region.entrances) == 0 and region.name != "Menu":
+            to_remove.append(name)
+    for name in to_remove:
+        regions.pop(name)
 
 
 def count_to_be_filled_locations(regions: dict[str, Region]) -> int:
