@@ -40,7 +40,7 @@ def get_regions(world: "PokemonBWWorld") -> dict[str, Region]:
 def create_rule_dict(world: "PokemonBWWorld") -> "RulesDict":
     from .data.locations.rules import extended_rules_list
 
-    def f(r: ExtendedRule) -> Callable[[CollectionState], bool]:
+    def f(r: "ExtendedRule") -> Callable[[CollectionState], bool]:
         return lambda state: r(state, world)
 
     return {rule: f(rule) for rule in extended_rules_list} | {None: None}

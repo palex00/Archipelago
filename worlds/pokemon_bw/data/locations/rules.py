@@ -57,7 +57,7 @@ has_blue_card: ExtendedRule = lambda state, world: state.has("Blue Card", world.
 has_red_chain: ExtendedRule = lambda state, world: state.has("Red Chain", world.player)
 has_any_legendary_stone: ExtendedRule = lambda state, world: state.has_any(("Light Stone", "Dark Stone"), world.player)
 has_lock_capsule: ExtendedRule = lambda state, world: state.has("Lock Capsule", world.player)
-has_all_grams: ExtendedRule = lambda state, world: state.has_all("Wingull Gram 1", "Wingull Gram 2", "Wingull Gram 3", world.player)
+has_all_grams: ExtendedRule = lambda state, world: state.has_all(("Wingull Gram 1", "Wingull Gram 2", "Wingull Gram 3"), world.player)
 
 has_root_fossil: ExtendedRule = lambda state, world: state.has("Root Fossil", world.player)
 has_claw_fossil: ExtendedRule = lambda state, world: state.has("Claw Fossil", world.player)
@@ -195,6 +195,9 @@ extended_rules_list: tuple = (
     can_fish, has_rage_candy_bar, has_basement_key, has_parcel, has_loot_sack, has_dragon_skull, has_liberty_pass,
     has_machine_part, has_explorer_kit, has_tidal_bell, has_oaks_letter, has_blue_card, has_red_chain,
     has_any_legendary_stone, has_lock_capsule, has_all_grams,
+
+    has_root_fossil, has_claw_fossil, has_helix_fossil, has_dome_fossil, has_old_amber,
+    has_armor_fossil, has_skull_fossil, has_cover_fossil, has_plume_fossil,
 
     has_trio_badge, has_basic_badge, has_insect_badge, has_bolt_badge,
     has_quake_badge, has_jet_badge, has_freeze_badge, has_legend_badge,

@@ -16,7 +16,7 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_
     from ...data.pokemon.movesets import table as movesets_table
     from ...data.pokemon.evolution_methods import methods, extended_rules_list
 
-    def f(r: ExtendedRule) -> Callable[[CollectionState], bool]:
+    def f(r: "ExtendedRule") -> Callable[[CollectionState], bool]:
         return lambda state: r(state, world)
 
     region: "Region" = regions["Evolutions"]
