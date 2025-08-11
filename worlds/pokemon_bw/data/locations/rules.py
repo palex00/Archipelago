@@ -189,7 +189,8 @@ can_fish_and_set_winter: ExtendedRule = lambda state, world: can_fish(state, wor
 striaton_hidden_item: ExtendedRule = lambda state, world: state.can_reach_region("Route 3", world.player) or can_use_surf(state, world)
 
 extended_rules_list: tuple = (
-    can_use_strength, can_use_surf, can_use_cut, can_use_waterfall, can_use_dive, can_use_surf_or_strength,
+    can_use_strength, can_use_surf, can_use_cut, can_use_waterfall, can_use_dive, can_use_flash,
+    can_use_surf_or_strength,
 
     can_fish, has_rage_candy_bar, has_basement_key, has_parcel, has_loot_sack, has_dragon_skull, has_liberty_pass,
     has_machine_part, has_explorer_kit, has_tidal_bell, has_oaks_letter, has_blue_card, has_red_chain,
