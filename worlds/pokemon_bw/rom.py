@@ -117,21 +117,15 @@ class PatchMethods:
 
         slot_data_dict: dict[str, Any] = orjson.loads(patch.get_file("slot_data.json"))
         datapackage_dict: dict[str, Any] = orjson.loads(patch.get_file("datapackage.json"))
-        base_data = get_base_rom_bytes(slot_data_dict["version"])
 
-        split_target = os.path.split(target)
-        repatch_target = (
-            split_target[0] + "/.deleteIfRepatchNeeded_" + split_target[1].removesuffix(patch.result_file_ending)
-        )
-        if not pathlib.Path(repatch_target).exists():
+        if not pathlib.Path(target).exists():
+            base_data = get_base_rom_bytes(slot_data_dict["version"])
             rom = ndspy_rom.NintendoDSRom(base_data)
             procedures: list[str] = str(patch.get_file("procedures.txt"), "utf-8").splitlines()
             for prod in procedures:
                 patch_procedures[prod](rom, __name__, patch)
             with open(target, 'wb') as f:
                 f.write(rom.save(updateDeviceCapacity=True))
-            with open(repatch_target, "xb") as f:
-                f.write(b'')
 
         cached_rom[0] = True
         cached_rom.append(slot_data_dict)
