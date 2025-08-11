@@ -113,25 +113,25 @@ can_catch_all_deerlings: ExtendedRule = lambda state, world: (
 
 encounter_can_set_spring: ExtendedRule = lambda state, world: (
     state.can_reach_region("Nimbasa City", world.player) and (
-        world.options.season_control == "changeable" or state.has("Spring", world.plyer)
+        world.options.season_control == "changeable" or state.has("Spring", world.player)
     )
 )
 
 encounter_can_set_summer: ExtendedRule = lambda state, world: (
     state.can_reach_region("Nimbasa City", world.player) and (
-        world.options.season_control == "changeable" or state.has("Summer", world.plyer)
+        world.options.season_control == "changeable" or state.has("Summer", world.player)
     )
 )
 
 encounter_can_set_autumn: ExtendedRule = lambda state, world: (
     state.can_reach_region("Nimbasa City", world.player) and (
-        world.options.season_control == "changeable" or state.has("Autumn", world.plyer)
+        world.options.season_control == "changeable" or state.has("Autumn", world.player)
     )
 )
 
 encounter_can_set_winter: ExtendedRule = lambda state, world: (
     state.can_reach_region("Nimbasa City", world.player) and (
-        world.options.season_control == "changeable" or state.has("Winter", world.plyer)
+        world.options.season_control == "changeable" or state.has("Winter", world.player)
     )
 )
 
