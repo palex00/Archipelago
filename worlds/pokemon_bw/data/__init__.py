@@ -125,7 +125,6 @@ class MovesetData(NamedTuple):
     tm_hm_moves: set[str]
 
 
-# TODO future update
 class MoveData(NamedTuple):
     type: str
     category: Literal["Physical", "Special", "Status"]
@@ -135,7 +134,6 @@ class MoveData(NamedTuple):
     pp: int
 
 
-# TODO future update
 class TMHMData(NamedTuple):
     move: str
     is_HM: bool
@@ -147,7 +145,6 @@ class EvolutionMethodData(NamedTuple):
     rule: Callable[[int], ExtendedRule] | None
 
 
-# TODO future update
 class TypeData(NamedTuple):
     id: int
 

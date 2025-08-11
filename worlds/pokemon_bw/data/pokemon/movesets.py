@@ -1,6 +1,5 @@
 from .. import MovesetData
 
-# TODO add level up movesets in a later update
 levelup = []
 
 table: dict[str, MovesetData] = {

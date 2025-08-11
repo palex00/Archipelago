@@ -1,10 +1,24 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
-## 0.1.2
+## 0.1.2: Parcel on Twist Mountain update
 
 - Another Python 3.11 fix
-- Fixed two lambda in for loops occurrences leading to bad logic
+- Fixed a lambda in a for-loop leading to overall faulty logic
+- Removed `é` letters from option descriptions
+- Merged season patches since they are the same anyway
+- Added fossil encounters, making a few more Dexsanity checks possible
+- Fixed Abyssal Ruins logic errors
+- Fixed setting `season_control` to anything other than vanilla crashing the game instantly
+- Fixed logic error with evolutions not requiring their base forms
+- Fixed the shift in sent Dexsanity locations
+- Fixed hidden items not sending checks and being "collectable" repeatedly
+- Fixed the item in Plasma hideout in Castelia City being sent immediately
+- Fixed the girl on route 1 giving the vanilla item
+  - Also hopefully fixed the guy in southeastern corner giving the vanilla item, but has to be tested
+- Fixed logic issues with the location requiring all Deerling forms
+- Reworked the repatch-prevention to instead look for the existence of an already patched rom
+  - i.e. the patching process will only happen again if the already existing patched rom has been deleted
 
 ## 0.1.1: Day One Patch™ update
 
