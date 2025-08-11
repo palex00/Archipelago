@@ -62,7 +62,7 @@ table: dict[str, FlagLocationData] = {
     "Pinwheel Forest - South east item": FlagLocationData(1132, always_default, "Pinwheel Forest East", None),
     "Battle Company - 47F item in lower-left corner": FlagLocationData(1211, always_default, "Castelia City", None),
     "Battle Company - 55F center item": FlagLocationData(1383, always_default, "Castelia City", None),
-    "Castelia City - Item in Plasma hideout": FlagLocationData(843, always_default, "Castelia City", None),  # TODO set on start, need other flag
+    "Castelia City - Item in Plasma hideout": FlagLocationData(0x1B4, always_default, "Castelia City", None),
     "Route 4 - South item": FlagLocationData(1155, always_default, "Route 4 South", None),
     "Route 4 - Item south west of parasol lady": FlagLocationData(1158, always_default, "Route 4 South", None),
     "Route 4 - Item north east of parasol lady": FlagLocationData(1248, always_default, "Route 4 South", None),
