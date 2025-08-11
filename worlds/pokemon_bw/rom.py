@@ -88,7 +88,7 @@ class PatchMethods:
 
         procedures: list[str] = ["base_patch"]
         if patch.world.options.season_control != "vanilla":
-            procedures.append("season_patch_"+patch.world.options.version.current_key)
+            procedures.append("season_patch")
 
         datapackage: dict[str, Any] = {
             "location_name_to_id": patch.world.location_name_to_id,
@@ -162,8 +162,7 @@ class PatchMethods:
 
 patch_procedures: dict[str, Callable[[ndspy_rom.NintendoDSRom, str, PokemonBlackPatch], None]] = {
     "base_patch": base_patch.patch,
-    "season_patch_black": season_patch.patch_black,
-    "season_patch_white": season_patch.patch_white,
+    "season_patch": season_patch.patch,
 }
 
 

@@ -10,15 +10,8 @@ if TYPE_CHECKING:
     from ...rom import PokemonBlackPatch
 
 
-def patch_black(rom: NintendoDSRom, world_package: str, bw_patch_instance: "PokemonBlackPatch") -> None:
-    _patch(rom, pkgutil.get_data(world_package, "patch/seasons_otpp/ov20_B_decomp"))
-
-
-def patch_white(rom: NintendoDSRom, world_package: str, bw_patch_instance: "PokemonBlackPatch") -> None:
-    _patch(rom, pkgutil.get_data(world_package, "patch/seasons_otpp/ov20_W_decomp"))
-
-
-def _patch(rom: NintendoDSRom, otpp_patch: bytes) -> None:
+def patch(rom: NintendoDSRom, world_package: str, bw_patch_instance: "PokemonBlackPatch") -> None:
+    otpp_patch: bytes = pkgutil.get_data(world_package, "patch/seasons_otpp/ov20_decomp")
     overlay_table = rom.loadArm9Overlays([20])
     ov20 = overlay_table[20]
     ov20.data = otpp.patch(ov20.data, otpp_patch)
