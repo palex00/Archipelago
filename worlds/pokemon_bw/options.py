@@ -10,9 +10,9 @@ class Goal(Choice):
     - **Ghetsis** - Clear the main story by defeating Ghetsis
     - **Champion** - Become the champion by defeating Alder
     - **Cynthia** - Defeat Cynthia in Undella Town
-    - **Regional pokédex** - Complete the Unova pokédex (requires wild Pokémon being randomized) 
-    - **National pokédex** - Complete the national pokédex (requires wild Pokémon being randomized)
-    - **Custom pokédex** - Complete all dexsanity locations (requires wild Pokémon being randomized
+    - **Regional pokedex** - Complete the Unova pokedex (requires wild Pokemon being randomized)
+    - **National pokedex** - Complete the national pokedex (requires wild Pokemon being randomized)
+    - **Custom pokedex** - Complete all dexsanity locations (requires wild Pokemon being randomized
                            and dexsanity being set to at least 100)
     - **TM/HM hunt** - Get all TMs and HMs
     - **Seven Sages hunt** - Find the Seven Sages
@@ -42,15 +42,15 @@ class GameVersion(Choice):
 
 class RandomizeWildPokemon(OptionSet):
     """
-    Randomizes wild pokémon encounters.
-    - **Randomize** - Toggles wild pokémon being randomized. Required for any modifier below.
-    - **Ensure all obtainable** - Ensures that every pokémon species is obtainable by either catching 
-                                  or evolving. This is automatically checked if **National pokédex** is chosen as the goal. 
-    - **Similar base stats** - Tries to keep every randomized pokémon at a similar base stat total as the replaced encounter.
-    - **Type themed** - Makes every pokémon in an area have a certain same type.
+    Randomizes wild pokemon encounters.
+    - **Randomize** - Toggles wild pokemon being randomized. Required for any modifier below.
+    - **Ensure all obtainable** - Ensures that every pokemon species is obtainable by either catching
+                                  or evolving. This is automatically checked if **National pokedex** is chosen as the goal.
+    - **Similar base stats** - Tries to keep every randomized pokemon at a similar base stat total as the replaced encounter.
+    - **Type themed** - Makes every pokemon in an area have a certain same type.
     - **Area 1-to-1** - Keeps the amount of different encounters and their encounter rate in every area.
     """
-    display_name = "Randomize Wild Pokémon"
+    display_name = "Randomize Wild Pokemon"
     valid_keys = [
         "Randomize",
         "Ensure all obtainable",
@@ -63,14 +63,14 @@ class RandomizeWildPokemon(OptionSet):
 
 class RandomizeTrainerPokemon(OptionSet):
     """
-    Randomizes trainer pokémon.
-    - **Randomize** - Toggles trainer pokémon being randomized. Required for any modifier below.
-    - **Similar base stats** - Tries to keep the randomized pokémon at a similar base stat total as the replaced one.
-    - **Type themed** - All pokémon of a trainer have to share at least one randomly chosen type.
+    Randomizes trainer pokemon.
+    - **Randomize** - Toggles trainer pokemon being randomized. Required for any modifier below.
+    - **Similar base stats** - Tries to keep the randomized pokemon at a similar base stat total as the replaced one.
+    - **Type themed** - All pokemon of a trainer have to share at least one randomly chosen type.
                         Gym leaders will always have themed teams, regardless of this modifier.
-    - **Themed gym trainers** - All pokémon of gym trainers will share the type assigned to the gym leader.
+    - **Themed gym trainers** - All pokemon of gym trainers will share the type assigned to the gym leader.
     """
-    display_name = "Randomize Trainer Pokémon"
+    display_name = "Randomize Trainer Pokemon"
     valid_keys = [
         "Randomize",
         "Similar base stats",
@@ -82,15 +82,15 @@ class RandomizeTrainerPokemon(OptionSet):
 
 class RandomizeStarterPokemon(OptionSet):
     """
-    Randomizes the starter pokémon you receive at the start of the game.
-    - **Randomize** - Toggles starter pokémon being randomized. Required for any other modifier.
-    - **Any base** - Only use unevolved/baby pokémon.
-    - **Base with 2 evolutions** - Only use unevolved/baby pokémon that can evolve twice. Overrides **Any base**.
-    - **Only official starters** - Only use pokémon that have been a starter in any mainline game. Overrides
+    Randomizes the starter pokemon you receive at the start of the game.
+    - **Randomize** - Toggles starter pokemon being randomized. Required for any other modifier.
+    - **Any base** - Only use unevolved/baby pokemon.
+    - **Base with 2 evolutions** - Only use unevolved/baby pokemon that can evolve twice. Overrides **Any base**.
+    - **Only official starters** - Only use pokemon that have been a starter in any mainline game. Overrides
                                    **Any base** and **Base with 2 evolutions**.
     - **Type variety** - Every starter will have a single type that is different from the other two.
     """
-    display_name = "Randomize Starter Pokémon"
+    display_name = "Randomize Starter Pokemon"
     valid_keys = [
         "Randomize",
         "Any base",
@@ -104,12 +104,12 @@ class RandomizeStarterPokemon(OptionSet):
 class RandomizeStaticPokemon(OptionSet):
     """
     Randomizes static encounters you can battle and catch throughout the game, e.g. Volcarona in Relic Castle.
-    - **Randomize** - Toggles static pokémon being randomized. Required for any other modifier.
-    - **Similar base stats** - Tries to keep the randomized pokémon at a similar base stat total as the replaced one.
-    - **Only base** - Only use unevolved Pokémon.
+    - **Randomize** - Toggles static pokemon being randomized. Required for any other modifier.
+    - **Similar base stats** - Tries to keep the randomized pokemon at a similar base stat total as the replaced one.
+    - **Only base** - Only use unevolved Pokemon.
     - **No legendaries** - Exclude legendaries from being placed into static encounters.
     """
-    display_name = "Randomize Static Pokémon"
+    display_name = "Randomize Static Pokemon"
     valid_keys = [
         "Randomize",
         "Similar base stats",
@@ -121,12 +121,12 @@ class RandomizeStaticPokemon(OptionSet):
 
 class RandomizeGiftPokemon(OptionSet):
     """
-    Randomizes gift pokémon that you receive for free, e.g. the Larvesta egg on route 18.
-    - **Randomize** - Toggles gift pokémon being randomized. Required for any other modifier.
-    - **Similar base stats** - Tries to keep the randomized pokémon at a similar base stat total as the replaced one.
+    Randomizes gift pokemon that you receive for free, e.g. the Larvesta egg on route 18.
+    - **Randomize** - Toggles gift pokemon being randomized. Required for any other modifier.
+    - **Similar base stats** - Tries to keep the randomized pokemon at a similar base stat total as the replaced one.
     - **No legendaries** - Exclude legendaries from being placed into gift encounters.
     """
-    display_name = "Randomize Gift Pokémon"
+    display_name = "Randomize Gift Pokemon"
     valid_keys = [
         "Randomize",
         "Similar base stats",
@@ -138,12 +138,12 @@ class RandomizeGiftPokemon(OptionSet):
 class RandomizeTradePokemon(OptionSet):
     """
     Randomizes trade offers from NPCs. Any **Randomize ...** is required for the other modifiers.
-    - **Randomize offer** - Toggles offered pokémon being randomized.
-    - **Randomize request** - Toggles requested pokémon being randomized.
-    - **Similar base stats** - Tries to keep the randomized pokémon at a similar base stat total as the replaced one.
+    - **Randomize offer** - Toggles offered pokemon being randomized.
+    - **Randomize request** - Toggles requested pokemon being randomized.
+    - **Similar base stats** - Tries to keep the randomized pokemon at a similar base stat total as the replaced one.
     - **No legendaries** - Exclude legendaries from being placed into trades.
     """
-    display_name = "Randomize Trade Pokémon"
+    display_name = "Randomize Trade Pokemon"
     valid_keys = [
         "Randomize offer",
         "Randomize request",
@@ -156,11 +156,11 @@ class RandomizeTradePokemon(OptionSet):
 class RandomizeLegendaryPokemon(OptionSet):
     """
     Randomizes legendary and mythical encounters.
-    - **Randomize** - Toggles legendary pokémon being randomized. Required for any other modifier.
-    - **Keep legendary** - Randomized pokémon will all still be legendaries or mythicals.
+    - **Randomize** - Toggles legendary pokemon being randomized. Required for any other modifier.
+    - **Keep legendary** - Randomized pokemon will all still be legendaries or mythicals.
     - **Same type** - Tries to keep at least one type of every encounter.
     """
-    display_name = "Randomize Legendary Pokémon"
+    display_name = "Randomize Legendary Pokemon"
     valid_keys = [
         "Randomize",
         "Keep legendary",
@@ -171,7 +171,7 @@ class RandomizeLegendaryPokemon(OptionSet):
 
 class RandomizeBaseStats(OptionSet):
     """
-    Randomizes the base stats of every pokémon species.
+    Randomizes the base stats of every pokemon species.
     - **Randomize** - Toggles base stats being randomized. Required for any other modifier.
     - **Keep total** - Every species will keep the sum of its base stats.
     - **Follow evolutions** - Evolved species will use their pre-evolution's base stats and add on top of that.
@@ -203,11 +203,11 @@ class BaseStatTotalLimits(OptionCounter):
 
 class RandomizeEvolutions(OptionSet):
     """
-    Randomizes the evolutions of every pokémon species.
+    Randomizes the evolutions of every pokemon species.
     - **Randomize** - Toggles evolutions being randomized. Required for any other modifier.
     - **Keep method** - Keeps the method (e.g. levelup, evolution stone, ...) of every evolution.
-    - **Follow type** - Pre-evolution and evolved pokémon always share at least one type.
-    - **Allow multiple pre-evolutions** - Multiple pokémon species can evolve into the same species.
+    - **Follow type** - Pre-evolution and evolved pokemon always share at least one type.
+    - **Allow multiple pre-evolutions** - Multiple pokemon species can evolve into the same species.
     - **Allow more or less branches** - Allows all species to be able to evolve into more or less species than before.
     """
     display_name = "Randomize Evolutions"
@@ -223,7 +223,7 @@ class RandomizeEvolutions(OptionSet):
 
 class RandomizeCatchRates(OptionSet):
     """
-    Randomizes the catch rate of every pokémon species.
+    Randomizes the catch rate of every pokemon species.
     - **Shuffle** - Gives every species a commonly used catch rate (e.g. 255, 45, 3, ...).
     - **Randomize** - Gives every species a completely random catch rate. Overrides **Shuffle**.
     - **Follow evolutions** - Evolved species will have a catch rate equal to or lower than their pre-evolution(s).
@@ -255,7 +255,7 @@ class CatchRateLimits(OptionCounter):
 
 class RandomizeLevelUpMovesets(OptionSet):
     """
-    Randomizes the moves a pokémon species learns by leveling up.
+    Randomizes the moves a pokemon species learns by leveling up.
     - **Randomize** - Toggles level up movesets being randomized. Required for any other modifier.
     - **Keep types** - Randomized moves have either a matching or normal type.
     - **Progressive power** - If a move is learned after another one, it will have an equal or higher base power.
@@ -278,7 +278,7 @@ class RandomizeLevelUpMovesets(OptionSet):
 
 class RandomizeTypes(OptionSet):
     """
-    Randomizes the type(s) of every pokémon species.
+    Randomizes the type(s) of every pokemon species.
     - **Randomize** - Toggles types being randomized. Required for any other modifier.
     - **Only secondary type** - Only randomizes the secondary type of every species and thereby keeps the primary type.
                                 Includes removing it. Not compatible with **Only primary type**.
@@ -298,17 +298,17 @@ class RandomizeTypes(OptionSet):
 
 class RandomizeAbilities(OptionSet):
     """
-    Randomizes the abilities of every pokémon species.
+    Randomizes the abilities of every pokemon species.
     - **Randomize** - Toggles abilities being randomized. Required for any other modifier.
-    - **One per pokémon** - Gives every species only one ability.
-    - **Follow evolutions** - Evolved pokémon will have the abilities of (one of) their pre-evolution(s)..
-    - **Include hidden abilities** - Includes hidden abilities being randomized. Note that only a few select pokémon
+    - **One per pokemon** - Gives every species only one ability.
+    - **Follow evolutions** - Evolved pokemon will have the abilities of (one of) their pre-evolution(s)..
+    - **Include hidden abilities** - Includes hidden abilities being randomized. Note that only a few select pokemon
                                      that originate from these games can have their hidden ability.
     """
     display_name = "Randomize Abilities"
     valid_keys = [
         "Randomize",
-        "One per pokémon",
+        "One per pokemon",
         "Follow evolutions",
         "Include hidden abilities",
     ]
@@ -317,7 +317,7 @@ class RandomizeAbilities(OptionSet):
 
 class RandomizeGenderRatio(OptionSet):
     """
-    Randomizes the gender ratio of every pokémon species.
+    Randomizes the gender ratio of every pokemon species.
     - **Shuffle** - Gives every species a commonly used gender ratio (e.g. 50/50, 1 in 8, ...).
     - **Randomize** - Gives every species a completely random gender ratio. Overrides **Shuffle**.
     - **Follow evolutions** - Evolved species will have the same gender ratio as (one of) their pre-evolution(s).
@@ -351,7 +351,7 @@ class GenderRatioLimits(OptionCounter):
 
 class RandomizeTMHMCompatibility(OptionSet):
     """
-    Randomizes the TM and HM compatibility of every pokémon species.
+    Randomizes the TM and HM compatibility of every pokemon species.
     - **Randomize** - Toggles TM and HM compatibility being randomized. Required for any other modifier.
     - **Keep types** - Randomized moves have either a matching or normal type.
     - **Keep amount** - Keeps the amount of moves a species learns normally.
@@ -422,8 +422,8 @@ class AdditionalRoadblocks(Choice):
 
 class Dexsanity(Range):
     """
-    Adds a number of locations that can be checked by catching a certain Pokémon species
-    and registering it in the pokédex. The actual maximum number of added checks depends on what pokémon species are
+    Adds a number of locations that can be checked by catching a certain Pokemon species
+    and registering it in the pokedex. The actual maximum number of added checks depends on what pokemon species are
     actually obtainable in the wild.
 
     If you want to have all 649 possible checks, then you need to randomize wild
@@ -447,8 +447,8 @@ class Trainersanity(Range):
 
 class Seensanity(Range):
     """
-    Adds a number of locations that can be checked by seeing a certain Pokémon species, which is marked in the pokédex.
-    The actual maximum number of added checks depends on what pokémon species are
+    Adds a number of locations that can be checked by seeing a certain Pokemon species, which is marked in the pokedex.
+    The actual maximum number of added checks depends on what pokemon species are
     actually observable in the wild or in trainer battles.
 
     If you want to have all 649 possible checks, then you need to randomize wild
@@ -487,7 +487,7 @@ class SeasonControl(Choice):
     Determines how seasons are handled by the game.
     - **Vanilla** - Seasons are not randomized and change based on real time. Locations that depend on the season
                     will only contain filler items.
-    - **Changeable** - The current season can be changed by an NPC next to the Pokémon Center in Nimbasa City.
+    - **Changeable** - The current season can be changed by an NPC next to the Pokemon Center in Nimbasa City.
     - **Randomized** - All seasons are unlockable by items that get shuffled into the item pool. They can as well be
                        changed by an NPC in Nimbasa City, with one season being unlocked from the beginning.
     """
@@ -500,11 +500,11 @@ class SeasonControl(Choice):
 
 class NormalizeLevels(OptionSet):
     """
-    Adjusts the levels of wild and trainer pokémon in postgame areas and surfing/fishing encounters 
+    Adjusts the levels of wild and trainer pokemon in postgame areas and surfing/fishing encounters
     to similar levels in surrounding areas (regardless of randomization).
 
-    - **Wild** - Normalizes wild pokémon levels, including surfing and fishing encounters. 
-    - **Trainer** - Normalizes trainer pokémon levels, excluding Cynthia. 
+    - **Wild** - Normalizes wild pokemon levels, including surfing and fishing encounters.
+    - **Trainer** - Normalizes trainer pokemon levels, excluding Cynthia.
     """
     display_name = "Normalize levels"
     valid_keys = [
@@ -516,7 +516,7 @@ class NormalizeLevels(OptionSet):
 
 class ExpModifier(Range):
     """
-    Multiplies the experience received from defeating wild and trainer pokémon.
+    Multiplies the experience received from defeating wild and trainer pokemon.
 
     The value is in percent, meaning 100 is normal, 200 is double, 50 is half, etc.
     """
@@ -528,10 +528,10 @@ class ExpModifier(Range):
 
 class AllPokemonSeen(Toggle):
     """
-    Marks all pokémon in the pokédex (that do not have a Seensanity check) as seen
+    Marks all pokemon in the pokedex (that do not have a Seensanity check) as seen
     (including all forms, except shinies). This could possibly have no effect under certain circumstances.
     """
-    display_name = "All Pokémon Seen"
+    display_name = "All Pokemon Seen"
     default = False
 
 
@@ -540,7 +540,7 @@ class AddFairyType(Choice):
     Adds the fairy type from the sixth generation games.
     - **No** - Don't add the fairy type.
     - **Only randomized** - If types are randomized, this adds the fairy type to the pool of possible types.
-    - **Modify vanilla** - Updates the type combination of all pokémon that received the fairy type in X and Y.
+    - **Modify vanilla** - Updates the type combination of all pokemon that received the fairy type in X and Y.
     """
     display_name = "Add Fairy Type"
     option_no = 0
@@ -560,7 +560,7 @@ class ReplaceEvoMethods(OptionSet):
     - **Friendship** - Replaces friendship based evolutions with level up evolutions.
     - **PID** - Replaces personality value based evolutions. Gender dependant evolutions lose their gender dependency,
                 Wurmple's random evolutions will require a Butterfree/Venomoth in your party, and Burmy will also evolve
-                into Mothim while having a Venomoth in your party. Be aware that this can lead to affected pokémon
+                into Mothim while having a Venomoth in your party. Be aware that this can lead to affected pokemon
                 changing their gender when evolved.
     - **Stats** - Replaces Tyrogue's stat based evolutions with level up while holding a protein, iron, or carbos.
     """
@@ -576,7 +576,7 @@ class ReplaceEvoMethods(OptionSet):
 
 class WonderTrade(Toggle):
     """
-    Enables pokémon being sent to and received from the datastorage wonder trade protocol.
+    Enables pokemon being sent to and received from the datastorage wonder trade protocol.
     """
     display_name = "Wonder Trade"
     default = False
@@ -584,11 +584,11 @@ class WonderTrade(Toggle):
 
 class MultiworldGiftPokemon(Toggle):
     """
-    Adds pokémon to the item pool that can be obtained from an npc in [TBD] after receiving
-    the corresponding item from another player. Pokémon will only be placed in other worlds and
+    Adds pokemon to the item pool that can be obtained from an npc in [TBD] after receiving
+    the corresponding item from another player. Pokemon will only be placed in other worlds and
     have a species that matches the theme of that world (if defined).
     """
-    display_name = "Multiworld Gift Pokémon"
+    display_name = "Multiworld Gift Pokemon"
     default = False
 
 
@@ -621,7 +621,7 @@ class ModifyItemPool(OptionSet):
 
 class FunnyDialogue(Toggle):
     """
-    Adds humorous dialogue submitted by the folks in the Pokémon Black and White thread of the
+    Adds humorous dialogue submitted by the folks in the Pokemon Black and White thread of the
     Archipelago Discord server. This option requires Text Plando being enabled in the host settings.
     """
     display_name = "Funny Dialogue"
@@ -688,7 +688,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     goal: Goal
     version: GameVersion
 
-    # Pokémon encounters
+    # Pokemon encounters
     # randomize_wild_pokemon: RandomizeWildPokemon
     # randomize_trainer_pokemon: RandomizeTrainerPokemon
     # randomize_starter_pokemon: RandomizeStarterPokemon
@@ -697,7 +697,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     # randomize_trade_pokemon: RandomizeTradePokemon
     # randomize_legendary_pokemon: RandomizeLegendaryPokemon
 
-    # Pokémon stats
+    # Pokemon stats
     # randomize_base_stats: RandomizeBaseStats
     # base_stat_total_limits: BaseStatTotalLimits
     # randomize_evolutions: RandomizeEvolutions
