@@ -59,6 +59,16 @@ has_any_legendary_stone: ExtendedRule = lambda state, world: state.has_any(("Lig
 has_lock_capsule: ExtendedRule = lambda state, world: state.has("Lock Capsule", world.player)
 has_all_grams: ExtendedRule = lambda state, world: state.has_all("Wingull Gram 1", "Wingull Gram 2", "Wingull Gram 3", world.player)
 
+has_root_fossil: ExtendedRule = lambda state, world: state.has("Root Fossil", world.player)
+has_claw_fossil: ExtendedRule = lambda state, world: state.has("Claw Fossil", world.player)
+has_helix_fossil: ExtendedRule = lambda state, world: state.has("Helix Fossil", world.player)
+has_dome_fossil: ExtendedRule = lambda state, world: state.has("Dome Fossil", world.player)
+has_old_amber: ExtendedRule = lambda state, world: state.has("Old Amber", world.player)
+has_armor_fossil: ExtendedRule = lambda state, world: state.has("Armor Fossil", world.player)
+has_skull_fossil: ExtendedRule = lambda state, world: state.has("Skull Fossil", world.player)
+has_cover_fossil: ExtendedRule = lambda state, world: state.has("Cover Fossil", world.player)
+has_plume_fossil: ExtendedRule = lambda state, world: state.has("Plume Fossil", world.player)
+
 
 # Badge requirements
 

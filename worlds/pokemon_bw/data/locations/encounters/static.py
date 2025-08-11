@@ -21,6 +21,18 @@ gift: dict[str, StaticEncounterData] = {
     "Castelia City Gift Encounter": StaticEncounterData((570, 0), (570, 0), "Castelia City", disabled, has_celebi),
 }
 
+fossils: dict[str, StaticEncounterData] = {
+    "Root Fossil Reanimation": StaticEncounterData((345, 0), (345, 0), "Nacrene City", None, has_root_fossil),
+    "Claw Fossil Reanimation": StaticEncounterData((347, 0), (347, 0), "Nacrene City", None, has_claw_fossil),
+    "Helix Fossil Reanimation": StaticEncounterData((138, 0), (138, 0), "Nacrene City", None, has_helix_fossil),
+    "Dome Fossil Reanimation": StaticEncounterData((140, 0), (140, 0), "Nacrene City", None, has_dome_fossil),
+    "Old Amber Reanimation": StaticEncounterData((142, 0), (142, 0), "Nacrene City", None, has_old_amber),
+    "Armor Fossil Reanimation": StaticEncounterData((410, 0), (410, 0), "Nacrene City", None, has_armor_fossil),
+    "Skull Fossil Reanimation": StaticEncounterData((408, 0), (408, 0), "Nacrene City", None, has_skull_fossil),
+    "Cover Fossil Reanimation": StaticEncounterData((564, 0), (564, 0), "Nacrene City", None, has_cover_fossil),
+    "Plume Fossil Reanimation": StaticEncounterData((566, 0), (566, 0), "Nacrene City", None, has_plume_fossil),
+}
+
 trade: dict[str, TradeEncounterData] = {
     "Nacrene City Trade Encounter": TradeEncounterData((548, 0), (546, 0), 546, 548, "Nacrene City"),
     "Driftveil City Trade Encounter": TradeEncounterData((550, 0), (550, 1), 572, 572, "Driftveil City"),

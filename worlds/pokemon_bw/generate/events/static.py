@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesDict") -> set[tuple[str, int]]:
-    from ...data.locations.encounters.static import static, legendary, gift, trade
+    from ...data.locations.encounters.static import static, legendary, gift, trade, fossils
     from ...data.pokemon.species import by_id as species_by_id, by_name as species_by_name
     from ...data.pokemon.movesets import table as movesets_table
     from ...data import TradeEncounterData, StaticEncounterData
@@ -60,5 +60,6 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesD
     f(legendary)
     f(gift)
     f(trade)
+    f(fossils)
 
     return catchable_dex_form

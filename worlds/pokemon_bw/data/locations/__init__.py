@@ -19,6 +19,7 @@ all_locations: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOn
     static.static,
     static.legendary,
     static.gift,
+    static.fossils,
     static.trade,
 )
 
