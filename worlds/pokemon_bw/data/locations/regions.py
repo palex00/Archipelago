@@ -69,7 +69,10 @@ region_list: set[str] = {
     "Abundant Shrine",
     "Undella Town",
     "Undella Bay",  # Western shore items accessible without surf, so everything else has to require surf
-    "Abyssal Ruins",
+    "Abyssal Ruins 1F",
+    "Abyssal Ruins 2F",
+    "Abyssal Ruins 3F",
+    "Abyssal Ruins 4F",
     "Route 13",
     "Giant Chasm Outer",
     "Giant Chasm Entrance Cave",

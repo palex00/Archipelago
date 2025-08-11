@@ -32,6 +32,11 @@ can_use_dive: ExtendedRule = lambda state, world: (
     and state.has_any(world.dive_species, world.player)
 )
 
+can_use_flash: ExtendedRule = lambda state, world: (
+    state.has("TM70 Flash", world.player)
+    and state.has_any(world.flash_species, world.player)
+)
+
 can_use_surf_or_strength: ExtendedRule = lambda state, world: (
     (
         state.has("HM03 Surf", world.player)

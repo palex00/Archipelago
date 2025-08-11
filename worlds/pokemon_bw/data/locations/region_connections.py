@@ -102,7 +102,10 @@ connections: dict[str, RegionConnectionData] = {
     "Giant Chasm entrance cave central exit": RegionConnectionData("Giant Chasm Entrance Cave", "Giant Chasm Crater", can_use_surf_or_strength),
     "Giant Chasm crater north east cave entrance": RegionConnectionData("Giant Chasm Crater", "Giant Chasm Inner Cave", None),
     "Undella Town east": RegionConnectionData("Undella Town", "Undella Bay", None),
-    "Undella Bay dive spots": RegionConnectionData("Undella Bay", "Abyssal Ruins", can_use_dive),
+    "Undella Bay dive spots": RegionConnectionData("Undella Bay", "Abyssal Ruins 1F", can_use_dive),
+    "Abyssal Ruins 1F purple pillar": RegionConnectionData("Abyssal Ruins 1F", "Abyssal Ruins 2F", None),
+    "Abyssal Ruins 2F purple pillar": RegionConnectionData("Abyssal Ruins 2F", "Abyssal Ruins 3F", can_use_flash),
+    "Abyssal Ruins 3F purple pillar": RegionConnectionData("Abyssal Ruins 3F", "Abyssal Ruins 4F", can_use_strength),
     "Route 14 north west": RegionConnectionData("Route 14", "Abundant Shrine", can_use_waterfall),
     # North Unova, linear
     "Opelucid City north gate": RegionConnectionData("Opelucid City", "Route 10", None),

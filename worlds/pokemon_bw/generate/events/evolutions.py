@@ -56,6 +56,8 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_
                     world.dive_species.add(evolution[2])
                 if "HM05" in moveset:
                     world.waterfall_species.add(evolution[2])
+                if "TM70" in moveset:
+                    world.flash_species.add(species_name)
                 if "Fighting" in (evo_data.type_1, evo_data.type_2):
                     world.fighting_type_species.add(evolution[2])
 

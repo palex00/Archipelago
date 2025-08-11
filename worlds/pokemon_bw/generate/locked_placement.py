@@ -63,9 +63,10 @@ def place_tm_hm(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
     from ..data.locations.ingame_items.special import tm_hm_ncps
 
     match world.options.shuffle_tm_hm.current_key:
-        case "shuffle":  # TODO excluding hms is a quick fix, need to find a way to prevent softlocks from tm npcs giving hm that you need to get to them
+        case "shuffle":
             shuffled_list: list["PokemonBWItem"] = [
-                item for item in items if item.name in tm_hm.table and "HM0" not in item.name
+                item for item in items
+                if item.name in tm_hm.table and "HM0" not in item.name and "TM70" not in item.name
             ]
             world.random.shuffle(shuffled_list)
             for location_name in tm_hm_ncps:

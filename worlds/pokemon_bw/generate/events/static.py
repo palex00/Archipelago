@@ -53,6 +53,8 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesD
                     world.dive_species.add(species_name)
                 if "HM05" in moveset:
                     world.waterfall_species.add(species_name)
+                if "TM70" in moveset:
+                    world.flash_species.add(species_name)
                 if "Fighting" in (species_data.type_1, species_data.type_2):
                     world.fighting_type_species.add(species_name)
 

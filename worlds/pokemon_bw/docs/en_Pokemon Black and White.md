@@ -3,7 +3,7 @@
 ## What is this game?
 
 Pokémon Black and White are the introduction to the fifth generation of the Pokémon franchise. 
-Travel through the Unova region, catch a variety of brand new Pokémon you have never seen before, 
+Travel through the Unova region, catch a variety of brand-new Pokémon you have never seen before, 
 collect the eight gym badges, fight Team Plasma, who claim to be the saviors of all the Pokémon, 
 and become the champion of the region.
 These games present themselves in 2.5D graphics, 

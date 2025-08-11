@@ -71,7 +71,7 @@ table: dict[str, ItemData] = {
     "TM67 Retaliate": ItemData(0x018A, tm_hm_hunt),
     "TM68 Giga Impact": ItemData(0x018B, tm_hm_hunt),
     "TM69 Rock Polish": ItemData(0x018C, tm_hm_hunt),
-    "TM70 Flash": ItemData(0x018D, tm_hm_hunt),
+    "TM70 Flash": ItemData(0x018D, always_progression),  # required in abyssal ruins
     "TM71 Stone Edge": ItemData(0x018E, tm_hm_hunt),
     "TM72 Volt Switch": ItemData(0x018F, tm_hm_hunt),
     "TM73 Thunder Wave": ItemData(0x0190, tm_hm_hunt),

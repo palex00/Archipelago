@@ -27,7 +27,6 @@ class PokemonBWSettings(settings.Group):
     white_rom: PokemonWhiteRomFile = PokemonWhiteRomFile(PokemonWhiteRomFile.copy_to)
 
 
-
 class PokemonBWWeb(WebWorld):
     rich_text_options_doc = True
     theme = ("grassFlowers", "ocean", "dirt", "ice")[(datetime.datetime.now().month - 1) % 4]
@@ -46,7 +45,7 @@ class PokemonBWWeb(WebWorld):
 class PokemonBWWorld(World):
     """
     Pokémon Black and White are the introduction to the fifth generation of the Pokémon franchise.
-    Travel through the Unova region, catch a variety of brand new Pokémon you have never seen before,
+    Travel through the Unova region, catch a variety of brand-new Pokémon you have never seen before,
     collect the eight gym badges, fight Team Plasma, who claim to be the saviors of all the Pokémon,
     and become the champion of the region.
     These games present themselves in 2.5D graphics,
@@ -69,6 +68,7 @@ class PokemonBWWorld(World):
         self.surf_species: set[str] = set()
         self.dive_species: set[str] = set()
         self.waterfall_species: set[str] = set()
+        self.flash_species: set[str] = set()
         self.fighting_type_species: set[str] = set()  # Needed for challenge rock outside of pinwheel forest
         self.to_be_filled_locations: int = 0
 
