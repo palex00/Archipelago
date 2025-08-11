@@ -528,7 +528,8 @@ class ExpModifier(Range):
 
 class AllPokemonSeen(Toggle):
     """
-    Marks all pokémon in the pokédex (that do not have a Seensanity check) as seen (including all forms, except shinies). This could possibly have no effect under certain circumstances. 
+    Marks all pokémon in the pokédex (that do not have a Seensanity check) as seen
+    (including all forms, except shinies). This could possibly have no effect under certain circumstances.
     """
     display_name = "All Pokémon Seen"
     default = False

@@ -35,16 +35,22 @@ Version 1.0.0 will happen when certain features are implemented.
   - Auto updating roms
   - Optional re-patch skipping
 
-### Other feature updates
+### 0.2.0: Actual randomization
 - Options
   - Goals: Regional Pokédex, National Pokédex, Custom Pokédex
   - Wild pokémon randomization
+  - Full dexsanity
+  - Seensanity
+    - Consider wild pokémon
+  - All pokémon seen
+
+### Other feature updates
+- Options
   - Trainer randomization
   - Starter/Static/Gift/Trade/Legendary pokémon randomization
-  - Full dexsanity
   - Trainersanity
   - Seensanity
-  - All pokémon seen
+    - Consider trainer pokémon
   - Normalize levels
 - Xtransceiver being required to see certain story sequences (with some of them giving items)
   - Also dynamic Xtransceiver item that automatically adds the correctly gendered version to the game
