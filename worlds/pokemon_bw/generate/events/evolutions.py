@@ -14,23 +14,16 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_
     from ...data.pokemon.species import by_id as species_by_id, by_name as species_by_name
     from ...data.pokemon.pokedex import by_name as pokedex_by_name
     from ...data.pokemon.movesets import table as movesets_table
-    from ...data.pokemon.evolution_methods import methods, extended_rules_list
-
-    def f(r: "ExtendedRule") -> Callable[[CollectionState], bool]:
-        return lambda state: r(state, world)
+    from ...data.pokemon.evolution_methods import methods
 
     region: "Region" = regions["Evolutions"]
-    rules: "RulesDict" = {ext_rule: f(ext_rule) for ext_rule in extended_rules_list}
     new_catchable: set[tuple[str, int]] = catchable_dex_form.copy()
     next_catchable: set[tuple[str, int]] = set()
 
-    def get_rule(current_evolution: tuple[str, int, str]) -> Callable[[CollectionState], bool]:
+    def get_rule(current_evolution: tuple[str, int, str], base: str) -> Callable[[CollectionState], bool]:
         method: "EvolutionMethodData" = methods[current_evolution[0]]
         ext_rule: "ExtendedRule" = method.rule(current_evolution[1])
-        if ext_rule in rules:
-            return rules[ext_rule]
-        else:
-            return lambda state: ext_rule(state, world)
+        return lambda state: ext_rule(state, world) and state.has(base, world.player)
 
     while len(new_catchable) > 0:
         for dex_form in new_catchable:
@@ -44,7 +37,7 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_
                 location: PokemonBWLocation = PokemonBWLocation(world.player, name, None, region)
                 item: PokemonBWItem = PokemonBWItem(evolution[2], ItemClassification.progression, None, world.player)
                 location.place_locked_item(item)
-                location.access_rule = get_rule(evolution)
+                location.access_rule = get_rule(evolution, species_name)
                 region.locations.append(location)
 
                 evo_data: "SpeciesData" = species_by_name[evolution[2]]
