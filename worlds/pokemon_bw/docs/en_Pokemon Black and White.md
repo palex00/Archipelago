@@ -11,6 +11,8 @@ while still using the known grid-based movement mechanics and battle UI.
 
 ## Where is the options page?
 
+-- FOLLOWING LINK ONLY WORKING IF MERGED IN MAIN --
+
 The [player options page for this game](../player-options) contains all the options you need to configure
 and export a config file.
 

@@ -4,7 +4,6 @@
 
 - Game Info Page
     * [English](/games/Pokemon%20Black%20and%20White/info/en)
-- [Player Options Page](/games/Pokemon%20Black%20and%20White/player-options)
 
 ## Important
 
@@ -36,6 +35,8 @@ This setup allows each player to enjoy an experience customized for their taste,
 multiworld can all have different options.
 
 ### Where do I get a YAML file?
+
+-- FOLLOWING LINK ONLY WORKING IF MERGED IN MAIN --
 
 You can generate a yaml or download a template by visiting the 
 [Pokémon Black and White Player Options Page](/games/Pokemon%20Black%20and%20White/player-options)
