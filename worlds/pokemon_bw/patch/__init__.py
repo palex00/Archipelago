@@ -1,6 +1,7 @@
 
 # TODO
-#  ---not urgent---
+#          ---not urgent---
+#  not receiving key items? can't reproduce
 #  relic castle missing indirect connection? couldn't find reason
 #  being able to restart pinwheel forest events when talking to lenora
 #  infielder on route 9 throwing tm even when entering from opelucid gate
@@ -10,4 +11,5 @@
 #  find a way to prevent softlocks in shuffle tms/hms
 #  more inclusion rules
 #  complete levelup movesets
-#  aaaaaaaaplaceholderforlineshiftingaaaaaaaaaaaa
+#  make tms deprioritized
+#  advertise on ds romhacking servers

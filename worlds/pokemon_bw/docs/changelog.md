@@ -1,6 +1,17 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.1.3: Ghetsis' Softlock Order update
+
+- Fixed checking locations crashing the game
+- Fixed the parcel man in Striaton City not recognizing the parcel
+- Fixed Striaton City gym not being patched properly
+  - This fixes multiple bugs happening in Striaton City
+- Fixed man in black in Castelia City's Narrow Street not sending the checks if not talked directly to him
+- Fixed worker at Twist Mountain entrance asking for **not** having the Jet Badge
+- Fixed multiple occasions of comments in script source codes leading to a broken compilation of scripts
+- Removed Town Map from item pool since it's always obtained from mom due to a broken script
+
 ## 0.1.2: Parcel on Twist Mountain update
 
 - Another Python 3.11 fix
@@ -25,7 +36,7 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 - Fixed items not being received at all
 - Fixed Dexsanity always leading to generation failures
 - Fixed Python 3.11 crashing due to not yet used options
-- Packed `ndspy` into the apworld for now because of Linux AppImage problems
+- Packed `ndspy` into the apworld for now because of AppImage problems
 - Fixed Shelmet's evolutions leading to generation failures
 
 ## 0.1.0: First release
