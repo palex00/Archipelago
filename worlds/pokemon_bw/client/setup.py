@@ -25,7 +25,7 @@ async def early_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") ->
 async def late_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> None:
     from ..data.items import seasons
 
-    if client.slot_data["goal"] == "tmhm_hunt":
+    if client.slot_data["goal"] != "tmhm_hunt":
         await bizhawk.write(
             ctx.bizhawk_ctx, (
                 (client.save_data_address+client.flags_offset+(0x192//8),
