@@ -80,10 +80,10 @@ def connect_regions(world: "PokemonBWWorld", regions: dict[str, Region], rules: 
         if (data.inclusion_rule is None) or data.inclusion_rule(world):
             regions[data.exiting_region].connect(regions[data.entering_region], name, rules[data.rule])
 
-    pinwheel_forest_east = regions["Pinwheel Forest East"]
-    relic_castle_basement = regions["Relic Castle Basement"]
-    world.multiworld.register_indirect_condition(pinwheel_forest_east, world.get_entrance("Pinwheel Forest east"))
-    world.multiworld.register_indirect_condition(relic_castle_basement, world.get_entrance("Relic Castle B5F castleside"))
+    mistralton_cave_inner = regions["Mistralton Cave Inner"]
+    ns_castle = regions["N's Castle"]
+    world.multiworld.register_indirect_condition(mistralton_cave_inner, world.get_entrance("Pinwheel Forest east"))
+    world.multiworld.register_indirect_condition(ns_castle, world.get_entrance("Relic Castle B5F castleside"))
 
 
 def cleanup_regions(regions: dict[str, Region]) -> None:
