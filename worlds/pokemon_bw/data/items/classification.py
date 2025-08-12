@@ -11,6 +11,6 @@ always_filler: ClassificationMethod = lambda world: ItemClassification.filler
 always_trap: ClassificationMethod = lambda world: ItemClassification.trap
 
 tm_hm_hunt: ClassificationMethod = lambda world: (
-    ItemClassification.progression
+    ItemClassification.progression_skip_balancing
     if world.options.goal == "tmhm_hunt" else ItemClassification.useful
 )
