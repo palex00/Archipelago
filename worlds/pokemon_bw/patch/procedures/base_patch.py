@@ -37,7 +37,7 @@ def patch(rom: NintendoDSRom, world_package: str, bw_patch_instance: "PokemonBla
                     narc_index = int(filename_path_list[-1])
                     # add procedure to dict
                     if narc_filename not in procedures:
-                        procedures[narc_filename] = []
+                        procedures[narc_filename] = [(narc_index, opened_zip.read(filename))]
                     else:
                         procedures[narc_filename].append((narc_index, opened_zip.read(filename)))
             else:
