@@ -2,19 +2,19 @@ from typing import NamedTuple, Callable, Literal, Iterator, Collection, TYPE_CHE
 
 from BaseClasses import ItemClassification, LocationProgressType, CollectionState
 
-if TYPE_CHECKING:
+if not TYPE_CHECKING:
+    ExtendedRule: type = Any
+    ClassificationMethod: type = Any
+    ProgressTypeMethod: type = Any
+    InclusionRule: type = Any
+    RulesDict: type = Any
+else:
     from .. import PokemonBWWorld
     ExtendedRule: type = Callable[[CollectionState, PokemonBWWorld], bool]
     ClassificationMethod: type = Callable[[PokemonBWWorld], ItemClassification]
     ProgressTypeMethod: type = Callable[[PokemonBWWorld], LocationProgressType]
     InclusionRule: type = Callable[[PokemonBWWorld], bool]
     RulesDict: type = dict[ExtendedRule, Callable[[CollectionState], bool]]
-else:
-    ExtendedRule: type = Any
-    ClassificationMethod: type = Any
-    ProgressTypeMethod: type = Any
-    InclusionRule: type = Any
-    RulesDict: type = Any
 
 T = TypeVar("T")
 U = TypeVar("U")

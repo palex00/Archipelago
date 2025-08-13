@@ -13,7 +13,6 @@ if TYPE_CHECKING:
 def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesDict") -> set[tuple[str, int]]:
     from ...data.locations.encounters.static import static, legendary, gift, trade, fossils
     from ...data.pokemon.species import by_id as species_by_id, by_name as species_by_name
-    from ...data.pokemon.movesets import table as movesets_table
     from ...data import TradeEncounterData, StaticEncounterData
 
     catchable_dex_form: set[tuple[str, int]] = set()
@@ -42,21 +41,6 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesD
 
                 species_data: "SpeciesData" = species_by_name[species_name]
                 catchable_dex_form.add((species_data.dex_name, species_id[1]))
-                moveset: set[str] = movesets_table[species_name].tm_hm_moves
-                if "HM04" in moveset:
-                    world.strength_species.add(species_name)
-                if "HM01" in moveset:
-                    world.cut_species.add(species_name)
-                if "HM03" in moveset:
-                    world.surf_species.add(species_name)
-                if "HM06" in moveset:
-                    world.dive_species.add(species_name)
-                if "HM05" in moveset:
-                    world.waterfall_species.add(species_name)
-                if "TM70" in moveset:
-                    world.flash_species.add(species_name)
-                if "Fighting" in (species_data.type_1, species_data.type_2):
-                    world.fighting_type_species.add(species_name)
 
     f(static)
     f(legendary)

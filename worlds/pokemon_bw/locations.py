@@ -49,12 +49,13 @@ def create_rule_dict(world: "PokemonBWWorld") -> "RulesDict":
 def create_and_place_event_locations(world: "PokemonBWWorld", regions: dict[str, Region],
                                      rules: "RulesDict") -> set[tuple[str, int]]:
     """Returns a set of species that are actually catchable in this world."""
-    from .generate.events import wild, static, evolutions, goal
+    from .generate.events import wild, static, evolutions, goal, species_tables
 
-    catchable_dex_form: set[tuple[str, int]] = wild.create(world, regions) | static.create(world, regions, rules)
-    evolutions.create(world, regions, catchable_dex_form)
+    catchable_name_form: set[tuple[str, int]] = wild.create(world, regions) | static.create(world, regions, rules)
+    evolutions.create(world, regions, catchable_name_form)
+    species_tables.populate(world, catchable_name_form)
     goal.create(world, regions)
-    return catchable_dex_form
+    return catchable_name_form
 
 
 def create_and_place_locations(world: "PokemonBWWorld", regions: dict[str, Region],

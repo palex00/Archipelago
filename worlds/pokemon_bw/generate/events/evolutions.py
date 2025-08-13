@@ -1,69 +1,85 @@
 from typing import TYPE_CHECKING, Callable
 
-from ...locations import PokemonBWLocation
 from BaseClasses import ItemClassification, CollectionState
-from ...items import PokemonBWItem
 
 if TYPE_CHECKING:
     from ... import PokemonBWWorld
     from BaseClasses import Region
-    from ...data import SpeciesData, EvolutionMethodData, ExtendedRule, RulesDict
+    from ...data import EvolutionMethodData, ExtendedRule
 
 
-def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_form: set[tuple[str, int]]) -> None:
-    from ...data.pokemon.species import by_id as species_by_id, by_name as species_by_name
-    from ...data.pokemon.pokedex import by_name as pokedex_by_name
-    from ...data.pokemon.movesets import table as movesets_table
-    from ...data.pokemon.evolution_methods import methods
+def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_name_form: set[tuple[str, int]]) -> None:
+    from ...data.pokemon import species, pokedex, evolution_methods
+    from ...locations import PokemonBWLocation
+    from ...items import PokemonBWItem
+    # Keywords to describe var names:
+    # "dex" is the pokédex number
+    # "form" is the form number
+    # "id" is the combination of dex and form
+    # "name" is the name shown in the pokédex
+    # "species" is the pokédex name that includes a description of the form
+    # "speciesdata" are the values in species.by_name
+    # "evodata" is the evolution tuple of a species in species.by_name
+    #           it consits of (evo_method, evo_value, evo_species)
+    # "evoid" is the combination of species and index of one of its evodata
+    # "base" (prefix) is the to-be-evolved species
+    # "evo" (prefix) is the result of evolving the base species
 
     region: "Region" = regions["Evolutions"]
-    new_catchable: set[tuple[str, int]] = catchable_dex_form.copy()
-    next_catchable: set[tuple[str, int]] = set()
 
-    def get_rule(current_evolution: tuple[str, int, str], base: str) -> Callable[[CollectionState], bool]:
-        method: "EvolutionMethodData" = methods[current_evolution[0]]
-        ext_rule: "ExtendedRule" = method.rule(current_evolution[1])
-        return lambda state: ext_rule(state, world) and state.has(base, world.player)
+    def get_rule(f_evodata: tuple[str, int, str], f_base_species: str) -> Callable[[CollectionState], bool]:
+        # helper function to prevent lambdas in for loops
+        method: "EvolutionMethodData" = evolution_methods.methods[f_evodata[0]]
+        ext_rule: "ExtendedRule" = method.rule(f_evodata[1])
+        return lambda state: ext_rule(state, world) and state.has(f_base_species, world.player)
 
-    while len(new_catchable) > 0:
-        for dex_form in new_catchable:
-            dex_num: int = pokedex_by_name[dex_form[0]]
-            species_name: str = species_by_id[(dex_num, dex_form[1])]
-            data: "SpeciesData" = species_by_name[species_name]
+    noted_evoid_set: set[tuple[str, int]] = set()
+    current_evoid_set: set[tuple[str, int]] = set()
+    next_evoid_set: set[tuple[str, int]] = set()
+    # Populate initial set by adding all evolutions of every (already) catchable species
+    for entry in catchable_name_form:
+        base_species = species.by_id[(pokedex.by_name[entry[0]], entry[1])]
+        for evoid_index in range(len(species.by_name[base_species].evolutions)):
+            evoid = (base_species, evoid_index)
+            current_evoid_set.add(evoid)
+            noted_evoid_set.add(evoid)
 
-            for x in range(len(data.evolutions)):
-                evolution: tuple[str, int, str] = data.evolutions[x]
-                name = f"Evolving {species_name} {x+1}"
-                location: PokemonBWLocation = PokemonBWLocation(world.player, name, None, region)
-                item: PokemonBWItem = PokemonBWItem(evolution[2], ItemClassification.progression, None, world.player)
-                location.place_locked_item(item)
-                location.access_rule = get_rule(evolution, species_name)
-                region.locations.append(location)
-
-                evo_data: "SpeciesData" = species_by_name[evolution[2]]
-                evo_dex_form: tuple[str, int] = (evo_data.dex_name, evo_data.form)
-                catchable_dex_form.add(evo_dex_form)
-                if evo_dex_form not in new_catchable:
-                    next_catchable.add(evo_dex_form)
-                moveset: set[str] = movesets_table[evolution[2]].tm_hm_moves
-                if "HM04" in moveset:
-                    world.strength_species.add(evolution[2])
-                if "HM01" in moveset:
-                    world.cut_species.add(evolution[2])
-                if "HM03" in moveset:
-                    world.surf_species.add(evolution[2])
-                if "HM06" in moveset:
-                    world.dive_species.add(evolution[2])
-                if "HM05" in moveset:
-                    world.waterfall_species.add(evolution[2])
-                if "TM70" in moveset:
-                    world.flash_species.add(species_name)
-                if "Fighting" in (evo_data.type_1, evo_data.type_2):
-                    world.fighting_type_species.add(evolution[2])
-
-        new_catchable = next_catchable
-        next_catchable = set()
-
-
-
-
+    # Iterate as long as it has been signaled that there is something new to check
+    check_next = True
+    while check_next:
+        check_next = False
+        # Iterate through all currently to-be-checked evoids
+        for current_evoid in current_evoid_set:
+            current_evodata = species.by_name[current_evoid[0]].evolutions[current_evoid[1]]
+            # Check for the evolution being possible it requires a party member
+            if current_evodata[0] == "Level up with party member":
+                # Go through catchable and check whether the required team member
+                # (or any of its forms) is already catchable
+                for catchable_name_form_entry in catchable_name_form:
+                    # If evolution possible, jump to creating event
+                    if pokedex.by_name[catchable_name_form_entry[0]] == current_evodata[1]:
+                        break
+                else:
+                    # If required team member not found, add this evoid to next iteration and skip adding event
+                    next_evoid_set.add(current_evoid)
+                    continue
+            # Creating event
+            location_name = f"Evolving {current_evoid[0]} {current_evoid[1]+1}"
+            location = PokemonBWLocation(world.player, location_name, None, region)
+            item = PokemonBWItem(current_evodata[2], ItemClassification.progression, None, world.player)
+            location.place_locked_item(item)
+            location.access_rule = get_rule(current_evodata, current_evoid[0])
+            region.locations.append(location)
+            # Add the evolution to catchable
+            evo_speciesdata = species.by_name[current_evodata[2]]
+            catchable_name_form.add((evo_speciesdata.dex_name, evo_speciesdata.form))
+            # Add evo's evodatas to noted and next evodatas
+            check_next = True
+            for evo_evodata_index in range(len(evo_speciesdata.evolutions)):
+                evo_evoid = (current_evodata[2], evo_evodata_index)
+                if evo_evoid not in noted_evoid_set:
+                    noted_evoid_set.add(evo_evoid)
+                    next_evoid_set.add(evo_evoid)
+        if check_next:
+            current_evoid_set = next_evoid_set
+            next_evoid_set = set()

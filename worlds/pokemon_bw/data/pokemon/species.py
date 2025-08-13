@@ -644,7 +644,7 @@ by_name: dict[str, SpeciesData] = {
     "Sawsbuck (Winter)": SpeciesData("Sawsbuck", 586, 3, "Normal", "Grass", 80, 100, 70, 60, 70, 95, 75, 127, 2, ("abi34", "abi157", "abi32"), []),
     "Emolga": SpeciesData("Emolga", 587, 0, "Electric", "Flying", 55, 75, 60, 75, 60, 103, 200, 127, 2, ("abi9", "abi0", "abi78"), []),
     "Karrablast": SpeciesData("Karrablast", 588, 0, "Bug", "Bug", 50, 75, 45, 40, 45, 60, 200, 127, 1, ("abi68", "abi61", "abi99"), [
-        # ("Level up with party member", 616, "Escavalier"), ("Level up with party member", 617, "Escavalier")
+        ("Level up with party member", 616, "Escavalier"), ("Level up with party member", 617, "Escavalier")
     ]),
     "Escavalier": SpeciesData("Escavalier", 589, 0, "Bug", "Steel", 70, 135, 105, 60, 105, 20, 75, 127, 2, ("abi68", "abi75", "abi142"), []),
     "Foongus": SpeciesData("Foongus", 590, 0, "Grass", "Poison", 69, 55, 45, 55, 55, 15, 190, 127, 1, ("abi27", "abi0", "abi144"), [("Level up", 39, "Amoonguss")]),
@@ -674,7 +674,7 @@ by_name: dict[str, SpeciesData] = {
     "Beartic": SpeciesData("Beartic", 614, 0, "Ice", "Ice", 95, 110, 80, 70, 80, 50, 60, 127, 2, ("abi81", "abi0", "abi33"), []),
     "Cryogonal": SpeciesData("Cryogonal", 615, 0, "Ice", "Ice", 70, 50, 30, 95, 135, 105, 25, 255, 2, ("abi26", "abi0", "abi0"), []),
     "Shelmet": SpeciesData("Shelmet", 616, 0, "Bug", "Bug", 50, 40, 85, 40, 65, 25, 200, 127, 1, ("abi93", "abi75", "abi142"), [
-        # ("Level up with party member", 588, "Accelgor"), ("Level up with party member", 589, "Accelgor")
+        ("Level up with party member", 588, "Accelgor"), ("Level up with party member", 589, "Accelgor")
     ]),
     "Accelgor": SpeciesData("Accelgor", 617, 0, "Bug", "Bug", 80, 70, 40, 100, 60, 145, 75, 127, 2, ("abi93", "abi60", "abi84"), []),
     "Stunfisk": SpeciesData("Stunfisk", 618, 0, "Ground", "Electric", 109, 66, 84, 81, 99, 32, 75, 127, 2, ("abi9", "abi7", "abi8"), []),
