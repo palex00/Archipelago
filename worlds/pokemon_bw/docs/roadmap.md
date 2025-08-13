@@ -43,6 +43,7 @@ Version 1.0.0 will happen when certain features are implemented.
   - Seensanity
     - Consider wild pokémon
   - All pokémon seen
+  - Master Ball seller: N's Castle, Undella Mansion seller, Cheren's mom
 
 ### Other feature updates
 - Options

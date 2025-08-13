@@ -1,6 +1,14 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.1.4
+
+- Fixed bad indirect connections registering
+- Restructured evolution events to allow party member evolutions
+- Added simple unittests
+- Fixed not patching certain parts of the rom
+- Fixed hidden items not being collectible
+
 ## 0.1.3: Ghetsis' Softlock Order update
 
 - Fixed checking locations crashing the game
