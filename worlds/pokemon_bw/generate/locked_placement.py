@@ -60,7 +60,7 @@ def place_badges(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
 
 def place_tm_hm(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
     from ..data.items import tm_hm
-    from ..data.locations.ingame_items.special import tm_hm_ncps
+    from ..data.locations.ingame_items.special import tm_hm_ncps, gym_tms
 
     match world.options.shuffle_tm_hm.current_key:
         case "shuffle":
@@ -74,11 +74,35 @@ def place_tm_hm(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
                 world.get_location(location_name).place_locked_item(item)
                 items.remove(item)
                 world.to_be_filled_locations -= 1
+        case "hm_with_badge":
+            tms: list["PokemonBWItem"] = []
+            hms: list["PokemonBWItem"] = []
+            for item in items:
+                if "HM0" in item.name or item.name == "TM70 Flash":
+                    hms.append(item)
+                elif item.name.startswith("TM"):
+                    tms.append(item)
+            world.random.shuffle(tms)
+            # take one random TM out and add to HMs, so that there are 8 TMs/HMs for 8 gym leaders
+            hms.append(tms.pop())
+            world.random.shuffle(hms)
+            for location_name in gym_tms:
+                item: "PokemonBWItem" = hms.pop()
+                world.get_location(location_name).place_locked_item(item)
+                items.remove(item)
+                world.to_be_filled_locations -= 1
+            for location_name in tm_hm_ncps:
+                item: "PokemonBWItem" = tms.pop()
+                world.get_location(location_name).place_locked_item(item)
+                items.remove(item)
+                world.to_be_filled_locations -= 1
         case "any_tm_hm":
             rule: Callable[[Item], bool] = lambda item: (
                 (item.name.lower().startswith("tm") or item.name.lower().startswith("hm")) and item.name[2].isdigit()
             )
             for location_name in tm_hm_ncps:
+                world.get_location(location_name).item_rule = rule
+            for location_name in gym_tms:
                 world.get_location(location_name).item_rule = rule
         case "anything":
             pass

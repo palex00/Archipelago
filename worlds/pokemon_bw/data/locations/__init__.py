@@ -13,6 +13,7 @@ all_locations: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOn
     hidden_items.table,
     other.table,
     special.gym_badges,
+    special.gym_tms,
     special.tm_hm_ncps,
     dexsanity.location_table,
     slots.table,
@@ -28,5 +29,6 @@ all_item_locations: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDi
     hidden_items.table,
     other.table,
     special.gym_badges,
+    special.gym_tms,
     special.tm_hm_ncps,
 )

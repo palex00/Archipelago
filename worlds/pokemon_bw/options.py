@@ -389,14 +389,17 @@ class ShuffleTMRewards(Choice):
     """
     Determines what items NPCs, who would normally give TMs or HMs, can have.
     - **Shuffle** - These NPCs will always give a TM or HM from the same slot.
+    - **HM with Badge** - Like "Shuffle", but puts each HM (and TM70 Flash) at a gym leader's badge reward
+                          (including the TM from Clay on route 6).
     - **Any TM/HM** - These NPCs will give any item that starts with "TM" or "HM" followed by any digit
                       (which also applies to TMs and HMs of other games/slots).
     - **Anything** - No restrictions.
     """
     display_name = "Shuffle TM Rewards"
     option_shuffle = 0
-    option_any_tm_hm = 1
-    option_anything = 2
+    option_hm_with_badge = 1
+    option_any_tm_hm = 2
+    option_anything = 3
     default = 0
 
 

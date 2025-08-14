@@ -50,6 +50,10 @@ class TestShuffleBadgesAnything(PokemonBWTestBase):
     options = {"shuffle_badges": "anything"}
 
 
+class TestShuffleTMHMHMWithBadge(PokemonBWTestBase):
+    options = {"shuffle_tm_hm": "hm_with_badge"}
+
+
 class TestShuffleTMHMAnyTMHM(PokemonBWTestBase):
     options = {"shuffle_tm_hm": "any_tm_hm"}
 
