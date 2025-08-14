@@ -1,10 +1,5 @@
 # Setup Guide for Pokémon Black and White: Archipelago
 
-## Quick Links
-
-- Game Info Page
-    * [English](/games/Pokemon%20Black%20and%20White/info/en)
-
 ## Important
 
 As we are using BizHawk, this guide is only applicable to Windows and Linux systems. 
