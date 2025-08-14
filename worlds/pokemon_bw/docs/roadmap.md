@@ -1,14 +1,12 @@
 # Roadmap for Pokémon BW AP
 
-## Some headline
-
 The "barely working" version will still be playable to goal, so it will start with 0.1.0.
 
 Every feature will increase the version by +0.1.
 
 However, do not confuse that with the semantic version naming: `major.minor.build`
 
-Version 1.0.0 will happen when certain features are implemented.
+Version 1.0.0 will happen when certain important features are implemented.
 
 ## Road to 1.0.0 (Required for core)
 
@@ -54,7 +52,7 @@ Version 1.0.0 will happen when certain features are implemented.
     - Consider trainer pokémon
   - Normalize levels
 - Xtransceiver being required to see certain story sequences (with some of them giving items)
-  - Also dynamic Xtransceiver item that automatically adds the correctly gendered version to the game
+  - Also, dynamic Xtransceiver item that automatically adds the correctly gendered version to the game
 
 ## Big update #1 (Stats update, name WIP, required for core)
 
@@ -71,6 +69,7 @@ Version 1.0.0 will happen when certain features are implemented.
 - Fairy type
 - Optional evo methods replacing
 - Experience modifier
+- Levelup curve modifier
 
 ## Big update #2 (Text and rom update, name WIP, required for core)
 

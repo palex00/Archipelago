@@ -9,29 +9,24 @@ and become the champion of the region.
 These games present themselves in 2.5D graphics, 
 while still using the known grid-based movement mechanics and battle UI. 
 
+## How do I set up this game?
+
+If you're new to setting up a custom apworld, type `&apworld` into the game's thread for more information.
+
+Other than that, follow the [setup guide for this game.](setup_en.md)
+
 ## Where is the options page?
 
--- FOLLOWING LINK ONLY WORKING IF MERGED IN MAIN --
+As this game is not (yet) merged into main, type `&template` into the game's thread for more information.
 
-The [player options page for this game](../player-options) contains all the options you need to configure
-and export a config file.
+## I want to contribute to development, how can I do that?
 
-## What does randomization do to this game?
+First of all, propose your ideas/changes/... in the game's thread, so we can talk about things beforehand.
 
-TODO
+The fork of this implementation is found at https://github.com/SparkyDaDoggo/Archipelago/tree/main.
 
-## What is the goal of shapez in Archipelago?
+## Other useful or interesting pages
 
-TODO
-
-## Which items can be in another player's world?
-
-TODO
-
-## What is considered a location check?
-
-TODO
-
-## When the player receives an item, what happens?
-
-The item will either show up in your bag, or immediately take effect, depending on what kind of item you received.
+- [Changelog](changelog.md)
+- [Credits](credits.md)
+- [Features roadmap](roadmap.md)
