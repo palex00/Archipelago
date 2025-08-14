@@ -1,7 +1,7 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
-## 0.1.5
+## 0.1.5: Bringing Back Badge Requirements for HMs update
 
 - Fixed sage Gorm being invisible but still triggering before Ghetsis
 - Fixed Time Capsule and Liberty Pass not being recognized
