@@ -1,6 +1,13 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.1.5
+
+- Fixed sage Gorm being invisible but still triggering before Ghetsis
+- Fixed Time Capsule and Liberty Pass not being recognized
+- Fixed doing the Pinwheel Forest events before beating Lenora leading to a softlock
+- Added option `hm_with_badge` to `shuffle_tm_hm`
+
 ## 0.1.4
 
 - Fixed bad indirect connections registering

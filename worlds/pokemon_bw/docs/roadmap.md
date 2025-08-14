@@ -53,6 +53,7 @@ Version 1.0.0 will happen when certain important features are implemented.
   - Normalize levels
 - Xtransceiver being required to see certain story sequences (with some of them giving items)
   - Also, dynamic Xtransceiver item that automatically adds the correctly gendered version to the game
+- Running shoes as an item, making mom cutscene on route 2 a check
 
 ## Big update #1 (Stats update, name WIP, required for core)
 
