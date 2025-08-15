@@ -18,7 +18,7 @@ gym_tms: dict[str, FlagLocationData] = {
     "Nacrene Gym - TM reward": FlagLocationData(0x173, always_default, "Nacrene City", None),
     "Castelia Gym - TM reward": FlagLocationData(0x174, always_default, "Castelia City", None),
     "Nimbasa Gym - TM reward": FlagLocationData(0x175, always_default, "Nimbasa City", None),
-    "Route 6 - TM from Clay": FlagLocationData(0x1A2, always_default, "Route 6", None),
+    "Route 6 - TM from Clay": FlagLocationData(0x1A2, always_default, "Route 6", has_quake_badge),
     "Mistralton Gym - TM reward": FlagLocationData(0x177, always_default, "Mistralton City", None),
     "Icirrus Gym - TM reward": FlagLocationData(0x178, always_default, "Icirrus City", None),
     "Opelucid Gym - TM reward": FlagLocationData(0x179, always_default, "Opelucid City", None),
