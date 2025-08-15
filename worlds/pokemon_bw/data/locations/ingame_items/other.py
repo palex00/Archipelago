@@ -138,7 +138,7 @@ table: dict[str, FlagLocationData] = {
     "Driftveil City - Item from girl in pokémon center #3": FlagLocationData(147, always_default, "Driftveil City", None),
     "Driftveil City - Item from man in black in market": FlagLocationData(365, always_default, "Driftveil City", None),
     # That lady is asking for a random TM move every day
-    "Driftveil City - Item from lady asking for a pokémon knowing a certain TM move": FlagLocationData(2740, always_excluded, "Driftveil City", None),
+    "Driftveil City - Item from lady asking for a pokémon knowing a certain TM move": FlagLocationData(2740, always_excluded, "Driftveil City", has_any_tm_hm),
     "Driftveil Gym - Gym guide item": FlagLocationData(122, always_default, "Driftveil City", None),
     "Cold Storage - Item from worker": FlagLocationData(316, always_default, "Cold Storage", None),
     "Route 6 - Item from ranger Shanti": FlagLocationData(1420+186, always_default, "Route 6", None),
@@ -149,7 +149,7 @@ table: dict[str, FlagLocationData] = {
     "Chargestone Cave - Item from nugget brothers #1": FlagLocationData(169, always_default, "Chargestone Cave", None),
     "Chargestone Cave - Item from nugget brothers #2": FlagLocationData(169, always_default, "Chargestone Cave", None),
     "Mistralton City - Item from veteran in Cargo Service building": FlagLocationData(144, always_default, "Mistralton City", None),
-    "Mistralton Gym - Gym guide item": FlagLocationData(123, always_excluded, "Mistralton City", None),
+    "Mistralton Gym - Gym guide item": FlagLocationData(123, always_default, "Mistralton City", None),
     "Route 7 - Item from ranger Mary": FlagLocationData(1420+187, always_default, "Route 7", None),
     "Route 7 - Item from ranger Pedro": FlagLocationData(1420+183, always_default, "Route 7", None),
     "Twist Mountain - Item from worker near ice rock cave": FlagLocationData(2762, always_default, "Twist Mountain", can_beat_ghetsis),

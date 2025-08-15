@@ -4,7 +4,7 @@ from BaseClasses import Location, Region, CollectionState
 
 if TYPE_CHECKING:
     from . import PokemonBWWorld
-    from .data import RulesDict, ExtendedRule
+    from .data import RulesDict, ExtendedRule, AccessRule
 
 
 class PokemonBWLocation(Location):
@@ -74,17 +74,31 @@ def connect_regions(world: "PokemonBWWorld", regions: dict[str, Region], rules: 
     from .data.locations import region_connections as gameplay_connections
     from .data.locations.encounters import region_connections as encounter_connections
 
+    # Create gameplay region connections
     for name, data in gameplay_connections.connections.items():
         regions[data.exiting_region].connect(regions[data.entering_region], name, rules[data.rule])
 
+    def combine_and(connection_rules: tuple["ExtendedRule", ...]) -> "AccessRule":
+        def f(state) -> bool:
+            for r in connection_rules:
+                if not r(state, world):
+                    return False
+            return True
+        return f
+
     for name, data in encounter_connections.connections.items():
         if (data.inclusion_rule is None) or data.inclusion_rule(world):
-            regions[data.exiting_region].connect(regions[data.entering_region], name, rules[data.rule])
+            if data.rules not in rules:
+                # Assuming single rules are already in rules because of extended_rules_list
+                rules[data.rules] = combine_and(data.rules)
+            regions[data.exiting_region].connect(regions[data.entering_region], name, rules[data.rules])
 
-    mistralton_cave_inner = regions["Mistralton Cave Inner"]
-    ns_castle = regions["N's Castle"]
-    world.multiworld.register_indirect_condition(mistralton_cave_inner, world.get_entrance("Pinwheel Forest east"))
-    world.multiworld.register_indirect_condition(ns_castle, world.get_entrance("Relic Castle B5F castleside"))
+    world.multiworld.register_indirect_condition(
+        regions["Mistralton Cave Inner"], world.get_entrance("Pinwheel Forest east")
+    )
+    world.multiworld.register_indirect_condition(
+        regions["N's Castle"], world.get_entrance("Relic Castle B5F castleside")
+    )
 
 
 def cleanup_regions(regions: dict[str, Region]) -> None:

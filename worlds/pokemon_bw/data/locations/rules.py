@@ -1,6 +1,6 @@
 from .. import ExtendedRule, InclusionRule
 from ..pokemon import pokedex
-from ..items import tm_hm, seasons
+from ..items import tm_hm
 
 
 # Item requirements
@@ -178,14 +178,6 @@ has_any_tm_hm: ExtendedRule = lambda state, world: (
     state.has_any(tm_hm.table, world.player)
 )
 
-can_surf_and_set_spring: ExtendedRule = lambda state, world: can_use_surf(state, world) and encounter_can_set_spring(state, world)
-can_surf_and_set_summer: ExtendedRule = lambda state, world: can_use_surf(state, world) and encounter_can_set_summer(state, world)
-can_surf_and_set_autumn: ExtendedRule = lambda state, world: can_use_surf(state, world) and encounter_can_set_autumn(state, world)
-can_surf_and_set_winter: ExtendedRule = lambda state, world: can_use_surf(state, world) and encounter_can_set_winter(state, world)
-can_fish_and_set_spring: ExtendedRule = lambda state, world: can_fish(state, world) and encounter_can_set_spring(state, world)
-can_fish_and_set_summer: ExtendedRule = lambda state, world: can_fish(state, world) and encounter_can_set_summer(state, world)
-can_fish_and_set_autumn: ExtendedRule = lambda state, world: can_fish(state, world) and encounter_can_set_autumn(state, world)
-can_fish_and_set_winter: ExtendedRule = lambda state, world: can_fish(state, world) and encounter_can_set_winter(state, world)
 striaton_hidden_item: ExtendedRule = lambda state, world: state.can_reach_region("Route 3", world.player) or can_use_surf(state, world)
 
 extended_rules_list: tuple = (
@@ -211,11 +203,7 @@ extended_rules_list: tuple = (
     has_forces_of_nature, has_celebi, has_legendary_beasts,
     has_25_species, has_51_species, has_60_species, has_115_species,
 
-    has_fighting_type_species, has_any_tm_hm,
-
-    can_surf_and_set_spring, can_surf_and_set_summer, can_surf_and_set_autumn, can_surf_and_set_winter,
-    can_fish_and_set_spring, can_fish_and_set_summer, can_fish_and_set_autumn, can_fish_and_set_winter,
-    striaton_hidden_item,
+    has_fighting_type_species, has_any_tm_hm, striaton_hidden_item,
 )
 
 

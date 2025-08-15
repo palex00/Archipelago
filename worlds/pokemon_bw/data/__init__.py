@@ -3,6 +3,7 @@ from typing import NamedTuple, Callable, Literal, Iterator, Collection, TYPE_CHE
 from BaseClasses import ItemClassification, LocationProgressType, CollectionState
 
 if not TYPE_CHECKING:
+    AccessRule: type = Any
     ExtendedRule: type = Any
     ClassificationMethod: type = Any
     ProgressTypeMethod: type = Any
@@ -10,11 +11,12 @@ if not TYPE_CHECKING:
     RulesDict: type = Any
 else:
     from .. import PokemonBWWorld
+    AccessRule: type = Callable[[CollectionState], bool]
     ExtendedRule: type = Callable[[CollectionState, PokemonBWWorld], bool]
     ClassificationMethod: type = Callable[[PokemonBWWorld], ItemClassification]
     ProgressTypeMethod: type = Callable[[PokemonBWWorld], LocationProgressType]
     InclusionRule: type = Callable[[PokemonBWWorld], bool]
-    RulesDict: type = dict[ExtendedRule, Callable[[CollectionState], bool]]
+    RulesDict: type = dict[ExtendedRule | tuple[ExtendedRule, ...], AccessRule]
 
 T = TypeVar("T")
 U = TypeVar("U")
@@ -59,7 +61,7 @@ class EncounterData(NamedTuple):
     species_white: tuple[int, int]
     encounter_region: str
     # The following will become important when wild encounter randomization happens
-    # offset: int
+    # index: int
 
 
 class StaticEncounterData(NamedTuple):
@@ -90,7 +92,7 @@ class RegionConnectionData(NamedTuple):
 class EncounterRegionConnectionData(NamedTuple):
     exiting_region: str
     entering_region: str
-    rule: ExtendedRule | None
+    rules: tuple[ExtendedRule, ...] | ExtendedRule | None
     inclusion_rule: InclusionRule | None  # None means always included
     # The following will become important when wild encounter randomization happens
     # file_number: int
@@ -201,7 +203,7 @@ class NoDuplicatesJustViewButDictsOnly:
     """Very simple view that saves memory, but cannot handle duplicates"""
 
     def __init__(self, d1: dict, *d: dict):
-        self.tup: tuple[dict, any] = (d1, *d)
+        self.tup: tuple[dict, Any] = (d1, *d)
 
     def __getitem__(self, key):
         for d in self.tup:
