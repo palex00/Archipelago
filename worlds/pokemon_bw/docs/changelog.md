@@ -1,6 +1,12 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.1.6: UT Map update
+
+- Added map tracker for Universal Tracker
+- Fixed logic of `Route 6 - TM from Clay`
+- Fixed logic of phenomenon encounters
+
 ## 0.1.5: Bringing Back Badge Requirements for HMs update
 
 - Fixed sage Gorm being invisible but still triggering before Ghetsis

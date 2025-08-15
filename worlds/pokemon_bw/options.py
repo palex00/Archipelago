@@ -49,6 +49,7 @@ class RandomizeWildPokemon(OptionSet):
     - **Similar base stats** - Tries to keep every randomized pokemon at a similar base stat total as the replaced encounter.
     - **Type themed** - Makes every pokemon in an area have a certain same type.
     - **Area 1-to-1** - Keeps the amount of different encounters and their encounter rate in every area.
+    - **Exclude phenomenons** - Excludes rustling grass, rippling water spots, dust clouds, and flying shadows from being randomized.
     """
     display_name = "Randomize Wild Pokemon"
     valid_keys = [
@@ -57,6 +58,7 @@ class RandomizeWildPokemon(OptionSet):
         "Similar base stats",
         "Type themed",
         "Area 1-to-1",
+        "Exclude phenomenons",
     ]
     default = ["Randomize"]
 
@@ -352,6 +354,8 @@ class GenderRatioLimits(OptionCounter):
 class RandomizeTMHMCompatibility(OptionSet):
     """
     Randomizes the TM and HM compatibility of every pokemon species.
+    - **Force all TMs** - Forces all TMs to be compatible with every pokemon species.
+    - **Force all HMs** - Forces all HMs (and TM70 Flash) to be compatible with every pokemon species.
     - **Randomize** - Toggles TM and HM compatibility being randomized. Required for any other modifier.
     - **Keep types** - Randomized moves have either a matching or normal type.
     - **Keep amount** - Keeps the amount of moves a species learns normally.
@@ -360,6 +364,8 @@ class RandomizeTMHMCompatibility(OptionSet):
     """
     display_name = "Randomize TM/HM Compatibility"
     valid_keys = [
+        "Force all TMs",
+        "Force all HMs",
         "Randomize",
         "Keep types",
         "Keep amount",
@@ -501,7 +507,7 @@ class SeasonControl(Choice):
     default = 0
 
 
-class NormalizeLevels(OptionSet):
+class AdjustLevels(OptionSet):
     """
     Adjusts the levels of wild and trainer pokemon in postgame areas and surfing/fishing encounters
     to similar levels in surrounding areas (regardless of randomization).
@@ -509,7 +515,7 @@ class NormalizeLevels(OptionSet):
     - **Wild** - Normalizes wild pokemon levels, including surfing and fishing encounters.
     - **Trainer** - Normalizes trainer pokemon levels, excluding Cynthia.
     """
-    display_name = "Normalize levels"
+    display_name = "Adjust levels"
     valid_keys = [
         "Wild",
         "Trainer",
@@ -725,7 +731,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     season_control: SeasonControl
 
     # Miscellaneous
-    # normalize_levels: NormalizeLevels
+    # adjust_levels: AdjustLevels
     # exp_modifier: ExpModifier
     # all_pokemon_seen: AllPokemonSeen
     # add_fairy_type: AddFairyType

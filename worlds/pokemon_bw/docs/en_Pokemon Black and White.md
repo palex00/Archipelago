@@ -7,7 +7,7 @@ Travel through the Unova region, catch a variety of brand-new Pokémon you have 
 collect the eight gym badges, fight Team Plasma, who claim to be the saviors of all the Pokémon, 
 and become the champion of the region.
 These games present themselves in 2.5D graphics, 
-while still using the known grid-based movement mechanics and battle UI. 
+while still using the well-known grid-based movement mechanics and battle UI. 
 
 ## How do I set up this game?
 
@@ -30,3 +30,11 @@ The fork of this implementation is found at https://github.com/SparkyDaDoggo/Arc
 - [Changelog](changelog.md)
 - [Credits](credits.md)
 - [Features roadmap](roadmap.md)
+
+## Known bugs (might be outdated)
+
+- The infielder on route 9 instantly throws the TM at the player even if entered from Opelucid City
+- The treasures guy on route 13 gives the vanilla item AND the check
+- Using dig while having season control enabled crashes the game
+- Item locations that can be triggered multiple times can still be triggered multiple times (without giving anything)
+- Using ev feathers says that the last one was used even if there are more in the player's bag

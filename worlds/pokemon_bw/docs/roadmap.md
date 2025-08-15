@@ -50,7 +50,8 @@ Version 1.0.0 will happen when certain important features are implemented.
   - Trainersanity
   - Seensanity
     - Consider trainer pokémon
-  - Normalize levels
+  - Adjust levels
+- Make HMs forgettable
 - Xtransceiver being required to see certain story sequences (with some of them giving items)
   - Also, dynamic Xtransceiver item that automatically adds the correctly gendered version to the game
 - Running shoes as an item, making mom cutscene on route 2 a check
