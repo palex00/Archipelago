@@ -49,7 +49,7 @@ class PokemonBWWorld(World):
     collect the eight gym badges, fight Team Plasma, who claim to be the saviors of all the Pokémon,
     and become the champion of the region.
     These games present themselves in 2.5D graphics,
-    while still using the known grid-based movement mechanics and battle UI.
+    while still using the well-known grid-based movement mechanics and battle UI.
     """
     game = "Pokemon Black and White"
     options_dataclass = options.PokemonBWOptions
@@ -60,6 +60,12 @@ class PokemonBWWorld(World):
     location_name_to_id = locations.get_location_lookup_table()
     settings_key = "pokemon_bw_settings"
     settings: ClassVar[PokemonBWSettings]
+    ut_can_gen_without_yaml = True
+    tracker_world = {
+        "map_page_folder": "tracker",
+        "map_page_maps": "maps/maps.json",
+        "map_page_locations": "locations/locations.json"
+    }
 
     def __init__(self, multiworld: MultiWorld, player: int):
         super().__init__(multiworld, player)
