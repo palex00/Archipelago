@@ -6,6 +6,9 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 - Added map tracker for Universal Tracker
 - Fixed logic of `Route 6 - TM from Clay`
 - Fixed logic of phenomenon encounters
+- Fixed daily treasure NPC on route 13 giving a non-AP item immediately
+  - The intended behavior is to give an AP item first and then the following days a random vanilla item
+- Fixed the infielder on route 9 instantly throwing the item at you even when entering from Opelucid City
 
 ## 0.1.5: Bringing Back Badge Requirements for HMs update
 

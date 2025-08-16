@@ -42,6 +42,7 @@ Version 1.0.0 will happen when certain important features are implemented.
     - Consider wild pokémon
   - All pokémon seen
   - Master Ball seller: N's Castle, Undella Mansion seller, Cheren's mom
+- Additional roadblocks
 
 ### Other feature updates
 - Options
@@ -85,11 +86,10 @@ Version 1.0.0 will happen when certain important features are implemented.
 - Dynamic version
 - Universal language support
 
-## Big update #3 (Progression update, name WIP)
+## Big update #3 (Overworld update, name WIP)
 
 - Door shuffle
 - Optional/Shuffling roadblock requirements
-- Additional roadblocks
 
 ## Big update #4 (Multiworld update, name WIP)
 

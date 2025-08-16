@@ -240,7 +240,7 @@ table: dict[str, FlagLocationData] = {
     "Route 13 - Item near northern ledges": FlagLocationData(1207, always_default, "Route 13", can_use_cut),
     "Route 13 - Item near stairs to Giant Chasm": FlagLocationData(1200, always_default, "Route 13", can_use_surf),
     "Route 13 - Item on cliff near bridges #1": FlagLocationData(1209, always_default, "Route 13", None),
-    "Route 13 - Item on cliff near bridges #2": FlagLocationData(0x1B3, always_default, "Route 13", None),  #
+    "Route 13 - Item on cliff near bridges #2": FlagLocationData(0x1B3, always_default, "Route 13", None),
     "Route 13 - Item on cliff behind boulder": FlagLocationData(1210, always_default, "Route 13", can_use_strength),
     "Route 13 - South item": FlagLocationData(1381, always_default, "Route 13", can_use_cut),
     "Route 13 - Item in shallow water": FlagLocationData(1208, always_default, "Route 13", can_use_surf),
