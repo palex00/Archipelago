@@ -84,7 +84,7 @@ by_name: dict[str, SpeciesData] = {
     "Ponyta": SpeciesData("Ponyta", 77, 0, "Fire", "Fire", 50, 85, 55, 65, 65, 90, 190, 127, 1, ("abi50", "abi18", "abi49"), [("Level up", 40, "Rapidash")]),
     "Rapidash": SpeciesData("Rapidash", 78, 0, "Fire", "Fire", 65, 100, 70, 80, 80, 105, 60, 127, 2, ("abi50", "abi18", "abi49"), []),
     "Slowpoke": SpeciesData("Slowpoke", 79, 0, "Water", "Psychic", 90, 65, 65, 40, 40, 15, 190, 127, 1, ("abi12", "abi20", "abi144"), [
-        ("Level up", 37, "Slowbro"), ("Level up item day", 221, "Slowking"), ("Level up item night", 221, "Slowking")
+        ("Level up item night", 221, "Slowking"), ("Level up", 37, "Slowbro"), ("Level up item day", 221, "Slowking")
     ]),
     "Slowbro": SpeciesData("Slowbro", 80, 0, "Water", "Psychic", 95, 75, 110, 100, 80, 30, 75, 127, 2, ("abi12", "abi20", "abi144"), []),
     "Magnemite": SpeciesData("Magnemite", 81, 0, "Electric", "Steel", 25, 35, 70, 95, 55, 45, 190, 255, 1, ("abi42", "abi5", "abi148"), [("Level up", 30, "Magneton")]),
