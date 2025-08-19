@@ -34,12 +34,24 @@ class TestGoalCynthia(PokemonBWTestBase):
     options = {"goal": "cynthia"}
 
 
+class TestGoalCobalion(PokemonBWTestBase):
+    options = {"goal": "cobalion"}
+
+
 class TestGoalTMHMHunt(PokemonBWTestBase):
     options = {"goal": "tmhm_hunt"}
 
 
 class TestGoalSevenSagesHunt(PokemonBWTestBase):
     options = {"goal": "seven_sages_hunt"}
+
+
+class TestGoalLegendaryHunt(PokemonBWTestBase):
+    options = {"goal": "legendary_hunt"}
+
+
+class TestGoalPokemonMaster(PokemonBWTestBase):
+    options = {"goal": "pokemon_master"}
 
 
 class TestShuffleBadgesVanilla(PokemonBWTestBase):
@@ -80,3 +92,7 @@ class TestSeasonControlRandomized(PokemonBWTestBase):
 
 class TestModifyItemPoolAll(PokemonBWTestBase):
     options = {"modify_item_pool": ["Useless key items", "Useful filler", "Ban bad filler"]}
+
+
+class TestModifyLogicInverse(PokemonBWTestBase):
+    options = {"modify_logic": []}
