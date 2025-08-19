@@ -11,6 +11,7 @@ table: dict[str, FlagLocationData] = {
     "Nuvema Town - Item from Mom after first fight": FlagLocationData(0x189, always_default, "Nuvema Town", None),
     # Following is broken due to script issues, item can be set to 0x80 but no flag
     # "Nuvema Town - Item #2 from Mom": FlagLocationData(0x185, always_default, "Nuvema Town", None), TODO
+    # Vanilla location of Super Rod
     "Nuvema Town - Item from Looker": FlagLocationData(0x18A, always_priority, "Nuvema Town", can_beat_ghetsis),
     "Route 1 - Item after catching tutorial #1": FlagLocationData(0x18B, always_default, "Route 1 East", None),
     "Route 1 - Item after catching tutorial #2": FlagLocationData(0x18B, always_default, "Route 1 East", None),
@@ -44,6 +45,7 @@ table: dict[str, FlagLocationData] = {
     "Nacrene City - Item from girl in west building": FlagLocationData(301, always_default, "Nacrene City", None),
     "Nacrene City - Item from waitress in Café Warehouse": FlagLocationData(0x1B7, always_default, "Nacrene City", None),
     "Nacrene City - Item from Bianca": FlagLocationData(0x18F, always_default, "Nacrene City", None),
+    # Vanilla location of Light/Dark Stone
     "Nacrene City - Item from Lenora": FlagLocationData(0x195, always_priority, "Nacrene City", can_go_deeper_into_relic_castle),
     "Nacrene Gym - Gym guide item": FlagLocationData(119, always_default, "Nacrene City", None),
     "Pinwheel Forest Outside - Item from challenge rock": FlagLocationData(0x1B8, always_default, "Pinwheel Forest Outside", has_fighting_type_species),
@@ -51,6 +53,7 @@ table: dict[str, FlagLocationData] = {
     "Pinwheel Forest - Item from ranger Audra": FlagLocationData(1420+29, always_default, "Pinwheel Forest West", None),
     "Pinwheel Forest - Item from ranger Irene": FlagLocationData(1420+27, always_default, "Pinwheel Forest West", None),
     "Pinwheel Forest - Item from ranger Miguel": FlagLocationData(1420+28, always_default, "Pinwheel Forest West", None),
+    # Vanilla location of Dragon Skull
     "Pinwheel Forest - Stolen item from Plasma grunt": FlagLocationData(0x187, always_priority, "Pinwheel Forest West", None),
     "Pinwheel Forest - Item from Lenora": FlagLocationData(0x188, always_default, "Pinwheel Forest West", None),
     "Skyarrow Bridge - Item from hiker in gate": FlagLocationData(268, always_default, "Skyarrow Bridge", None),
@@ -71,6 +74,7 @@ table: dict[str, FlagLocationData] = {
     "Battle Company - 47F item from clerk #6": FlagLocationData(266, always_default, "Castelia City", None),
     "Battle Company - 47F item from scientist": FlagLocationData(191, always_default, "Castelia City", None),
     "Battle Company - 55F item from President Geoff": FlagLocationData(163, always_default, "Castelia City", None),
+    # Asks for random pokémon type
     "Castelia City - Item from harlequin in Studio Castelia": FlagLocationData(0x1BA, always_excluded, "Castelia City", None),
     "Castelia City - Item from manager in Café Sonata": FlagLocationData(164, always_default, "Castelia City", None),
     "Castelia City - Item from Iris in Plasma hideout": FlagLocationData(0x199, always_default, "Castelia City", None),
@@ -82,7 +86,8 @@ table: dict[str, FlagLocationData] = {
     # Not changing the script
     # "Passerby Analytics HQ - Item for completing all survey requests": FlagLocationData(0000000, always_default, "Castelia City", None),
     "Castelia Gym - Gym guide item": FlagLocationData(120, always_default, "Castelia City", None),
-    "Royal Unova - Item for defeating every trainer": FlagLocationData(0x198, always_default, "Castelia City", can_beat_ghetsis),
+    # Royal Unova only accessible at season-dependant day times
+    "Royal Unova - Item for defeating every trainer": FlagLocationData(0x198, always_excluded, "Castelia City", can_beat_ghetsis),
     "Route 4 - Item from Professor Juniper #1": FlagLocationData(0x19B, always_default, "Route 4 North", None),
     "Route 4 - Item from Professor Juniper #2": FlagLocationData(0x19B, always_default, "Route 4 North", None),
     "Route 4 - Item from Professor Juniper #3": FlagLocationData(0x19B, always_default, "Route 4 North", None),
