@@ -15,9 +15,7 @@ legendary: dict[str, StaticEncounterData] = {
 gift: dict[str, StaticEncounterData] = {
     "Marvelous Bridge Sold Encounter": StaticEncounterData((129, 0), (129, 0), "Marvelous Bridge", None, None),
     "Route 18 Egg Encounter": StaticEncounterData((636, 0), (636, 0), "Route 18", None, None),
-    "Dreamyard Gift Encounter 1": StaticEncounterData((511, 0), (511, 0), "Dreamyard Entrance", None, None),
-    "Dreamyard Gift Encounter 2": StaticEncounterData((513, 0), (513, 0), "Dreamyard Entrance", None, None),
-    "Dreamyard Gift Encounter 3": StaticEncounterData((515, 0), (515, 0), "Dreamyard Entrance", None, None),
+    "Dreamyard Gift Encounter": StaticEncounterData((511, 0), (511, 0), "Dreamyard Entrance", disabled, None),  # will require being randomized
     "Castelia City Gift Encounter": StaticEncounterData((570, 0), (570, 0), "Castelia City", disabled, has_celebi),
 }
 
