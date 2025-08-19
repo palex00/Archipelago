@@ -10,22 +10,28 @@ class Goal(Choice):
     - **Ghetsis** - Clear the main story by defeating Ghetsis
     - **Champion** - Become the champion by defeating Alder
     - **Cynthia** - Defeat Cynthia in Undella Town
+    - **Cobalion** - Reach and defeat/catch Cobalion in Mistralton Cave
     - **Regional pokedex** - Complete the Unova pokedex (requires wild Pokemon being randomized)
     - **National pokedex** - Complete the national pokedex (requires wild Pokemon being randomized)
     - **Custom pokedex** - Complete all dexsanity locations (requires wild Pokemon being randomized
                            and dexsanity being set to at least 100)
     - **TM/HM hunt** - Get all TMs and HMs
     - **Seven Sages hunt** - Find the Seven Sages
+    - **Legendary hunt** - Find and defeat/catch all (stationary available) legendary encounters, including Volcarona
+    - **Pokemon master** - Complete the requirements of all other goals combined
     """
     display_name = "Goal"
     option_ghetsis = 0
     option_champion = 1
     option_cynthia = 2
-    # option_regional_pokedex = 3
-    # option_national_pokedex = 4
-    # option_custom_pokedex = 5
-    option_tmhm_hunt = 6
-    option_seven_sages_hunt = 7
+    option_cobalion = 3
+    # option_regional_pokedex = 4
+    # option_national_pokedex = 5
+    # option_custom_pokedex = 6
+    option_tmhm_hunt = 7
+    option_seven_sages_hunt = 8
+    option_legendary_hunt = 9
+    option_pokemon_master = 10
     default = 0
 
 
@@ -49,7 +55,9 @@ class RandomizeWildPokemon(OptionSet):
     - **Similar base stats** - Tries to keep every randomized pokemon at a similar base stat total as the replaced encounter.
     - **Type themed** - Makes every pokemon in an area have a certain same type.
     - **Area 1-to-1** - Keeps the amount of different encounters and their encounter rate in every area.
-    - **Exclude phenomenons** - Excludes rustling grass, rippling water spots, dust clouds, and flying shadows from being randomized.
+    - **Merge phenomenons** - Makes rustling grass, rippling water spots, dust clouds, and flying shadows
+                              in the same area have only one encounter.
+    - **Prevent rare encounters** - Randomizes the encounter slots with the lowest chance in each area to the same pokemon.
     """
     display_name = "Randomize Wild Pokemon"
     valid_keys = [
@@ -58,9 +66,10 @@ class RandomizeWildPokemon(OptionSet):
         "Similar base stats",
         "Type themed",
         "Area 1-to-1",
-        "Exclude phenomenons",
+        "Merge phenomenons",
+        "Prevent rare encounters",
     ]
-    default = ["Randomize"]
+    default = ["Merge phenomenons", "Prevent rare encounters"]
 
 
 class RandomizeTrainerPokemon(OptionSet):
@@ -79,7 +88,7 @@ class RandomizeTrainerPokemon(OptionSet):
         "Type themed",
         "Themed gym trainers",
     ]
-    default = ["Randomize", "Themed gym trainers"]
+    default = ["Themed gym trainers"]
 
 
 class RandomizeStarterPokemon(OptionSet):
@@ -100,7 +109,7 @@ class RandomizeStarterPokemon(OptionSet):
         "Only official starters"
         "Type variety",
     ]
-    default = ["Randomize"]
+    default = []
 
 
 class RandomizeStaticPokemon(OptionSet):
@@ -628,6 +637,19 @@ class ModifyItemPool(OptionSet):
     default = []
 
 
+class ModifyLogic(OptionSet):
+    """
+    Modifies parts of what's logically required for various locations.
+
+    - **Require Dowsing Machine** - Makes the Dowsing Machine a logical requirement to find hidden items.
+    """
+    display_name = "Modify Item Pool"
+    valid_keys = [
+        "Require Dowsing Machine",
+    ]
+    default = ["Require Dowsing Machine"]
+
+
 class FunnyDialogue(Toggle):
     """
     Adds humorous dialogue submitted by the folks in the Pokemon Black and White thread of the
@@ -649,8 +671,8 @@ class PokemonBWTextPlando(PlandoTexts):
     """
     display_name = "Text Plando"
     default = [
-        ("story 160 7", "[vMisc_0] received [vPkmn_1]![NextLine] Congratulations![Terminate]", 100),
-        ("system 172 1", "Huh? Why did you press the[NextLine]B button?[Terminate]", 100),
+        ("story 160 0 7", "[vMisc_0] received [vPkmn_1]![NextLine] Congratulations![Terminate]", 100),
+        ("system 172 0 1", "Huh? Why did you press the[NextLine]B button?[Terminate]", 100),
     ]
 
     def verify_keys(self) -> None:
@@ -658,15 +680,17 @@ class PokemonBWTextPlando(PlandoTexts):
         for word in self:
             parts = word.at.casefold().split()
             reasons = []
-            if len(parts) < 3:
+            if len(parts) < 4:
                 reasons.append("Not enough arguments")
-            if len(parts) > 3:
+            if len(parts) > 4:
                 reasons.append("Too many arguments")
             if parts[0] not in ("system", "story"):
                 reasons.append("Unknown module")
-            if not parts[1].isalnum():
+            if not parts[1].isnumeric():
                 reasons.append("File index is not a number")
-            if not parts[2].isalnum():
+            if not parts[2].isnumeric():
+                reasons.append("Part index is not a number")
+            if not parts[3].isnumeric():
                 reasons.append("Line index is not a number")
             if reasons:
                 invalid.append((" ".join(parts), reasons))
@@ -684,11 +708,11 @@ class ReusableTMs(Choice):
     Enables reusable TMs, allowing for the reuse of TMs. 
     """
     display_name = "Reusable TMs"
-    default = 0
     option_on = 0
     option_yes = 1
     option_of_course = 2
     option_im_not_a_masochist = 3
+    default = 0
 
 
 @dataclass
@@ -741,6 +765,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     # multiworld_gift_pokemon: MultiworldGiftPokemon
     # traps_percentage: TrapsPercentage
     modify_item_pool: ModifyItemPool
+    modify_logic: ModifyLogic
     # funny_dialogue: FunnyDialogue
     # text_plando: TextPlando
     reusable_tms: ReusableTMs
