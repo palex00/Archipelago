@@ -26,7 +26,7 @@ class PokemonBWClient(BizHawkClient):
     patch_suffix = (".apblack", ".apwhite")
 
     ram_read_write_domain = "Main RAM"
-    rom_read_only_domain = "File on Disk"
+    rom_read_only_domain = "File on Disk"  # Doesn't work :(
     flags_amount = 2912
     flag_bytes_amount = math.ceil(flags_amount/8)
     dex_amount = 650
@@ -39,6 +39,7 @@ class PokemonBWClient(BizHawkClient):
 
     data_address_address = 0x000024  # says 0x21B310 in vanilla W
     ingame_state_address = 0x000034
+    header_address = 0x3ffa80
     var_offset = 0x209BC  # 0x23BCCC in vanilla W
     flags_offset = 0x20C38  # 0x23BF48 in vanilla W
     dex_offset = 0x21EC4  # 0x23D1D4 in vanilla W
@@ -76,6 +77,14 @@ class PokemonBWClient(BizHawkClient):
         Once this function has determined that the ROM should be handled by this client, it should also modify `ctx`
         as necessary (such as setting `ctx.game = self.game`, modifying `ctx.items_handling`, etc...)."""
         from .rom import cached_rom
+
+        header = await bizhawk.read(
+            ctx.bizhawk_ctx, (
+                (self.header_address, 18, self.ram_read_write_domain),
+            )
+        )
+        if header[0] not in (b'POKEMON B\0\0\0IRBO01', b'POKEMON W\0\0\0IRAO01'):
+            return False
 
         self.slot_data = cached_rom[1]
         self.player_name = self.slot_data["player_name"]
