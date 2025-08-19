@@ -248,12 +248,6 @@ filler: dict[str, ItemData] = {
     "Dark Gem": ItemData(0x0232, always_filler),
     "Steel Gem": ItemData(0x0233, always_filler),
     "Normal Gem": ItemData(0x0234, always_filler),
-    "Health Wing": ItemData(0x0235, always_filler),
-    "Muscle Wing": ItemData(0x0236, always_filler),
-    "Resist Wing": ItemData(0x0237, always_filler),
-    "Genius Wing": ItemData(0x0238, always_filler),
-    "Clever Wing": ItemData(0x0239, always_filler),
-    "Swift Wing": ItemData(0x023A, always_filler),
     "Pretty Wing": ItemData(0x023B, always_filler),
     "Dream Ball": ItemData(0x0240, always_filler),
     "Poké Toy": ItemData(0x0241, always_filler),
@@ -268,7 +262,6 @@ filler: dict[str, ItemData] = {
     "Relic Band": ItemData(0x024C, always_filler),
     "Relic Statue": ItemData(0x024D, always_filler),
     "Relic Crown": ItemData(0x024E, always_filler),
-    "Casteliacone": ItemData(0x024F, always_filler),
 }
 
 # DO NOT USE!!!!!!!!!!!!!!!!!!!!!!!!!!!!

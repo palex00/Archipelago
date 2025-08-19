@@ -41,4 +41,11 @@ table: dict[str, ItemData] = {
     "PP Max": ItemData(0x0035, always_filler),
     "Old Gateau": ItemData(0x0036, always_filler),
     "Sweet Heart": ItemData(0x0086, always_filler),
+    "Health Wing": ItemData(0x0235, always_filler),
+    "Muscle Wing": ItemData(0x0236, always_filler),
+    "Resist Wing": ItemData(0x0237, always_filler),
+    "Genius Wing": ItemData(0x0238, always_filler),
+    "Clever Wing": ItemData(0x0239, always_filler),
+    "Swift Wing": ItemData(0x023A, always_filler),
+    "Casteliacone": ItemData(0x024F, always_filler),
 }
