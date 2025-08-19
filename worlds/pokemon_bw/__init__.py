@@ -60,7 +60,7 @@ class PokemonBWWorld(World):
     location_name_to_id = locations.get_location_lookup_table()
     settings_key = "pokemon_bw_settings"
     settings: ClassVar[PokemonBWSettings]
-    ut_can_gen_without_yaml = True
+    ut_can_gen_without_yaml = False
     tracker_world = {
         "map_page_folder": "tracker",
         "map_page_maps": "maps/maps.json",
