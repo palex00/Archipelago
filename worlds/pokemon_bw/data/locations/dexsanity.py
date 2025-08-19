@@ -202,7 +202,14 @@ location_table: dict[str, DexLocationData] = {
     "Pokédex - Murkrow": DexLocationData(198),
     "Pokédex - Slowking": DexLocationData(199),
     "Pokédex - Misdreavus": DexLocationData(200),
-    "Pokédex - Unown": DexLocationData(201),
+    "Pokédex - Unown": DexLocationData(
+        201, lambda state, world: state.has_any(
+            ("Unown (A)", "Unown (B)", "Unown (C)", "Unown (D)", "Unown (E)", "Unown (F)", "Unown (G)", "Unown (H)",
+             "Unown (I)", "Unown (J)", "Unown (K)", "Unown (L)", "Unown (M)", "Unown (N)", "Unown (O)", "Unown (P)",
+             "Unown (Q)", "Unown (R)", "Unown (S)", "Unown (T)", "Unown (U)", "Unown (V)", "Unown (W)", "Unown (X)",
+             "Unown (Y)", "Unown (Z)", "Unown (Exclamation Mark)", "Unown (Question Mark)"), world.player
+        )
+    ),
     "Pokédex - Wobbuffet": DexLocationData(202),
     "Pokédex - Girafarig": DexLocationData(203),
     "Pokédex - Pineco": DexLocationData(204),
@@ -421,7 +428,11 @@ location_table: dict[str, DexLocationData] = {
     "Pokédex - Rampardos": DexLocationData(409),
     "Pokédex - Shieldon": DexLocationData(410),
     "Pokédex - Bastiodon": DexLocationData(411),
-    "Pokédex - Burmy": DexLocationData(412),
+    "Pokédex - Burmy": DexLocationData(
+        412, lambda state, world: state.has_any(
+            ("Burmy (Plant)", "Burmy (Sandy)", "Burmy (Trash)"), world.player
+        )
+    ),
     "Pokédex - Wormadam": DexLocationData(
         413, lambda state, world: state.has_any(
             ("Wormadam (Plant)", "Wormadam (Sandy)", "Wormadam (Trash)"), world.player
@@ -434,9 +445,21 @@ location_table: dict[str, DexLocationData] = {
     "Pokédex - Buizel": DexLocationData(418),
     "Pokédex - Floatzel": DexLocationData(419),
     "Pokédex - Cherubi": DexLocationData(420),
-    "Pokédex - Cherrim": DexLocationData(421),
-    "Pokédex - Shellos": DexLocationData(422),
-    "Pokédex - Gastrodon": DexLocationData(423),
+    "Pokédex - Cherrim": DexLocationData(
+        421, lambda state, world: state.has_any(
+            ("Cherrim (Overcast)", "Cherrim (Sunshine)"), world.player
+        )
+    ),
+    "Pokédex - Shellos": DexLocationData(
+        422, lambda state, world: state.has_any(
+            ("Shellos (West)", "Shellos (East)"), world.player
+        )
+    ),
+    "Pokédex - Gastrodon": DexLocationData(
+        423, lambda state, world: state.has_any(
+            ("Gastrodon (West)", "Gastrodon (East)"), world.player
+        )
+    ),
     "Pokédex - Ambipom": DexLocationData(424),
     "Pokédex - Drifloon": DexLocationData(425),
     "Pokédex - Drifblim": DexLocationData(426),
@@ -518,7 +541,14 @@ location_table: dict[str, DexLocationData] = {
             ("Shaymin", "Shaymin (Sky)"), world.player
         )
     ),
-    "Pokédex - Arceus": DexLocationData(493),
+    "Pokédex - Arceus": DexLocationData(
+        493, lambda state, world: state.has_any(
+            ("Arceus (Normal)", "Arceus (Fire)", "Arceus (Water)", "Arceus (Electric)", "Arceus (Grass)",
+             "Arceus (Ice)", "Arceus (Fighting)", "Arceus (Poison)", "Arceus (Ground)", "Arceus (Flying)",
+             "Arceus (Psychic)", "Arceus (Bug)", "Arceus (Rock)", "Arceus (Ghost)", "Arceus (Dragon)", "Arceus (Dark)",
+             "Arceus (Steel)"), world.player
+        )
+    ),
     "Pokédex - Victini": DexLocationData(494),
     "Pokédex - Snivy": DexLocationData(495),
     "Pokédex - Servine": DexLocationData(496),

@@ -21,6 +21,7 @@ class PokemonBWTestBase(WorldTestBase):
 # dexsanity: 0
 # season_control: vanilla
 # modify_item_pool: []
+# modify_logic: ["Require Dowsing Machine"]
 
 # Options that have high failure rate in single worlds:
 # shuffle_badges: any_badge

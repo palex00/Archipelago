@@ -12,5 +12,10 @@ always_trap: ClassificationMethod = lambda world: ItemClassification.trap
 
 tm_hm_hunt: ClassificationMethod = lambda world: (
     ItemClassification.progression
-    if world.options.goal == "tmhm_hunt" else ItemClassification.useful
+    if world.options.goal in ("tmhm_hunt", "pokemon_master") else ItemClassification.useful
+)
+
+dowsing_machine_logic: ClassificationMethod = lambda world: (
+    ItemClassification.progression
+    if "Require Dowsing Machine" in world.options.modify_logic else ItemClassification.useful
 )

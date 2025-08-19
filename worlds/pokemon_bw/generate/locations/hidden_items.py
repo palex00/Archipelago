@@ -5,7 +5,7 @@ from ...locations import PokemonBWLocation
 if TYPE_CHECKING:
     from ... import PokemonBWWorld
     from BaseClasses import Region
-    from ...data import RulesDict
+    from ...data import RulesDict, AccessRule, FlagLocationData
 
 
 def lookup(domain: int) -> dict[str, int]:
@@ -17,14 +17,18 @@ def lookup(domain: int) -> dict[str, int]:
 def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesDict") -> None:
     from ...data.locations.ingame_items.hidden_items import table
 
+    dowsing_machine_rule: "AccessRule" = lambda state: state.has("Dowsing Machine", world.player)
+
+    def f(loc_data: "FlagLocationData") -> "AccessRule":
+        return lambda state: loc_data.rule(state, world) and dowsing_machine_rule(state)
+
     for name, data in table.items():
         r: "Region" = regions[data.region]
         l: PokemonBWLocation = PokemonBWLocation(world.player, name, world.location_name_to_id[name], r)
         l.progress_type = data.progress_type(world)
         if "Require Dowsing Machine" in world.options.modify_logic:
-            dowsing_machine_rule = lambda state: state.has("Dowsing Machine", world.player)
             if data.rule is not None:
-                l.access_rule = lambda state: rules[data.rule](state) and dowsing_machine_rule(state)
+                l.access_rule = f(data)
             else:
                 l.access_rule = dowsing_machine_rule
         else:
