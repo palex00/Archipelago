@@ -16,6 +16,7 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 - Fixed machine part npc on route 4 always letting the player pass
   - Also fixed his weird behavior
 - Fixed Chargestone Cave being invisibly blocked when fighting Clay after getting rid of the webs
+- Fixed gym TM rewards not containing TMs/HMs when TMs/HMs are shuffled
 - Added `modify_logic` option, currently only including `Require Dowsing Machine`
 - Added 3 new goals:
   - `Cobalion`: Defeat or catch Cobalion
