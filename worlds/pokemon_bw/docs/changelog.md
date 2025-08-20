@@ -1,9 +1,30 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.1.7: This was supposed to only be bug fixes...
+
+- Fixed bizhawk client not checking for correct rom header, leading to problems with running other roms
+- Fixed the harlequin in Studio Castelia not being excluded even though the wanted type changes daily
+- Fixed repeatable checks to either triggering only once or giving vanilla items afterwards
+- Added remaining forms without individual stats
+- Added back the requirement to provide a yaml for UT
+- Fixed bag placement of all ev wing items and Casteliacone
+- Fixed reward for Royal Unova not being excluded
+  - The Royal Unova is only accessible at certain day times
+- Fixed Slowpoke's evolution's priority
+- Fixed Dreamyard's gift encounter adding all 3 options to logic even though you could only get a specific one
+- Fixed machine part npc on route 4 always letting the player pass
+  - Also fixed his weird behavior
+- Fixed Chargestone Cave being invisibly blocked when fighting Clay after getting rid of the webs
+- Added `modify_logic` option, currently only including `Require Dowsing Machine`
+- Added 3 new goals:
+  - `Cobalion`: Defeat or catch Cobalion
+  - `Legendary hunt`: Defeat or catch all legendary encounters, including Volcarona
+  - `Pokemon Master`: Complete all other goals
+
 ## 0.1.6: UT Map update
 
-- Added map tracker for Universal Tracker
+- Added map tracker for Universal Tracker (by @palex00)
 - Fixed logic of `Route 6 - TM from Clay`
 - Fixed logic of phenomenon encounters
 - Fixed daily treasure NPC on route 13 giving a non-AP item immediately

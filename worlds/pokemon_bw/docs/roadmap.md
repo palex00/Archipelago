@@ -33,7 +33,12 @@ Version 1.0.0 will happen when certain important features are implemented.
   - Auto updating roms
   - Optional re-patch skipping
 
-### 0.2.0: Actual randomization
+### 0.2.0: Important backwards-compatibility-breaking changes
+
+- see TODO
+
+### 0.3.0: Actual randomization
+
 - Options
   - Goals: Regional Pokédex, National Pokédex, Custom Pokédex
   - Wild pokémon randomization
@@ -45,6 +50,7 @@ Version 1.0.0 will happen when certain important features are implemented.
 - Additional roadblocks
 
 ### Other feature updates
+
 - Options
   - Trainer randomization
   - Starter/Static/Gift/Trade/Legendary pokémon randomization
@@ -52,6 +58,8 @@ Version 1.0.0 will happen when certain important features are implemented.
   - Seensanity
     - Consider trainer pokémon
   - Adjust levels
+  - Seen count checks modifier
+  - Goals: Everything, Cobalion, Legendary Hunt
 - Make HMs forgettable
 - Xtransceiver being required to see certain story sequences (with some of them giving items)
   - Also, dynamic Xtransceiver item that automatically adds the correctly gendered version to the game
@@ -90,6 +98,7 @@ Version 1.0.0 will happen when certain important features are implemented.
 
 - Door shuffle
 - Optional/Shuffling roadblock requirements
+- Original content
 
 ## Big update #4 (Multiworld update, name WIP)
 
