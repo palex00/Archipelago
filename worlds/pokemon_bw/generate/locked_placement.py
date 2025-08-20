@@ -74,6 +74,11 @@ def place_tm_hm(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
                 world.get_location(location_name).place_locked_item(item)
                 items.remove(item)
                 world.to_be_filled_locations -= 1
+            for location_name in gym_tms:
+                item: "PokemonBWItem" = shuffled_list.pop()
+                world.get_location(location_name).place_locked_item(item)
+                items.remove(item)
+                world.to_be_filled_locations -= 1
         case "hm_with_badge":
             tms: list["PokemonBWItem"] = []
             hms: list["PokemonBWItem"] = []
