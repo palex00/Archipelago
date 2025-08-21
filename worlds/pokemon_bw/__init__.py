@@ -1,6 +1,6 @@
 import datetime
 import os
-from typing import ClassVar
+from typing import ClassVar, Mapping, Any
 
 import settings
 from BaseClasses import MultiWorld, Tutorial
@@ -119,3 +119,19 @@ class PokemonBWWorld(World):
                     self.multiworld.get_out_file_name_base(self.player) + rom.PokemonWhitePatch.patch_file_ending
                 ), world=self, player=self.player, player_name=self.player_name
             ).write()
+
+    def fill_slot_data(self) -> Mapping[str, Any]:
+        # Some options and data are included for UT
+        return {
+            # Options
+            "goal": self.options.goal.current_key,
+            "version": self.options.version.current_key,
+            "shuffle_badges": self.options.shuffle_badges.current_key,
+            "shuffle_tm_hm": self.options.shuffle_tm_hm.current_key,
+            "dexsanity": self.options.dexsanity.current_key,
+            "season_control": self.options.season_control.current_key,
+            "modify_item_pool": self.options.modify_item_pool.current_key,
+            "modify_logic": self.options.modify_logic.current_key,
+
+            # Other data
+        }

@@ -22,7 +22,7 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
     new_received = client.received_items_count
     for index in range(client.received_items_count, len(ctx.items_received)):
         network_item = ctx.items_received[index]
-        name = client.item_id_to_name[network_item.item]
+        name = ctx.item_names.lookup_in_game(network_item.item)
         internal_id = all_items_dict_view[name].item_id
         match name:
             case x if x in all_main_items:
@@ -39,7 +39,7 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                                           client.main_items_bag_size, internal_id):
                     client.logger.warning(f"Could not add {name} to main items bag, no space left. "
                                           f"Please report this and a list of all items "
-                                          f"in your main items bag to the maintainer.")
+                                          f"in your main items bag to the developers.")
                     break
             case x if x in all_key_items:
                 if key_items_bag_buffer is None:
@@ -55,7 +55,7 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                                           client.key_items_bag_size, internal_id):
                     client.logger.warning(f"Could not add {name} to key items bag, no space left. "
                                           f"Please report this and a list of all items"
-                                          f" in your key items bag to the maintainer.")
+                                          f" in your key items bag to the developers.")
                     break
             case x if x in all_berries:
                 if berry_bag_buffer is None:
@@ -71,7 +71,7 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                                           client.berry_bag_size, internal_id):
                     client.logger.warning(f"Could not add {name} to key items bag, no space left. "
                                           f"Please report this and a list of all items "
-                                          f"in your main bag to the maintainer.")
+                                          f"in your main bag to the developers.")
                     break
             case x if x in badges.table:
                 read = await bizhawk.read(
@@ -99,7 +99,7 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                                           client.medicine_bag_size, internal_id):
                     client.logger.warning(f"Could not add {name} to medicine bag, no space left. "
                                           f"Please report this and a list of all items "
-                                          f"in your medicine bag to the maintainer.")
+                                          f"in your medicine bag to the developers.")
                     break
             case x if x in seasons.table:
                 flag = seasons.table[name].flag_id
@@ -123,7 +123,7 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                                           client.tm_hm_bag_size, internal_id):
                     client.logger.warning(f"Could not add {name} to TM/HM bag, no space left. "
                                           f"Please report this and a list of all items "
-                                          f"in your TM/HM bag to the maintainer.")
+                                          f"in your TM/HM bag to the developers.")
                     break
             case _:
                 client.logger.warning(f"Bad item name: {name}")

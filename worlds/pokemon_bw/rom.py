@@ -4,7 +4,6 @@ import pathlib
 import zipfile
 
 from .ndspy import rom as ndspy_rom
-import orjson
 
 import Utils
 from settings import get_settings
@@ -17,17 +16,17 @@ if TYPE_CHECKING:
     from . import PokemonBWWorld
 
 
-cached_rom: list = [False]
+cached_rom: list[str | None] = [None]
 
 
 async def keep_cache_alive():
-    while cached_rom[0]:
+    while cached_rom[0] is not None:
         await asyncio.sleep(5)
 
 
 class PokemonBlackPatch(APAutoPatchInterface):
     game = "Pokemon Black and White"
-    bw_patch_format = (0, 1, 0)
+    bw_patch_format = (0, 2, 0)
     patch_file_ending = ".apblack"
     result_file_ending = ".nds"
 
@@ -44,7 +43,7 @@ class PokemonBlackPatch(APAutoPatchInterface):
         return PatchMethods.get_manifest(self, super().get_manifest())
 
     def patch(self, target: str) -> None:
-        PatchMethods.patch(self, target)
+        PatchMethods.patch(self, target, "black")
 
     def read_contents(self, opened_zipfile: zipfile.ZipFile) -> Dict[str, Any]:
         return PatchMethods.read_contents(self, opened_zipfile, super().read_contents(opened_zipfile))
@@ -55,7 +54,7 @@ class PokemonBlackPatch(APAutoPatchInterface):
 
 class PokemonWhitePatch(APAutoPatchInterface):
     game = "Pokemon Black and White"
-    bw_patch_format = (0, 1, 0)
+    bw_patch_format = (0, 2, 0)
     patch_file_ending = ".apwhite"
     result_file_ending = ".nds"
 
@@ -72,7 +71,7 @@ class PokemonWhitePatch(APAutoPatchInterface):
         return PatchMethods.get_manifest(self, super().get_manifest())
 
     def patch(self, target: str) -> None:
-        PatchMethods.patch(self, target)
+        PatchMethods.patch(self, target, "white")
 
     def read_contents(self, opened_zipfile: zipfile.ZipFile) -> Dict[str, Any]:
         return PatchMethods.read_contents(self, opened_zipfile, super().read_contents(opened_zipfile))
@@ -90,21 +89,7 @@ class PatchMethods:
         if patch.world.options.season_control != "vanilla":
             procedures.append("season_patch")
 
-        datapackage: dict[str, Any] = {
-            "location_name_to_id": patch.world.location_name_to_id,
-            "item_name_to_id": patch.world.item_name_to_id,
-        }
-
-        slot_data_dict: dict[str, Any] = {
-            "goal": patch.world.options.goal.current_key,
-            "version": patch.world.options.version.current_key,
-            "season_control": patch.world.options.season_control.current_key,
-            "player_name": patch.player_name,
-        }
-
         opened_zipfile.writestr("procedures.txt", "\n".join(procedures))
-        opened_zipfile.writestr("datapackage.json", orjson.dumps(datapackage))
-        opened_zipfile.writestr("slot_data.json", orjson.dumps(slot_data_dict))
 
     @staticmethod
     def get_manifest(patch: PokemonBlackPatch | PokemonWhitePatch, manifest: dict[str, Any]) -> Dict[str, Any]:
@@ -112,14 +97,11 @@ class PatchMethods:
         return manifest
 
     @staticmethod
-    def patch(patch: PokemonBlackPatch | PokemonWhitePatch, target: str) -> None:
+    def patch(patch: PokemonBlackPatch | PokemonWhitePatch, target: str, version: str) -> None:
         patch.read()
 
-        slot_data_dict: dict[str, Any] = orjson.loads(patch.get_file("slot_data.json"))
-        datapackage_dict: dict[str, Any] = orjson.loads(patch.get_file("datapackage.json"))
-
         if not pathlib.Path(target).exists():
-            base_data = get_base_rom_bytes(slot_data_dict["version"])
+            base_data = get_base_rom_bytes(version)
             rom = ndspy_rom.NintendoDSRom(base_data)
             procedures: list[str] = str(patch.get_file("procedures.txt"), "utf-8").splitlines()
             for prod in procedures:
@@ -127,9 +109,7 @@ class PatchMethods:
             with open(target, 'wb') as f:
                 f.write(rom.save(updateDeviceCapacity=True))
 
-        cached_rom[0] = True
-        cached_rom.append(slot_data_dict)
-        cached_rom.append(datapackage_dict)
+        cached_rom[0] = patch.player_name
         asyncio.run_coroutine_threadsafe(keep_cache_alive(), asyncio.new_event_loop())
 
     @staticmethod
