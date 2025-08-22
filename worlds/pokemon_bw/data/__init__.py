@@ -45,6 +45,7 @@ class FlagLocationData(NamedTuple):
     flag_id: int
     progress_type: ProgressTypeMethod
     region: str
+    inclusion_rule: InclusionRule | None
     rule: ExtendedRule | None
 
 

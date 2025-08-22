@@ -283,7 +283,7 @@
 {"name": "Dragonspiral Tower - 5F item #3"},
 {"name": "Dragonspiral Tower - 6F item"},
 {"name": "Dragonspiral Tower - Item from Cedric Juniper"},
-{"name": "Dragonspiral Tower - Item near entrance"},
+{"name": "Dragonspiral Tower - Item near entrance (Winter)"},
 {"name": "Dragonspiral Tower - Outside hidden item"},
 {"name": "Dragonspiral Tower - Outside item"}
         ],
@@ -378,17 +378,17 @@
 {"name": "Icirrus City - East hidden item #1"},
 {"name": "Icirrus City - East hidden item #2"},
 {"name": "Icirrus City - Hidden item in large water puddle"},
-{"name": "Icirrus City - Hidden item west of pokémon center"},
+{"name": "Icirrus City - Hidden item west of pokémon center (Winter)"},
 {"name": "Icirrus City - Item from Aha if answer was correct"},
 {"name": "Icirrus City - Item from Aha if answer was incorrect"},
 {"name": "Icirrus City - Item from Pokémon Fan Club chairman for gaining 25 levels"},
 {"name": "Icirrus City - Item from Pokémon Fan Club chairman for gaining 50 levels"},
 {"name": "Icirrus City - Item from Pokémon Fan Club chairman for gaining 99 levels"},
-{"name": "Icirrus City - Item from the former Team Rocket member's wife"},
-{"name": "Icirrus City - Item west of pokémon center"},
-{"name": "Icirrus City - South hidden item #1"},
-{"name": "Icirrus City - South hidden item #2"},
-{"name": "Icirrus City - South hidden item #3"},
+{"name": "Icirrus City - Item from the former Team Rocket member's wife (Winter)"},
+{"name": "Icirrus City - Item west of pokémon center (Winter)"},
+{"name": "Icirrus City - South hidden item #1 (Winter)"},
+{"name": "Icirrus City - South hidden item #2 (Winter)"},
+{"name": "Icirrus City - South hidden item #3 (Winter)"},
 {"name": "Icirrus City - TM from old lady in pokémon center"},
 {"name": "Icirrus Gym - Badge reward"},
 {"name": "Icirrus Gym - Gym guide item"},
@@ -522,7 +522,7 @@
 {"name": "Moor of Icirrus - North east item"},
 {"name": "Moor of Icirrus - North hidden item"},
 {"name": "Moor of Icirrus - South east hidden item"},
-{"name": "Moor of Icirrus - South east item"}
+{"name": "Moor of Icirrus - South east item (Spring/Summer/Autumn)"}
         ],
         "map_locations": [
             {
@@ -1090,7 +1090,7 @@
 {"name": "Route 8 - Item near northern lake"},
 {"name": "Route 8 - North west item"},
 {"name": "Route 8 - TM from western parasol lady"},
-{"name": "Route 8 - West hidden item"}
+{"name": "Route 8 - West hidden item (Spring/Summer/Autumn)"}
         ],
         "map_locations": [
             {
@@ -1178,18 +1178,18 @@
         "sections": [
 {"name": "Twist Mountain - Item from worker near ice rock cave"},
 {"name": "Twist Mountain - Item near ice rock"},
-{"name": "Twist Mountain - Lower floor little east cave item"},
-{"name": "Twist Mountain - Lower floor north west cave hidden item"},
-{"name": "Twist Mountain - Lower floor north west cave item"},
-{"name": "Twist Mountain - Main floor east hidden item"},
+{"name": "Twist Mountain - Lower floor little east cave item (Winter)"},
+{"name": "Twist Mountain - Lower floor north west cave hidden item (Spring/Summer/Autumn)"},
+{"name": "Twist Mountain - Lower floor north west cave item (Spring/Summer/Autumn)"},
+{"name": "Twist Mountain - Main floor east hidden item (Winter)"},
 {"name": "Twist Mountain - Main floor east item"},
-{"name": "Twist Mountain - Main floor north hidden item #1"},
-{"name": "Twist Mountain - Main floor north hidden item #2"},
+{"name": "Twist Mountain - Main floor north hidden item #1 (Winter)"},
+{"name": "Twist Mountain - Main floor north hidden item #2 (Winter)"},
 {"name": "Twist Mountain - Main floor north west item"},
 {"name": "Twist Mountain - Main floor south item"},
 {"name": "Twist Mountain - Main floor west item"},
 {"name": "Twist Mountain - Middle floor east cave hidden item"},
-{"name": "Twist Mountain - Middle floor north cave item"},
+{"name": "Twist Mountain - Middle floor north cave item (Winter)"},
 {"name": "Twist Mountain - Middle floor west cave hidden item #1"},
 {"name": "Twist Mountain - Middle floor west cave hidden item #2"},
 {"name": "Twist Mountain - Middle floor west cave item #1"},

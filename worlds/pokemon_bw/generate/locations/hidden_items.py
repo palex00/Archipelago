@@ -23,15 +23,16 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesD
         return lambda state: loc_data.rule(state, world) and dowsing_machine_rule(state)
 
     for name, data in table.items():
-        r: "Region" = regions[data.region]
-        l: PokemonBWLocation = PokemonBWLocation(world.player, name, world.location_name_to_id[name], r)
-        l.progress_type = data.progress_type(world)
-        if "Require Dowsing Machine" in world.options.modify_logic:
-            if data.rule is not None:
-                l.access_rule = f(data)
+        if data.inclusion_rule is None or data.inclusion_rule(world):
+            r: "Region" = regions[data.region]
+            l: PokemonBWLocation = PokemonBWLocation(world.player, name, world.location_name_to_id[name], r)
+            l.progress_type = data.progress_type(world)
+            if "Require Dowsing Machine" in world.options.modify_logic:
+                if data.rule is not None:
+                    l.access_rule = f(data)
+                else:
+                    l.access_rule = dowsing_machine_rule
             else:
-                l.access_rule = dowsing_machine_rule
-        else:
-            if data.rule is not None:
-                l.access_rule = rules[data.rule]
-        r.locations.append(l)
+                if data.rule is not None:
+                    l.access_rule = rules[data.rule]
+            r.locations.append(l)

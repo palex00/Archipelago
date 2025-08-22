@@ -28,16 +28,18 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesD
     from ...data.locations.ingame_items.special import tm_hm_ncps, gym_tms
 
     for name, data in tm_hm_ncps.items():
-        r: "Region" = regions[data.region]
-        l: PokemonBWLocation = PokemonBWLocation(world.player, name, world.location_name_to_id[name], r)
-        l.progress_type = data.progress_type(world)
-        if data.rule is not None:
-            l.access_rule = rules[data.rule]
-        r.locations.append(l)
+        if data.inclusion_rule is None or data.inclusion_rule(world):
+            r: "Region" = regions[data.region]
+            l: PokemonBWLocation = PokemonBWLocation(world.player, name, world.location_name_to_id[name], r)
+            l.progress_type = data.progress_type(world)
+            if data.rule is not None:
+                l.access_rule = rules[data.rule]
+            r.locations.append(l)
     for name, data in gym_tms.items():
-        r: "Region" = regions[data.region]
-        l: PokemonBWLocation = PokemonBWLocation(world.player, name, world.location_name_to_id[name], r)
-        l.progress_type = data.progress_type(world)
-        if data.rule is not None:
-            l.access_rule = rules[data.rule]
-        r.locations.append(l)
+        if data.inclusion_rule is None or data.inclusion_rule(world):
+            r: "Region" = regions[data.region]
+            l: PokemonBWLocation = PokemonBWLocation(world.player, name, world.location_name_to_id[name], r)
+            l.progress_type = data.progress_type(world)
+            if data.rule is not None:
+                l.access_rule = rules[data.rule]
+            r.locations.append(l)
