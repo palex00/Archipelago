@@ -142,6 +142,10 @@ class PokemonBWClient(BizHawkClient):
 
             await receive_items(self, ctx)
 
+            if self.flags_cache[0x190//8] & 1 != 0:
+                self.logger.warning("An error occurred while receiving an item ingame. "
+                                    "Please report this and what you just received to the devs.")
+
             if await self.goal_checking_method(self, ctx):
                 await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
 
