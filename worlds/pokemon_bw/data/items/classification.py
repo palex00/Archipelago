@@ -11,7 +11,7 @@ always_filler: ClassificationMethod = lambda world: ItemClassification.filler
 always_trap: ClassificationMethod = lambda world: ItemClassification.trap
 
 tm_hm_hunt: ClassificationMethod = lambda world: (
-    ItemClassification.progression
+    ItemClassification.progression_deprioritized
     if world.options.goal in ("tmhm_hunt", "pokemon_master") else ItemClassification.useful
 )
 
