@@ -53,6 +53,7 @@ class PokemonBWClient(BizHawkClient):
         super().__init__()
         self.flags_cache: bytearray = bytearray(self.flag_bytes_amount)
         self.dex_cache: bytearray = bytearray(self.dex_bytes_amount)
+        self.dexsanity_included: bool = True
         self.player_name: str | None = None
         self.missing_flag_loc_ids: list[list[int]] = [[] for _ in range(self.flags_amount)]
         self.missing_dex_flag_loc_ids: list[list[int]] = [[] for _ in range(self.dex_amount)]

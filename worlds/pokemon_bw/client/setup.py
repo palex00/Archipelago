@@ -14,6 +14,7 @@ async def early_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") ->
         )
     )
     client.save_data_address = int.from_bytes(read[0], "little")
+
     read = await bizhawk.read(
         ctx.bizhawk_ctx, (
             (client.save_data_address + client.var_offset + (2*0x126), 4, client.ram_read_write_domain),
@@ -21,11 +22,14 @@ async def early_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") ->
     )
     client.received_items_count = int.from_bytes(read[0], "little")
 
+    if ctx.slot_data["options"]["dexsanity"] == 0:
+        client.dexsanity_included = False
+
 
 async def late_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> None:
     from ..data.items import seasons
 
-    if ctx.slot_data["goal"] != "tmhm_hunt":
+    if ctx.slot_data["options"]["goal"] != "tmhm_hunt":
         await bizhawk.write(
             ctx.bizhawk_ctx, (
                 (client.save_data_address+client.flags_offset+(0x192//8),
@@ -33,7 +37,7 @@ async def late_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> 
                  client.ram_read_write_domain),
             )
         )
-    if ctx.slot_data["season_control"] == "vanilla":
+    if ctx.slot_data["options"]["season_control"] == "vanilla":
         await bizhawk.write(
             ctx.bizhawk_ctx, (
                 (client.save_data_address+client.flags_offset+(0x193//8),
@@ -41,7 +45,7 @@ async def late_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> 
                  client.ram_read_write_domain),
             )
         )
-    elif ctx.slot_data["season_control"] == "randomized":
+    elif ctx.slot_data["options"]["season_control"] == "randomized":
         for network_item in ctx.items_received:
             name = ctx.item_names.lookup_in_game(network_item.item)
             if name in seasons.table:

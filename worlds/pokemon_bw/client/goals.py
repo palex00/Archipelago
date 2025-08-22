@@ -11,7 +11,7 @@ def get_method(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> Callab
     ["PokemonBWClient", "BizHawkClientContext"], Coroutine[Any, Any, bool]
 ]:
 
-    match ctx.slot_data["goal"]:
+    match ctx.slot_data["options"]["goal"]:
         case "ghetsis":
             return defeat_ghetsis
         case "champion":
@@ -32,7 +32,7 @@ def get_method(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> Callab
         case "pokemon_master":
             return do_everything
         case _:
-            client.logger.warning("Bad goal in slot data: "+ctx.slot_data["goal"])
+            client.logger.warning("Bad goal in slot data: "+ctx.slot_data["options"]["goal"])
             return error
 
 

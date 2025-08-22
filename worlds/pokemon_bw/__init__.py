@@ -4,6 +4,7 @@ from typing import ClassVar, Mapping, Any
 
 import settings
 from BaseClasses import MultiWorld, Tutorial
+from Options import Option
 from worlds.AutoWorld import World, WebWorld
 from . import items, locations, options, bizhawk_client, rom, groups
 
@@ -62,7 +63,8 @@ class PokemonBWWorld(World):
     settings: ClassVar[PokemonBWSettings]
     item_name_groups = groups.get_item_groups()
     location_name_groups = groups.get_location_groups()
-    ut_can_gen_without_yaml = False
+
+    ut_can_gen_without_yaml = True
     tracker_world = {
         "map_page_folder": "tracker",
         "map_page_maps": "maps/maps.json",
@@ -71,6 +73,7 @@ class PokemonBWWorld(World):
 
     def __init__(self, multiworld: MultiWorld, player: int):
         super().__init__(multiworld, player)
+
         self.strength_species: set[str] = set()
         self.cut_species: set[str] = set()
         self.surf_species: set[str] = set()
@@ -79,6 +82,29 @@ class PokemonBWWorld(World):
         self.flash_species: set[str] = set()
         self.fighting_type_species: set[str] = set()  # Needed for challenge rock outside of pinwheel forest
         self.to_be_filled_locations: int = 0
+        self.seed: int = 0
+
+        self.ut_active: bool = False
+
+    def generate_early(self) -> None:
+
+        # Load values from UT if this is a regenerated world
+        if hasattr(self.multiworld, "re_gen_passthrough"):
+            if self.game in self.multiworld.re_gen_passthrough:
+                self.ut_active = True
+                re_ge_slot_data: dict[str, Any] = self.multiworld.re_gen_passthrough[self.game]
+                re_gen_options: dict[str, Any] = re_ge_slot_data["options"]
+                # Populate options from UT
+                for key, value in re_gen_options.items():
+                    opt: Option | None = getattr(self.options, key, None)
+                    if opt is not None:
+                        setattr(self.options, key, opt.from_any(value))
+                self.seed = re_gen_options["seed"]
+                self.random.seed(self.seed)
+                return
+
+        self.seed = self.random.getrandbits(64)
+        self.random.seed(self.seed)
 
     def create_item(self, name: str) -> items.PokemonBWItem:
         return items.generate_item(name, self)
@@ -101,7 +127,7 @@ class PokemonBWWorld(World):
         items.place_locked_items(self, item_pool)
         if len(item_pool) > self.to_be_filled_locations:
             raise Exception(f"Player {self.player_name} has more guaranteed items than to-be-filled locations."
-                            f"Please report this to the maintainer and provide the yaml used for generating.")
+                            f"Please report this to the devs and provide the yaml used for generating.")
         for _ in range(self.to_be_filled_locations-len(item_pool)):
             item_pool.append(self.create_item(self.get_filler_item_name()))
         self.multiworld.itempool += item_pool
@@ -125,15 +151,21 @@ class PokemonBWWorld(World):
     def fill_slot_data(self) -> Mapping[str, Any]:
         # Some options and data are included for UT
         return {
-            # Options
-            "goal": self.options.goal.current_key,
-            "version": self.options.version.current_key,
-            "shuffle_badges": self.options.shuffle_badges.current_key,
-            "shuffle_tm_hm": self.options.shuffle_tm_hm.current_key,
-            "dexsanity": self.options.dexsanity.current_key,
-            "season_control": self.options.season_control.current_key,
-            "modify_item_pool": self.options.modify_item_pool.current_key,
-            "modify_logic": self.options.modify_logic.current_key,
-
-            # Other data
+            "options": self.options.as_dict(
+                "goal",
+                "version",
+                "shuffle_badges",
+                "shuffle_tm_hm",
+                "dexsanity",
+                "season_control",
+                "modify_item_pool",
+                "modify_logic",
+                toggles_as_bools=True,
+            ),
+            "seed": self.seed,
         }
+
+    def interpret_slot_data(self, slot_data: dict[str, Any]) -> dict[str, Any]:
+        """Helper function for Universal Tracker"""
+        _ = self  # Damn PyCharm saying "meThoD mAy bE stAtiC"
+        return slot_data

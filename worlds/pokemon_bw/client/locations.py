@@ -49,6 +49,9 @@ async def check_flag_locations(client: "PokemonBWClient", ctx: "BizHawkClientCon
 
 async def check_dex_locations(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> list[int]:
 
+    if not client.dexsanity_included:
+        return []
+
     locations_to_check: list[int] = []
     read = await bizhawk.read(
         ctx.bizhawk_ctx, (
