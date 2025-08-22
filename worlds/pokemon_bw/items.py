@@ -42,6 +42,7 @@ def get_item_lookup_table() -> dict[str, int]:
             {name: data.item_id for name, data in main_items.filler.items()} |
             {name: data.item_id for name, data in main_items.mail.items()} |
             {name: data.item_id for name, data in main_items.unused.items()} |
+            {name: data.item_id for name, data in medicine.important.items()} |
             {name: data.item_id for name, data in medicine.table.items()} |
             {name: data.item_id for name, data in seasons.table.items()} |
             {name: data.item_id for name, data in tm_hm.table.items()})

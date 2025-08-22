@@ -1,6 +1,10 @@
 from .. import ItemData
 from .classification import *
 
+important: dict[str, ItemData] = {
+    "Rage Candy Bar": ItemData(0x01F8, always_progression),
+}
+
 table: dict[str, ItemData] = {
     "Potion": ItemData(0x0011, always_filler),
     "Antidote": ItemData(0x0012, always_filler),

@@ -7,6 +7,7 @@ if TYPE_CHECKING:
 
 def generate_default(world: "PokemonBWWorld") -> list[PokemonBWItem]:
     from ...data.items.key_items import progression, vanilla, useless, special
+    from ...data.items.medicine import important as med_important
 
     items = [
         PokemonBWItem(name, data.classification(world), data.item_id, world.player)
@@ -14,6 +15,9 @@ def generate_default(world: "PokemonBWWorld") -> list[PokemonBWItem]:
     ] + [
         PokemonBWItem(name, data.classification(world), data.item_id, world.player)
         for name, data in vanilla.items()
+    ] + [
+        PokemonBWItem(name, data.classification(world), data.item_id, world.player)
+        for name, data in med_important.items()
     ]
 
     if "Useless key items" in world.options.modify_item_pool:

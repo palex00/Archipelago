@@ -26,7 +26,6 @@ progression: dict[str, ItemData] = {
     "Wingull Gram 1": ItemData(0x026F, always_progression),
     "Wingull Gram 2": ItemData(0x0270, always_progression),
     "Wingull Gram 3": ItemData(0x0271, always_progression),
-    "Rage Candy Bar": ItemData(0x01F8, always_progression),
 }
 
 vanilla: dict[str, ItemData] = {

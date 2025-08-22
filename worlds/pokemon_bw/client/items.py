@@ -1,7 +1,7 @@
 
 from typing import TYPE_CHECKING
 import worlds._bizhawk as bizhawk
-from ..data.items import all_main_items, all_key_items, all_berries, badges, medicine, seasons, tm_hm, all_items_dict_view
+from ..data.items import all_main_items, all_key_items, all_berries, badges, seasons, tm_hm, all_items_dict_view, all_medicine
 
 if TYPE_CHECKING:
     from ..bizhawk_client import PokemonBWClient
@@ -85,7 +85,7 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                         (client.save_data_address+client.badges_offset, [new_state], client.ram_read_write_domain),
                     )
                 )
-            case x if x in medicine.table:
+            case x if x in all_medicine:
                 if medicine_bag_buffer is None:
                     read = await bizhawk.read(
                         ctx.bizhawk_ctx, (
