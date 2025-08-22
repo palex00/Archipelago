@@ -66,7 +66,7 @@ def place_tm_hm(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
         case "shuffle":
             shuffled_list: list["PokemonBWItem"] = [
                 item for item in items
-                if item.name in tm_hm.table and "HM0" not in item.name and "TM70" not in item.name
+                if item.name in tm_hm.tm and "TM70" not in item.name
             ]
             world.random.shuffle(shuffled_list)
             for location_name in tm_hm_ncps:
@@ -83,7 +83,7 @@ def place_tm_hm(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
             tms: list["PokemonBWItem"] = []
             hms: list["PokemonBWItem"] = []
             for item in items:
-                if "HM0" in item.name or item.name == "TM70 Flash":
+                if "HM0" in item.name or "TM70" in item.name:
                     hms.append(item)
                 elif item.name.startswith("TM"):
                     tms.append(item)

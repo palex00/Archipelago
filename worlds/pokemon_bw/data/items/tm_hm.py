@@ -1,7 +1,7 @@
 from .. import ItemData
 from .classification import *
 
-table: dict[str, ItemData] = {
+tm: dict[str, ItemData] = {
     "TM01 Hone Claws": ItemData(0x0148, tm_hm_hunt),
     "TM02 Dragon Claw": ItemData(0x0149, tm_hm_hunt),
     "TM03 Psyshock": ItemData(0x014A, tm_hm_hunt),
@@ -94,13 +94,16 @@ table: dict[str, ItemData] = {
     "TM90 Substitute": ItemData(0x01A1, tm_hm_hunt),
     "TM91 Flash Cannon": ItemData(0x01A2, tm_hm_hunt),
     "TM92 Trick Room": ItemData(0x01A3, tm_hm_hunt),
+    "TM93 Wild Charge": ItemData(0x026A, tm_hm_hunt),
+    "TM94 Rock Smash": ItemData(0x026B, tm_hm_hunt),
+    "TM95 Snarl": ItemData(0x026C, tm_hm_hunt),
+}
+
+hm: dict[str, ItemData] = {
     "HM01 Cut": ItemData(0x01A4, always_progression),
     "HM02 Fly": ItemData(0x01A5, tm_hm_hunt),
     "HM03 Surf": ItemData(0x01A6, always_progression),
     "HM04 Strength": ItemData(0x01A7, always_progression),
     "HM05 Waterfall": ItemData(0x01A8, always_progression),
     "HM06 Dive": ItemData(0x01A9, always_progression),
-    "TM93 Wild Charge": ItemData(0x026A, tm_hm_hunt),
-    "TM94 Rock Smash": ItemData(0x026B, tm_hm_hunt),
-    "TM95 Snarl": ItemData(0x026C, tm_hm_hunt),
 }

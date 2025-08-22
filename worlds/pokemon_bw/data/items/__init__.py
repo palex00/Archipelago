@@ -26,6 +26,11 @@ all_medicine: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOnl
     medicine.table,
 )
 
+all_tm_hm: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOnly(
+    tm_hm.tm,
+    tm_hm.hm,
+)
+
 all_items_dict_view: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButDictsOnly(
     badges.table,
     berries.standard,
@@ -42,5 +47,6 @@ all_items_dict_view: NoDuplicatesJustViewButDictsOnly = NoDuplicatesJustViewButD
     medicine.important,
     medicine.table,
     seasons.table,
-    tm_hm.table,
+    tm_hm.tm,
+    tm_hm.hm,
 )

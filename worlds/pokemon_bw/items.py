@@ -45,7 +45,8 @@ def get_item_lookup_table() -> dict[str, int]:
             {name: data.item_id for name, data in medicine.important.items()} |
             {name: data.item_id for name, data in medicine.table.items()} |
             {name: data.item_id for name, data in seasons.table.items()} |
-            {name: data.item_id for name, data in tm_hm.table.items()})
+            {name: data.item_id for name, data in tm_hm.tm.items()} |
+            {name: data.item_id for name, data in tm_hm.hm.items()})
 
 
 def get_main_item_pool(world: "PokemonBWWorld") -> list[PokemonBWItem]:

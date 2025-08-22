@@ -176,7 +176,7 @@ has_fighting_type_species: ExtendedRule = lambda state, world: (
 )
 
 has_any_tm_hm: ExtendedRule = lambda state, world: (
-    state.has_any(tm_hm.table, world.player)
+    state.has_any(tm_hm.tm, world.player) or state.has_any(tm_hm.hm, world.player)
 )
 
 striaton_hidden_item: ExtendedRule = lambda state, world: state.can_reach_region("Route 3", world.player) or can_use_surf(state, world)

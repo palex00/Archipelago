@@ -5,7 +5,7 @@ from typing import ClassVar, Mapping, Any
 import settings
 from BaseClasses import MultiWorld, Tutorial
 from worlds.AutoWorld import World, WebWorld
-from . import items, locations, options, bizhawk_client, rom
+from . import items, locations, options, bizhawk_client, rom, groups
 
 
 bizhawk_client.register_client()
@@ -60,6 +60,8 @@ class PokemonBWWorld(World):
     location_name_to_id = locations.get_location_lookup_table()
     settings_key = "pokemon_bw_settings"
     settings: ClassVar[PokemonBWSettings]
+    item_name_groups = groups.get_item_groups()
+    location_name_groups = groups.get_location_groups()
     ut_can_gen_without_yaml = False
     tracker_world = {
         "map_page_folder": "tracker",

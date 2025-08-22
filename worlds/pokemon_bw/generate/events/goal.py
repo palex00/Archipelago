@@ -30,10 +30,10 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"]) -> None:
         # case "national_pokedex":
         # case "custom_pokedex":
         case "tmhm_hunt":
-            from ...data.items.tm_hm import table
+            from ...data.items.tm_hm import tm, hm
             location = PokemonBWLocation(world.player, "Verify TMs/HMs", None, regions["Castelia City"])
             regions["Castelia City"].locations.append(location)
-            location.access_rule = lambda state: state.has_all(table, world.player)
+            location.access_rule = lambda state: state.has_all(tm, world.player) and state.has_all(hm, world.player)
         case "seven_sages_hunt":
             location = PokemonBWLocation(world.player, "Find all seven sages", None, regions["N's Castle"])
             regions["N's Castle"].locations.append(location)
@@ -58,7 +58,7 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"]) -> None:
                 state.can_reach_region("Relic Castle Basement", world.player)
             )
         case "pokemon_master":
-            from ...data.items.tm_hm import table
+            from ...data.items.tm_hm import tm, hm
             # N's Castle includes Ghetsis and Champion
             location = PokemonBWLocation(world.player, "Become the very best like no one ever was", None, regions["N's Castle"])
             regions["N's Castle"].locations.append(location)
@@ -73,7 +73,8 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"]) -> None:
                 # Cynthia
                 state.can_reach_region("Undella Town", world.player) and
                 # TM/HM hunt
-                state.has_all(table, world.player) and
+                state.has_all(tm, world.player) and
+                state.has_all(hm, world.player) and
                 # Seven sages hunt
                 state.can_reach_location("Route 18 - TM from sage Rood", world.player) and
                 state.can_reach_location("Dreamyard - TM from sage Gorm", world.player) and
