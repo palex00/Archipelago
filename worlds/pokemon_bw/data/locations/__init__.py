@@ -5,9 +5,9 @@ from typing import TYPE_CHECKING
 from collections import ChainMap
 
 if TYPE_CHECKING:
-    from .. import FlagLocationData
+    from .. import AnyLocationData
 
-all_item_locations: ChainMap[str, "FlagLocationData"] = ChainMap(
+all_item_locations: ChainMap[str, "AnyLocationData"] = ChainMap[str, "AnyLocationData"](
     overworld_items.table,
     hidden_items.table,
     other.table,

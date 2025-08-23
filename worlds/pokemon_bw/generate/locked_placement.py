@@ -64,21 +64,28 @@ def place_tm_hm(world: "PokemonBWWorld", items: list["PokemonBWItem"]) -> None:
 
     match world.options.shuffle_tm_hm.current_key:
         case "shuffle":
-            shuffled_list: list["PokemonBWItem"] = [
-                item for item in items
-                if item.name in tm_hm.tm and "TM70" not in item.name
-            ]
+            shuffled_list: list["PokemonBWItem"] = [item for item in items]
             world.random.shuffle(shuffled_list)
-            for location_name in tm_hm_ncps:
-                item: "PokemonBWItem" = shuffled_list.pop()
-                world.get_location(location_name).place_locked_item(item)
-                items.remove(item)
-                world.to_be_filled_locations -= 1
-            for location_name in gym_tms:
-                item: "PokemonBWItem" = shuffled_list.pop()
-                world.get_location(location_name).place_locked_item(item)
-                items.remove(item)
-                world.to_be_filled_locations -= 1
+            for name, data in tm_hm_ncps.items():
+                while True:
+                    item: "PokemonBWItem" = shuffled_list.pop()
+                    if data.hm_rule is None or data.hm_rule(name):
+                        world.get_location(name).place_locked_item(item)
+                        items.remove(item)
+                        world.to_be_filled_locations -= 1
+                        break
+                    else:
+                        shuffled_list.insert(0, item)
+            for name, data in gym_tms.items():
+                while True:
+                    item: "PokemonBWItem" = shuffled_list.pop()
+                    if data.hm_rule is None or data.hm_rule(name):
+                        world.get_location(name).place_locked_item(item)
+                        items.remove(item)
+                        world.to_be_filled_locations -= 1
+                        break
+                    else:
+                        shuffled_list.insert(0, item)
         case "hm_with_badge":
             tms: list["PokemonBWItem"] = []
             hms: list["PokemonBWItem"] = []

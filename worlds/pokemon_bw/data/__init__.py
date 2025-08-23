@@ -1,6 +1,6 @@
 from typing import NamedTuple, Callable, Literal, TYPE_CHECKING, TypeVar, Any, Union
 
-from BaseClasses import ItemClassification, LocationProgressType, CollectionState
+from BaseClasses import ItemClassification, LocationProgressType, CollectionState, Item
 
 if not TYPE_CHECKING:
     AccessRule: type = Any
@@ -46,6 +46,15 @@ class FlagLocationData(NamedTuple):
     progress_type: ProgressTypeMethod
     region: str
     inclusion_rule: InclusionRule | None
+    rule: ExtendedRule | None
+
+
+class TMLocationData(NamedTuple):
+    flag_id: int
+    progress_type: ProgressTypeMethod
+    region: str
+    inclusion_rule: InclusionRule | None
+    hm_rule: Callable[[str], bool] | None
     rule: ExtendedRule | None
 
 
@@ -153,5 +162,5 @@ class TypeData(NamedTuple):
 
 
 AnyItemData: type = Union[ItemData, BadgeItemData, SeasonItemData]
-AnyLocationData: type = Union[FlagLocationData, DexLocationData]
+AnyLocationData: type = Union[FlagLocationData, DexLocationData, TMLocationData]
 AnyEncounterData: type = Union[EncounterData, TradeEncounterData, StaticEncounterData]
