@@ -20,7 +20,7 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_name
     # "species" is the pokédex name that includes a description of the form
     # "speciesdata" are the values in species.by_name
     # "evodata" is the evolution tuple of a species in species.by_name
-    #           it consits of (evo_method, evo_value, evo_species)
+    #           it consists of (evo_method, evo_value, evo_species)
     # "evoid" is the combination of species and index of one of its evodata
     # "base" (prefix) is the to-be-evolved species
     # "evo" (prefix) is the result of evolving the base species
@@ -51,7 +51,11 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_name
         # Iterate through all currently to-be-checked evoids
         for current_evoid in current_evoid_set:
             current_evodata = species.by_name[current_evoid[0]].evolutions[current_evoid[1]]
-            # Check for the evolution being possible it requires a party member
+            # Level up item night is always paired with Level up item day
+            # and always has the same evolved species and item, so skip if it's that method
+            if current_evodata[0] == "Level up item night":
+                continue
+            # Check for the evolution being possible if it requires a party member
             if current_evodata[0] == "Level up with party member":
                 # Go through catchable and check whether the required team member
                 # (or any of its forms) is already catchable

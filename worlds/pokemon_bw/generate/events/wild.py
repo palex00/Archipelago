@@ -16,18 +16,25 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"]) -> set[tuple[s
 
     catchable_dex_form: set[tuple[str, int]] = set()
     is_black = world.options.version == "black"
+    # To remove duplicates
+    available_in_region: dict[str, set[str]] = {}
 
     for name, data in table.items():
         if data.encounter_region in regions:
+            if data.encounter_region not in available_in_region:
+                available_in_region[data.encounter_region] = set()
             r: "Region" = regions[data.encounter_region]
-            l: PokemonBWLocation = PokemonBWLocation(world.player, name, None, r)
             species_id: tuple[int, int] = data.species_black if is_black else data.species_white
             species_name: str = species_by_id[species_id]
+            if species_name in available_in_region[data.encounter_region]:
+                continue
+            l: PokemonBWLocation = PokemonBWLocation(world.player, name, None, r)
             item: PokemonBWItem = PokemonBWItem(species_name, ItemClassification.progression, None, world.player)
             l.place_locked_item(item)
             r.locations.append(l)
 
             species_data: "SpeciesData" = species_by_name[species_name]
             catchable_dex_form.add((species_data.dex_name, species_id[1]))
+            available_in_region[data.encounter_region].add(species_name)
 
     return catchable_dex_form
