@@ -5,11 +5,11 @@ from BaseClasses import ItemClassification, CollectionState
 if TYPE_CHECKING:
     from ... import PokemonBWWorld
     from BaseClasses import Region
-    from ...data import EvolutionMethodData, ExtendedRule
+    from ...data import EvolutionMethodData, ExtendedRule, SpeciesData
 
 
-def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_name_form: set[tuple[str, int]]) -> None:
-    from ...data.pokemon import species, pokedex, evolution_methods
+def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_species_data: dict[str, "SpeciesData"]) -> None:
+    from ...data.pokemon import species, evolution_methods
     from ...locations import PokemonBWLocation
     from ...items import PokemonBWItem
     # Keywords to describe var names:
@@ -37,9 +37,8 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_name
     current_evoid_set: set[tuple[str, int]] = set()
     next_evoid_set: set[tuple[str, int]] = set()
     # Populate initial set by adding all evolutions of every (already) catchable species
-    for entry in catchable_name_form:
-        base_species = species.by_id[(pokedex.by_name[entry[0]], entry[1])]
-        for evoid_index in range(len(species.by_name[base_species].evolutions)):
+    for base_species, base_speciesdata in catchable_species_data.items():
+        for evoid_index in range(len(base_speciesdata.evolutions)):
             evoid = (base_species, evoid_index)
             current_evoid_set.add(evoid)
             noted_evoid_set.add(evoid)
@@ -59,9 +58,9 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_name
             if current_evodata[0] == "Level up with party member":
                 # Go through catchable and check whether the required team member
                 # (or any of its forms) is already catchable
-                for catchable_name_form_entry in catchable_name_form:
+                for catchable_species, catchable_data in catchable_species_data.items():
                     # If evolution possible, jump to creating event
-                    if pokedex.by_name[catchable_name_form_entry[0]] == current_evodata[1]:
+                    if catchable_data.dex_number == current_evodata[1]:
                         break
                 else:
                     # If required team member not found, add this evoid to next iteration and skip adding event
@@ -76,7 +75,7 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_name
             region.locations.append(location)
             # Add the evolution to catchable
             evo_speciesdata = species.by_name[current_evodata[2]]
-            catchable_name_form.add((evo_speciesdata.dex_name, evo_speciesdata.form))
+            catchable_species_data[current_evodata[2]] = evo_speciesdata
             # Add evo's evodatas to noted and next evodatas
             check_next = True
             for evo_evodata_index in range(len(evo_speciesdata.evolutions)):

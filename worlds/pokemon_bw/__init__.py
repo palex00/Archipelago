@@ -117,8 +117,8 @@ class PokemonBWWorld(World):
         rules = locations.create_rule_dict(self)
         locations.connect_regions(self, regions, rules)
         locations.cleanup_regions(regions)
-        catchable_dex_form = locations.create_and_place_event_locations(self, regions, rules)
-        locations.create_and_place_locations(self, regions, rules, catchable_dex_form)
+        catchable_species_data = locations.create_and_place_event_locations(self, regions, rules)
+        locations.create_and_place_locations(self, regions, rules, catchable_species_data)
         self.to_be_filled_locations = locations.count_to_be_filled_locations(regions)
         self.multiworld.regions.extend(regions.values())
 

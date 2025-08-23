@@ -10,12 +10,12 @@ if TYPE_CHECKING:
     from ...data import SpeciesData, RulesDict
 
 
-def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesDict") -> set[tuple[str, int]]:
+def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesDict") -> dict[str, "SpeciesData"]:
     from ...data.locations.encounters.static import static, legendary, gift, trade, fossils
     from ...data.pokemon.species import by_id as species_by_id, by_name as species_by_name
     from ...data import TradeEncounterData, StaticEncounterData
 
-    catchable_dex_form: set[tuple[str, int]] = set()
+    catchable_species_data: dict[str, "SpeciesData"] = {}
 
     def get_trade_rule(x: str) -> Callable[[CollectionState], bool]:
         return lambda state: state.has(x, world.player)
@@ -40,7 +40,7 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesD
                 r.locations.append(l)
 
                 species_data: "SpeciesData" = species_by_name[species_name]
-                catchable_dex_form.add((species_data.dex_name, species_id[1]))
+                catchable_species_data[species_name] = species_data
 
     f(static)
     f(legendary)
@@ -48,4 +48,4 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], rules: "RulesD
     f(trade)
     f(fossils)
 
-    return catchable_dex_form
+    return catchable_species_data

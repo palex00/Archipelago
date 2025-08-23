@@ -5,6 +5,7 @@ from BaseClasses import Location, Region, CollectionState
 if TYPE_CHECKING:
     from . import PokemonBWWorld
     from .data import RulesDict, ExtendedRule, AccessRule
+    from .data import SpeciesData
 
 
 class PokemonBWLocation(Location):
@@ -47,19 +48,19 @@ def create_rule_dict(world: "PokemonBWWorld") -> "RulesDict":
 
 
 def create_and_place_event_locations(world: "PokemonBWWorld", regions: dict[str, Region],
-                                     rules: "RulesDict") -> set[tuple[str, int]]:
+                                     rules: "RulesDict") -> dict[str, "SpeciesData"]:
     """Returns a set of species that are actually catchable in this world."""
     from .generate.events import wild, static, evolutions, goal, species_tables
 
-    catchable_name_form: set[tuple[str, int]] = wild.create(world, regions) | static.create(world, regions, rules)
-    evolutions.create(world, regions, catchable_name_form)
-    species_tables.populate(world, catchable_name_form)
+    catchable_species_data: dict[str, "SpeciesData"] = wild.create(world, regions) | static.create(world, regions, rules)
+    evolutions.create(world, regions, catchable_species_data)
+    species_tables.populate(world, catchable_species_data)
     goal.create(world, regions)
-    return catchable_name_form
+    return catchable_species_data
 
 
 def create_and_place_locations(world: "PokemonBWWorld", regions: dict[str, Region],
-                               rules: "RulesDict", catchable_dex_form: set[tuple[str, int]]) -> None:
+                               rules: "RulesDict", catchable_species_data: dict[str, "SpeciesData"]) -> None:
     from .generate.locations import overworld_items, hidden_items, other, badge_rewards, tm_hm, dexsanity
 
     overworld_items.create(world, regions, rules)
@@ -67,7 +68,7 @@ def create_and_place_locations(world: "PokemonBWWorld", regions: dict[str, Regio
     other.create(world, regions, rules)
     badge_rewards.create(world, regions, rules)
     tm_hm.create(world, regions, rules)
-    dexsanity.create(world, regions, catchable_dex_form)
+    dexsanity.create(world, regions, catchable_species_data)
 
 
 def connect_regions(world: "PokemonBWWorld", regions: dict[str, Region], rules: "RulesDict") -> None:

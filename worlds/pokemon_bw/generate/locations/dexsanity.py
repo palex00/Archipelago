@@ -7,6 +7,7 @@ from ...locations import PokemonBWLocation
 if TYPE_CHECKING:
     from ... import PokemonBWWorld
     from BaseClasses import Region
+    from ...data import SpeciesData
 
 
 def lookup(domain: int) -> dict[str, int]:
@@ -15,7 +16,7 @@ def lookup(domain: int) -> dict[str, int]:
     return {name: data.dex_number + domain for name, data in location_table.items()}
 
 
-def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_form: set[tuple[str, int]]) -> None:
+def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_species_data: dict[str, "SpeciesData"]) -> None:
     from ...data.locations.dexsanity import location_table
 
     # These lambdas have to be created from functions, because else they would all use the same 'name' variable
@@ -25,7 +26,7 @@ def create(world: "PokemonBWWorld", regions: dict[str, "Region"], catchable_dex_
     def get_special_rule(x: str) -> Callable[[CollectionState], bool]:
         return lambda state: location_table[x].special_rule(state, world)
 
-    catchable_dex: set[str] = {dex_form[0] for dex_form in catchable_dex_form}
+    catchable_dex: set[str] = {data.dex_name for data in catchable_species_data.values()}
     count = min(world.options.dexsanity.value, len(catchable_dex))
     possible = [f"Pokédex - {species}" for species in catchable_dex]
     world.random.shuffle(possible)
