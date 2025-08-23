@@ -1,14 +1,14 @@
 from random import Random
 from typing import TYPE_CHECKING, Any
+from collections import ChainMap
 
 from BaseClasses import Item
 
 if TYPE_CHECKING:
     from . import PokemonBWWorld
-    from .data import NoDuplicatesJustViewButDictsOnly
-    all_items_dict_view: NoDuplicatesJustViewButDictsOnly | None = None
-else:
-    all_items_dict_view = None
+    from .data import AnyItemData
+
+all_items_view: ChainMap | None = None
 
 
 class PokemonBWItem(Item):
@@ -16,37 +16,21 @@ class PokemonBWItem(Item):
 
 
 def generate_item(name: str, world: "PokemonBWWorld") -> PokemonBWItem:
-    global all_items_dict_view
+    global all_items_view
 
-    if all_items_dict_view is None:
-        from .data.items import all_items_dict_view as imported
-        all_items_dict_view = imported
+    if all_items_view is None:
+        from .data.items import all_items_dict_view
+        all_items_view: ChainMap[str, "AnyItemData"] = all_items_dict_view
 
-    data = all_items_dict_view[name]
+    data = all_items_view[name]
     # Item id from lookup table is used instead of id from data for safety purposes
     return PokemonBWItem(name, data.classification(world), world.item_name_to_id[name], world.player)
 
 
 def get_item_lookup_table() -> dict[str, int]:
-    from .data.items import badges, berries, key_items, main_items, medicine, seasons, tm_hm
+    from .data.items import all_items_dict_view
 
-    return ({name: data.item_id for name, data in badges.table.items()} |
-            {name: data.item_id for name, data in berries.standard.items()} |
-            {name: data.item_id for name, data in berries.niche.items()} |
-            {name: data.item_id for name, data in key_items.progression.items()} |
-            {name: data.item_id for name, data in key_items.vanilla.items()} |
-            {name: data.item_id for name, data in key_items.useless.items()} |
-            {name: data.item_id for name, data in key_items.special.items()} |
-            {name: data.item_id for name, data in main_items.min_once.items()} |
-            {name: data.item_id for name, data in main_items.fossils.items()} |
-            {name: data.item_id for name, data in main_items.filler.items()} |
-            {name: data.item_id for name, data in main_items.mail.items()} |
-            {name: data.item_id for name, data in main_items.unused.items()} |
-            {name: data.item_id for name, data in medicine.important.items()} |
-            {name: data.item_id for name, data in medicine.table.items()} |
-            {name: data.item_id for name, data in seasons.table.items()} |
-            {name: data.item_id for name, data in tm_hm.tm.items()} |
-            {name: data.item_id for name, data in tm_hm.hm.items()})
+    return {name: data.item_id for name, data in all_items_dict_view}
 
 
 def get_main_item_pool(world: "PokemonBWWorld") -> list[PokemonBWItem]:

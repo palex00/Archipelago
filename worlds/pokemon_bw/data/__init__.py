@@ -1,4 +1,4 @@
-from typing import NamedTuple, Callable, Literal, Iterator, Collection, TYPE_CHECKING, TypeVar, Any
+from typing import NamedTuple, Callable, Literal, TYPE_CHECKING, TypeVar, Any, Union
 
 from BaseClasses import ItemClassification, LocationProgressType, CollectionState
 
@@ -152,68 +152,6 @@ class TypeData(NamedTuple):
     id: int
 
 
-class NoDuplicateJustView(Collection[Collection[T]]):
-
-    def __init__(self, coll1: Collection[T], *collections: Collection[T]):
-        self.tup: tuple = (coll1, *collections)
-
-    def __len__(self) -> int:
-        return sum((len(x) for x in self.tup))
-
-    def __contains__(self, __x) -> bool:
-        for x in self.tup:
-            if __x in x:
-                return True
-        return False
-
-    def __iter__(self):
-        return NowINeedAnIterator(self)
-
-
-class NowINeedAnIterator(Iterator[T]):
-
-    def __init__(self, view: NoDuplicateJustView[T]):
-        self.v: NoDuplicateJustView[T] = view
-        self.i_outer = 0
-        self.i_inner = -1
-        self.inner_iterator = iter(view.tup[0])
-
-    def __iter__(self) -> Iterator[T]:
-        return NowINeedAnIterator(self.v)
-
-    def __next__(self) -> T:
-        self.i_inner += 1
-        inner_len = len(self.v.tup[self.i_outer])
-        if self.i_inner < inner_len:
-            return next(self.inner_iterator)
-        elif self.i_inner == inner_len:
-            self.i_inner = -1
-            self.i_outer += 1
-            if self.i_outer < len(self.v.tup):
-                self.inner_iterator = iter(self.v.tup[self.i_outer])
-                return next(self)
-            elif self.i_outer == len(self.v.tup):
-                raise StopIteration
-            else:  # self.i_outer > len(self.v.tup)
-                raise Exception("Something went terribly wrong in the custom iterator")
-        else:  # self.i_inner > inner_len
-            raise Exception("Something went terribly wrong in the custom iterator")
-
-
-class NoDuplicatesJustViewButDictsOnly:
-    """Very simple view that saves memory, but cannot handle duplicates"""
-
-    def __init__(self, d1: dict, *d: dict):
-        self.tup: tuple[dict, Any] = (d1, *d)
-
-    def __getitem__(self, key):
-        for d in self.tup:
-            if key in d:
-                return d[key]
-        raise KeyError
-
-    def __contains__(self, key) -> bool:
-        for d in self.tup:
-            if key in d:
-                return True
-        return False
+AnyItemData: type = Union[ItemData, BadgeItemData, SeasonItemData]
+AnyLocationData: type = Union[FlagLocationData, DexLocationData]
+AnyEncounterData: type = Union[EncounterData, TradeEncounterData, StaticEncounterData]
