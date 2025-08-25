@@ -24,4 +24,7 @@ def get_location_groups() -> dict[str, set[str]]:
         "Overworld items": set(overworld_items.table),
         "Hidden items": set(hidden_items.table),
         "NPC items": {*other.table, *special.gym_badges, *special.gym_tms, *special.tm_hm_ncps},
+        "Badge rewards": set(special.gym_badges),
+        "Gym TM rewards": set(special.gym_tms),
+        "TM/HM locations": {*special.gym_tms, *special.tm_hm_ncps},
     }
