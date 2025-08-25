@@ -4,7 +4,7 @@ from ... import FlagLocationData
 
 # How I decided the progress types:
 # I set always_default by default (pun not intended)
-# If the npc/... gives you a progression key item, it will be always_priority
+# If the npc/... gives you a progression key item, it will be key_item_location
 # If accessibility is not always given, it will be always_excluded
 
 table: dict[str, FlagLocationData] = {
@@ -12,7 +12,7 @@ table: dict[str, FlagLocationData] = {
     # Following is broken due to script issues, item can be set to 0x80 but no flag
     "Nuvema Town - Item #2 from Mom": FlagLocationData(0x185, always_default, "Nuvema Town", disabled, None),
     # Vanilla location of Super Rod
-    "Nuvema Town - Item from Looker": FlagLocationData(0x18A, always_priority, "Nuvema Town", None, can_beat_ghetsis),
+    "Nuvema Town - Item from Looker": FlagLocationData(0x18A, key_item_location, "Nuvema Town", None, can_beat_ghetsis),
     "Route 1 - Item after catching tutorial #1": FlagLocationData(0x18B, always_default, "Route 1 East", None, None),
     "Route 1 - Item after catching tutorial #2": FlagLocationData(0x18B, always_default, "Route 1 East", None, None),
     "Route 1 - Item after catching tutorial #3": FlagLocationData(0x18B, always_default, "Route 1 East", None, None),
@@ -46,7 +46,7 @@ table: dict[str, FlagLocationData] = {
     "Nacrene City - Item from waitress in Café Warehouse": FlagLocationData(0x1B7, always_default, "Nacrene City", None, None),
     "Nacrene City - Item from Bianca": FlagLocationData(0x18F, always_default, "Nacrene City", None, None),
     # Vanilla location of Light/Dark Stone
-    "Nacrene City - Item from Lenora": FlagLocationData(0x195, always_priority, "Nacrene City", None, can_go_deeper_into_relic_castle),
+    "Nacrene City - Item from Lenora": FlagLocationData(0x195, key_item_location, "Nacrene City", None, can_go_deeper_into_relic_castle),
     "Nacrene Gym - Gym guide item": FlagLocationData(119, always_default, "Nacrene City", None, None),
     "Pinwheel Forest Outside - Item from challenge rock": FlagLocationData(0x1B8, always_default, "Pinwheel Forest Outside", None, has_fighting_type_species),
     "Pinwheel Forest - Item from ranger Forrest": FlagLocationData(1420+26, always_default, "Pinwheel Forest West", None, None),
@@ -54,7 +54,7 @@ table: dict[str, FlagLocationData] = {
     "Pinwheel Forest - Item from ranger Irene": FlagLocationData(1420+27, always_default, "Pinwheel Forest West", None, None),
     "Pinwheel Forest - Item from ranger Miguel": FlagLocationData(1420+28, always_default, "Pinwheel Forest West", None, None),
     # Vanilla location of Dragon Skull
-    "Pinwheel Forest - Stolen item from Plasma grunt": FlagLocationData(0x187, always_priority, "Pinwheel Forest West", None, None),
+    "Pinwheel Forest - Stolen item from Plasma grunt": FlagLocationData(0x187, key_item_location, "Pinwheel Forest West", None, None),
     "Pinwheel Forest - Item from Lenora": FlagLocationData(0x188, always_default, "Pinwheel Forest West", None, None),
     "Skyarrow Bridge - Item from hiker in gate": FlagLocationData(268, always_default, "Skyarrow Bridge", None, None),
     "Castelia City - Item from scientist at Thumb Pier": FlagLocationData(269, always_default, "Castelia City", None, None),
@@ -184,8 +184,8 @@ table: dict[str, FlagLocationData] = {
     "Route 13 - Item from veteran in western house #1": FlagLocationData(356, always_default, "Route 13", None, can_use_surf),
     "Route 13 - Item from veteran in western house #2": FlagLocationData(356, always_default, "Route 13", None, can_use_surf),
     # The following 2 locations normally have wingull grams, which are progressive key items
-    "Route 13 - Item from old man": FlagLocationData(318, always_priority, "Route 13", None, None),
-    "Route 13 - Item from parasol lady": FlagLocationData(319, always_priority, "Route 13", None, None),
+    "Route 13 - Item from old man": FlagLocationData(318, key_item_location, "Route 13", None, None),
+    "Route 13 - Item from parasol lady": FlagLocationData(319, key_item_location, "Route 13", None, None),
     "Route 13 - Random item from man in black": FlagLocationData(279, always_default, "Route 13", None, None),
     "Lacunosa Town - Item from executive": FlagLocationData(0x1CA, always_default, "Lacunosa Town", None, None),
     # Requires pokémon being randomized

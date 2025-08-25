@@ -642,12 +642,16 @@ class ModifyLogic(OptionSet):
     Modifies parts of what's logically required for various locations.
 
     - **Require Dowsing Machine** - Makes the Dowsing Machine a logical requirement to find hidden items.
+    - **Prioritize key item locations** - Marks locations, that normally contain key items (which also includes
+                                          badge rewards in gyms), as priority locations, making them mostly contain
+                                          progressive items.
     """
     display_name = "Modify Item Pool"
     valid_keys = [
         "Require Dowsing Machine",
+        "Prioritize key item locations",
     ]
-    default = ["Require Dowsing Machine"]
+    default = ["Require Dowsing Machine", "Prioritize key item locations"]
 
 
 class FunnyDialogue(Toggle):

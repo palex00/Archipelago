@@ -9,14 +9,14 @@ no_cut: Callable[[str], bool] = lambda name: "HM01" not in name
 no_surf_and_waterfall: Callable[[str], bool] = lambda name: "HM03" not in name and "HM05" not in name
 
 gym_badges: dict[str, FlagLocationData] = {
-    "Striaton Gym - Badge reward": FlagLocationData(0x172, always_priority, "Striaton City", None, None),
-    "Nacrene Gym - Badge reward": FlagLocationData(0x173, always_priority, "Nacrene City", None, None),
-    "Castelia Gym - Badge reward": FlagLocationData(0x174, always_priority, "Castelia City", None, None),
-    "Nimbasa Gym - Badge reward": FlagLocationData(0x175, always_priority, "Nimbasa City", None, None),
-    "Driftveil Gym - Badge reward": FlagLocationData(0x176, always_priority, "Driftveil City", None, None),
-    "Mistralton Gym - Badge reward": FlagLocationData(0x177, always_priority, "Mistralton City", None, None),
-    "Icirrus Gym - Badge reward": FlagLocationData(0x178, always_priority, "Icirrus City", None, None),
-    "Opelucid Gym - Badge reward": FlagLocationData(0x179, always_priority, "Opelucid City", None, None),
+    "Striaton Gym - Badge reward": FlagLocationData(0x172, key_item_location, "Striaton City", None, None),
+    "Nacrene Gym - Badge reward": FlagLocationData(0x173, key_item_location, "Nacrene City", None, None),
+    "Castelia Gym - Badge reward": FlagLocationData(0x174, key_item_location, "Castelia City", None, None),
+    "Nimbasa Gym - Badge reward": FlagLocationData(0x175, key_item_location, "Nimbasa City", None, None),
+    "Driftveil Gym - Badge reward": FlagLocationData(0x176, key_item_location, "Driftveil City", None, None),
+    "Mistralton Gym - Badge reward": FlagLocationData(0x177, key_item_location, "Mistralton City", None, None),
+    "Icirrus Gym - Badge reward": FlagLocationData(0x178, key_item_location, "Icirrus City", None, None),
+    "Opelucid Gym - Badge reward": FlagLocationData(0x179, key_item_location, "Opelucid City", None, None),
 }
 
 gym_tms: dict[str, TMLocationData] = {
