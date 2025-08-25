@@ -3,7 +3,7 @@ import os
 from typing import ClassVar, Mapping, Any
 
 import settings
-from BaseClasses import MultiWorld, Tutorial
+from BaseClasses import MultiWorld, Tutorial, Item, Location
 from Options import Option
 from worlds.AutoWorld import World, WebWorld
 from . import items, locations, options, bizhawk_client, rom, groups
@@ -131,6 +131,17 @@ class PokemonBWWorld(World):
         for _ in range(self.to_be_filled_locations-len(item_pool)):
             item_pool.append(self.create_item(self.get_filler_item_name()))
         self.multiworld.itempool += item_pool
+
+    @classmethod
+    def stage_fill_hook(cls, multiworld: MultiWorld,
+                        progitempool: list[Item],
+                        usefulitempool: list[Item],
+                        filleritempool: list[Item],
+                        fill_locations: list[Location]) -> None:
+        from .generate.item_pool_modifications import sort_badges, sort_tm_hm
+
+        sort_badges(multiworld, progitempool)
+        sort_tm_hm(multiworld, progitempool, usefulitempool)
 
     def generate_output(self, output_directory: str) -> None:
         if self.options.version == "black":
