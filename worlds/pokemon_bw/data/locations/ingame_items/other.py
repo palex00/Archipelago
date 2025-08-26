@@ -12,7 +12,7 @@ table: dict[str, FlagLocationData] = {
     # Following is broken due to script issues, item can be set to 0x80 but no flag
     "Nuvema Town - Item #2 from Mom": FlagLocationData(0x185, always_default, "Nuvema Town", disabled, None),
     # Vanilla location of Super Rod
-    "Nuvema Town - Item from Looker": FlagLocationData(0x18A, key_item_location, "Nuvema Town", None, can_beat_ghetsis),
+    "Nuvema Town - Item from Looker after beating Ghetsis": FlagLocationData(0x18A, key_item_location, "Nuvema Town", None, can_beat_ghetsis),
     "Route 1 - Item after catching tutorial #1": FlagLocationData(0x18B, always_default, "Route 1 East", None, None),
     "Route 1 - Item after catching tutorial #2": FlagLocationData(0x18B, always_default, "Route 1 East", None, None),
     "Route 1 - Item after catching tutorial #3": FlagLocationData(0x18B, always_default, "Route 1 East", None, None),
@@ -46,7 +46,7 @@ table: dict[str, FlagLocationData] = {
     "Nacrene City - Item from waitress in Café Warehouse": FlagLocationData(0x1B7, always_default, "Nacrene City", None, None),
     "Nacrene City - Item from Bianca": FlagLocationData(0x18F, always_default, "Nacrene City", None, None),
     # Vanilla location of Light/Dark Stone
-    "Nacrene City - Item from Lenora": FlagLocationData(0x195, key_item_location, "Nacrene City", None, can_go_deeper_into_relic_castle),
+    "Nacrene City - Item from Lenora after Relic Castle": FlagLocationData(0x195, key_item_location, "Nacrene City", None, can_go_deeper_into_relic_castle),
     "Nacrene Gym - Gym guide item": FlagLocationData(119, always_default, "Nacrene City", None, None),
     "Pinwheel Forest Outside - Item from challenge rock": FlagLocationData(0x1B8, always_default, "Pinwheel Forest Outside", None, has_fighting_type_species),
     "Pinwheel Forest - Item from ranger Forrest": FlagLocationData(1420+26, always_default, "Pinwheel Forest West", None, None),
