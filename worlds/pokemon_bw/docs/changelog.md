@@ -1,6 +1,30 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.2.0: Important backwards-compatibility-breaking changes
+
+- Fixed one of the hidden items on route 18 having weird behavior
+- Fixed Legendary Hunt and Pokémon Master reporting goal completion upon defeating Cynthia
+- Fixed problems with opening the client without using the patch file by restructuring slot data and datapackage to be read from network
+- Fixed Darmanitan statues not working because of the Rage Candy Bar being placed into the wrong bag
+- Fixed events in Nacrene City after Relic Castle not triggering properly
+- Fixed location names of two hidden items in Challenger's Cave
+- Reclassified TMs/HMs as `progression_deprioritized` opposed to just `progression` if needed for goal
+- Made Aha's quiz in Icirrus City trigger whenever the player enters the building
+- Disabled checks for time- and RNG-dependant locations
+- Added simple item and location groups
+- Disabled dexsanity checking in client if there are no dexsanity checks
+- Actually implemented UT being able to generate without a yaml
+- Fixed debug menu option namings and added print flag command
+- Added TM/HM bag sorting option to PCs
+- Added region-based logic to level-dependant evolutions
+- Allowed HMs to be placed into TM NPC locations without the risk of a softlock
+- Optimized encounter event creation to reduce playthrough calculation time
+- Added `Prioritize key item locations` to `modify_logic`
+- Added more location groups
+- Reduced FillError rate for worlds with `shuffle_badges`/`shuffle_tm_hm` set to `any_badge`/`any_tm_hm` 
+- Made defeating Ghetsis trigger right after winning the battle
+
 ## 0.1.7: This was supposed to only be bug fixes...
 
 - Fixed bizhawk client not checking for correct rom header, leading to problems with running other roms
@@ -21,7 +45,7 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 - Added 3 new goals:
   - `Cobalion`: Defeat or catch Cobalion
   - `Legendary hunt`: Defeat or catch all legendary encounters, including Volcarona
-  - `Pokemon Master`: Complete all other goals
+  - `Pokémon master`: Complete all other goals
 
 ## 0.1.6: UT Map update
 
@@ -72,7 +96,7 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 - Fixed hidden items not sending checks and being "collectable" repeatedly
 - Fixed the item in Plasma hideout in Castelia City being sent immediately
 - Fixed the girl on route 1 giving the vanilla item
-  - Also hopefully fixed the guy in southeastern corner giving the vanilla item, but has to be tested
+  - Also hopefully fixed the guy in southeastern corner of Striaton City giving the vanilla item, but has to be tested
 - Fixed logic issues with the location requiring all Deerling forms
 - Reworked the repatch-prevention to instead look for the existence of an already patched rom
   - i.e. the patching process will only happen again if the already existing patched rom has been deleted
@@ -155,7 +179,7 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 - Removed some ItemSub commands (to not lose key items)
 - Changed most HasBadge and AddBadge commands to checking and setting a custom flag
 - Changed certain items' data
-  - Unused key items and the Rage Candy Bar are now permanently in your bag
+  - Unused key items, the Rage Candy Bar, and fossils are now permanently in your bag
 - Added badges, seasons, and "AP Item" as virtual items, i.e. you can collect them, but they won't go into your bag
 - Changed all overworld, hidden, and npc items to give "AP Item" instead of their vanilla items
 - Added a debug menu to the PC help menu

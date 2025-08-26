@@ -4,6 +4,8 @@ BlastSlimey
 
 SparkyDaDoggo / Eevee658
 
+palex00
+
 Various users in the #future-game-design thread
 
 ### Resources

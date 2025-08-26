@@ -25,8 +25,15 @@ First of all, propose your ideas/changes/... in the game's thread, so we can tal
 
 The fork of this implementation is found at https://github.com/SparkyDaDoggo/Archipelago/tree/main.
 
+## This game info page looks quite different compared to those of other games...
+
+This game has not been merged into main yet, and people tend to get confused by "not working" option pages 
+(which will only work once merged into main).
+Once this game does get merged into main, this info page and the setup page will be changed to the default structure.
+
 ## Other useful or interesting pages
 
+- [Rom changes](rom%20changes.md)
 - [Changelog](changelog.md)
 - [Credits](credits.md)
 - [Features roadmap](roadmap.md)
@@ -34,7 +41,4 @@ The fork of this implementation is found at https://github.com/SparkyDaDoggo/Arc
 ## Known bugs (might be outdated)
 
 - Using dig while having season control enabled crashes the game
-- Item locations that can normally be triggered multiple times can still be triggered multiple times
-  (without giving anything)
-- Using ev feathers says that the last one was used even if there are more in the player's bag
-- Reappearing hidden items might not be collectable immediately
+- There have been reports of save file corruption after beating Ghetsis
