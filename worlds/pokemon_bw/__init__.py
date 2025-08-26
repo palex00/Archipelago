@@ -161,17 +161,16 @@ class PokemonBWWorld(World):
     def fill_slot_data(self) -> Mapping[str, Any]:
         # Some options and data are included for UT
         return {
-            "options": self.options.as_dict(
-                "goal",
-                "version",
-                "shuffle_badges",
-                "shuffle_tm_hm",
-                "dexsanity",
-                "season_control",
-                "modify_item_pool",
-                "modify_logic",
-                toggles_as_bools=True,
-            ),
+            "options": {
+                "goal": self.options.goal.current_key,
+                "version": self.options.version.current_key,
+                "shuffle_badges": self.options.shuffle_badges.current_key,
+                "shuffle_tm_hm": self.options.shuffle_tm_hm.current_key,
+                "dexsanity": self.options.dexsanity.value,
+                "season_control": self.options.season_control.current_key,
+                "modify_item_pool": self.options.modify_item_pool.value,
+                "modify_logic": self.options.modify_logic.value,
+            },
             "seed": self.seed,
         }
 

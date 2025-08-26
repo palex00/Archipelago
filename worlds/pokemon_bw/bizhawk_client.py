@@ -72,7 +72,6 @@ class PokemonBWClient(BizHawkClient):
         Once this function has determined that the ROM should be handled by this client, it should also modify `ctx`
         as necessary (such as setting `ctx.game = self.game`, modifying `ctx.items_handling`, etc...)."""
         from .rom import cached_rom
-        from .client.goals import get_method
 
         header = await bizhawk.read(
             ctx.bizhawk_ctx, (
@@ -83,7 +82,6 @@ class PokemonBWClient(BizHawkClient):
             return False
 
         self.player_name = cached_rom[0]
-        self.goal_checking_method = get_method(self, ctx)
         ctx.game = self.game
         ctx.items_handling = 0b111
         ctx.want_slot_data = True

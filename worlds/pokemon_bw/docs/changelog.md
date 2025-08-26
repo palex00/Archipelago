@@ -12,7 +12,7 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 - Reclassified TMs/HMs as `progression_deprioritized` opposed to just `progression` if needed for goal
 - Made Aha's quiz in Icirrus City trigger whenever the player enters the building
 - Disabled checks for time- and RNG-dependant locations
-- Added simple item and location groups
+- Added some item and location groups
 - Disabled dexsanity checking in client if there are no dexsanity checks
 - Actually implemented UT being able to generate without a yaml
 - Fixed debug menu option namings and added print flag command
@@ -21,7 +21,6 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 - Allowed HMs to be placed into TM NPC locations without the risk of a softlock
 - Optimized encounter event creation to reduce playthrough calculation time
 - Added `Prioritize key item locations` to `modify_logic`
-- Added more location groups
 - Reduced FillError rate for worlds with `shuffle_badges`/`shuffle_tm_hm` set to `any_badge`/`any_tm_hm` 
 - Made defeating Ghetsis trigger right after winning the battle
 

@@ -7,6 +7,9 @@ if TYPE_CHECKING:
 
 
 async def early_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> None:
+    from .goals import get_method
+
+    client.goal_checking_method = get_method(client, ctx)
 
     read = await bizhawk.read(
         ctx.bizhawk_ctx, (
