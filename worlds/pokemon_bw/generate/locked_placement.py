@@ -45,7 +45,7 @@ def place_badges(world: "PokemonBWWorld", progitempool: list[Item], fill_locatio
                 for loc in fill_locations
                 if loc.name in special.gym_badges and loc.player == world.player
             ]
-            for _ in range(8):
+            for _ in range(min(8, len(badge_items))):
                 item = badge_items.pop()
                 location = badge_locations.pop()
                 location.place_locked_item(item)
@@ -62,7 +62,7 @@ def place_badges(world: "PokemonBWWorld", progitempool: list[Item], fill_locatio
                 for loc in fill_locations
                 if loc.name in special.gym_badges and loc.player == world.player
             ]
-            for _ in range(8):
+            for _ in range(min(8, len(badge_items))):
                 item = badge_items.pop()
                 location = badge_locations.pop()
                 location.place_locked_item(item)
