@@ -5,7 +5,12 @@ from typing import TYPE_CHECKING
 from collections import ChainMap
 
 if TYPE_CHECKING:
-    from .. import AnyLocationData
+    from .. import AnyLocationData, TMLocationData
+
+all_tm_locations: ChainMap[str, "TMLocationData"] = ChainMap[str, "TMLocationData"](
+    special.gym_tms,
+    special.tm_hm_ncps,
+)
 
 all_item_locations: ChainMap[str, "AnyLocationData"] = ChainMap[str, "AnyLocationData"](
     overworld_items.table,

@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from . import PokemonBWWorld
     from .data import AnyItemData
 
-all_items_view: ChainMap | None = None
+all_items_view: ChainMap[str, "AnyItemData"] | None = None
 
 
 class PokemonBWItem(Item):
@@ -20,7 +20,7 @@ def generate_item(name: str, world: "PokemonBWWorld") -> PokemonBWItem:
 
     if all_items_view is None:
         from .data.items import all_items_dict_view
-        all_items_view: ChainMap[str, "AnyItemData"] = all_items_dict_view
+        all_items_view = all_items_dict_view
 
     data = all_items_view[name]
     # Item id from lookup table is used instead of id from data for safety purposes
@@ -30,7 +30,7 @@ def generate_item(name: str, world: "PokemonBWWorld") -> PokemonBWItem:
 def get_item_lookup_table() -> dict[str, int]:
     from .data.items import all_items_dict_view
 
-    return {name: data.item_id for name, data in all_items_dict_view}
+    return {name: data.item_id for name, data in all_items_dict_view.items()}
 
 
 def get_main_item_pool(world: "PokemonBWWorld") -> list[PokemonBWItem]:
@@ -90,9 +90,13 @@ def random_choice_nested(random: Random, nested: list[str | list | dict]) -> Any
     return current
 
 
-def place_locked_items(world: "PokemonBWWorld", items: list[PokemonBWItem]) -> None:
-    from .generate.locked_placement import place_tm_hm, place_badges, starting_season
+def populate_starting_inventory(world: "PokemonBWWorld", items: list[PokemonBWItem]) -> None:
+    from .data.items import seasons
 
-    place_tm_hm(world, items)
-    place_badges(world, items)
-    starting_season(world, items)
+    if world.options.season_control == "randomized":
+        seasons_list: list["PokemonBWItem"] = [
+            item for item in items if item.name in seasons.table
+        ]
+        start = world.random.choice(seasons_list)
+        world.push_precollected(start)
+        items.remove(start)

@@ -1,6 +1,6 @@
 import datetime
 import os
-from typing import ClassVar, Mapping, Any
+from typing import ClassVar, Mapping, Any, List
 
 import settings
 from BaseClasses import MultiWorld, Tutorial, Item, Location
@@ -124,7 +124,7 @@ class PokemonBWWorld(World):
 
     def create_items(self) -> None:
         item_pool = items.get_main_item_pool(self)
-        items.place_locked_items(self, item_pool)
+        items.populate_starting_inventory(self, item_pool)
         if len(item_pool) > self.to_be_filled_locations:
             raise Exception(f"Player {self.player_name} has more guaranteed items than to-be-filled locations."
                             f"Please report this to the devs and provide the yaml used for generating.")
@@ -132,16 +132,15 @@ class PokemonBWWorld(World):
             item_pool.append(self.create_item(self.get_filler_item_name()))
         self.multiworld.itempool += item_pool
 
-    @classmethod
-    def stage_fill_hook(cls, multiworld: MultiWorld,
-                        progitempool: list[Item],
-                        usefulitempool: list[Item],
-                        filleritempool: list[Item],
-                        fill_locations: list[Location]) -> None:
-        from .generate.item_pool_modifications import sort_badges, sort_tm_hm
+    def fill_hook(self,
+                  progitempool: List["Item"],
+                  usefulitempool: List["Item"],
+                  filleritempool: List["Item"],
+                  fill_locations: List["Location"]) -> None:
+        from .generate.locked_placement import place_tm_hm, place_badges
 
-        sort_badges(multiworld, progitempool)
-        sort_tm_hm(multiworld, progitempool, usefulitempool)
+        place_badges(self, progitempool, fill_locations)
+        place_tm_hm(self, progitempool, usefulitempool, filleritempool, fill_locations)
 
     def generate_output(self, output_directory: str) -> None:
         if self.options.version == "black":
