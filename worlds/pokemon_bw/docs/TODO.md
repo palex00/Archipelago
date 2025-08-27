@@ -1,5 +1,17 @@
 # Important stuff
 
+- change key items' descriptions
+- badges still make problems in new fill hook
+
+- Just some markdown testing
+  This should be in the next line
+
+  Maybe this is in the next line?\nOr do I need to do it that way?
+
+# For 0.3.0
+
+- remove notice on dexsanity option
+
 # Not urgent
 
 - inspect bizhawk 2.10
