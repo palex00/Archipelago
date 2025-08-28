@@ -1,6 +1,11 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.2.1
+
+- Fixed UT not working
+- Fixed generation failures when having different `shuffle_badges` values in the same multiworld
+
 ## 0.2.0: Important backwards-compatibility-breaking changes
 
 - Fixed one of the hidden items on route 18 having weird behavior

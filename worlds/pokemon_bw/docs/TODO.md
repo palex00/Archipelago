@@ -1,20 +1,17 @@
 # Important stuff
 
-- change key items' descriptions
-- badges still make problems in new fill hook
-
-- Just some markdown testing
-  This should be in the next line
-
-  Maybe this is in the next line?\nOr do I need to do it that way?
 
 # For 0.3.0
 
 - remove notice on dexsanity option
+- remove wild rando notice on game info page
+- bake player name into rom header
+- key item and tm re-adding mechanism, because of pkhex
+  - also add that and pkhex in general to faq
+- change key items' descriptions
 
 # Not urgent
 
-- inspect bizhawk 2.10
 - dig with seasons patch crashes the game, not fixable?
 - look through scripts and remove space checking for specific items
 - fix evo method ids
@@ -24,6 +21,7 @@
 - make simple script compiler, use for starting season, season npc vanish, tmhm hunt npc vanish, and other future stuff
 - change rules dict to being filled on the way
 - organize imports for type hints behind TYPE_CHECKING
+- musharna encounter not appearing on first visit?
 
 # Single reports, cannot recreate, need to wait for more reports
 

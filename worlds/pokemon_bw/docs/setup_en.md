@@ -9,8 +9,8 @@ If you find one, please report it to the #future-game-design thread for this gam
 ## Required Software
 
 - BizHawk: [Bizhawk Releases from TASVideos](https://tasvideos.org/BizHawk/ReleaseHistory)
-  - Version 2.9.1 is recommended; 2.10 has to be tested.
-  - **Important**: Upon opening the emulator fo the first time, go to `Config > Customize... > Advanced` 
+  - Version 2.10 is recommended
+  - **Important**: Upon opening the emulator for the first time, go to `Config > Customize... > Advanced` 
     and **disable** `AutoSaveRam`. Else, save data might not be properly saved.
   - Detailed installation instructions for BizHawk can be found at the above link.
   - Windows users must run the prerequisite installer first, which can also be found at the above link.
