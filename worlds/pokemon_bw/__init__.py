@@ -83,6 +83,7 @@ class PokemonBWWorld(World):
         self.fighting_type_species: set[str] = set()  # Needed for challenge rock outside of pinwheel forest
         self.to_be_filled_locations: int = 0
         self.seed: int = 0
+        self.to_be_locked_items: dict[str, list[items.PokemonBWItem] | dict[str, items.PokemonBWItem]] = {}
 
         self.ut_active: bool = False
 
@@ -99,7 +100,7 @@ class PokemonBWWorld(World):
                     opt: Option | None = getattr(self.options, key, None)
                     if opt is not None:
                         setattr(self.options, key, opt.from_any(value))
-                self.seed = re_gen_options["seed"]
+                self.seed = re_ge_slot_data["seed"]
                 self.random.seed(self.seed)
                 return
 
@@ -130,17 +131,35 @@ class PokemonBWWorld(World):
                             f"Please report this to the devs and provide the yaml used for generating.")
         for _ in range(self.to_be_filled_locations-len(item_pool)):
             item_pool.append(self.create_item(self.get_filler_item_name()))
+        items.reserve_locked_items(self, item_pool)
         self.multiworld.itempool += item_pool
 
-    def fill_hook(self,
-                  progitempool: List["Item"],
-                  usefulitempool: List["Item"],
-                  filleritempool: List["Item"],
-                  fill_locations: List["Location"]) -> None:
-        from .generate.locked_placement import place_tm_hm, place_badges
+    def get_pre_fill_items(self) -> List[Item]:
+        return [
+            item
+            for item_list in self.to_be_locked_items if isinstance(item_list, list)
+            for item in item_list
+        ] + [
+            item_dict[name]
+            for item_dict in self.to_be_locked_items if isinstance(item_dict, dict)
+            for name in item_dict
+        ]
 
-        place_badges(self, progitempool, fill_locations)
-        place_tm_hm(self, progitempool, usefulitempool, filleritempool, fill_locations)
+    def pre_fill(self) -> None:
+        from .generate.locked_placement import place_badges_pre_fill, place_tm_hm_pre_fill
+
+        place_badges_pre_fill(self)
+        place_tm_hm_pre_fill(self)
+
+    def fill_hook(self,
+                  progitempool: List[Item],
+                  usefulitempool: List[Item],
+                  filleritempool: List[Item],
+                  fill_locations: List[Location]) -> None:
+        from .generate.locked_placement import place_tm_hm_fill, place_badges_fill
+
+        place_badges_fill(self, progitempool, fill_locations)
+        place_tm_hm_fill(self, progitempool, usefulitempool, filleritempool, fill_locations)
 
     def generate_output(self, output_directory: str) -> None:
         if self.options.version == "black":

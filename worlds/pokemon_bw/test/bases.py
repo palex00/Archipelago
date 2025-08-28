@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 class PokemonBWTestBase(WorldTestBase):
     game = "Pokemon Black and White"
     world: "PokemonBWWorld"
+    options = {"goal": "ghetsis"}
 
 
 # Options irrelevant for testing:
