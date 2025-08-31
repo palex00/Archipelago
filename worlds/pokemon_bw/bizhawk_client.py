@@ -118,7 +118,13 @@ class PokemonBWClient(BizHawkClient):
         to have passed your validator when this function is called, and the emulator is very likely to be connected."""
 
         try:
-            if not ctx.server or not ctx.server.socket.open or ctx.server.socket.closed or self.debug_halt:
+            if (
+                not ctx.server or
+                not ctx.server.socket.open or
+                ctx.server.socket.closed or
+                ctx.slot_data is None or
+                self.debug_halt
+            ):
                 return
             read = await bizhawk.read(
                 ctx.bizhawk_ctx, (
