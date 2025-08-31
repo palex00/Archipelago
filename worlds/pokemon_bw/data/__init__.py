@@ -1,6 +1,6 @@
 from typing import NamedTuple, Callable, Literal, TYPE_CHECKING, TypeVar, Any, Union
 
-from BaseClasses import ItemClassification, LocationProgressType, CollectionState, Item
+from BaseClasses import ItemClassification, LocationProgressType, CollectionState
 
 if not TYPE_CHECKING:
     AccessRule: type = Any
@@ -66,12 +66,10 @@ class DexLocationData(NamedTuple):
 
 
 class EncounterData(NamedTuple):
-    # (dex number, form)
     species_black: tuple[int, int]
     species_white: tuple[int, int]
     encounter_region: str
-    # The following will become important when wild encounter randomization happens
-    # index: int
+    file_index: tuple[int, int, int]
 
 
 class StaticEncounterData(NamedTuple):

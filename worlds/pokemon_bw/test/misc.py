@@ -1,36 +1,14 @@
 from test.bases import WorldTestBase
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from .. import PokemonBWWorld
 
 
 class PokemonBWTestBase(WorldTestBase):
     game = "Pokemon Black and White"
-    world: "PokemonBWWorld"
-    options = {"goal": "ghetsis"}
-
-
-# Options irrelevant for testing:
-# version (always random)
-# reusable_tms (too complex to test)
-
-# Options that are already included in default options:
-# goal: ghetsis
-# shuffle_badges: shuffle
-# shuffle_tm_hm: shuffle
-# dexsanity: 0
-# season_control: vanilla
-# modify_item_pool: []
-# modify_logic: ["Require Dowsing Machine", "Prioritize key item locations"]
-
-# Options that have high failure rate in single worlds:
-# shuffle_badges: any_badge
 
 
 ###################################################
 # Goal                                            #
 ###################################################
+
 
 class TestGoalChampion(PokemonBWTestBase):
     options = {"goal": "champion"}
@@ -64,6 +42,7 @@ class TestGoalPokemonMaster(PokemonBWTestBase):
 # Shuffle Badges                                  #
 ###################################################
 
+
 class TestShuffleBadgesVanilla(PokemonBWTestBase):
     options = {"shuffle_badges": "vanilla"}
 
@@ -79,6 +58,7 @@ class TestShuffleBadgesAnything(PokemonBWTestBase):
 ###################################################
 # Shuffle TM/HM                                   #
 ###################################################
+
 
 class TestShuffleTMHMHMWithBadge(PokemonBWTestBase):
     options = {"shuffle_tm_hm": "hm_with_badge"}
@@ -96,17 +76,22 @@ class TestShuffleTMHMAnything(PokemonBWTestBase):
 # Dexsanity                                       #
 ###################################################
 
+
 class TestDexsanityPartial(PokemonBWTestBase):
     options = {"dexsanity": 100}
 
 
 class TestDexsanityFull(PokemonBWTestBase):
-    options = {"dexsanity": 649}
+    options = {
+        "dexsanity": 649,
+        "randomize_wild_pokemon": ["Randomize", "Ensure all obtainable"],
+    }
 
 
 ###################################################
 # Season Control                                  #
 ###################################################
+
 
 class TestSeasonControlChangeable(PokemonBWTestBase):
     options = {"season_control": "changeable"}
@@ -120,6 +105,7 @@ class TestSeasonControlRandomized(PokemonBWTestBase):
 # Modify Item Pool                                #
 ###################################################
 
+
 class TestModifyItemPoolAll(PokemonBWTestBase):
     options = {"modify_item_pool": ["Useless key items", "Useful filler", "Ban bad filler"]}
 
@@ -127,6 +113,7 @@ class TestModifyItemPoolAll(PokemonBWTestBase):
 ###################################################
 # Modify Logic                                    #
 ###################################################
+
 
 class TestModifyLogicInverse(PokemonBWTestBase):
     options = {"modify_logic": []}

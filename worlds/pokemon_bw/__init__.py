@@ -3,11 +3,12 @@ import os
 from typing import ClassVar, Mapping, Any, List
 
 import settings
-from BaseClasses import MultiWorld, Tutorial, Item, Location
+from BaseClasses import MultiWorld, Tutorial, Item, Location, Region
 from Options import Option
 from worlds.AutoWorld import World, WebWorld
 from . import items, locations, options, bizhawk_client, rom, groups
-
+from .generate import EncounterEntry, StaticEncounterEntry, TradeEncounterEntry
+from .data import RulesDict
 
 bizhawk_client.register_client()
 
@@ -84,10 +85,16 @@ class PokemonBWWorld(World):
         self.to_be_filled_locations: int = 0
         self.seed: int = 0
         self.to_be_locked_items: dict[str, list[items.PokemonBWItem] | dict[str, items.PokemonBWItem]] = {}
+        self.wild_encounter: dict[str, EncounterEntry] | None = None
+        self.static_encounter: dict[str, StaticEncounterEntry] | None = None
+        self.trade_encounter: dict[str, TradeEncounterEntry] | None = None
+        self.regions: dict[str, Region] | None = None
+        self.rules_dict: RulesDict | None = None
 
         self.ut_active: bool = False
 
     def generate_early(self) -> None:
+        from .generate.encounter import wild, checklist, static
 
         # Load values from UT if this is a regenerated world
         if hasattr(self.multiworld, "re_gen_passthrough"):
@@ -101,11 +108,23 @@ class PokemonBWWorld(World):
                     if opt is not None:
                         setattr(self.options, key, opt.from_any(value))
                 self.seed = re_ge_slot_data["seed"]
-                self.random.seed(self.seed)
                 return
 
-        self.seed = self.random.getrandbits(64)
+        if not self.ut_active:
+            self.seed = self.random.getrandbits(64)
+
         self.random.seed(self.seed)
+        self.regions = locations.get_regions(self)
+        self.rules_dict = locations.create_rule_dict(self)
+        locations.connect_regions(self)
+        locations.cleanup_regions(self.regions)
+        species_checklist = checklist.get_species_checklist(self)
+        # Static and trade encounter generation also remove and add species from/to checklist
+        self.trade_encounter = static.generate_trade_encounters(self, species_checklist)  # removes and adds species
+        self.static_encounter = static.generate_static_encounters(self, species_checklist)  # only removes species
+        self.wild_encounter = wild.generate_wild_encounters(  # only removes species
+            self, species_checklist, checklist.get_slots_checklist(self)
+        )
 
     def create_item(self, name: str) -> items.PokemonBWItem:
         return items.generate_item(name, self)
@@ -114,14 +133,10 @@ class PokemonBWWorld(World):
         return items.generate_filler(self)
 
     def create_regions(self) -> None:
-        regions = locations.get_regions(self)
-        rules = locations.create_rule_dict(self)
-        locations.connect_regions(self, regions, rules)
-        locations.cleanup_regions(regions)
-        catchable_species_data = locations.create_and_place_event_locations(self, regions, rules)
-        locations.create_and_place_locations(self, regions, rules, catchable_species_data)
-        self.to_be_filled_locations = locations.count_to_be_filled_locations(regions)
-        self.multiworld.regions.extend(regions.values())
+        catchable_species_data = locations.create_and_place_event_locations(self)
+        locations.create_and_place_locations(self, catchable_species_data)
+        self.to_be_filled_locations = locations.count_to_be_filled_locations(self.regions)
+        self.multiworld.regions.extend(self.regions.values())
 
     def create_items(self) -> None:
         item_pool = items.get_main_item_pool(self)

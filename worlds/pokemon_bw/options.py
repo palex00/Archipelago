@@ -1,7 +1,12 @@
+import typing
 from dataclasses import dataclass
 
-from Options import (Choice, PerGameCommonOptions, OptionSet, Range, Toggle, OptionCounter,
-                     PlandoTexts, OptionError)
+from BaseClasses import PlandoOptions
+from Options import (Choice, PerGameCommonOptions, OptionSet, Range, Toggle,
+                     PlandoTexts, OptionError, OptionDict)
+
+if typing.TYPE_CHECKING:
+    from worlds.AutoWorld import World
 
 
 class Goal(Choice):
@@ -49,27 +54,28 @@ class GameVersion(Choice):
 class RandomizeWildPokemon(OptionSet):
     """
     Randomizes wild pokemon encounters.
-    - **Randomize** - Toggles wild pokemon being randomized. Required for any modifier below.
-    - **Ensure all obtainable** - Ensures that every pokemon species is obtainable by either catching
-                                  or evolving. This is automatically checked if **National pokedex** is chosen as the goal.
+    - **Randomize** - Toggles wild pokemon being randomized. Required for any other modifier below.
+    - **Ensure all obtainable** - Ensures that every pokemon species is obtainable by either catching or evolving.
+                                  This is automatically checked if **National pokedex** is chosen as the goal.
     - **Similar base stats** - Tries to keep every randomized pokemon at a similar base stat total as the replaced encounter.
-    - **Type themed** - Makes every pokemon in an area have a certain same type.
+    - **Type themed areas** - Tries to make every pokemon in an area have a certain same type.
     - **Area 1-to-1** - Keeps the amount of different encounters and their encounter rate in every area.
     - **Merge phenomenons** - Makes rustling grass, rippling water spots, dust clouds, and flying shadows
-                              in the same area have only one encounter.
+                              in the same area have only one encounter. Takes priority over **Area 1-to-1**.
     - **Prevent rare encounters** - Randomizes the encounter slots with the lowest chance in each area to the same pokemon.
+                                    Takes priority over **Area 1-to-1**.
     """
     display_name = "Randomize Wild Pokemon"
     valid_keys = [
         "Randomize",
         "Ensure all obtainable",
         "Similar base stats",
-        "Type themed",
+        "Type themed areas",
         "Area 1-to-1",
         "Merge phenomenons",
         "Prevent rare encounters",
     ]
-    default = ["Merge phenomenons", "Prevent rare encounters"]
+    default = []
 
 
 class RandomizeTrainerPokemon(OptionSet):
@@ -77,7 +83,7 @@ class RandomizeTrainerPokemon(OptionSet):
     Randomizes trainer pokemon.
     - **Randomize** - Toggles trainer pokemon being randomized. Required for any modifier below.
     - **Similar base stats** - Tries to keep the randomized pokemon at a similar base stat total as the replaced one.
-    - **Type themed** - All pokemon of a trainer have to share at least one randomly chosen type.
+    - **Type themed areas** - All pokemon of a trainer have to share at least one randomly chosen type.
                         Gym leaders will always have themed teams, regardless of this modifier.
     - **Themed gym trainers** - All pokemon of gym trainers will share the type assigned to the gym leader.
     """
@@ -85,7 +91,7 @@ class RandomizeTrainerPokemon(OptionSet):
     valid_keys = [
         "Randomize",
         "Similar base stats",
-        "Type themed",
+        "Type themed areas",
         "Themed gym trainers",
     ]
     default = ["Themed gym trainers"]
@@ -169,6 +175,8 @@ class RandomizeLegendaryPokemon(OptionSet):
     Randomizes legendary and mythical encounters.
     - **Randomize** - Toggles legendary pokemon being randomized. Required for any other modifier.
     - **Keep legendary** - Randomized pokemon will all still be legendaries or mythicals.
+    - **Similar base stats** - Tries to keep the randomized pokemon at a similar base stat total as the replaced one.
+                               Overrides **Keep legendary**.
     - **Same type** - Tries to keep at least one type of every encounter.
     """
     display_name = "Randomize Legendary Pokemon"
@@ -194,22 +202,6 @@ class RandomizeBaseStats(OptionSet):
         "Follow evolutions",
     ]
     default = []
-
-
-class BaseStatTotalLimits(OptionCounter):
-    """
-    Determines the maximum and minimum base stat total if base stats are randomized.
-
-    Maximum cannot be lower than minimum.
-    """
-    display_name = "Base Stat Total Limits"
-    min = 6
-    max = 1530
-    valid_keys = [
-        "minimum",
-        "maximum",
-    ]
-    default = {"minimum": 6, "maximum": 1530}
 
 
 class RandomizeEvolutions(OptionSet):
@@ -246,22 +238,6 @@ class RandomizeCatchRates(OptionSet):
         "Follow evolutions",
     ]
     default = []
-
-
-class CatchRateLimits(OptionCounter):
-    """
-    Determines the maximum and minimum catch rate if those are randomized.
-
-    Maximum cannot be lower than minimum.
-    """
-    display_name = "Catch Rate Limits"
-    min = 3
-    max = 255
-    valid_keys = [
-        "minimum",
-        "maximum",
-    ]
-    default = {"minimum": 3, "maximum": 255}
 
 
 class RandomizeLevelUpMovesets(OptionSet):
@@ -340,24 +316,6 @@ class RandomizeGenderRatio(OptionSet):
         "Follow evolutions",
     ]
     default = []
-
-
-class GenderRatioLimits(OptionCounter):
-    """
-    Determines the maximum and minimum gender ratio if those are randomized.
-
-    Maximum cannot be lower than minimum.
-
-    0 is always female, 255 is always male.
-    """
-    display_name = "Gender Ratio Limits"
-    min = 0
-    max = 255
-    valid_keys = [
-        "minimum",
-        "maximum",
-    ]
-    default = {"minimum": 0, "maximum": 255}
 
 
 class RandomizeTMHMCompatibility(OptionSet):
@@ -621,6 +579,69 @@ class TrapsProbability(Range):
     range_end = 100
 
 
+class RandomizationAdjustments(OptionDict):
+    """
+    Adjust various parameters in various randomization options (more modifiers are planned).
+    Any minimum parameter cannot be higher than its corresponding maximum parameter.
+
+    **Randomize Wild Encounter:**
+    - **Stats leniency** - The minimum difference between base stat totals of vanilla and randomized species
+                           (if **Similar base stats** activated).
+                           Allowed values are integers in range 0 to 1530.
+    """
+    # **Randomize Base Stats:**
+    # - **Stats total minimum** - The minimum base stats total, if randomized.
+    #                             Allowed values are integers in range 6 to 1530.
+    # - **Stats total maximum** - The maximum base stats total, if randomized.
+    #                             Allowed values are integers in range 6 to 1530.
+
+    # **Randomize Catch Rates:**
+    # - **Catch rates minimum** - The minimum catch rates, if randomized.
+    #                             Allowed values are integers in range 3 to 255.
+    # - **Catch rates maximum** - The maximum catch rates, if randomized.
+    #                             Allowed values are integers in range 3 to 255.
+
+    # **Randomize Gender Ratio:**
+    # - **Gender ratio minimum** - The minimum gender ratio, if randomized.
+    #                              Allowed values are integers in range 0 to 255.
+    #                              A gender ratio of 0 is always female and 255 is always male.
+    # - **Gender ratio maximum** - The maximum gender ratio, if randomized.
+    #                              A gender ratio of 0 is always female and 255 is always male.
+    display_name = "Randomization Adjustments"
+    valid_keys = [
+        "Stats leniency",
+        # "Stats total minimum",
+        # "Stats total maximum",
+        # "Catch rates minimum",
+        # "Catch rates maximum",
+        # "Gender ratio minimum",
+        # "Gender ratio maximum",
+    ]
+    default = {
+        "Stats leniency": 10,
+        # "Stats total minimum": 6,
+        # "Stats total maximum": 1530,
+        # "Catch rates minimum": 3,
+        # "Catch rates maximum": 255,
+        # "Gender ratio minimum": 0,
+        # "Gender ratio maximum": 255,
+    }
+
+    def verify(self, world: typing.Type["World"], player_name: str, plando_options: PlandoOptions) -> None:
+        super().verify(world, player_name, plando_options)
+
+        errors = []
+
+        if not 0 <= self.value["Stats leniency"] <= 1530:
+            errors.append(f"Stats leniency: {self.value['Stats leniency']} not in range 0 to 1530")
+
+        # Need to add other parameters when implemented
+
+        if len(errors) != 0:
+            errors = [f"For option {getattr(self, 'display_name', self)} of player {player_name}:"] + errors
+            raise OptionError("\n".join(errors))
+
+
 class ModifyItemPool(OptionSet):
     """
     Modifies what items your world puts into the item pool.
@@ -727,7 +748,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     version: GameVersion
 
     # Pokemon encounters
-    # randomize_wild_pokemon: RandomizeWildPokemon
+    randomize_wild_pokemon: RandomizeWildPokemon
     # randomize_trainer_pokemon: RandomizeTrainerPokemon
     # randomize_starter_pokemon: RandomizeStarterPokemon
     # randomize_static_pokemon: RandomizeStaticPokemon
@@ -747,6 +768,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     # catch_rates_limits: CatchRatesLimits
     # randomize_gender_ratio: RandomizeGenderRatio
     # gender_ratio_limits: GenderRatioLimits
+
 
     # Items, locations, and progression
     shuffle_badges: ShuffleBadgeRewards
@@ -769,6 +791,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     # wonder_trade: WonderTrade
     # multiworld_gift_pokemon: MultiworldGiftPokemon
     # traps_percentage: TrapsPercentage
+    randomization_adjustments: RandomizationAdjustments
     modify_item_pool: ModifyItemPool
     modify_logic: ModifyLogic
     # funny_dialogue: FunnyDialogue
