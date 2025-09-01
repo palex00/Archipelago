@@ -142,7 +142,8 @@ class PokemonBWWorld(World):
         item_pool = items.get_main_item_pool(self)
         items.populate_starting_inventory(self, item_pool)
         if len(item_pool) > self.to_be_filled_locations:
-            raise Exception(f"Player {self.player_name} has more guaranteed items than to-be-filled locations."
+            raise Exception(f"Player {self.player_name} has more guaranteed items ({len(item_pool)}) "
+                            f"than to-be-filled locations ({self.to_be_filled_locations})."
                             f"Please report this to the devs and provide the yaml used for generating.")
         for _ in range(self.to_be_filled_locations-len(item_pool)):
             item_pool.append(self.create_item(self.get_filler_item_name()))

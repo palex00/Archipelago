@@ -47,10 +47,11 @@ def generate_wild_encounters(world: "PokemonBWWorld",
             for evolution in species_data.evolutions:
                 if evolution[0] != "Level up with party member":
                     check_species(world, species_checklist, evolution[2])
-        # raise Exception(
-        #     f"More required species for randomized wild encounter than slots they could be placed in "
-        #     f"for player {world.player_name}: {len(species_checklist[0])} > {len(logic_slots)}"
-        # )
+        if len(species_checklist[0]) > len(logic_slots):
+            raise Exception(
+                f"More required species for randomized wild encounter than slots they could be placed in "
+                f"for player {world.player_name}: {len(species_checklist[0])} > {len(logic_slots)}"
+            )
 
     similar_base_stats = "Similar base stats" in world.options.randomize_wild_pokemon
     type_themed = "Type themed areas" in world.options.randomize_wild_pokemon

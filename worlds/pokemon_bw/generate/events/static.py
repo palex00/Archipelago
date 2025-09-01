@@ -31,7 +31,8 @@ def create(world: "PokemonBWWorld") -> dict[str, "SpeciesData"]:
                 if type(data) is StaticEncounterEntry:
                     if data.access_rule is not None:
                         l.access_rule = world.rules_dict[data.access_rule]
-                l.access_rule = get_trade_rule(species_by_id[(data.wanted_dex_number, 0)])
+                else:
+                    l.access_rule = get_trade_rule(species_by_id[(data.wanted_dex_number, 0)])
                 r.locations.append(l)
 
                 species_data: "SpeciesData" = species_by_name[species_name]
