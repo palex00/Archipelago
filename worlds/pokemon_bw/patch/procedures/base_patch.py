@@ -20,6 +20,9 @@ class PatchProcedure(NamedTuple):
 
 def patch(rom: NintendoDSRom, world_package: str, bw_patch_instance: "PokemonBWPatch") -> None:
 
+    pad = rom.pad088[:0x18] + bw_patch_instance.player_name.encode()
+    rom.pad088 = pad + bytes(0x38 - len(pad))
+
     # open patch files zip and create dict of patch procedures
     base_otpp_zip = pkgutil.get_data(world_package, "patch/base_otpp.zip")
     buffer = io.BytesIO(base_otpp_zip)

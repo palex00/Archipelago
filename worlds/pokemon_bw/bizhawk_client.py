@@ -71,22 +71,20 @@ class PokemonBWClient(BizHawkClient):
 
         Once this function has determined that the ROM should be handled by this client, it should also modify `ctx`
         as necessary (such as setting `ctx.game = self.game`, modifying `ctx.items_handling`, etc...)."""
-        from .rom import cached_rom
 
         header = await bizhawk.read(
             ctx.bizhawk_ctx, (
-                (self.header_address, 18, self.ram_read_write_domain),
+                (self.header_address, 0xc0, self.ram_read_write_domain),
             )
         )
-        if header[0] not in (b'POKEMON B\0\0\0IRBO01', b'POKEMON W\0\0\0IRAO01'):
+        if header[0][:18] not in (b'POKEMON B\0\0\0IRBO01', b'POKEMON W\0\0\0IRAO01'):
             return False
 
-        self.player_name = cached_rom[0]
+        self.player_name = header[0][0xa0:].strip(b'\0').decode()
         ctx.game = self.game
         ctx.items_handling = 0b111
         ctx.want_slot_data = True
         ctx.watcher_timeout = 1
-        cached_rom[0] = None
         return True
 
     async def set_auth(self, ctx: "BizHawkClientContext") -> None:

@@ -16,14 +16,6 @@ if TYPE_CHECKING:
     from . import PokemonBWWorld
 
 
-cached_rom: list[str | None] = [None]
-
-
-async def keep_cache_alive():
-    while cached_rom[0] is not None:
-        await asyncio.sleep(5)
-
-
 class PokemonBlackPatch(APAutoPatchInterface):
     game = "Pokemon Black and White"
     bw_patch_format = (0, 3, 0)
@@ -114,9 +106,6 @@ class PatchMethods:
                 patch_procedures[prod](rom, __name__, patch)
             with open(target, 'wb') as f:
                 f.write(rom.save(updateDeviceCapacity=True))
-
-        cached_rom[0] = patch.player_name
-        asyncio.run_coroutine_threadsafe(keep_cache_alive(), asyncio.new_event_loop())
 
     @staticmethod
     def read_contents(patch: PokemonBWPatch, opened_zipfile: zipfile.ZipFile,

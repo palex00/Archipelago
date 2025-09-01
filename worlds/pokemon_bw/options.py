@@ -398,11 +398,10 @@ class AdditionalRoadblocks(Choice):
 
 class Dexsanity(Range):
     """
-    Adds a number of locations that can be checked by catching a certain Pokemon species
+    Adds a number of locations that can be checked by catching a certain pokemon species
     and registering it in the pokedex. The actual maximum number of added checks depends on what pokemon species are
     actually obtainable in the wild.
 
-    The following will only apply once wild randomization is implemented:
     If you want to have all 649 possible checks, then you need to randomize wild
     encounters and add the **Ensure all obtainable** modifier.
     """
