@@ -10,7 +10,14 @@ if TYPE_CHECKING:
 
 async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> None:
 
-    if client.received_items_count >= len(ctx.items_received):
+    read = await bizhawk.read(
+        ctx.bizhawk_ctx, (
+            (client.save_data_address + client.var_offset + (2*0x126), 4, client.ram_read_write_domain),
+        )
+    )
+    received_items_count = int.from_bytes(read[0], "little")
+
+    if received_items_count >= len(ctx.items_received):
         return
 
     main_items_bag_buffer: bytearray | None = None
@@ -19,8 +26,8 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
     berry_bag_buffer: bytearray | None = None
     tm_hm_bag_buffer: bytearray | None = None
 
-    new_received = client.received_items_count
-    for index in range(client.received_items_count, len(ctx.items_received)):
+    new_received = received_items_count
+    for index in range(received_items_count, len(ctx.items_received)):
         network_item = ctx.items_received[index]
         name = ctx.item_names.lookup_in_game(network_item.item)
         internal_id = all_items_dict_view[name].item_id
@@ -129,7 +136,7 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                 client.logger.warning(f"Bad item name: {name}")
         new_received += 1
 
-    if new_received > client.received_items_count:
+    if new_received > received_items_count:
         await bizhawk.write(
             ctx.bizhawk_ctx, (
                 (client.save_data_address + client.var_offset + 2*0x126,
@@ -137,7 +144,6 @@ async def receive_items(client: "PokemonBWClient", ctx: "BizHawkClientContext") 
                  client.ram_read_write_domain),
             )
         )
-        client.received_items_count = new_received
 
 
 async def write_to_bag(client: "PokemonBWClient", ctx: "BizHawkClientContext",

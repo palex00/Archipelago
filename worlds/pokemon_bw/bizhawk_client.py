@@ -58,7 +58,6 @@ class PokemonBWClient(BizHawkClient):
         self.missing_flag_loc_ids: list[list[int]] = [[] for _ in range(self.flags_amount)]
         self.missing_dex_flag_loc_ids: list[list[int]] = [[] for _ in range(self.dex_amount)]
         self.save_data_address = 0
-        self.received_items_count = 0
         self.goal_checking_method: Callable[["PokemonBWClient", "BizHawkClientContext"],
                                             Coroutine[Any, Any, bool]] | None = None
         self.logger = logging.getLogger("Client")

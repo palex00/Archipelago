@@ -18,13 +18,6 @@ async def early_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") ->
     )
     client.save_data_address = int.from_bytes(read[0], "little")
 
-    read = await bizhawk.read(
-        ctx.bizhawk_ctx, (
-            (client.save_data_address + client.var_offset + (2*0x126), 4, client.ram_read_write_domain),
-        )
-    )
-    client.received_items_count = int.from_bytes(read[0], "little")
-
     if ctx.slot_data["options"]["dexsanity"] == 0:
         client.dexsanity_included = False
 
