@@ -1,4 +1,3 @@
-import asyncio
 import os
 import pathlib
 import zipfile
@@ -10,7 +9,7 @@ from settings import get_settings
 from worlds.Files import APAutoPatchInterface
 from typing import TYPE_CHECKING, Any, Dict, Callable
 
-from .patch.procedures import base_patch, season_patch, write_wild_pokemon
+from .patch.procedures import base_patch, season_patch, write_wild_pokemon, level_adjustments
 
 if TYPE_CHECKING:
     from . import PokemonBWWorld
@@ -86,6 +85,10 @@ class PatchMethods:
         if "Randomize" in patch.world.options.randomize_wild_pokemon:
             procedures.append("write_wild_pokemon")
             write_wild_pokemon.write_patch(patch, opened_zipfile)
+        if "Wild" in patch.world.options.adjust_levels:
+            procedures.append("adjust_wild_levels")
+        if "Trainer" in patch.world.options.adjust_levels:
+            procedures.append("adjust_trainer_levels")
 
         opened_zipfile.writestr("procedures.txt", "\n".join(procedures))
 
@@ -133,6 +136,8 @@ patch_procedures: dict[str, Callable[[ndspy_rom.NintendoDSRom, str, PokemonBWPat
     "base_patch": base_patch.patch,
     "season_patch": season_patch.patch,
     "write_wild_pokemon": write_wild_pokemon.patch,
+    "adjust_wild_levels": level_adjustments.patch_wild,
+    "adjust_trainer_levels": level_adjustments.patch_trainer,
 }
 
 

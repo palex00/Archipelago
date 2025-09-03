@@ -9,6 +9,17 @@ if typing.TYPE_CHECKING:
     from worlds.AutoWorld import World
 
 
+class GameVersion(Choice):
+    """
+    Select your game version.
+    """
+    display_name = "Game Version"
+    option_black = 0
+    option_white = 1
+    # option_dynamic = 2
+    default = "random"
+
+
 class Goal(Choice):
     """
     Determines what your goal is to consider the game beaten.
@@ -38,17 +49,6 @@ class Goal(Choice):
     option_legendary_hunt = 9
     option_pokemon_master = 10
     default = 0
-
-
-class GameVersion(Choice):
-    """
-    Select your game version.
-    """
-    display_name = "Game Version"
-    option_black = 0
-    option_white = 1
-    # option_dynamic = 2
-    default = "random"
 
 
 class RandomizeWildPokemon(OptionSet):
@@ -476,8 +476,8 @@ class SeasonControl(Choice):
 
 class AdjustLevels(OptionSet):
     """
-    Adjusts the levels of wild and trainer pokemon in postgame areas and surfing/fishing encounters
-    to similar levels in surrounding areas (regardless of randomization).
+    Adjusts the levels of wild and trainer pokemon in areas that are in AP earlier accessible than in vanilla
+    to not be significantly higher than in surrounding areas (regardless of randomization).
 
     - **Wild** - Normalizes wild pokemon levels, including surfing and fishing encounters.
     - **Trainer** - Normalizes trainer pokemon levels, excluding Cynthia.
@@ -486,6 +486,7 @@ class AdjustLevels(OptionSet):
     valid_keys = [
         "Wild",
         "Trainer",
+        # "Static",
     ]
     default = ["Wild", "Trainer"]
 
@@ -499,7 +500,7 @@ class ExpModifier(Range):
     display_name = "Experience Modifier"
     default = 100
     range_start = 10
-    range_end = 160
+    range_end = 1600
 
 
 class AllPokemonSeen(Toggle):
@@ -743,8 +744,8 @@ class ReusableTMs(Choice):
 @dataclass
 class PokemonBWOptions(PerGameCommonOptions):
     # General
-    goal: Goal
     version: GameVersion
+    goal: Goal
 
     # Pokemon encounters
     randomize_wild_pokemon: RandomizeWildPokemon
@@ -781,7 +782,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     season_control: SeasonControl
 
     # Miscellaneous
-    # adjust_levels: AdjustLevels
+    adjust_levels: AdjustLevels
     # exp_modifier: ExpModifier
     # all_pokemon_seen: AllPokemonSeen
     # add_fairy_type: AddFairyType

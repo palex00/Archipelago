@@ -159,6 +159,20 @@ class TypeData(NamedTuple):
     id: int
 
 
+class WildAdjustmentData(NamedTuple):
+    calculation: Callable[[int], int]
+    file: int
+    season: int
+    method: Literal[
+        "grass", "dark grass", "rustling grass", "surfing", "surfing rippling", "fishing", "fishing rippling"
+    ]
+
+
+class TrainerAdjustmentData(NamedTuple):
+    calculation: Callable[[int], int]
+    trainer_id: int
+
+
 AnyItemData: type = Union[ItemData, BadgeItemData, SeasonItemData]
 AnyLocationData: type = Union[FlagLocationData, DexLocationData, TMLocationData]
 AnyEncounterData: type = Union[EncounterData, TradeEncounterData, StaticEncounterData]
