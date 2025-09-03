@@ -551,6 +551,34 @@ class ReplaceEvoMethods(OptionSet):
     default = []
 
 
+class MasterBallSeller(OptionSet):
+    """
+    Adds the possibility to buy or obtain an unlimited amount of Master Balls.
+    You can select multiple sellers.
+    If multiple cost modifiers are added, a random cost in range between them gets selected.
+    Adding any seller, but no cost modifier, will raise an OptionError.
+
+    - **N's Castle** - Repurposes an NPC in N's Castle, who can be found in the same room as the grunt
+                       who gives Ultra Balls to the player, who gives/sells Master Balls to the player.
+    - **PC** - Adds an option to every PC in Pokémon Centers to buy/obtain Master Balls.
+    - **Cheren's Mom** - Repurposes Cheren's Mom in Nuvema Town to give/sell Master Balls.
+    - **Undella Mansion seller** - Adds the Master Ball to the pool of items that you can buy for a random price.
+                                   His offers are not affected by any cost modifier.
+    """
+    display_name = "Replace Evolution Methods"
+    valid_keys = [
+        "N's Castle",
+        "PC",
+        "Cheren's Mom",
+        "Undella Mansion seller",
+        "Cost: Free",
+        "Cost: 1000",
+        "Cost: 3000",
+        "Cost: 10000",
+    ]
+    default = []
+
+
 class WonderTrade(Toggle):
     """
     Enables pokemon being sent to and received from the datastorage wonder trade protocol.
@@ -769,7 +797,6 @@ class PokemonBWOptions(PerGameCommonOptions):
     # randomize_gender_ratio: RandomizeGenderRatio
     # gender_ratio_limits: GenderRatioLimits
 
-
     # Items, locations, and progression
     shuffle_badges: ShuffleBadgeRewards
     shuffle_tm_hm: ShuffleTMRewards
@@ -787,6 +814,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     # all_pokemon_seen: AllPokemonSeen
     # add_fairy_type: AddFairyType
     # replace_evo_methods: ReplaceEvoMethods
+    master_ball_seller: MasterBallSeller
     # deathlink: DeathLink  # Needs to be imported from base options
     # wonder_trade: WonderTrade
     # multiworld_gift_pokemon: MultiworldGiftPokemon

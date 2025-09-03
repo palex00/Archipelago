@@ -4,7 +4,7 @@ from typing import ClassVar, Mapping, Any, List
 
 import settings
 from BaseClasses import MultiWorld, Tutorial, Item, Location, Region
-from Options import Option
+from Options import Option, OptionError
 from worlds.AutoWorld import World, WebWorld
 from . import items, locations, options, bizhawk_client, rom, groups
 from .generate import EncounterEntry, StaticEncounterEntry, TradeEncounterEntry
@@ -25,8 +25,13 @@ class PokemonBWSettings(settings.Group):
         description = "Pokemon White Version ROM"
         copy_to = "PokemonWhite.nds"
 
+    class RemoveCollectedFieldItems(settings.Bool):
+        """Toggles whether overworld and hidden items should be automatically removed
+        if collected by another player."""
+
     black_rom: PokemonBlackRomFile = PokemonBlackRomFile(PokemonBlackRomFile.copy_to)
     white_rom: PokemonWhiteRomFile = PokemonWhiteRomFile(PokemonWhiteRomFile.copy_to)
+    # remove_collected_field_items: RemoveCollectedFieldItems | bool = False
 
 
 class PokemonBWWeb(WebWorld):
@@ -90,6 +95,7 @@ class PokemonBWWorld(World):
         self.trade_encounter: dict[str, TradeEncounterEntry] | None = None
         self.regions: dict[str, Region] | None = None
         self.rules_dict: RulesDict | None = None
+        self.master_ball_seller_cost: int = 0
 
         self.ut_active: bool = False
 
@@ -114,6 +120,24 @@ class PokemonBWWorld(World):
             self.seed = self.random.getrandbits(64)
 
         self.random.seed(self.seed)
+        cost_start, cost_end = -1, -1
+        if "Cost: Free" in self.options.master_ball_seller:
+            cost_start = 0
+            cost_end = 0
+        if "Cost: 1000" in self.options.master_ball_seller:
+            cost_start = 1000 if cost_start == -1 else cost_start
+            cost_end = 1000
+        if "Cost: 3000" in self.options.master_ball_seller:
+            cost_start = 3000 if cost_start == -1 else cost_start
+            cost_end = 3000
+        if "Cost: 10000" in self.options.master_ball_seller:
+            cost_start = 10000 if cost_start == -1 else cost_start
+            cost_end = 10000
+        if cost_start == -1 and len(self.options.master_ball_seller.value) > 0:
+            raise OptionError(f"Player {self.player} ({self.player_name}) added "
+                              f"{len(self.options.master_ball_seller.value)} Master Ball sellers "
+                              f"without adding any cost modifier")
+        self.master_ball_seller_cost = self.random.randrange(cost_start, cost_end+1, 500) if cost_start != -1 else 0
         self.regions = locations.get_regions(self)
         self.rules_dict = locations.create_rule_dict(self)
         locations.connect_regions(self)
@@ -197,16 +221,21 @@ class PokemonBWWorld(World):
         # Some options and data are included for UT
         return {
             "options": {
-                "goal": self.options.goal.current_key,
                 "version": self.options.version.current_key,
+                "goal": self.options.goal.current_key,
+                "randomize_wild_pokemon": self.options.randomize_wild_pokemon.value,
                 "shuffle_badges": self.options.shuffle_badges.current_key,
                 "shuffle_tm_hm": self.options.shuffle_tm_hm.current_key,
                 "dexsanity": self.options.dexsanity.value,
                 "season_control": self.options.season_control.current_key,
+                "adjust_levels": self.options.adjust_levels.value,
+                "master_ball_seller": self.options.master_ball_seller.value,
+                "randomization_adjustments": self.options.randomization_adjustments.value,
                 "modify_item_pool": self.options.modify_item_pool.value,
                 "modify_logic": self.options.modify_logic.value,
             },
-            "seed": self.seed,
+            "seed": self.seed,  # Needed for UT
+            "master_ball_seller_cost": self.master_ball_seller_cost,  # NOT needed for UT
         }
 
     def interpret_slot_data(self, slot_data: dict[str, Any]) -> dict[str, Any]:
