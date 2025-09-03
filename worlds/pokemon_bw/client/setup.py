@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 
 async def early_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> None:
     from .goals import get_method
+    from .items import reload_key_items
 
     client.goal_checking_method = get_method(client, ctx)
 
@@ -20,6 +21,8 @@ async def early_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") ->
 
     if ctx.slot_data["options"]["dexsanity"] == 0:
         client.dexsanity_included = False
+
+    await reload_key_items(client, ctx)
 
 
 async def late_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> None:

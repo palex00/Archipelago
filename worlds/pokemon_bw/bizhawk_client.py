@@ -25,7 +25,7 @@ class PokemonBWClient(BizHawkClient):
     patch_suffix = (".apblack", ".apwhite")
 
     ram_read_write_domain = "Main RAM"
-    rom_read_only_domain = "File on Disk"  # Doesn't work :(
+    rom_read_only_domain = "ROM"  # Only works on BizHawk 2.10+
     flags_amount = 2912
     flag_bytes_amount = math.ceil(flags_amount/8)
     dex_amount = 650
