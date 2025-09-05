@@ -36,7 +36,7 @@ def write_patch(bw_patch_instance: "PokemonBWPatch", opened_zipfile: zipfile.Zip
         opened_zipfile.writestr(f"wild/{file_num}", bytes(data))
 
 
-def patch(rom: NintendoDSRom, world_package: str, bw_patch_instance: "PokemonBWPatch") -> None:  # TODO instant crash
+def patch(rom: NintendoDSRom, world_package: str, bw_patch_instance: "PokemonBWPatch") -> None:
 
     narc = NARC(rom.getFileByName("a/1/2/6"))
 

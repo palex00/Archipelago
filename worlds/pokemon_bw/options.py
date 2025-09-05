@@ -83,18 +83,24 @@ class RandomizeTrainerPokemon(OptionSet):
     Randomizes trainer pokemon.
     - **Randomize** - Toggles trainer pokemon being randomized. Required for any modifier below.
     - **Similar base stats** - Tries to keep the randomized pokemon at a similar base stat total as the replaced one.
-    - **Type themed areas** - All pokemon of a trainer have to share at least one randomly chosen type.
-                        Gym leaders will always have themed teams, regardless of this modifier.
-    - **Themed gym trainers** - All pokemon of gym trainers will share the type assigned to the gym leader.
     """
+    # - **Type themed areas** - All pokemon of a trainer have to share at least one randomly chosen type.
+    #                           Gym leaders will always have themed teams, regardless of this modifier.
+    # - **Themed gym trainers** - All pokemon of gym trainers will share the type assigned to the gym leader.
     display_name = "Randomize Trainer Pokemon"
     valid_keys = [
         "Randomize",
         "Similar base stats",
-        "Type themed areas",
-        "Themed gym trainers",
+        # "Type themed areas",
+        # "Themed gym trainers",
+        # "Randomize abilities",
+        # "Randomize natures",
+        # "Randomize held items",
+        # "Only already with held item",
+        # "Allow no held item",
+        # "Randomize unique moves",
     ]
-    default = ["Themed gym trainers"]
+    default = []
 
 
 class RandomizeStarterPokemon(OptionSet):
@@ -105,7 +111,7 @@ class RandomizeStarterPokemon(OptionSet):
     - **Base with 2 evolutions** - Only use unevolved/baby pokemon that can evolve twice. Overrides **Any base**.
     - **Only official starters** - Only use pokemon that have been a starter in any mainline game. Overrides
                                    **Any base** and **Base with 2 evolutions**.
-    - **Type variety** - Every starter will have a single type that is different from the other two.
+    - **Type variety** - Every starter will have types that are different from the other two.
     """
     display_name = "Randomize Starter Pokemon"
     valid_keys = [
@@ -186,6 +192,35 @@ class RandomizeLegendaryPokemon(OptionSet):
         "Same type",
     ]
     default = []
+
+
+class PokemonRandomizationAdjustments(OptionDict):
+    """
+    Adjust various parameters in various pokemon randomization options (more modifiers are planned).
+    Any minimum parameter cannot be higher than its corresponding maximum parameter.
+    - **Stats leniency** - The minimum difference between base stat totals of vanilla and randomized species
+                           (for option with **Similar base stats** activated).
+                           Allowed values are integers in range 0 to 1530.
+    """
+    display_name = "Pokemon Randomization Adjustments"
+    valid_keys = [
+        "Stats leniency",
+    ]
+    default = {
+        "Stats leniency": 10,
+    }
+
+    def verify(self, world: typing.Type["World"], player_name: str, plando_options: PlandoOptions) -> None:
+        super().verify(world, player_name, plando_options)
+
+        errors = []
+
+        if not 0 <= self.value["Stats leniency"] <= 1530:
+            errors.append(f"Stats leniency: {self.value['Stats leniency']} not in range 0 to 1530")
+
+        if len(errors) != 0:
+            errors = [f"For option {getattr(self, 'display_name', self)} of player {player_name}:"] + errors
+            raise OptionError("\n".join(errors))
 
 
 class RandomizeBaseStats(OptionSet):
@@ -339,6 +374,63 @@ class RandomizeTMHMCompatibility(OptionSet):
         "Follow evolutions",
     ]
     default = []
+
+
+class StatsRandomizationAdjustments(OptionDict):
+    """
+    Adjust various parameters in various randomization options (more modifiers are planned).
+    Any minimum parameter cannot be higher than its corresponding maximum parameter.
+
+    """
+    # **Randomize Base Stats:**
+    # - **Stats total minimum/maximum** - The minimum/maximum base stats total, if randomized.
+    #                                     Allowed values are integers in range 6 to 1530.
+
+    # **Randomize Catch Rates:**
+    # - **Catch rates minimum** - The minimum catch rates, if randomized.
+    #                             Allowed values are integers in range 3 to 255.
+    # - **Catch rates maximum** - The maximum catch rates, if randomized.
+    #                             Allowed values are integers in range 3 to 255.
+
+    # **Randomize Gender Ratio:**
+    # - **Gender ratio minimum** - The minimum gender ratio, if randomized.
+    #                              Allowed values are integers in range 0 to 255.
+    #                              A gender ratio of 0 is always female and 255 is always male.
+    # - **Gender ratio maximum** - The maximum gender ratio, if randomized.
+    #                              A gender ratio of 0 is always female and 255 is always male.
+    display_name = "Stats Randomization Adjustments"
+    valid_keys = [
+        # "Stats total minimum",
+        # "Stats total maximum",
+        # "Catch rates minimum",
+        # "Catch rates maximum",
+        # "Gender ratio minimum",
+        # "Gender ratio maximum",
+    ]
+    default = {
+        # "Stats total minimum": 6,
+        # "Stats total maximum": 1530,
+        # "Catch rates minimum": 3,
+        # "Catch rates maximum": 255,
+        # "Gender ratio minimum": 0,
+        # "Gender ratio maximum": 255,
+    }
+
+    def verify(self, world: typing.Type["World"], player_name: str, plando_options: PlandoOptions) -> None:
+        super().verify(world, player_name, plando_options)
+
+        errors = []
+
+        if not 6 <= self.value["Stats total minimum"] <= 1530:
+            errors.append(f"Stats total minimum: {self.value['Stats total minimum']} not in range 0 to 1530")
+        if not 6 <= self.value["Stats total maximum"] <= 1530:
+            errors.append(f"Stats total maximum: {self.value['Stats total maximum']} not in range 0 to 1530")
+
+        # Need to add other parameters when implemented
+
+        if len(errors) != 0:
+            errors = [f"For option {getattr(self, 'display_name', self)} of player {player_name}:"] + errors
+            raise OptionError("\n".join(errors))
 
 
 class ShuffleBadgeRewards(Choice):
@@ -607,69 +699,6 @@ class TrapsProbability(Range):
     range_end = 100
 
 
-class RandomizationAdjustments(OptionDict):
-    """
-    Adjust various parameters in various randomization options (more modifiers are planned).
-    Any minimum parameter cannot be higher than its corresponding maximum parameter.
-
-    **Randomize Wild Encounter:**
-    - **Stats leniency** - The minimum difference between base stat totals of vanilla and randomized species
-                           (if **Similar base stats** activated).
-                           Allowed values are integers in range 0 to 1530.
-    """
-    # **Randomize Base Stats:**
-    # - **Stats total minimum** - The minimum base stats total, if randomized.
-    #                             Allowed values are integers in range 6 to 1530.
-    # - **Stats total maximum** - The maximum base stats total, if randomized.
-    #                             Allowed values are integers in range 6 to 1530.
-
-    # **Randomize Catch Rates:**
-    # - **Catch rates minimum** - The minimum catch rates, if randomized.
-    #                             Allowed values are integers in range 3 to 255.
-    # - **Catch rates maximum** - The maximum catch rates, if randomized.
-    #                             Allowed values are integers in range 3 to 255.
-
-    # **Randomize Gender Ratio:**
-    # - **Gender ratio minimum** - The minimum gender ratio, if randomized.
-    #                              Allowed values are integers in range 0 to 255.
-    #                              A gender ratio of 0 is always female and 255 is always male.
-    # - **Gender ratio maximum** - The maximum gender ratio, if randomized.
-    #                              A gender ratio of 0 is always female and 255 is always male.
-    display_name = "Randomization Adjustments"
-    valid_keys = [
-        "Stats leniency",
-        # "Stats total minimum",
-        # "Stats total maximum",
-        # "Catch rates minimum",
-        # "Catch rates maximum",
-        # "Gender ratio minimum",
-        # "Gender ratio maximum",
-    ]
-    default = {
-        "Stats leniency": 10,
-        # "Stats total minimum": 6,
-        # "Stats total maximum": 1530,
-        # "Catch rates minimum": 3,
-        # "Catch rates maximum": 255,
-        # "Gender ratio minimum": 0,
-        # "Gender ratio maximum": 255,
-    }
-
-    def verify(self, world: typing.Type["World"], player_name: str, plando_options: PlandoOptions) -> None:
-        super().verify(world, player_name, plando_options)
-
-        errors = []
-
-        if not 0 <= self.value["Stats leniency"] <= 1530:
-            errors.append(f"Stats leniency: {self.value['Stats leniency']} not in range 0 to 1530")
-
-        # Need to add other parameters when implemented
-
-        if len(errors) != 0:
-            errors = [f"For option {getattr(self, 'display_name', self)} of player {player_name}:"] + errors
-            raise OptionError("\n".join(errors))
-
-
 class ModifyItemPool(OptionSet):
     """
     Modifies what items your world puts into the item pool.
@@ -777,25 +806,24 @@ class PokemonBWOptions(PerGameCommonOptions):
 
     # Pokemon encounters
     randomize_wild_pokemon: RandomizeWildPokemon
-    # randomize_trainer_pokemon: RandomizeTrainerPokemon
+    randomize_trainer_pokemon: RandomizeTrainerPokemon
     # randomize_starter_pokemon: RandomizeStarterPokemon
     # randomize_static_pokemon: RandomizeStaticPokemon
     # randomize_gift_pokemon: RandomizeGiftPokemon
     # randomize_trade_pokemon: RandomizeTradePokemon
     # randomize_legendary_pokemon: RandomizeLegendaryPokemon
+    pokemon_randomization_adjustments: PokemonRandomizationAdjustments
 
     # Pokemon stats
     # randomize_base_stats: RandomizeBaseStats
-    # base_stat_total_limits: BaseStatTotalLimits
     # randomize_evolutions: RandomizeEvolutions
     # randomize_level_up_movesets: RandomizeLevelUpMovesets
     # randomize_tm_hm_compatibility: RandomizeTMHMCompatibility
     # randomize_types: RandomizeTypes
     # randomize_abilities: RandomizeAbilities
     # randomize_catch_rates: RandomizeCatchRates
-    # catch_rates_limits: CatchRatesLimits
     # randomize_gender_ratio: RandomizeGenderRatio
-    # gender_ratio_limits: GenderRatioLimits
+    # stats_randomization_adjustments: StatsRandomizationAdjustments
 
     # Items, locations, and progression
     shuffle_badges: ShuffleBadgeRewards
@@ -819,7 +847,6 @@ class PokemonBWOptions(PerGameCommonOptions):
     # wonder_trade: WonderTrade
     # multiworld_gift_pokemon: MultiworldGiftPokemon
     # traps_percentage: TrapsPercentage
-    randomization_adjustments: RandomizationAdjustments
     modify_item_pool: ModifyItemPool
     modify_logic: ModifyLogic
     # funny_dialogue: FunnyDialogue

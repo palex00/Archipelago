@@ -91,6 +91,31 @@ class TradeEncounterData(NamedTuple):
     encounter_region: str
 
 
+class TrainerData(NamedTuple):
+    id: int
+    trainer_class: int
+    pokemon_count: int
+    items: tuple[str | None, str | None, str | None, str | None] | None  # Will be filled in the future
+    held_items: bool
+    unique_moves: bool
+    pokemon_entry_length: int
+    # region: str
+    # gym: str | None  # City name without the "City"
+
+
+class TrainerPokemonData(NamedTuple):
+    trainer_id: int
+    team_number: int
+    ivs: int
+    gender: int
+    ability: int
+    level: int
+    nature: int
+    species: str
+    # held_item: str | None
+    # moves: tuple[str, str, str, str] | None
+
+
 class RegionConnectionData(NamedTuple):
     exiting_region: str
     entering_region: str

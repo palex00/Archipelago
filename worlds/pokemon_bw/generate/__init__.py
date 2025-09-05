@@ -43,3 +43,13 @@ class TradeEncounterEntry(NamedTuple):
     species_id: tuple[int, int]
     wanted_dex_number: int
     encounter_region: str
+
+
+class TrainerPokemonEntry(NamedTuple):
+    trainer_id: int
+    team_number: int
+    species: str
+    # ability: int
+    # nature: int
+    # held_item: str | None
+    # moves: tuple[str, str, str, str] | None

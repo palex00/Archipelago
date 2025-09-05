@@ -64,7 +64,7 @@ def generate_wild_encounters(world: "PokemonBWWorld",
     while len(species_checklist[0]) > 0:
         random_species = world.random.choice(species_checklist[0])
         species_data = by_name[random_species]
-        stat_tolerance = world.options.randomization_adjustments["Stats leniency"]
+        stat_tolerance = world.options.pokemon_randomization_adjustments["Stats leniency"]
         skip_strict = False
         while True:
             skipped_stat = False
@@ -106,7 +106,7 @@ def generate_wild_encounters(world: "PokemonBWWorld",
             else:
                 any_species_by_type[t].append(s)
     for slot in itertools.chain(logic_slots, other_slots):
-        stat_tolerance = world.options.randomization_adjustments["Stats leniency"]
+        stat_tolerance = world.options.pokemon_randomization_adjustments["Stats leniency"]
         region = table[slot].encounter_region
         area = region[:region.index(" - ")]
         while True:

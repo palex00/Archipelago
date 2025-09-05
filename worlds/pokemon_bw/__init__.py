@@ -7,7 +7,7 @@ from BaseClasses import MultiWorld, Tutorial, Item, Location, Region
 from Options import Option, OptionError
 from worlds.AutoWorld import World, WebWorld
 from . import items, locations, options, bizhawk_client, rom, groups
-from .generate import EncounterEntry, StaticEncounterEntry, TradeEncounterEntry
+from .generate import EncounterEntry, StaticEncounterEntry, TradeEncounterEntry, TrainerPokemonEntry
 from .data import RulesDict
 
 bizhawk_client.register_client()
@@ -93,6 +93,7 @@ class PokemonBWWorld(World):
         self.wild_encounter: dict[str, EncounterEntry] | None = None
         self.static_encounter: dict[str, StaticEncounterEntry] | None = None
         self.trade_encounter: dict[str, TradeEncounterEntry] | None = None
+        self.trainer_teams: list[TrainerPokemonEntry] | None = None
         self.regions: dict[str, Region] | None = None
         self.rules_dict: RulesDict | None = None
         self.master_ball_seller_cost: int = 0
@@ -101,6 +102,7 @@ class PokemonBWWorld(World):
 
     def generate_early(self) -> None:
         from .generate.encounter import wild, checklist, static
+        from .generate import trainers
 
         # Load values from UT if this is a regenerated world
         if hasattr(self.multiworld, "re_gen_passthrough"):
@@ -149,6 +151,7 @@ class PokemonBWWorld(World):
         self.wild_encounter = wild.generate_wild_encounters(  # only removes species
             self, species_checklist, checklist.get_slots_checklist(self)
         )
+        self.trainer_teams = trainers.generate_trainer_teams(self)
 
     def create_item(self, name: str) -> items.PokemonBWItem:
         return items.generate_item(name, self)
@@ -224,13 +227,14 @@ class PokemonBWWorld(World):
                 "version": self.options.version.current_key,
                 "goal": self.options.goal.current_key,
                 "randomize_wild_pokemon": self.options.randomize_wild_pokemon.value,
+                "randomize_trainer_pokemon": self.options.randomize_trainer_pokemon.value,
+                "pokemon_randomization_adjustments": self.options.pokemon_randomization_adjustments.value,
                 "shuffle_badges": self.options.shuffle_badges.current_key,
                 "shuffle_tm_hm": self.options.shuffle_tm_hm.current_key,
                 "dexsanity": self.options.dexsanity.value,
                 "season_control": self.options.season_control.current_key,
                 "adjust_levels": self.options.adjust_levels.value,
                 "master_ball_seller": self.options.master_ball_seller.value,
-                "randomization_adjustments": self.options.randomization_adjustments.value,
                 "modify_item_pool": self.options.modify_item_pool.value,
                 "modify_logic": self.options.modify_logic.value,
             },
