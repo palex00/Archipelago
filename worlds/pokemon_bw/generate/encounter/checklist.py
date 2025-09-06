@@ -54,8 +54,11 @@ def add_species_to_check(checklist: tuple[list[str], set[str]], species: str) ->
 def get_slots_checklist(world: "PokemonBWWorld") -> dict[str, str | None]:
     from ...data.locations.encounters.slots import table
 
+    # {slot: to copy from}
+    copy_from: dict[str, str | None] = {slot: None for slot in table}
+
     if "Randomize" not in world.options.randomize_wild_pokemon:
-        return {}
+        return copy_from
 
     merge_phenomenons = "Merge phenomenons" in world.options.randomize_wild_pokemon
     area_1_to_1 = "Area 1-to-1" in world.options.randomize_wild_pokemon
@@ -65,9 +68,6 @@ def get_slots_checklist(world: "PokemonBWWorld") -> dict[str, str | None]:
         if world.options.version == "white"
         else (lambda d: d.species_black)
     )
-
-    # {slot: to copy from}
-    copy_from: dict[str, str | None] = {slot: None for slot in table}
 
     if merge_phenomenons:
         # Assumes a fresh copy_from dict without any modifier applied

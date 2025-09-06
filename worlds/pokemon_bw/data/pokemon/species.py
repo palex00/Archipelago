@@ -578,7 +578,7 @@ by_name: dict[str, SpeciesData] = {
     "Manaphy": SpeciesData("Manaphy", 490, 0, "Water", "Water", 100, 100, 100, 100, 100, 100, 3, 255, 3, ("abi93", "abi0", "abi0"), []),
     "Darkrai": SpeciesData("Darkrai", 491, 0, "Dark", "Dark", 70, 90, 90, 135, 90, 125, 3, 255, 3, ("abi123", "abi0", "abi0"), []),
     "Shaymin": SpeciesData("Shaymin", 492, 0, "Grass", "Grass", 100, 100, 100, 100, 100, 100, 45, 255, 3, ("abi30", "abi0", "abi0"), []),
-    "Arceus (Normal)": SpeciesData("Arceus", 493, 0, "Normal", "Normal", 120, 120, 120, 120, 120, 120, 3, 255, 3, ("abi121", "abi0", "abi0"), []),  # TODO update types of forms
+    "Arceus (Normal)": SpeciesData("Arceus", 493, 0, "Normal", "Normal", 120, 120, 120, 120, 120, 120, 3, 255, 3, ("abi121", "abi0", "abi0"), []),
     "Arceus (Fire)": SpeciesData("Arceus", 493, 1, "Fire", "Fire", 120, 120, 120, 120, 120, 120, 3, 255, 3, ("abi121", "abi0", "abi0"), []),
     "Arceus (Water)": SpeciesData("Arceus", 493, 2, "Water", "Water", 120, 120, 120, 120, 120, 120, 3, 255, 3, ("abi121", "abi0", "abi0"), []),
     "Arceus (Electric)": SpeciesData("Arceus", 493, 3, "Electric", "Electric", 120, 120, 120, 120, 120, 120, 3, 255, 3, ("abi121", "abi0", "abi0"), []),

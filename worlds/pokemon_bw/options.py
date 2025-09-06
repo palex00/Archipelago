@@ -1,9 +1,12 @@
+import logging
 import typing
+from copy import deepcopy
 from dataclasses import dataclass
 
+import settings
 from BaseClasses import PlandoOptions
 from Options import (Choice, PerGameCommonOptions, OptionSet, Range, Toggle,
-                     PlandoTexts, OptionError, OptionDict)
+                     PlandoTexts, OptionError, OptionDict, Option)
 
 if typing.TYPE_CHECKING:
     from worlds.AutoWorld import World
@@ -223,6 +226,155 @@ class PokemonRandomizationAdjustments(OptionDict):
             raise OptionError("\n".join(errors))
 
 
+class PlandoEncounter(typing.NamedTuple):
+    map: str
+    seasons: list[str]
+    method: str
+    slots: list[int]
+    species: list[str]
+
+
+class EncounterPlando(Option[list[PlandoEncounter]]):
+    """
+    Places specific pokemon species at specific locations. Every entry follows the following format:
+    ```
+    - map: Name of map
+      seasons: Season name(s), optional
+      method: Grass/Dark grass/...
+      slots: Slot number(s) (0-11), optional
+      species: Name(s) of species, random if multiple
+    ```
+    Encounter Plando requires the corresponding host setting to be enabled, else it will be ignored for all players.
+    Be aware that this can lead to generation failures when combined with other restrictive options.
+    Refer to the Encounter Plando guide of this game for further information.
+    """
+    display_name = "Encounter Plando"
+    default = []
+
+    def __init__(self, value: typing.Iterable[PlandoEncounter]) -> None:
+        self.value = list(deepcopy(value))
+        super().__init__()
+
+    @classmethod
+    def from_any(cls, data: typing.Any) -> typing.Self:
+        if not isinstance(data, typing.Iterable):
+            raise OptionError(f"Expected iterable for Encounter Plando, got {type(data)}")
+        plandos: list[PlandoEncounter] = []
+        for plando in data:
+            if isinstance(plando, PlandoEncounter):
+                plandos.append(plando)
+                continue
+            if not isinstance(plando, typing.Mapping):
+                raise OptionError(f"Expected Encounter Plando entries to be Mappings, got {type(plando)}")
+            if "map" not in plando:
+                raise OptionError("Encounter Plando entry is missing the map argument")
+            if "method" not in plando:
+                raise OptionError("Encounter Plando entry is missing the method argument")
+            if "species" not in plando:
+                raise OptionError("Encounter Plando entry is missing the species argument")
+            map_ = plando["map"]
+            seasons = plando.get("seasons", [])
+            method = plando["method"]
+            slots = plando.get("slots", [])
+            species = plando["species"]
+            # IMPORTANT strings are also Iterables
+            if not isinstance(map_, str):
+                raise OptionError(f"Expected map argument to be a string, got {type(map_)}")
+            if isinstance(seasons, str):
+                seasons = [seasons]
+            elif isinstance(seasons, typing.Iterable):
+                for season in seasons:
+                    if not isinstance(season, str):
+                        raise OptionError(f"Expected seasons argument to contain only strings, got {type(season)}")
+            else:
+                raise OptionError(f"Expected seasons argument to be a string or an iterable, got {type(seasons)}")
+            if not isinstance(method, str):
+                raise OptionError(f"Expected method argument to be a string, got {type(method)}")
+            if isinstance(slots, int):
+                slots = [slots]
+            elif not isinstance(slots, typing.Iterable):
+                raise OptionError(f"Expected slots argument to be an integer or an iterable, got {type(slots)}")
+            else:
+                for slot in slots:
+                    if not isinstance(slot, int):
+                        raise OptionError(f"Expected slots argument to contain only integers, got {type(slot)}")
+            if isinstance(species, str):
+                species = [species]
+            elif not isinstance(species, typing.Iterable):
+                raise OptionError(f"Expected species argument to be a string or an iterable, got {type(species)}")
+            else:
+                for spec in species:
+                    if not isinstance(spec, str):
+                        raise OptionError(f"Expected species argument to contain only strings, got {type(spec)}")
+            plandos.append(PlandoEncounter(map_, seasons, method, slots, species))
+        return cls(plandos)
+
+    def verify(self, world: typing.Type["World"], player_name: str, plando_options: "PlandoOptions") -> None:
+        if not settings.get_settings()["pokemon_bw_settings"]["enable_encounter_plando"]:
+            self.value = []
+            logging.warning(
+                f"The encounter plando setting is turned off, so plandos for {player_name} will be ignored."
+            )
+            return
+        try:
+            self.verify_keys()
+        except OptionError as validation_error:
+            raise OptionError(f"Player {player_name} has invalid option keys:\n{validation_error}")
+
+    def verify_keys(self) -> None:
+        from .data.plando import encounter_maps
+        from .data.pokemon.species import by_name
+
+        invalid: list[str] = []
+        for plando in self:
+            reasons = []
+            if plando.map not in encounter_maps.maps:
+                reasons.append(f"Unknown map {plando.map}")
+            for season in plando.seasons:
+                if season not in ("Spring", "Summer", "Autumn", "Winter"):
+                    reasons.append(f"Unknown season {season}")
+                if plando.map not in encounter_maps.multiple_seasons:
+                    reasons.append(f"Map {plando.map} does not have multiple seasons")
+            if plando.method not in (
+                "Grass", "Dark grass", "Rustling grass", "Surfing", "Surfing rippling", "Fishing", "Fishing rippling"
+            ):
+                reasons.append(f"Unknown method {plando.method}")
+            for slot in plando.slots:
+                if slot >= 12 or slot < 0:
+                    reasons.append(f"Slot {slot} out of bounds (0-11)")
+                elif slot >= 5 and plando.method not in ("Grass", "Dark grass", "Rustling grass"):
+                    reasons.append(f"Slot {slot} out of bounds for method {plando.method} (0-5)")
+            if len(plando.species) == 0:
+                reasons.append("No species provided")
+            for species in plando.species:
+                if species not in by_name:
+                    reasons.append(f"Unknown species {species}")
+            if reasons:
+                invalid.append(f"{plando.map}: " + ", ".join(reasons))
+        if invalid:
+            raise OptionError(
+                f"Invalid Encounter Plando placement(s):\n" +
+                "\n".join(invalid) +
+                "\nRefer to the Text Plando guide of this game for further information."
+            )
+
+    @classmethod
+    def get_option_name(cls, value: list[PlandoEncounter]) -> str:
+        return str({
+            f"{plando.map} ({', '.join(plando.seasons)}) - {plando.method} {plando.slots}": ", ".join(plando.species)
+            for plando in value
+        })
+
+    def __iter__(self) -> typing.Iterator[PlandoEncounter]:
+        yield from self.value
+
+    def __getitem__(self, index: typing.SupportsIndex) -> PlandoEncounter:
+        return self.value[index]
+
+    def __len__(self) -> int:
+        return len(self.value)
+
+
 class RandomizeBaseStats(OptionSet):
     """
     Randomizes the base stats of every pokemon species.
@@ -438,8 +590,8 @@ class ShuffleBadgeRewards(Choice):
     Determines how gym badges are randomized and what items gym badge locations can have.
     - **Vanilla** - Gym badges will stay at their vanilla locations.
     - **Shuffle** - Gym badges are shuffled between the gym leaders.
-    - **Any badge** - Puts the badges into the item pool, while only allowing items that have the word "badge"
-                      in their name (which also applies to gym badges of other games/slots) being placed at gym leaders.
+    - **Any badge** - Puts the badges into the item pool, while only allowing items that have the word "badge" in their
+                      name (which also applies to gym badges of other games/worlds) being placed at gym leaders.
     - **Anything** - Gym badges can be anywhere and gym leaders can give any item.
     """
     display_name = "Shuffle Badge Rewards"
@@ -453,11 +605,11 @@ class ShuffleBadgeRewards(Choice):
 class ShuffleTMRewards(Choice):
     """
     Determines what items NPCs, who would normally give TMs or HMs, can have.
-    - **Shuffle** - These NPCs will always give a TM or HM from the same slot.
+    - **Shuffle** - These NPCs will always give a TM or HM from the same world.
     - **HM with Badge** - Like "Shuffle", but puts each HM (and TM70 Flash) at a gym leader's badge reward
                           (including the TM from Clay on route 6).
     - **Any TM/HM** - These NPCs will give any item that starts with "TM" or "HM" followed by any digit
-                      (which also applies to TMs and HMs of other games/slots).
+                      (which also applies to TMs and HMs of other games/worlds).
     - **Anything** - No restrictions.
     """
     display_name = "Shuffle TM Rewards"
@@ -754,8 +906,8 @@ class PokemonBWTextPlando(PlandoTexts):
     """
     display_name = "Text Plando"
     default = [
-        ("story 160 0 7", "[vMisc_0] received [vPkmn_1]![NextLine] Congratulations![Terminate]", 100),
-        ("system 172 0 1", "Huh? Why did you press the[NextLine]B button?[Terminate]", 100),
+        # ("story 160 0 7", "[vMisc_0] received [vPkmn_1]![NextLine] Congratulations![Terminate]", 100),
+        # ("system 172 0 1", "Huh? Why did you press the[NextLine]B button?[Terminate]", 100),
     ]
 
     def verify_keys(self) -> None:
@@ -813,6 +965,7 @@ class PokemonBWOptions(PerGameCommonOptions):
     # randomize_trade_pokemon: RandomizeTradePokemon
     # randomize_legendary_pokemon: RandomizeLegendaryPokemon
     pokemon_randomization_adjustments: PokemonRandomizationAdjustments
+    encounter_plando: EncounterPlando
 
     # Pokemon stats
     # randomize_base_stats: RandomizeBaseStats

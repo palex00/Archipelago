@@ -22,8 +22,10 @@ def generate_wild_encounters(world: "PokemonBWWorld",
 
     if "Randomize" not in world.options.randomize_wild_pokemon:
         return {
-            name: EncounterEntry(versioned_species(data), data.encounter_region, data.file_index)
-            for name, data in table.items()
+            name: EncounterEntry(
+                versioned_species(table[name]), table[name].encounter_region, table[name].file_index, False
+            )
+            for name in slots_checklist
         }
 
     encounter_entries: dict[str, EncounterEntry] = {}
@@ -83,7 +85,8 @@ def generate_wild_encounters(world: "PokemonBWWorld",
                         skipped_stat = True
                         continue
                 encounter_entries[slot] = EncounterEntry(
-                    (species_data.dex_number, species_data.form), table[slot].encounter_region, table[slot].file_index
+                    (species_data.dex_number, species_data.form),
+                    table[slot].encounter_region, table[slot].file_index, True
                 )
                 check_species(world, species_checklist, random_species)
                 logic_slots.remove(slot)
@@ -125,7 +128,7 @@ def generate_wild_encounters(world: "PokemonBWWorld",
                     stat_tolerance += 10
                     continue
             encounter_entries[slot] = EncounterEntry(
-                (species_data.dex_number, species_data.form), table[slot].encounter_region, table[slot].file_index
+                (species_data.dex_number, species_data.form), table[slot].encounter_region, table[slot].file_index, True
             )
             break
     for slot in copy_slots:
@@ -133,11 +136,11 @@ def generate_wild_encounters(world: "PokemonBWWorld",
         while slots_checklist[to_copy] is not None:
             to_copy = slots_checklist[to_copy]
         encounter_entries[slot] = EncounterEntry(
-            encounter_entries[to_copy].species_id, table[slot].encounter_region, table[slot].file_index
+            encounter_entries[to_copy].species_id, table[slot].encounter_region, table[slot].file_index, True
         )
 
-    if len(encounter_entries) != len(table):
+    if len(encounter_entries) + len(world.wild_encounter) != len(table):
         raise Exception(f"Player {world.player_name}: Number of generated encounters does not match data "
-                        f"({len(encounter_entries)} entries, {len(table)} data rows)")
+                        f"({len(encounter_entries) + len(world.wild_encounter)} entries, {len(table)} data rows)")
 
     return encounter_entries

@@ -39,6 +39,90 @@ class TestGoalPokemonMaster(PokemonBWTestBase):
 
 
 ###################################################
+# Randomize Trainer Pokemon                       #
+###################################################
+
+
+class TestRandomizeTrainerPokemonSimple(PokemonBWTestBase):
+    options = {
+        "randomize_trainer_pokemon": ["Randomize"],
+    }
+
+
+class TestRandomizeTrainerPokemonStats(PokemonBWTestBase):
+    options = {
+        "randomize_trainer_pokemon": ["Randomize", "Similar base stats"],
+    }
+
+
+###################################################
+# Encounter Plando                                #
+###################################################
+
+
+class TestEncounterPlandoAllParameters(PokemonBWTestBase):
+    options = {
+        "encounter_plando": [
+            {
+                "map": "Route 1",
+                "method": "Grass",
+                "species": "Kyogre",
+            },
+            {
+                "map": "Route 8",
+                "seasons": "Summer",
+                "method": "Surfing",
+                "slots": 1,
+                "species": ["Charmander", "Squirtle", "Bulbasaur"],
+            },
+            {
+                "map": "Icirrus City",
+                "seasons": ["Summer", "Winter"],
+                "method": "Surfing",
+                "slots": [1, 3, 4],
+                "species": "Blastoise",
+            },
+        ],
+    }
+
+
+class TestEncounterPlandoRandomize(PokemonBWTestBase):
+    options = {
+        "encounter_plando": [
+            {
+                "map": "Route 1",
+                "method": "Grass",
+                "species": "Kyogre",
+            },
+            {
+                "map": "Route 2",
+                "method": "Rustling grass",
+                "species": "Groudon",
+            },
+        ],
+        "randomize_wild_pokemon": ["Randomize"],
+    }
+
+
+class TestEncounterPlandoRandomizeAllObtainable(PokemonBWTestBase):
+    options = {
+        "encounter_plando": [
+            {
+                "map": "Route 1",
+                "method": "Grass",
+                "species": "Kyogre",
+            },
+            {
+                "map": "Route 2",
+                "method": "Rustling grass",
+                "species": "Groudon",
+            },
+        ],
+        "randomize_wild_pokemon": ["Randomize", "Ensure all obtainable"],
+    }
+
+
+###################################################
 # Shuffle Badges                                  #
 ###################################################
 
@@ -115,5 +199,5 @@ class TestModifyItemPoolAll(PokemonBWTestBase):
 ###################################################
 
 
-class TestModifyLogicInverse(PokemonBWTestBase):
+class TestModifyLogicNone(PokemonBWTestBase):
     options = {"modify_logic": []}

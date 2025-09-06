@@ -1,15 +1,28 @@
 
 # Options checklist:
 
+# version:
+#   always random
 # goal:
 #   default ghetsis
 #   each other has its own test
-# version:
-#   always random
 # randomize_wild_pokemon:
 #   default []
 #   one test for all modifiers
 #   11 tests for "Randomize" + random selection of other modifiers
+# randomize_trainer_pokemon:
+#   default []
+#   one test for just "Randomize"
+#   one test for both
+# pokemon_randomization_adjustments:
+#   default {"Stats leniency": 10}
+#   other values irrelevant
+#   no other parameters so far
+# encounter_plando:
+#   default []
+#   one test for multiple plandos with all different parameter variations
+#   one test for two plandos + randomize_wild_pokemon = ["Randomize"]
+#   one test for two plandos + randomize_wild_pokemon = ["Randomize", "Ensure all obtainable"]
 # shuffle_badges:
 #   default shuffle
 #   each other has its own test
@@ -23,10 +36,6 @@
 # season_control:
 #   default vanilla
 #   each other has its own test
-# randomization_adjustments:
-#   default {"Stats leniency": 10}
-#   other values irrelevant
-#   no other parameters so far
 # modify_item_pool:
 #   default []
 #   one test for all modifiers combined

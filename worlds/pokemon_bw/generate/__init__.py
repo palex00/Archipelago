@@ -30,6 +30,7 @@ class EncounterEntry(NamedTuple):
     species_id: tuple[int, int]
     encounter_region: str
     file_index: tuple[int, int, int]
+    write: bool
 
 
 class StaticEncounterEntry(NamedTuple):
