@@ -28,6 +28,8 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 - Made key items and other important items get checked and re-added if not in save file after connecting
 - Wrote player name into rom, hopefully making the client always automatically connect to the correct slot
 - Changed the item description of a few non-vanilla key items
+- An option to adjust certain aspects of Pokémon randomization
+  - Only having the leniency for "Similar base stats" modifiers for now
 
 ### Bug fixes
 
