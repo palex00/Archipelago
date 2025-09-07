@@ -1,6 +1,10 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.3.1
+
+- Fixed UT not working
+
 ## 0.3.0: Actual Randomization
 
 ### Content

@@ -121,7 +121,6 @@ class PokemonBWWorld(World):
                     if opt is not None:
                         setattr(self.options, key, opt.from_any(value))
                 self.seed = re_ge_slot_data["seed"]
-                return
 
         if not self.ut_active:
             self.seed = self.random.getrandbits(64)
