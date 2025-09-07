@@ -1,5 +1,7 @@
 # Important stuff
 
+- "no legendary" modifier for wild and trainer pokemon
+- master ball seller cost random 0-10000 if no cost selected
 
 # Not urgent
 
@@ -16,6 +18,7 @@
 - musharna encounter not appearing on first visit?
 - make client use guarded_write
 - add npc to dragonspiral tower that tells you how to travers 2F
+- plando items having issues? plandoing basic badge into abyssal ruins sometimes raises fillerrors regarding this item not being placeable
 
 # Single reports, cannot recreate, need to wait for more reports
 

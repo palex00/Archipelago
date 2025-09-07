@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Sequence
 import worlds._bizhawk as bizhawk
 
 if TYPE_CHECKING:
@@ -28,7 +28,7 @@ async def late_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> 
 
     await reload_key_items(client, ctx)
 
-    writes: list[tuple[int, list[int], str]] = []
+    writes: list[tuple[int, Sequence[int], str]] = []
 
     if ctx.slot_data["options"]["goal"] not in ("tmhm_hunt", "pokemon_master"):
         writes.append((
@@ -54,9 +54,10 @@ async def late_setup(client: "PokemonBWClient", ctx: "BizHawkClientContext") -> 
                 ))
                 break
 
+    master_ball_cost: int = ctx.slot_data["master_ball_seller_cost"]
     writes.append((
         client.save_data_address + client.var_offset + (2 * 0xF2),
-        [ctx.slot_data["master_ball_seller_cost"]],
+        master_ball_cost.to_bytes(2, "little"),
         client.ram_read_write_domain
     ))
     if "N's Castle" in ctx.slot_data["options"]["master_ball_seller"]:

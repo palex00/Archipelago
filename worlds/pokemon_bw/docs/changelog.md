@@ -1,6 +1,16 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.3.2
+
+- Made option descriptions in template yamls look nicer
+- Added some more information to the option description of `master_ball_seller`
+- Fixed certain wild Pokémon randomization modifiers leading to nondeterministic randomization
+  - This also fixes UT having wrong logic (especially regarding Dexsanity), but already generated worlds cannot be fixed
+  - Has to be tested using UT
+- Fixed client crashing immediately if Master Ball seller cost is set to anything other than 0 or nothing
+- Fixed multiple custom menus in the Pokémon Center PC freezing the game after displaying a text box
+
 ## 0.3.1
 
 - Fixed UT not working

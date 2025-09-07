@@ -9,23 +9,19 @@ def get_species_checklist(world: "PokemonBWWorld") -> tuple[list[str], set[str]]
     # Species needed for trade are added in generate_trade_encounters()
     from ...data.pokemon.species import by_name
 
-    checklist: set[str] = set()
-
-    if "Randomize" in world.options.randomize_wild_pokemon:
-
-        checklist |= {
+    if "Randomize" not in world.options.randomize_wild_pokemon:
+        return [], set()
+    elif "Ensure all obtainable" in world.options.randomize_wild_pokemon:
+        return [species for species in by_name], set()
+    else:  # Just "Randomize"
+        return [
             "Tornadus",
             "Thundurus",
             "Celebi",
             "Raikou",
             "Entei",
             "Suicune",
-        }
-
-        if "Ensure all obtainable" in world.options.randomize_wild_pokemon:
-            checklist |= {species for species in by_name}
-
-    return list(checklist), set()
+        ], set()
 
 
 def check_species(world: "PokemonBWWorld", checklist: tuple[list[str], set[str]], species: str, loop=0) -> None:

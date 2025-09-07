@@ -3,8 +3,7 @@
 The "barely working" version will still be playable to goal, so it will start with 0.1.0.
 
 Every feature will increase the version by +0.1.
-
-However, do not confuse that with the semantic version naming: `major.minor.build`
+However, do not confuse that with semantic version naming: `major.minor.build`
 
 Version 1.0.0 will happen when certain important features are implemented.
 
