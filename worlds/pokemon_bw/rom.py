@@ -79,10 +79,16 @@ class PatchMethods:
     @staticmethod
     def write_contents(patch: PokemonBWPatch, opened_zipfile: zipfile.ZipFile) -> None:
 
+        write_wild = False
+        for encounter in patch.world.wild_encounter.values():
+            if encounter.write:
+                write_wild = True
+                break
+
         procedures: list[str] = ["base_patch"]
         if patch.world.options.season_control != "vanilla":
             procedures.append("season_patch")
-        if "Randomize" in patch.world.options.randomize_wild_pokemon:
+        if write_wild:
             procedures.append("write_wild_pokemon")
             write_wild_pokemon.write_patch(patch, opened_zipfile)
         if "Randomize" in patch.world.options.randomize_trainer_pokemon:

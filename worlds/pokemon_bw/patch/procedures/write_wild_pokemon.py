@@ -16,10 +16,11 @@ def write_patch(bw_patch_instance: "PokemonBWPatch", opened_zipfile: zipfile.Zip
     ]
 
     for slot in bw_patch_instance.world.wild_encounter.values():
-        file = slot.file_index
-        species = slot.species_id
-        value = (species[0] + (species[1] * 2048)).to_bytes(2, "little")
-        slots[file[0]][file[1]][file[2]*2:file[2]*2+2] = value
+        if slot.write:
+            file = slot.file_index
+            species = slot.species_id
+            value = (species[0] + (species[1] * 2048)).to_bytes(2, "little")
+            slots[file[0]][file[1]][file[2]*2:file[2]*2+2] = value
 
     empty = bytes(56*2)
     for file_num in range(112):
