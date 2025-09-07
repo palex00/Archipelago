@@ -9,7 +9,10 @@ adjust_cache: dict[tuple[int, int, int, int], Callable[[int], int]] = {}
 def adjust(old_min: int, old_max: int, new_min: int, new_max: int) -> Callable[[int], int]:
     a = (old_min, old_max, new_min, new_max)
     if a not in adjust_cache:
-        adjust_cache[a] = lambda level: (level - old_min) * (new_max - new_min) // (old_max - old_min) + new_min
+        if old_max == old_min:
+            adjust_cache[a] = lambda level: (new_min + new_max) // 2
+        else:
+            adjust_cache[a] = lambda level: (level - old_min) * (new_max - new_min) // (old_max - old_min) + new_min
     return adjust_cache[a]
 
 

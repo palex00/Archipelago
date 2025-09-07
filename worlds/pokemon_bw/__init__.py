@@ -142,7 +142,7 @@ class PokemonBWWorld(World):
             cost_end = 10000
         if cost_start == -1 and len(self.options.master_ball_seller.value) > 0:
             raise OptionError(f"Player {self.player} ({self.player_name}) added "
-                              f"{len(self.options.master_ball_seller.value)} Master Ball sellers "
+                              f"{len(self.options.master_ball_seller.value)} Master Ball seller(s) "
                               f"without adding any cost modifier")
         self.master_ball_seller_cost = self.random.randrange(cost_start, cost_end+1, 500) if cost_start != -1 else 0
         self.regions = locations.get_regions(self)

@@ -249,6 +249,7 @@ class EncounterPlando(Option[list[PlandoEncounter]]):
     Refer to the Encounter Plando guide of this game for further information.
     """
     display_name = "Encounter Plando"
+    supports_weighting = False
     default = []
 
     def __init__(self, value: typing.Iterable[PlandoEncounter]) -> None:

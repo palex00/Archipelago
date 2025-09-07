@@ -60,6 +60,10 @@ class TestRandomizeTrainerPokemonStats(PokemonBWTestBase):
 ###################################################
 
 
+class TestEncounterPlandoEmpty(PokemonBWTestBase):
+    options = {"encounter_plando": []}
+
+
 class TestEncounterPlandoAllParameters(PokemonBWTestBase):
     options = {
         "encounter_plando": [
