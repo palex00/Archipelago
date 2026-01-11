@@ -230,6 +230,11 @@ class TrackerCommandProcessor(ClientCommandProcessor):
             logger.info("Logical Path is disabled during Race Mode")
             return
         get_logical_path(self.ctx, dest_name)
+
+    @mark_raw
+    def _cmd_path(self, dest_name: str = ""):
+        """Alias for /get_logical_path"""
+        return self._cmd_get_logical_path(dest_name)
     
     @mark_raw
     def _cmd_explain(self,lookup_name:str=""):
