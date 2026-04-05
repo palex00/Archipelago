@@ -42,6 +42,14 @@ class PokemonBWSettings(settings.Group):
         """If enabled, the arm7 code file inside the rom gets expanded with dummy code. This is purely for testing
         purposes and will be deprecated later."""
 
+    class UTTrackerPath(FilePath):
+        """Path to the user's PKMN BW poptracker pack."""
+        description = "Pokemon BW's Poptracker Pack zip file"
+        required = False
+        ut_dialog_name = "Select PKMN BW Poptracker pack"
+
+    ut_tracker_path: UTTrackerPath | str = UTTrackerPath()
+
     black_rom: PokemonBlackRomFile = PokemonBlackRomFile(PokemonBlackRomFile.copy_to)
     white_rom: PokemonWhiteRomFile = PokemonWhiteRomFile(PokemonWhiteRomFile.copy_to)
     # remove_collected_field_items: RemoveCollectedFieldItems | bool = False
@@ -89,6 +97,7 @@ class PokemonBWWorld(World):
     ut_can_gen_without_yaml = True
     tracker_world = {
         "map_page_folder": "tracker",
+        "external_pack_key": "ut_tracker_path",
         "map_page_maps": "maps/maps.json",
         "map_page_locations": {
             "locations/locations.json",
