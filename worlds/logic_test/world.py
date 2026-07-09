@@ -48,9 +48,9 @@ FILLER_NAME = "Logic Test Filler"
 MARKER_NAME = "Logic Test Unreachable Marker"
 
 
-def _launch_client():
+def _launch_client(*args):
     from .client import launch
-    launch_subprocess(launch, name="LogicTestClient")
+    launch_subprocess(launch, name="LogicTestClient", args=args)
 
 
 components.append(Component("Logic Test Client", func=_launch_client, component_type=Type.CLIENT,
