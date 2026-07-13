@@ -76,16 +76,21 @@ class LogicTestContext(CommonContext):
     def print_status(self) -> None:
         if not self.spheres:
             return
-        if self.current_sphere >= len(self.spheres):
-            logger.info("All %d spheres opened. Logic Test complete.", len(self.spheres))
-            return
-        sphere = self.spheres[self.current_sphere]
-        have = self._received_count(sphere["key_id"])
-        logger.info(
-            "Sphere %d/%d: need %d x %s, have %d. %s",
-            self.current_sphere + 1, len(self.spheres), sphere["required"], sphere["key_item"], have,
-            "Ready. /proceed to open." if have >= sphere["required"] else "Waiting for keys.",
-        )
+        total = len(self.spheres)
+        for i, sphere in enumerate(self.spheres):
+            have = self._received_count(sphere["key_id"])
+            if i < self.current_sphere:
+                state = "done"
+            elif i == self.current_sphere:
+                state = "ready" if have >= sphere["required"] else "waiting"
+            else:
+                state = "locked"
+            logger.info(
+                "Sphere %d/%d: %d/%d x %s (%s)",
+                i + 1, total, have, sphere["required"], sphere["key_item"], state,
+            )
+        if self.current_sphere >= total:
+            logger.info("All %d spheres opened. Logic Test complete.", total)
 
     def make_gui(self):
         ui = super().make_gui()  # loads kvui/kivy first
@@ -157,13 +162,14 @@ class LogicTestContext(CommonContext):
 
                 lines = []
                 for i, s in enumerate(spheres):
+                    have = ctx._received_count(s["key_id"])
+                    keys = f"{have}/{s['required']} keys"
                     if i < cur:
-                        mark = "[color=55ff55]done[/color]"
+                        mark = f"[color=55ff55]done ({keys})[/color]"
                     elif i == cur:
-                        have = ctx._received_count(s["key_id"])
-                        mark = f"[color=ffdd55]now {have}/{s['required']}[/color]"
+                        mark = f"[color=ffdd55]now {keys}[/color]"
                     else:
-                        mark = f"locked ({s['required']} keys)"
+                        mark = f"locked ({keys})"
                     lines.append(f"Sphere {i + 1}: {mark}")
                 self.lt_list.text = "\n".join(lines)
 
