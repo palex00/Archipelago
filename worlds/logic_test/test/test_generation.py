@@ -30,6 +30,9 @@ def _build_args(player_games, overrides=None):
     for player, game in enumerate(player_games, 1):
         world_type = reg[game]
         player_overrides = overrides.get(player, {})
+        unknown = set(player_overrides) - set(world_type.options_dataclass.type_hints)
+        if unknown:
+            raise ValueError(f"unknown option overrides for {game}: {sorted(unknown)}")
         for key, option in world_type.options_dataclass.type_hints.items():
             current = getattr(args, key, {})
             value = player_overrides[key] if key in player_overrides else option.default
@@ -150,18 +153,11 @@ class TestLogicTestUnreachableMarkers(unittest.TestCase):
         cls.multiworld = ERmain(args, seed=55555)
 
     def _reachable(self):
-        from BaseClasses import CollectionState
-        state = CollectionState(self.multiworld)
-        remaining = set(self.multiworld.get_filled_locations())
         reached = set()
-        while True:
-            wave = {loc for loc in remaining if loc.can_reach(state)}
+        for wave in self.multiworld.get_spheres():
             if not wave:
-                break
-            for loc in wave:
-                reached.add((loc.name, loc.player))
-                state.collect(loc.item, True, loc)
-            remaining -= wave
+                break  # empty set precedes the unreachable-locations set
+            reached.update((loc.name, loc.player) for loc in wave)
         return reached
 
     def test_no_real_items_leak(self):
@@ -220,13 +216,62 @@ class TestCountEventsOption(unittest.TestCase):
         self.assertEqual(sum(len(s) for s in on), sum(len(s) for s in off))
 
     def test_events_off_generates_beatable(self):
-        # count_events=off uses get_sendable_spheres (events never cause a
-        # boundary), which preserves dependency order and stays solvable.
+        # count_events=off closes over events between spheres (they never cause
+        # a boundary), which preserves dependency order and stays solvable.
         logging.getLogger().setLevel(logging.ERROR)
         args = _build_args([UT_GAME, LOGIC_TEST_GAME], overrides={2: {"count_events": 0}})
         mw = ERmain(args, seed=SEED)
         self.assertTrue(mw.can_beat_game(), "count_events=off seed should be beatable")
         self.assertGreater(len(mw.worlds[2].spheres), 0)
+
+
+class TestLockedPlacementsLockStep(unittest.TestCase):
+    """Locked in-game placements (here Emerald's shuffled badges/HMs, pre-placed with
+    lock=True) are never gated by the Logic Test, so the model must collect them via
+    closure. Otherwise a location gated only by a locked item is recorded one sphere
+    late and its KEY is reachable in play before the previous sphere completes (a
+    false logic leak; regression guard)."""
+
+    @classmethod
+    def setUpClass(cls):
+        logging.getLogger().setLevel(logging.ERROR)
+        args = _build_args([UT_GAME, LOGIC_TEST_GAME],
+                           overrides={1: {"badges": "shuffle", "hms": "shuffle"},
+                                      2: {"count_events": 0}})
+        cls.multiworld = ERmain(args, seed=SEED)
+        cls.world = cls.multiworld.worlds[2]
+
+    def test_fixture_has_locked_networkable_placements(self):
+        # the guard's premise: the under-test slot keeps some of its own items at
+        # locked, addressed locations (shuffled badges/HMs); everything else got a KEY
+        fixed = [loc for loc in self.multiworld.get_filled_locations(1)
+                 if type(loc.address) is int and loc.item.player == 1]
+        self.assertGreater(len(fixed), 0, "fixture lost its locked badge/HM placements")
+
+    def test_gated_play_is_lock_step(self):
+        self.assertGreater(len(self.world.spheres), 0)
+        key_sphere = {(loc_name, loc_player): i
+                      for i, sphere in enumerate(self.world.spheres, start=1)
+                      for (loc_name, loc_player, _in, _ip) in sphere}
+        required = {i: len(s) for i, s in enumerate(self.world.spheres, start=1)}
+        seen = {i: 0 for i in required}
+        # get_spheres yields each wave before collecting it, i.e. real play order
+        for wave in self.multiworld.get_spheres():
+            if not wave:
+                break  # empty set precedes the unreachable-locations set
+            keyed = [(loc, key_sphere.get((loc.name, loc.player))) for loc in wave]
+            for loc, i in keyed:
+                if i is None:
+                    continue
+                for j in range(1, i):
+                    self.assertEqual(
+                        seen[j], required[j],
+                        f"KEY_{i} location '{loc.name}' reachable with sphere {j} "
+                        f"incomplete ({seen[j]}/{required[j]})")
+            for _loc, i in keyed:
+                if i is not None:
+                    seen[i] += 1
+        self.assertEqual(seen, required, "gated play did not reach every KEY location")
 
 
 class TestPlayerOrdering(unittest.TestCase):

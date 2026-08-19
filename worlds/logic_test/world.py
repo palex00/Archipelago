@@ -203,7 +203,7 @@ class LogicTestWorld(World):
         # leftover under-test items bound for them. See the module docstring.
         for up in (p for p in mw.player_ids if p != self.player):
             for loc in mw.get_locations(up):
-                if loc.address is not None and loc.item is None:
+                if type(loc.address) is int and loc.item is None:
                     loc.place_locked_item(self.create_item(MARKER_NAME))
         mw.itempool[:] = [item for item in mw.itempool if item.player == self.player]
 

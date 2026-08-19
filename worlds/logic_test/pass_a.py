@@ -110,12 +110,16 @@ def run_under_test(ut_worlds, multiworld_seed):
         cls.__init__ = make_seeded(originals[cls])
     Main.distribute_items_restrictive = snapshotting_dir
     try:
-        return ERmain(args, seed=multiworld_seed)
+        nested = ERmain(args, seed=multiworld_seed)
     finally:
         Main.distribute_items_restrictive = original_dir
         for cls, original_init in originals.items():
             cls.__init__ = original_init
         root.setLevel(prior_level)
+    if getattr(nested, "logic_test_fixed_locations", None) is None:
+        raise Exception("Logic Test: fixed-location snapshot missing; the fill hook did not run "
+                        "and compute_spheres would silently fall back to post-fill lock flags.")
+    return nested
 
 
 def compute_spheres(multiworld, count_events=True):
@@ -125,19 +129,25 @@ def compute_spheres(multiworld, count_events=True):
     Records every networkable item across all players: a real ``code`` at a real
     (addressed) location. The location owner and item owner can differ (cross-game
     placement). Two kinds of placement are never recorded (so they're left in the
-    under-test games, like normal play): events (``code``/``address`` of ``None``)
+    under-test games, like normal play): events (non-integer ``code``/``address``)
     can't be sent over the network, and ``locked`` locations are fixed placements
-    the game requires to stay put. Both still advance state for sphere ordering.
+    the game requires to stay put.
+
+    Because fixed placements stay in the under-test game, gated play never delays
+    them: the player picks them up the moment they're reachable, mid-sphere. They
+    are therefore collected via closure (like events) and never create a sphere
+    boundary. Otherwise a location gated only by a fixed item would be recorded
+    one sphere late, making its KEY reachable in play before the previous sphere
+    completes — a false logic leak.
 
     ``count_events`` controls whether events cause a sphere boundary:
 
-    * True (default): each reachability wave collects everything in it (events
-      included), so an item unlocked by an event that became reachable in that
-      wave lands in the NEXT sphere; events create boundaries, finer spheres.
-    * False: use the canonical ``MultiWorld.get_sendable_spheres``, which culls
-      every reachable event before taking each sphere of sendable locations.
-      Events are still collected in dependency order, so they never create a
-      boundary; coarser spheres.
+    * True (default): each reachability wave collects its events with it, so an
+      item unlocked by an event that became reachable in that wave lands in the
+      NEXT sphere; events create boundaries, finer spheres.
+    * False: every reachable event is culled (closure) before taking each sphere,
+      matching ``MultiWorld.get_sendable_spheres``. Events are still collected in
+      dependency order, so they never create a boundary; coarser spheres.
     """
     from BaseClasses import CollectionState
 
@@ -153,28 +163,38 @@ def compute_spheres(multiworld, count_events=True):
     def record(loc):
         return (loc.name, loc.player, loc.item.name, loc.item.player)
 
-    if not count_events:
-        spheres = []
-        for sphere in multiworld.get_sendable_spheres():
-            if not sphere:
-                break  # empty set precedes the unreachable-locations set; stop here
-            rec = [record(loc) for loc in sphere if not is_fixed(loc)]
-            if rec:
-                spheres.append(rec)
-        return spheres
+    gated = set()    # networkable KEY targets: the sphere members
+    free = set()     # collected the moment they're reachable, never a boundary
+    barrier = set()  # events under count_events: collected with their wave
+    for loc in multiworld.get_filled_locations():
+        sendable = type(loc.item.code) is int and type(loc.address) is int
+        if sendable and not is_fixed(loc):
+            gated.add(loc)
+        elif not loc.item.advancement:
+            pass  # cannot affect reachability; keep it out of the closure churn
+        elif not sendable and count_events:
+            barrier.add(loc)
+        else:
+            free.add(loc)
 
     state = CollectionState(multiworld)
-    locations = set(multiworld.get_filled_locations())
     spheres = []
-    while locations:
-        sphere = {loc for loc in locations if loc.can_reach(state)}
-        if not sphere:
+    while gated:
+        while True:
+            done = {loc for loc in free if loc.can_reach(state)}
+            if not done:
+                break
+            for loc in done:
+                state.collect(loc.item, True, loc)
+            free -= done
+        sphere = {loc for loc in gated if loc.can_reach(state)}
+        events = {loc for loc in barrier if loc.can_reach(state)}
+        if not sphere and not events:
             break  # remaining locations unreachable; should not happen on a valid seed
-        rec = [record(loc) for loc in sphere
-               if loc.item.code is not None and loc.address is not None and not is_fixed(loc)]
-        if rec:
-            spheres.append(rec)
-        for loc in sphere:
+        if sphere:
+            spheres.append([record(loc) for loc in sphere])
+        for loc in sphere | events:
             state.collect(loc.item, True, loc)
-        locations -= sphere
+        gated -= sphere
+        barrier -= events
     return spheres
