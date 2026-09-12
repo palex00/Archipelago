@@ -87,7 +87,6 @@ def run_under_test(ut_worlds, multiworld_seed):
             # synthetic players (constructed with higher ids) keep their own RNG.
             if player in seed_map:
                 world_self.random = Random(seed_map[player])
-                multiworld.per_slot_randoms[player] = world_self.random
         return seeded_init
 
     # Snapshot which locations are locked BEFORE main fill (events, world-fixed and
