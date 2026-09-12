@@ -1,6 +1,6 @@
 {
 	"game": "Logic Test",
-	"world_version": "0.3.0",
+	"world_version": "0.3.1",
 	"minimum_ap_version": "0.6.7",
 	"authors": ["gerbiljames", "palex00"]
 }
