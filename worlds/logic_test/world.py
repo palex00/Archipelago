@@ -274,6 +274,8 @@ class LogicTestWorld(World):
                     "key_id": self.item_name_to_id[f"KEY_{i}"],
                     "required": len(sphere),
                     "locations": [loc.address for loc in self.sphere_locations[i - 1]],
+                    "key_locations": [[loc_player, self.multiworld.get_location(loc_name, loc_player).address]
+                                      for loc_name, loc_player, _item, _item_player in sphere],
                 }
                 for i, sphere in enumerate(self.spheres, start=1)
             ]

@@ -29,6 +29,14 @@ class LogicTestCommandProcessor(ClientCommandProcessor):
         self.ctx.print_status()
         return True
 
+    def _cmd_keys(self, sphere: str = "") -> bool:
+        """Show where a sphere's remaining keys are. Defaults to the current sphere."""
+        if sphere and not sphere.isdigit():
+            logger.info("Usage: /keys [sphere number]")
+            return False
+        self.ctx.print_remaining_keys(int(sphere) - 1 if sphere else self.ctx.current_sphere)
+        return True
+
     def _cmd_proceed(self) -> bool:
         """Open the next sphere if all of its required keys have been received."""
         async_start(self.ctx.proceed(), name="logic test proceed")
@@ -159,6 +167,25 @@ class LogicTestContext(CommonContext):
         logger.info("Sphere %d/%d: %d/%d x %s (%s)", self.current_sphere + 1, total,
                     self._received_count(sphere["key_id"]), sphere["required"], sphere["key_item"],
                     "ready" if self._is_ready() else "waiting")
+
+    def print_remaining_keys(self, index: int) -> None:
+        if not self.spheres:
+            logger.info("Not connected to a Logic Test slot yet.")
+            return
+        if not 0 <= index < len(self.spheres):
+            logger.info("No sphere %d; there are %d spheres.", index + 1, len(self.spheres))
+            return
+        sphere = self.spheres[index]
+        found = {(net_item.player, net_item.location) for net_item in self.items_received
+                 if net_item.item == sphere["key_id"]}
+        remaining = [(player, loc) for player, loc in sphere.get("key_locations", [])
+                     if (player, loc) not in found]
+        logger.info("Sphere %d: %d/%d x %s, %d remaining.", index + 1,
+                    self._received_count(sphere["key_id"]), sphere["required"], sphere["key_item"],
+                    len(remaining))
+        for player, loc in sorted(remaining):
+            logger.info("  %s: %s", self.player_names.get(player, f"Player {player}"),
+                        self.location_names.lookup_in_slot(loc, player))
 
     def print_status(self) -> None:
         if not self.spheres:

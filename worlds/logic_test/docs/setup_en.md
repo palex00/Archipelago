@@ -60,6 +60,8 @@ leaves locations off the required path.
 
 A correct game flows sphere by sphere to completion. A leak = `/proceed` never
 becomes available because a key is unreachable in-game.
+`/keys [sphere]` lists the locations still holding that sphere's keys (the
+current sphere by default), to find the one that's stuck.
 
 > Only real, networkable progression is gated. Event-style logic (gym clears,
 > flags) stays in the under-test game and resolves through normal play.
