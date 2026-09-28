@@ -26,7 +26,7 @@ from Utils import async_start
 class LogicTestCommandProcessor(ClientCommandProcessor):
     def _cmd_status(self) -> bool:
         """Show current sphere progress and key counts."""
-        self.ctx.print_status()
+        self.ctx.print_status(all_leaks=True)
         return True
 
     def _cmd_proceed(self) -> bool:
@@ -47,6 +47,7 @@ class LogicTestContext(CommonContext):
         self.current_sphere = 0    # index of the next sphere to open
         self._leaks = {}           # sphere number player was on -> [early key sphere numbers]
         self._leaks_loaded = False # True once server storage has been read this session
+        self._shown_leaks = set()  # leaked sphere numbers already printed by print_status
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -138,7 +139,7 @@ class LogicTestContext(CommonContext):
         # counting works even before the data package is processed.
         return sum(1 for net_item in self.items_received if net_item.item == item_id)
 
-    def print_status(self) -> None:
+    def print_status(self, all_leaks: bool = False) -> None:
         if not self.spheres:
             return
         total = len(self.spheres)
@@ -146,6 +147,9 @@ class LogicTestContext(CommonContext):
         for i, sphere in enumerate(self.spheres):
             have = self._received_count(sphere["key_id"])
             if (i + 1) in origin:
+                if not all_leaks and (i + 1) in self._shown_leaks:
+                    continue
+                self._shown_leaks.add(i + 1)
                 state = f"LEAK (received on sphere {origin[i + 1]})"
             elif i < self.current_sphere:
                 state = "done"
