@@ -285,8 +285,9 @@ class LogicTestContext(CommonContext):
                     have = ctx._received_count(s["key_id"])
                     keys = f"{have}/{s['required']} keys"
                     if i < cur:
-                        leak = f", leaked on sphere {origin[i + 1]}" if (i + 1) in origin else ""
-                        mark = f"[color=55ff55]done ({keys}{leak})[/color]"
+                        mark = f"[color=55ff55]done ({keys})[/color]"
+                        if (i + 1) in origin:
+                            mark += f" [color=ff5555]leaked on sphere {origin[i + 1]}[/color]"
                     elif (i + 1) in origin:
                         mark = f"[color=ff5555]LEAK {keys} (got on sphere {origin[i + 1]})[/color]"
                     elif i == cur:
