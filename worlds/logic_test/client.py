@@ -26,7 +26,7 @@ from Utils import async_start
 class LogicTestCommandProcessor(ClientCommandProcessor):
     def _cmd_status(self) -> bool:
         """Show current sphere progress and key counts."""
-        self.ctx.print_status(all_leaks=True)
+        self.ctx.print_status()
         return True
 
     def _cmd_proceed(self) -> bool:
@@ -47,7 +47,7 @@ class LogicTestContext(CommonContext):
         self.current_sphere = 0    # index of the next sphere to open
         self._leaks = {}           # sphere number player was on -> [early key sphere numbers]
         self._leaks_loaded = False # True once server storage has been read this session
-        self._shown_leaks = set()  # leaked sphere numbers already printed by print_status
+        self._announced_ready = -1 # last sphere index logged as ready
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -76,7 +76,7 @@ class LogicTestContext(CommonContext):
                     {"cmd": "SetNotify", "keys": [self._leaks_key()]},
                 ]), name="logic test leak sync")
             logger.info("Connected to Logic Test: %d spheres.", len(self.spheres))
-            self.print_status()
+            self.print_current()
         elif cmd == "Retrieved":
             if self._leaks_key() in args.get("keys", {}):
                 self._load_leaks(args["keys"][self._leaks_key()])
@@ -84,15 +84,12 @@ class LogicTestContext(CommonContext):
                 # Reconcile: catch any items that arrived live during the Get
                 # round-trip (the replay was skipped while the gate was closed).
                 self._record_leaks(self.items_received)
-                self.print_status()
         elif cmd == "SetReply":
             if args.get("key") == self._leaks_key():
                 self._load_leaks(args.get("value"))
-                self.print_status()
-        elif cmd in ("ReceivedItems", "RoomUpdate"):
-            if cmd == "ReceivedItems":
-                self._record_leaks(args.get("items", []))
-            self.print_status()
+        elif cmd == "ReceivedItems":
+            self._record_leaks(args.get("items", []))
+            self.announce_ready()
 
     def _leaks_key(self) -> str:
         return f"LogicTest_leaks_{self.team}_{self.slot}"
@@ -139,20 +136,41 @@ class LogicTestContext(CommonContext):
         # counting works even before the data package is processed.
         return sum(1 for net_item in self.items_received if net_item.item == item_id)
 
-    def print_status(self, all_leaks: bool = False) -> None:
+    def _is_ready(self) -> bool:
+        if self.current_sphere >= len(self.spheres):
+            return False
+        sphere = self.spheres[self.current_sphere]
+        return self._received_count(sphere["key_id"]) >= sphere["required"]
+
+    def announce_ready(self) -> None:
+        if self._is_ready() and self._announced_ready != self.current_sphere:
+            self.print_current()
+
+    def print_current(self) -> None:
+        if not self.spheres:
+            return
+        total = len(self.spheres)
+        if self.current_sphere >= total:
+            logger.info("All %d spheres opened. Logic Test complete.", total)
+            return
+        sphere = self.spheres[self.current_sphere]
+        if self._is_ready():
+            self._announced_ready = self.current_sphere
+        logger.info("Sphere %d/%d: %d/%d x %s (%s)", self.current_sphere + 1, total,
+                    self._received_count(sphere["key_id"]), sphere["required"], sphere["key_item"],
+                    "ready" if self._is_ready() else "waiting")
+
+    def print_status(self) -> None:
         if not self.spheres:
             return
         total = len(self.spheres)
         origin = self._leak_origin()
         for i, sphere in enumerate(self.spheres):
             have = self._received_count(sphere["key_id"])
-            if (i + 1) in origin:
-                if not all_leaks and (i + 1) in self._shown_leaks:
-                    continue
-                self._shown_leaks.add(i + 1)
+            if i < self.current_sphere:
+                state = f"done, leaked on sphere {origin[i + 1]}" if (i + 1) in origin else "done"
+            elif (i + 1) in origin:
                 state = f"LEAK (received on sphere {origin[i + 1]})"
-            elif i < self.current_sphere:
-                state = "done"
             elif i == self.current_sphere:
                 state = "ready" if have >= sphere["required"] else "waiting"
             else:
@@ -237,10 +255,11 @@ class LogicTestContext(CommonContext):
                 for i, s in enumerate(spheres):
                     have = ctx._received_count(s["key_id"])
                     keys = f"{have}/{s['required']} keys"
-                    if (i + 1) in origin:
+                    if i < cur:
+                        leak = f", leaked on sphere {origin[i + 1]}" if (i + 1) in origin else ""
+                        mark = f"[color=55ff55]done ({keys}{leak})[/color]"
+                    elif (i + 1) in origin:
                         mark = f"[color=ff5555]LEAK {keys} (got on sphere {origin[i + 1]})[/color]"
-                    elif i < cur:
-                        mark = f"[color=55ff55]done ({keys})[/color]"
                     elif i == cur:
                         mark = f"[color=ffdd55]now {keys}[/color]"
                     else:
@@ -267,7 +286,7 @@ class LogicTestContext(CommonContext):
         logger.info("Opened sphere %d, released %d item(s).",
                     self.current_sphere + 1, len(sphere["locations"]))
         self.current_sphere += 1
-        self.print_status()
+        self.print_current()
 
 
 def launch(*args):
