@@ -83,8 +83,10 @@ class LogicTestContext(CommonContext):
                     {"cmd": "Get", "keys": [self._leaks_key()]},
                     {"cmd": "SetNotify", "keys": [self._leaks_key()]},
                 ]), name="logic test leak sync")
-            logger.info("Connected to Logic Test: %d spheres.", len(self.spheres))
-            self.print_current()
+            # keys are replayed after Connected, so the ready line comes from ReceivedItems
+            self._announced_ready = -1
+            logger.info("Connected to Logic Test: on sphere %d of %d.",
+                        min(self.current_sphere + 1, len(self.spheres)), len(self.spheres))
         elif cmd == "Retrieved":
             if self._leaks_key() in args.get("keys", {}):
                 self._load_leaks(args["keys"][self._leaks_key()])
