@@ -98,8 +98,10 @@ def run_under_test(ut_worlds, multiworld_seed):
     original_dir = Main.distribute_items_restrictive
 
     def snapshotting_dir(multiworld, *dir_args, **dir_kwargs):
-        multiworld.logic_test_fixed_locations = frozenset(
-            (loc.name, loc.player) for loc in multiworld.get_locations() if loc.locked)
+        # (loc_name, loc_player) -> (item_name, item_player)
+        multiworld.logic_test_fixed_locations = {
+            (loc.name, loc.player): (loc.item.name, loc.item.player)
+            for loc in multiworld.get_locations() if loc.locked and loc.item is not None}
         return original_dir(multiworld, *dir_args, **dir_kwargs)
 
     root = logging.getLogger()
@@ -122,8 +124,12 @@ def run_under_test(ut_worlds, multiworld_seed):
 
 
 def compute_spheres(multiworld, count_events=True):
-    """Return the overall sphere structure as a list (one entry per sphere that
+    """Return ``(spheres, self_locked)``.
+
+    ``spheres`` is the overall sphere structure as a list (one entry per sphere that
     contains networkable items) of ``[(loc_name, loc_player, item_name, item_player), ...]``.
+    ``self_locked`` lists placements, in the same record format, that must stay in the
+    under-test game.
 
     Records every networkable item across all players: a real ``code`` at a real
     (addressed) location. The location owner and item owner can differ (cross-game
@@ -139,6 +145,14 @@ def compute_spheres(multiworld, count_events=True):
     one sphere late, making its KEY reachable in play before the previous sphere
     completes — a false logic leak.
 
+    Some worlds make a location's access depend on the item placed there
+    (``location_item_name``, e.g. a key allowed in its own locked chest). Every gated
+    item becomes a KEY in the Logic Test, which would break those rules and deadlock
+    the chain. So gated items are hidden while spheres are read, and a location
+    reachable only with its own item visible is kept in the game instead: returned
+    in ``self_locked`` and, like a fixed placement, collected via closure. A stall
+    that only another location's item would break raises rather than strand the rest.
+
     ``count_events`` controls whether events cause a sphere boundary:
 
     * True (default): each reachability wave collects its events with it, so an
@@ -148,7 +162,7 @@ def compute_spheres(multiworld, count_events=True):
       matching ``MultiWorld.get_sendable_spheres``. Events are still collected in
       dependency order, so they never create a boundary; coarser spheres.
     """
-    from BaseClasses import CollectionState
+    from BaseClasses import CollectionState, Item, ItemClassification
 
     # Placements the game fixed itself (events, world-locked, plando), captured by
     # run_under_test before main fill. Only these stay in the under-test game; a
@@ -158,9 +172,6 @@ def compute_spheres(multiworld, count_events=True):
 
     def is_fixed(loc):
         return loc.locked if fixed is None else (loc.name, loc.player) in fixed
-
-    def record(loc):
-        return (loc.name, loc.player, loc.item.name, loc.item.player)
 
     gated = set()    # networkable KEY targets: the sphere members
     free = set()     # collected the moment they're reachable, never a boundary
@@ -176,24 +187,90 @@ def compute_spheres(multiworld, count_events=True):
         else:
             free.add(loc)
 
+    # stands in for the KEY each gated location will hold
+    hidden = Item("Logic Test Hidden Item", ItemClassification.progression, None, 0)
+    saved = {loc: loc.item for loc in gated}
+
+    def record(loc):
+        item = saved[loc]
+        return (loc.name, loc.player, item.name, item.player)
+
+    def find_self_locked(state, pending):
+        # probe with every pending item visible, then confirm each with only its own
+        if not pending:
+            return set()
+        for loc in pending:
+            loc.item = saved[loc]
+        try:
+            probe = state.copy()
+            candidates = [loc for loc in pending if loc.can_reach(probe)]
+        finally:
+            for loc in pending:
+                loc.item = hidden
+        found = set()
+        for loc in candidates:
+            loc.item = saved[loc]
+            try:
+                if loc.can_reach(state.copy()):
+                    found.add(loc)
+            finally:
+                loc.item = hidden
+        return found
+
+    def raise_if_hidden_read(state):
+        # a stall that revealing every hidden item breaks means a rule reads another location's item
+        for loc in saved:
+            loc.item = saved[loc]
+        try:
+            probe = state.copy()
+            blocked = sorted(loc.name for loc in gated if loc.can_reach(probe))
+        finally:
+            for loc in saved:
+                loc.item = hidden
+        if blocked:
+            raise Exception(f"Logic Test: {blocked} are only reachable while other gated locations "
+                            f"hold their original items; this game's rules read placements across "
+                            f"locations, which Logic Test does not support.")
+
+    for loc in gated:
+        loc.item = hidden
     state = CollectionState(multiworld)
     spheres = []
-    while gated:
-        while True:
-            done = {loc for loc in free if loc.can_reach(state)}
-            if not done:
-                break
-            for loc in done:
+    self_locked = []
+    try:
+        while gated:
+            while True:
+                done = {loc for loc in free if loc.can_reach(state)}
+                if not done:
+                    break
+                for loc in done:
+                    state.collect(loc.item, True, loc)
+                free -= done
+            sphere = {loc for loc in gated if loc.can_reach(state)}
+            locked = find_self_locked(state, gated - sphere)
+            if locked:
+                for loc in locked:
+                    self_locked.append(record(loc))
+                    loc.item = saved.pop(loc)
+                    if loc.item.advancement:
+                        free.add(loc)
+                gated -= locked
+                for player in state.stale:
+                    state.stale[player] = True
+                continue
+            events = {loc for loc in barrier if loc.can_reach(state)}
+            if not sphere and not events:
+                raise_if_hidden_read(state)
+                break  # remaining locations unreachable (e.g. minimal accessibility)
+            if sphere:
+                spheres.append([record(loc) for loc in sphere])
+            for loc in sphere:
+                state.collect(saved[loc], True, loc)
+            for loc in events:
                 state.collect(loc.item, True, loc)
-            free -= done
-        sphere = {loc for loc in gated if loc.can_reach(state)}
-        events = {loc for loc in barrier if loc.can_reach(state)}
-        if not sphere and not events:
-            break  # remaining locations unreachable; should not happen on a valid seed
-        if sphere:
-            spheres.append([record(loc) for loc in sphere])
-        for loc in sphere | events:
-            state.collect(loc.item, True, loc)
-        gated -= sphere
-        barrier -= events
-    return spheres
+            gated -= sphere
+            barrier -= events
+    finally:
+        for loc, item in saved.items():
+            loc.item = item
+    return spheres, self_locked

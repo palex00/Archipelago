@@ -13,6 +13,7 @@ from argparse import Namespace
 import worlds
 from BaseClasses import PlandoOptions
 from Main import main as ERmain
+from worlds.generic.Rules import location_item_name
 
 from ..pass_a import compute_spheres
 
@@ -181,6 +182,131 @@ class TestLogicTestUnreachableMarkers(unittest.TestCase):
         self.assertTrue(self.multiworld.can_beat_game(), "generated seed is not beatable")
 
 
+class TestSelfLockingPlacements(unittest.TestCase):
+    """A rule reading the item placed at its own location (``location_item_name``, e.g. a
+    key allowed in its own locked chest) fails once that item becomes a KEY, so
+    compute_spheres must keep the placement in the game rather than gate it."""
+
+    @classmethod
+    def setUpClass(cls):
+        logging.getLogger().setLevel(logging.ERROR)
+        mw = ERmain(_build_args([UT_GAME]), seed=SEED)
+        baseline, _ = compute_spheres(mw)
+        cls.baseline_count = sum(len(s) for s in baseline)
+
+        name, player, item_name, item_player = next(
+            record for sphere in reversed(baseline) for record in sphere
+            if record[1] == record[3] and mw.get_location(record[0], record[1]).item.advancement)
+        copies = sum(1 for loc in mw.get_filled_locations()
+                     if (loc.item.name, loc.item.player) == (item_name, item_player))
+        copies += sum(1 for item in mw.precollected_items[item_player] if item.name == item_name)
+        target = mw.get_location(name, player)
+        original = target.access_rule
+        # needs every copy of its own item, one of which is inside it
+        target.access_rule = lambda state: original(state) and (
+            location_item_name(state, name, player) == (item_name, item_player)
+            or state.has(item_name, item_player, copies))
+
+        cls.target = (name, player, item_name, item_player)
+        cls.spheres, cls.self_locked = compute_spheres(mw)
+
+    def test_target_kept_in_game(self):
+        self.assertEqual(self.self_locked, [self.target])
+
+    def test_target_not_gated(self):
+        recorded = {(ln, lp) for sphere in self.spheres for (ln, lp, _in, _ip) in sphere}
+        self.assertNotIn(self.target[:2], recorded)
+
+    def test_nothing_else_lost(self):
+        total = sum(len(s) for s in self.spheres) + len(self.self_locked)
+        self.assertEqual(total, self.baseline_count)
+
+
+class TestCrossLocationReads(unittest.TestCase):
+    """A rule reading the item at another location (ALttP: a door passable if its key is in
+    a chest behind it) is unsupported; compute_spheres must raise rather than silently
+    strand everything behind it."""
+
+    def test_raises(self):
+        logging.getLogger().setLevel(logging.ERROR)
+        mw = ERmain(_build_args([UT_GAME]), seed=SEED)
+        baseline, _ = compute_spheres(mw)
+        reader = next(record for record in baseline[-1] if record[1] == 1)
+        source = next(record for record in baseline[0] if record[1] == 1)
+        target = mw.get_location(reader[0], reader[1])
+        original = target.access_rule
+        target.access_rule = lambda state: original(state) and (
+            location_item_name(state, source[0], source[1]) == (source[2], source[3]))
+        with self.assertRaisesRegex(Exception, "read placements across locations"):
+            compute_spheres(mw)
+
+
+def assert_lock_step(test, multiworld, world):
+    """Real play order never reaches a KEY_i location before every earlier sphere is complete."""
+    test.assertGreater(len(world.spheres), 0)
+    key_sphere = {(loc_name, loc_player): i
+                  for i, sphere in enumerate(world.spheres, start=1)
+                  for (loc_name, loc_player, _in, _ip) in sphere}
+    required = {i: len(s) for i, s in enumerate(world.spheres, start=1)}
+    seen = {i: 0 for i in required}
+    # get_spheres yields each wave before collecting it, i.e. real play order
+    for wave in multiworld.get_spheres():
+        if not wave:
+            break  # empty set precedes the unreachable-locations set
+        keyed = [(loc, key_sphere.get((loc.name, loc.player))) for loc in wave]
+        for loc, i in keyed:
+            if i is None:
+                continue
+            for j in range(1, i):
+                test.assertEqual(
+                    seen[j], required[j],
+                    f"KEY_{i} location '{loc.name}' reachable with sphere {j} "
+                    f"incomplete ({seen[j]}/{required[j]})")
+        for _loc, i in keyed:
+            if i is not None:
+                seen[i] += 1
+    test.assertEqual(seen, required, "gated play did not reach every KEY location")
+
+
+ALTTP_GAME = "A Link to the Past"
+
+
+@unittest.skipUnless(ALTTP_GAME in worlds.AutoWorldRegister.world_types, "A Link to the Past not loaded")
+class TestPreFillPlacements(unittest.TestCase):
+    """ALttP locks dungeon items in stage_pre_fill using the run-level RNG, which differs between
+    the nested and outer runs. They must stay in the game, arranged as in the nested run
+    (regression guard: markers used to overwrite those locations and the items were lost).
+    This seed and slot order put the outer dungeon items in different chests."""
+
+    MARKER = "Logic Test Unreachable Marker"
+    UT = 2
+
+    @classmethod
+    def setUpClass(cls):
+        logging.getLogger().setLevel(logging.ERROR)
+        cls.multiworld = ERmain(_build_args([LOGIC_TEST_GAME, ALTTP_GAME]), seed=4)
+        cls.world = cls.multiworld.worlds[1]
+
+    def test_fixed_placements_match_nested(self):
+        self.assertGreater(len(self.world.fixed), 0)
+        for (loc_name, loc_player), expected in self.world.fixed.items():
+            item = self.multiworld.get_location(loc_name, loc_player).item
+            self.assertIsNotNone(item, f"{loc_name} lost its fixed placement")
+            self.assertEqual((item.name, item.player), expected, loc_name)
+
+    def test_no_markers(self):
+        # ALttP alone reaches every location on this seed
+        markers = [loc.name for loc in self.multiworld.get_filled_locations(self.UT)
+                   if loc.item.name == self.MARKER]
+        self.assertEqual(markers, [])
+
+    def test_gated_play_is_lock_step(self):
+        assert_lock_step(self, self.multiworld, self.world)
+
+    def test_beatable(self):
+        self.assertTrue(self.multiworld.can_beat_game(), "generated seed is not beatable")
+
+
 class TestLogicTestDeterminism(unittest.TestCase):
     def test_pass_a_spheres_stable(self):
         """Two solo generations of the under-test game with the same seed must
@@ -193,7 +319,7 @@ class TestLogicTestDeterminism(unittest.TestCase):
             mw = ERmain(args, seed=SEED)
             # sort within each sphere: compute_spheres iterates a set, so
             # intra-sphere order is not stable (and is irrelevant to the harness).
-            return [sorted(sphere) for sphere in compute_spheres(mw)]
+            return [sorted(sphere) for sphere in compute_spheres(mw)[0]]
 
         first = solo_spheres()
         second = solo_spheres()
@@ -209,8 +335,8 @@ class TestCountEventsOption(unittest.TestCase):
     def test_events_off_is_coarser(self):
         logging.getLogger().setLevel(logging.ERROR)
         mw = ERmain(_build_args([UT_GAME]), seed=SEED)
-        on = compute_spheres(mw, count_events=True)
-        off = compute_spheres(mw, count_events=False)
+        on, _ = compute_spheres(mw, count_events=True)
+        off, _ = compute_spheres(mw, count_events=False)
         self.assertLess(len(off), len(on), "events-off should produce fewer (coarser) spheres")
         # both must distribute the same total networkable items
         self.assertEqual(sum(len(s) for s in on), sum(len(s) for s in off))
@@ -249,29 +375,7 @@ class TestLockedPlacementsLockStep(unittest.TestCase):
         self.assertGreater(len(fixed), 0, "fixture lost its locked badge/HM placements")
 
     def test_gated_play_is_lock_step(self):
-        self.assertGreater(len(self.world.spheres), 0)
-        key_sphere = {(loc_name, loc_player): i
-                      for i, sphere in enumerate(self.world.spheres, start=1)
-                      for (loc_name, loc_player, _in, _ip) in sphere}
-        required = {i: len(s) for i, s in enumerate(self.world.spheres, start=1)}
-        seen = {i: 0 for i in required}
-        # get_spheres yields each wave before collecting it, i.e. real play order
-        for wave in self.multiworld.get_spheres():
-            if not wave:
-                break  # empty set precedes the unreachable-locations set
-            keyed = [(loc, key_sphere.get((loc.name, loc.player))) for loc in wave]
-            for loc, i in keyed:
-                if i is None:
-                    continue
-                for j in range(1, i):
-                    self.assertEqual(
-                        seen[j], required[j],
-                        f"KEY_{i} location '{loc.name}' reachable with sphere {j} "
-                        f"incomplete ({seen[j]}/{required[j]})")
-            for _loc, i in keyed:
-                if i is not None:
-                    seen[i] += 1
-        self.assertEqual(seen, required, "gated play did not reach every KEY location")
+        assert_lock_step(self, self.multiworld, self.world)
 
 
 class TestPlayerOrdering(unittest.TestCase):
